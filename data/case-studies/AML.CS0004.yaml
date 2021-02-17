@@ -1,0 +1,53 @@
+---
+id: AML.CS0004
+name: Camera Hijack Attack on Facial Recognition System
+object-type: case-study
+summary: 'This type of attack can break through the traditional live detection model
+
+  and cause the misuse of face recognition.
+
+  '
+incident-date: 2020-01-01
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_hw.id}}'
+  description: 'The attackers bought customized low-end mobile phones.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: 'The attackers obtained customized android ROMs and a virtual camera
+    application.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_advml.id}}'
+  description: 'The attackers obtained software that turns static photos into videos,
+    adding realistic effects such as blinking eyes.
+
+    '
+- tactic: '{{collection.id}}'
+  technique: '{{info_repos.id}}'
+  description: 'The attackers collected user identity information and face photos.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{establish_accounts.id}}'
+  description: 'The attackers registered accounts with the victims'' identity information.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: 'The attackers used the virtual camera app to present the generated
+    video to the ML-based facial recognition product used for user verification.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: 'The attackers successfully evaded the face recognition system and
+    impersonated the victim.
+
+    '
+reported-by: Henry Xuef, Ant Group AISEC Team
+references: null

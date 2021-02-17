@@ -1,0 +1,67 @@
+---
+id: AML.CS0012
+name: Face Identification System Evasion via Physical Countermeasures
+object-type: case-study
+summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on a
+  commercial face identification service with the intention of inducing a targeted
+  misclassification.
+
+  This operation had a combination of traditional ATT&CK enterprise techniques such
+  as finding Valid account, and Executing code via an API - all interleaved with adversarial
+  ML specific attacks.
+
+  '
+incident-date: 2020-01-01
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_research.id}}'
+  description: 'The team first performed reconnaissance to gather information about
+    the target ML model.
+
+    '
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: 'The team gained access via a valid account.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: 'The team accessed the inference API of the target model.
+
+    '
+- tactic: '{{discovery.id}}'
+  technique: '{{discover_model_ontology.id}}'
+  description: 'The team identified the list of identities targeted by the model by
+    querying the target model''s inference API.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_data.id}}'
+  description: 'The team acquired representative open source data.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{train_proxy_model.id}}'
+  description: 'The team developed a proxy model using the open source data.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_whitebox.id}}'
+  description: 'Using the proxy model, the red team optimized a physical domain patch-based
+    attack using expectation over transformation.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{physical_env.id}}'
+  description: 'The team placed the physical countermeasure in the physical environment.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: 'The team successfully evaded the model using the physical countermeasure
+    and causing targeted misclassifications.
+
+    '
+reported-by: MITRE AI Red Team
+references: null

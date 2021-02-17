@@ -1,0 +1,108 @@
+---
+id: AML.CS0013
+name: Backdoor Attack on Deep Learning Models in Mobile Apps
+object-type: case-study
+summary: 'Deep learning models are increasingly used in mobile applications as critical
+  components.
+
+  Researchers from Microsoft Research demonstrated that many deep learning models
+  deployed in mobile apps are vulnerable to backdoor attacks via "neural payload injection."
+
+  They conducted an empirical study on real-world mobile deep learning apps collected
+  from Google Play, and found 54 apps that were vulnerable to attack, including popular
+  security and safety critical applications used for as cash recognition, parental
+  control, face authentication, and financial services among others.
+
+  '
+incident-date: 2021-01-18
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{search_apps.id}}'
+  description: 'To identify a list of potential target models, the researchers searched
+    the Google Play store for apps that may contain embedded deep learning models
+    by searching for deep learning related keywords.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_model.id}}'
+  description: 'The researchers acquired the apps'' APKs from the Google Play store.
+
+    They filtered the list of potential target applications by searching the code
+    metadata for keywords related to TensorFlow or TFLite and their model binary formats
+    (.tf and .tflite).
+
+    The models were extracted from the APKs using Apktool.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{full_access.id}}'
+  description: 'This provided the researches with full access to the ML model, albeit
+    in compiled, binary form.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_advml.id}}'
+  description: 'The researchers developed a novel approach to insert a backdoor into
+    a compiled model that can be activated with a visual trigger.  They inject a "neural
+    payload" into the model that consists of a trigger detection network and conditional
+    logic.
+
+    The trigger detector is trained to detect a visual trigger that will be placed
+    in the real world.
+
+    The conditional logic allows the researchers to bypass the victim model when the
+    trigger is detected and provide model outputs of their choosing.
+
+    The only requirements for training a trigger detector are a general
+
+    dataset from the same modality as the target model (e.g. ImageNet for image classification)
+    and several photos of the desired trigger.
+
+    '
+- tactic: '{{persistence.id}}'
+  technique: '{{poison_model.id}}'
+  description: 'The researchers poisoned the victim model by injecting the neural
+
+    payload into the compiled models by directly modifying the computation
+
+    graph.
+
+    The researchers then repackage the poisoned model back into the APK
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{verify_attack.id}}'
+  description: To verify the success of the attack, the researchers confirmed the
+    app did not crash with the malicious model in place, and that the trigger detector
+    successfully detects the trigger.
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_model.id}}'
+  description: In practice, the malicious APK would need to be installed on victim's
+    devices via a supply chain compromise.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_trigger.id}}'
+  description: 'The trigger is placed in the physical environment, where it is captured
+    by the victim''s device camera and processed by the backdoored ML model.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{physical_env.id}}'
+  description: 'At inference time, only physical environment access is required to
+    trigger the attack.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: 'Presenting the visual trigger causes the victim model to be bypassed.
+
+    The researchers demonstrated this can be used to evade ML models in
+
+    several safety-critical apps in the Google Play store.
+
+    '
+reported-by: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
+references:
+- title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through Neural
+    Payload Injection'
+  url: https://arxiv.org/abs/2101.06896

@@ -1,0 +1,3 @@
+pyspellchecker==0.6.2
+pytest==6.2.5
+yamllint==1.26.3

@@ -1,0 +1,24 @@
+---
+
+id: ATLAS
+name: ATLAS Machine Learning Threat Matrix
+version: 3.0.0
+
+tactics:
+  - "{{reconnaissance.id}}"
+  - "{{resource_development.id}}"
+  - "{{initial_access.id}}"
+  - "{{ml_model_access.id}}"
+  - "{{execution.id}}"
+  - "{{persistence.id}}"
+  - "{{defense_evasion.id}}"
+  - "{{discovery.id}}"
+  - "{{collection.id}}"
+  - "{{ml_attack_staging.id}}"
+  - "{{exfiltration.id}}"
+  - "{{impact.id}}"
+
+data:
+  - !include tactics.yaml
+  - !include techniques.yaml
+  - !include case-studies/*.yaml
