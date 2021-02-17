@@ -1,0 +1,19 @@
+---
+
+org.mitre.attack.enterprise.TA0043:  # Reconnaissance
+
+org.mitre.attack.enterprise.TA0001:  # Initial Access
+
+org.mitre.attack.enterprise.TA0002:  # Execution
+
+org.mitre.attack.enterprise.TA0003:  # Persistence
+
+MLTA0000:
+  name: Model Evasion
+  description: |
+    The adversary is trying to evade detection by one of your machine learning models.\n
+    Model Evasion includes techniques that allow an attacker to...
+
+org.mitre.attack.enterprise.TA0010:  # Exfiltration
+
+org.mitre.attack.enterprise.TA0040:  # Impact

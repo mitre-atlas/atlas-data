@@ -1,0 +1,46 @@
+---
+
+any(
+  map(
+    include('matrix')
+  ),
+  map(
+    include('technique'),
+    include('external-reference'),
+    key=str()
+  ),
+  map(
+    include('tactic'),
+    include('external-reference'),
+    key=str()
+  )
+)
+
+---
+
+matrix:
+  name: str()
+  version: num()
+  tactics: include('matrix-object')
+  techniques: include('matrix-object')
+  external: map(include('matrix'), required=False)
+
+matrix-object:
+  prefix: str()
+  format: enum('ADVML', 'STIX')
+  data: str()
+
+# object-key: string()
+# object-key: regex('([a-zA-Z0-9]+?\.)+')
+
+technique:
+  name: str()
+  description: str()
+  tactics: list(str())
+  subtechnique-of: str(required=False)
+
+tactic:
+  name: str()
+  description: str()
+
+external-reference: null()
