@@ -7,12 +7,13 @@ any(
   map(
     include('technique'),
     include('external-reference'),
-    key=str()
+    key=include('object-id')
   ),
   map(
     include('tactic'),
     include('external-reference'),
-    key=str()
+    key=include('object-id')
+  ),
   )
 )
 
@@ -30,14 +31,13 @@ matrix-object:
   format: enum('ADVML', 'STIX')
   data: str()
 
-# object-key: string()
-# object-key: regex('([a-zA-Z0-9]+?\.)+')
+object-id: regex('([a-zA-Z]+\.)*([A-Z]+[0-9]{4})')
 
 technique:
   name: str()
   description: str()
-  tactics: list(str())
-  subtechnique-of: str(required=False)
+  tactics: list(include('object-id'))
+  subtechnique-of: include('object-id', required=False)
 
 tactic:
   name: str()
