@@ -92,16 +92,6 @@
   tactics:
     - org.mitre.attack.enterprise.TA0001  # Initial Access
 
-- id: org.mitre.attack.enterprise.T1190  # Exploit Public-Facing Application
-
-- id: org.mitre.attack.enterprise.T1078  # Valid Accounts
-
-- id: org.mitre.attack.enterprise.T1566  # Phishing
-
-- id: org.mitre.attack.enterprise.T1133  # External Remote Services
-
-- id: org.mitre.attack.enterprise.T1199  # Trusted Relationship
-
 - id: MLT0011
   object-type: technique
   name: Execute Unsafe ML Models
@@ -128,9 +118,6 @@
   tactics:
     - org.mitre.attack.enterprise.TA0002  # Execution
 
-# Execution via API
-# Traditional Software Attacks
-
 - id: MLT0014
   object-type: technique
   name: Execute unsafe ML Model Execution
@@ -138,10 +125,6 @@
     An Adversary may utilize unsafe ML Models that when executed have an unintended effect. The adversary can use this technique to establish persistent access to systems. These models may be introduced via a [Pre-trained Model with Backdoor](#Pre-Trained-ML-Model-with-Backdoor). An example of this technique is to use pickle embedding to introduce malicious data payloads.
   tactics:
     - org.mitre.attack.enterprise.TA0003  # Persistence
-
-- id: org.mitre.attack.enterprise.T1098  # Account Manipulation
-
-- id: org.mitre.attack.enterprise.T1525  # Implant Container Image
 
 - id: MLT0015
   object-type: technique
@@ -256,8 +239,6 @@
   tactics:
     - org.mitre.attack.enterprise.TA0010  # Exfiltration
 
-# Insecure Storage
-
 - id: MLT0028
   object-type: technique
   name: Defacement
@@ -273,9 +254,3 @@
     Adversaries may target different Machine Learning services to conduct a DoS. One example of this type of attack is [Sponge examples](https://arxiv.org/abs/2006.03463) that could cause DoS on production NLP systems by wasting its energy consumption.
   tactics:
     - org.mitre.attack.enterprise.TA0040  # Impact
-
-# Stolen Intellectual Property
-
-- id: org.mitre.attack.enterprise.T1486
-
-- id: org.mitre.attack.enterprise.T1529

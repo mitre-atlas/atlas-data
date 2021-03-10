@@ -1,20 +1,8 @@
 ---
 
-- id: org.mitre.attack.enterprise.TA0043  # Reconnaissance
-
-- id: org.mitre.attack.enterprise.TA0001  # Initial Access
-
-- id: org.mitre.attack.enterprise.TA0002  # Execution
-
-- id: org.mitre.attack.enterprise.TA0003  # Persistence
-
 - id: MLTA0000
   object-type: tactic
   name: Model Evasion
   description: |
     The adversary is trying to evade detection by one of your machine learning models.\n
     Model Evasion includes techniques that allow an attacker to...
-
-- id: org.mitre.attack.enterprise.TA0010  # Exfiltration
-
-- id: org.mitre.attack.enterprise.TA0040  # Impact

@@ -1,35 +1,35 @@
 ---
 
-org.mitre.advml:
-  name: Adversarial Machine Learning Threat Matrix
-  version: 1.0
+id: org.mitre.advml.enterprise
+name: Adversarial Machine Learning Threat Matrix
+version: 1.0
 
-  tactics:
-    prefix: MLTA
-    format: ADVML
-    data: tactics.yaml
+tactics:
+  prefix: MLTA
+  format: ADVML
+  data: tactics.yaml
 
-  techniques:
-    prefix: MLT
-    format: ADVML
-    data: techniques.yaml
+techniques:
+  prefix: MLT
+  format: ADVML
+  data: techniques.yaml
 
-  case-studies:
-    prefix: MLCS
-    format: ADVML
-    data: case-studies.yaml
+case-studies:
+  prefix: MLCS
+  format: ADVML
+  data: case-studies.yaml
 
-  external:
-    org.mitre.attack.enterprise:
-      name: ATT&CK for Enterprise
-      version: 8.2
+external:
+  - id: org.mitre.attack.enterprise
+    name: ATT&CK for Enterprise
+    version: 8.2
 
-      tactics:
-        prefix: TA
-        format: STIX
-        data: enterprise-attack.json
+    tactics:
+      prefix: TA
+      format: STIX
+      data: enterprise-attack.json
 
-      techniques:
-        prefix: T
-        format: STIX
-        data: enterprise-attack.json
+    techniques:
+      prefix: T
+      format: STIX
+      data: enterprise-attack.json

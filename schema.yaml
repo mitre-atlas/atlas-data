@@ -1,17 +1,6 @@
 ---
 
 any(
-  map(
-    include('matrix')
-  ),
-  list(
-    include('technique'),
-    include('external-reference'),
-  ),
-  list(
-    include('tactic'),
-    include('external-reference'),
-  ),
   list(
     include('case-study'),
   )
@@ -20,12 +9,13 @@ any(
 ---
 
 matrix:
+  id: str()
   name: str()
   version: num()
   tactics: include('matrix-object')
   techniques: include('matrix-object')
   case-studies: include('matrix-object', required=False)
-  external: map(include('matrix'), required=False)
+  external: list(include('matrix'), required=False)
 
 matrix-object:
   prefix: str()
@@ -51,6 +41,8 @@ tactic:
   description: str()
 
 case-study:
+  id: str()
+  object-type: str()
   name: str()
   summary: str()
   incident-date: str()
@@ -63,6 +55,3 @@ case-study-procedure:
   tactic: include('object-id')
   technique: include('object-id')
   description: str()
-
-external-reference:
-  id: include('object-id')
