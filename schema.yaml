@@ -14,6 +14,9 @@ any(
     include('external-reference'),
     key=include('object-id')
   ),
+  map(
+    include('case-study'),
+    key=include('object-id')
   )
 )
 
@@ -24,6 +27,7 @@ matrix:
   version: num()
   tactics: include('matrix-object')
   techniques: include('matrix-object')
+  case-studies: include('matrix-object', required=False)
   external: map(include('matrix'), required=False)
 
 matrix-object:
@@ -41,6 +45,20 @@ technique:
 
 tactic:
   name: str()
+  description: str()
+
+case-study:
+  name: str()
+  summary: str()
+  incident_date: str()
+  procedure: list(include('case-study-procedure'))
+  reported_by: str()
+  verified_by: str()
+  sources: list(str())
+
+case-study-procedure:
+  tactic: include('object-id')
+  technique: include('object-id')
   description: str()
 
 external-reference: null()

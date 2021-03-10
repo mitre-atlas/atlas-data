@@ -14,6 +14,11 @@ org.mitre.advml:
     format: ADVML
     data: techniques.yaml
 
+  case-studies:
+    prefix: MLCS
+    format: ADVML
+    data: case-studies.yaml
+
   external:
     org.mitre.attack.enterprise:
       name: ATT&CK for Enterprise

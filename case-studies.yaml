@@ -1,0 +1,33 @@
+---
+
+MLCS0000:
+  name: Microsoft Edge AI - Evasion
+  summary: |
+    The Azure Red Team performed a red team exercise on a new Microsoft product designed for running AI workloads at the Edge.
+  incident_date: a2020-02-01
+  procedure:
+    - tactic: org.mitre.attack.enterprise.TA0043  # Reconnaissance
+      technique: MLT0000  # Acquire OSINT Information
+      description: |
+        The team first performed reconnaissance to gather information about the target ML model.
+    - tactic: org.mitre.attack.enterprise.TA0043  # Reconnaissance
+      technique: MLT0001  # ML Model Discovery
+      description: |
+        The team identified and obtained the publically available base model.
+    - tactic: org.mitre.attack.enterprise.TA0043  # Reconnaissance
+      technique: MLT0004  # Gathering Datasets
+      description: |
+        The team obtained the datasets used by the model.
+    - tactic: MLTA0000  # Model Evasion
+      technique: MLT0017  # Offline Evasion
+      description: |
+        Then, used a publicly available version of the ML model, started sending queries and analyzing the responses (inferences) from the ML model.
+        Using this, the red team created an automated system that continuously manipulated an original target image, that tricked the ML model into producing incorrect inferences, but the perturbations in the image were unnoticeable to the human eye.
+    - tactic: MLTA0000  # Model Evasion
+      technique: MLT0016  # Online Evasion
+      description: |
+        Feeding this perturbed image, the red team was able to evade the ML model into misclassifying the input image.
+  reported_by: Microsoft
+  verified_by: Microsoft
+  sources:
+    - Microsoft
