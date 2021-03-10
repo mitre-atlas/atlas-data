@@ -1,10 +1,11 @@
 ---
 
-MLCS0000:
+- id: MLCS0000
+  object-type: case-study
   name: Microsoft Edge AI - Evasion
   summary: |
     The Azure Red Team performed a red team exercise on a new Microsoft product designed for running AI workloads at the Edge.
-  incident_date: a2020-02-01
+  incident-date: a2020-02-01
   procedure:
     - tactic: org.mitre.attack.enterprise.TA0043  # Reconnaissance
       technique: MLT0000  # Acquire OSINT Information
@@ -27,7 +28,52 @@ MLCS0000:
       technique: MLT0016  # Online Evasion
       description: |
         Feeding this perturbed image, the red team was able to evade the ML model into misclassifying the input image.
-  reported_by: Microsoft
-  verified_by: Microsoft
+  reported-by: Microsoft
+  verified-by: Microsoft
   sources:
     - Microsoft
+
+#MLCS0001:
+  #name: Microsoft - Azure Service - Evasion
+  #summary: |
+    #The Azure Red Team and Azure Trustworthy ML team performed a red team exercise on an internal Azure service with the intention of disrupting its service.
+  #procedure:
+    #- tactic: org.mitre.attack.enterprise.TA0043  # Reconnaissance
+      #technique: MLT0000  # Acquire OSINT Information
+      #description: |
+        #The team first performed reconnaissance to gather information about the target ML model.
+    #- tactic: org.mitre.attack.enterprise.TA0001  # Initial Access
+      #technique: org.mitre.attack.enterprise.T1078
+
+#MLCS0002:
+  #name: Tay Poisoning
+
+#MLCS0003:
+  #name: ProofPoint Evasion
+
+#MLCS0004:
+  #name: GPT-2 Model Replication
+
+#MLCS0005:
+  #name: ClearviewAI Misconfiguration
+
+#MLCS0006:
+  #name: MITRE - Physical Adversarial Attack on Face Identification
+
+#MLCS0007:
+  #name: Attack on Machine Translation Service - Google Translate, Bing Translator, and Systran Translate
+
+#MLCS0008:
+  #name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
+
+#MLCS0009:
+  #name: VirusTotal Poisoning
+
+#MLCS0010:
+  #name: Bypassing Cylance's AI Malware Detection
+
+#MLCS0011:
+  #name: Camera Hijack Attack on Facial Recognition System
+
+#MLCS0012:
+  #name: Evasion of Deep Learning detector for malware C&C traffic

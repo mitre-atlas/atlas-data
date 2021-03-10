@@ -4,19 +4,16 @@ any(
   map(
     include('matrix')
   ),
-  map(
+  list(
     include('technique'),
     include('external-reference'),
-    key=include('object-id')
   ),
-  map(
+  list(
     include('tactic'),
     include('external-reference'),
-    key=include('object-id')
   ),
-  map(
+  list(
     include('case-study'),
-    key=include('object-id')
   )
 )
 
@@ -37,23 +34,29 @@ matrix-object:
 
 object-id: regex('([a-zA-Z]+\.)*([A-Z]+[0-9]{4})')
 
+object-type: enum('tactic', 'technique', 'case-study')
+
 technique:
+  id: include('object-id')
+  object-type: include('object-type')
   name: str()
   description: str()
   tactics: list(include('object-id'))
   subtechnique-of: include('object-id', required=False)
 
 tactic:
+  id: include('object-id')
+  object-type: include('object-type')
   name: str()
   description: str()
 
 case-study:
   name: str()
   summary: str()
-  incident_date: str()
+  incident-date: str()
   procedure: list(include('case-study-procedure'))
-  reported_by: str()
-  verified_by: str()
+  reported-by: str()
+  verified-by: str()
   sources: list(str())
 
 case-study-procedure:
@@ -61,4 +64,5 @@ case-study-procedure:
   technique: include('object-id')
   description: str()
 
-external-reference: null()
+external-reference:
+  id: include('object-id')
