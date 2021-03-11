@@ -1,6 +1,13 @@
 ---
 
 any(
+  include('matrix'),
+  list(
+    include('technique'),
+  ),
+  list(
+    include('tactic'),
+  ),
   list(
     include('case-study'),
   )
@@ -12,15 +19,11 @@ matrix:
   id: str()
   name: str()
   version: num()
-  tactics: include('matrix-object')
-  techniques: include('matrix-object')
-  case-studies: include('matrix-object', required=False)
-  external: list(include('matrix'), required=False)
+  data: list(include('data-source'))
 
-matrix-object:
-  prefix: str()
+data-source:
+  uri: str()
   format: enum('ADVML', 'STIX')
-  data: str()
 
 object-id: regex('([a-zA-Z]+\.)*([A-Z]+[0-9]{4})')
 
