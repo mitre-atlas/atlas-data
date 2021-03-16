@@ -48,7 +48,7 @@ case-study:
   object-type: str()
   name: str()
   summary: str()
-  incident-date: str()
+  incident-date: timestamp()
   procedure: list(include('case-study-procedure'))
   reported-by: str()
   verified-by: str()
