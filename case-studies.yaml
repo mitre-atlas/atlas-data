@@ -7,7 +7,7 @@
     built a model that was trained on a similar dataset as our production model and
     had performance similar to it. Then we crafted adversarial samples and queried
     the model and adjusted the adversarial sample accordingly till the model was evaded.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -51,7 +51,7 @@
     [1] by domain name mutations. It is a generic domain mutation technique which
     can evade most ML-based DGA detection modules, and can also be used for testing
     against all DGA detection products in the security industry.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -107,7 +107,7 @@
     made that someone used 'metame' a metamorphic code manipulating tool to manipulate
     the original file towards mutant variants. The variants wouldn't always be executable
     but still classified as the same ransomware family.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -134,7 +134,7 @@
   name: Bypassing Cylance's AI Malware Detection
   summary: Researchers at Skylight were able to create a universal bypass string that
     when appended to a malicious file evades detection by Cylance's AI Malware detector.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -164,7 +164,7 @@
   name: Camera Hijack Attack on Facial Recognition System
   summary: This type of attack can break through the traditional live detection model
     and cause the misuse of face recognition.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -203,7 +203,7 @@
     transfer adversarial examples to the real production services. These adversarial
     inputs successfully cause targeted word flips, vulgar outputs, and dropped sentences
     on Google Translate and Systran Translate websites.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -237,7 +237,7 @@
     credentials, keys to cloud storage buckets containing 70K video samples, and copies
     of its applications and Slack tokens. With access to training data, a bad-actor
     has the ability to cause an arbitrary misclassification in the deployed model.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -267,7 +267,7 @@
     equivalent model but generally with lower fidelity than the original model, perhaps
     to do reconnaissance (See ProofPoint attack). In Model extraction, the fidelity
     of the model is comparable to the original, victim model.*
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -302,7 +302,7 @@
   summary: CVE-2019-20634 describes how ML researchers evaded ProofPoint's email protection
     system by first building a copy-cat email protection ML model, and using the insights
     to evade the live system.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -335,7 +335,7 @@
   summary: Microsoft created Tay, a twitter chatbot for 18- to 24- year-olds in the
     U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to
     be decommissioned because it tweeted reprehensible words.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -360,7 +360,7 @@
   name: Microsoft - Azure Service
   summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
     on an internal Azure service with the intention of disrupting its service.
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
@@ -393,7 +393,7 @@
   name: Microsoft Edge AI - Evasion
   summary: The Azure Red Team performed a red team exercise on a new Microsoft product
     designed for running AI workloads at the Edge.
-  date: 2020-02-01
+  incident-date: 2020-02-01
   procedure:
   - tactic: org.mitre.attack.enterprise.TA0043
     technique: MLT0000
@@ -428,7 +428,7 @@
   summary: "MITRE's AI Red Team demonstrated a physical-domain evasion attack\
     \ on a commercial face identification service with the intention of inducing a\
     \ targeted misclassification."
-  date: ''
+  incident-date: ''
   procedure:
   - tactic: ''
     technique: ''
