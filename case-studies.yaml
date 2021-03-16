@@ -37,9 +37,11 @@
     description: This evaluation demonstrates that adversaries are able to bypass
       advanced ML detection techniques, by crafting samples that are misclassified
       by an ML model.
-  reported-by: '- Palo Alto Networks (Network Security AI Research Team)'
+  reported-by:
+  - Palo Alto Networks (Network Security AI Research Team)
   verified-by: ''
-  sources: '- [1] Le, Hung, et al. "URLNet: Learning a URL representation with deep
+  sources:
+  - '[1] Le, Hung, et al. "URLNet: Learning a URL representation with deep
     learning for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
 - id: MLCS0001
   object-type: case-study
@@ -84,9 +86,11 @@
     description: The generic mutation techniques can also be used to test the effectiveness
       and robustness of all DGA detection methods developed by security companies
       in the industry before it is deployed to the production environment.
-  reported-by: '- Palo Alto Networks (Network Security AI Research Team)'
+  reported-by:
+  - Palo Alto Networks (Network Security AI Research Team)
   verified-by: ''
-  sources: '- [1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
+  sources:
+  - '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
     Cock. "Character level based detection of DGA domain names." In 2018 International
     Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code
     is available from Github: https://github.com/matthoffman/degas'
@@ -108,21 +112,23 @@
   - tactic: ''
     technique: ''
     description: "The actor used a malware sample from a prevalent ransomware family\
-      \ as a start to create \u2018mutant\u2019 variants."
+      \ as a start to create 'mutant' variants."
   - tactic: ''
     technique: ''
-    description: "The actor uploaded \u2018mutant\u2019 samples to the platform."
+    description: "The actor uploaded 'mutant' samples to the platform."
   - tactic: ''
     technique: ''
     description: "Several vendors started to classify the files as the ransomware\
-      \ family even though most of them won\u2019t run."
+      \ family even though most of them won't run."
   - tactic: ''
     technique: ''
-    description: "The \u2018mutant\u2018 samples poisoned the dataset the ML model(s)\
+    description: "The 'mutant' samples poisoned the dataset the ML model(s)\
       \ use to identify and classify this ransomware family."
-  reported-by: '- Christiaan Beek (@ChristiaanBeek) - McAfee ATR Team'
+  reported-by:
+  - Christiaan Beek (@ChristiaanBeek) - McAfee ATR Team
   verified-by: ''
-  sources: '- McAfee Advanced Threat Research'
+  sources:
+    - McAfee Advanced Threat Research
 - id: MLCS0003
   object-type: case-study
   name: Bypassing Cylance's AI Malware Detection
@@ -147,10 +153,12 @@
     description: Using this knowledge, the researchers fused attributes of known good
       files with malware. Due to the secondary model overriding the primary, the researchers
       were effectively able to bypass the ML model.
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber
+  reported-by:
+  - Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber
     team. Notified to us by Ken Luu (@devianz_)
   verified-by: ''
-  sources: '- https://skylightcyber.com/2019/07/18/cylance-i-kill-you/'
+  sources:
+  - https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
 - id: MLCS0004
   object-type: case-study
   name: Camera Hijack Attack on Facial Recognition System
@@ -178,9 +186,11 @@
     technique: ''
     description: The attackers successfully evaded the face recognition system and
       impersonated the victim.
-  reported-by: '- Henry Xuef, Ant Group AISEC Team'
+  reported-by:
+  - Henry Xuef, Ant Group AISEC Team
   verified-by: ''
-  sources: '- Ant Group AISEC Team'
+  sources:
+  - Ant Group AISEC Team
 - id: MLCS0005
   object-type: case-study
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
@@ -211,12 +221,13 @@
     technique: ''
     description: The replicated models were used to construct offline adversarial
       examples that successfully transferred to an online evasion attack
-  reported-by: '- Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by
-    Kenny Song (@helloksong)'
+  reported-by:
+  - Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by
+    Kenny Song (@helloksong)
   verified-by: ''
-  sources: '- https://arxiv.org/abs/2004.15015
-
-    - https://www.ericswallace.com/imitation'
+  sources:
+  - https://arxiv.org/abs/2004.15015
+  - https://www.ericswallace.com/imitation
 - id: MLCS0006
   object-type: case-study
   name: ClearviewAI Misconfiguration
@@ -239,11 +250,12 @@
       should be on top of "traditional" good cybersecurity hygiene such as locking
       down the system with least privileges, multi-factor authentication and monitoring
       and auditing.
-  reported-by: '-   Mossab Hussein (@mossab_hussein)'
+  reported-by:
+  -   Mossab Hussein (@mossab_hussein)
   verified-by: ''
-  sources: '-   https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-
-    -   https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772'
+  sources:
+  -   https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
+  -   https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772'
 - id: MLCS0007
   object-type: case-study
   name: GPT-2 Model Replication
@@ -275,17 +287,15 @@
   - tactic: ''
     technique: ''
     description: resulted in their replicated model.
-  reported-by: '- Vanya Cohen (@VanyaCohen)
-
-    - Aaron Gokaslan (@SkyLi0n)
-
-    - Ellie Pavlick
-
-    - Stefanie Tellex'
+  reported-by:
+  - Vanya Cohen (@VanyaCohen)
+  - Aaron Gokaslan (@SkyLi0n)
+  - Ellie Pavlick
+  - Stefanie Tellex'
   verified-by: ''
-  sources: '- https://www.wired.com/story/dangerous-ai-open-source/
-
-    - https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc'
+  sources:
+  - https://www.wired.com/story/dangerous-ai-open-source/
+  - https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
 - id: MLCS0008
   object-type: case-study
   name: ProofPoint Evasion
@@ -311,15 +321,14 @@
     description: Finally, these insights from the offline model allowed the researchers
       to create malicious emails that received preferable scores from the real ProofPoint
       email protection system, hence bypassing it.
-  reported-by: '- Will Pearce (@moo_hax)
-
-    - Nick Landers (@monoxgas)'
+  reported-by:
+  - Will Pearce (@moo_hax)
+  - Nick Landers (@monoxgas)
   verified-by: ''
-  sources: '- https://nvd.nist.gov/vuln/detail/CVE-2019-20634
-
-    - https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
-
-    - https://github.com/moohax/Proof-Pudding'
+  sources:
+  - https://nvd.nist.gov/vuln/detail/CVE-2019-20634
+  - https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
+  - https://github.com/moohax/Proof-Pudding
 - id: MLCS0009
   object-type: case-study
   name: Tay Poisoning
@@ -340,10 +349,12 @@
     technique: ''
     description: As a result of this coordinated attack, Tay's training data was poisoned
       which led its conversation algorithms to generate more reprehensible material.
+  reported-by:
+  - Microsoft
   verified-by: ''
-  sources: '- https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-
-    - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation'
+  sources:
+  - https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
+  - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation'
 - id: MLCS0010
   object-type: case-study
   name: Microsoft - Azure Service
@@ -373,47 +384,48 @@
       techniques such as finding Valid account, and Executing code via an API -- all
       interleaved with adversarial ML specific steps such as offline and online evasion
       examples.
-  reported-by: '- Microsoft (Azure Trustworthy Machine Learning)'
+  reported-by:
+  - Microsoft (Azure Trustworthy Machine Learning)
   verified-by: ''
-  sources: '- None'
+  sources:
 - id: MLCS0011
   object-type: case-study
-  name: Microsoft - Edge AI
+  name: Microsoft Edge AI - Evasion
   summary: The Azure Red Team performed a red team exercise on a new Microsoft product
     designed for running AI workloads at the Edge.
-  date: ''
+  date: 2020-02-01
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: org.mitre.attack.enterprise.TA0043
+    technique: MLT0000
     description: The team first performed reconnaissance to gather information about
       the target ML model.
-  - tactic: ''
-    technique: ''
+  - tactic: org.mitre.attack.enterprise.TA0043
+    technique: MLT0001
+    description: The team identified and obtained the publically available base model.
+  - tactic: org.mitre.attack.enterprise.TA0043
+    technique: MLT0004
+    description: The team obtained the datasets used by the model.
+  - tactic: MLTA0000
+    technique: MLT0017
     description: Then, used a publicly available version of the ML model, started
       sending queries and analyzing the responses (inferences) from the ML model.
-  - tactic: ''
-    technique: ''
-    description: Using this, the red team created an automated system that continuously
-      manipulated an original target image, that tricked the ML model into producing
-      incorrect inferences, but the perturbations in the image were unnoticeable to
-      the human eye.
-  - tactic: ''
-    technique: ''
+
+      Using this, the red team created an automated system that continuously manipulated
+      an original target image, that tricked the ML model into producing incorrect
+      inferences, but the perturbations in the image were unnoticeable to the human
+      eye.
+  - tactic: MLTA0000
+    technique: MLT0016
     description: Feeding this perturbed image, the red team was able to evade the
       ML model into misclassifying the input image.
-  - tactic: ''
-    technique: ''
-    description: This operation had one step in the traditional MITRE ATT&CK techniques
-      to do reconnaissance on the ML model being used in the product, and then the
-      rest of the techniques was to use Offline evasion, followed by online evasion
-      of the targeted product.
-  reported-by: Microsoft
-  verified-by: ''
-  sources: None
+  reported-by:
+  - Microsoft
+  verified-by: 'Microsoft'
+  sources:
 - id: MLCS0012
   object-type: case-study
   name: MITRE - Physical Adversarial Attack on Face Identification
-  summary: "MITRE\u2019s AI Red Team demonstrated a physical-domain evasion attack\
+  summary: "MITRE's AI Red Team demonstrated a physical-domain evasion attack\
     \ on a commercial face identification service with the intention of inducing a\
     \ targeted misclassification."
   date: ''
@@ -443,6 +455,7 @@
     description: "This operation had a combination of traditional ATT&CK enterprise\
       \ techniques such as finding Valid account, and Executing code via an API \u2013\
       \ all interleaved with adversarial ML specific attacks."
-  reported-by: MITRE AI Red Team
+  reported-by:
+  - MITRE AI Red Team
   verified-by: ''
-  sources: None
+  sources:
