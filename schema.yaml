@@ -50,7 +50,7 @@ case-study:
   summary: str()
   incident-date: timestamp()
   procedure: list(include('case-study-procedure'))
-  reported-by: str()
+  reported-by: list(str())
   verified-by: str()
   sources: list(str())
 
