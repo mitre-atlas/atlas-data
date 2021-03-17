@@ -7,34 +7,22 @@
     built a model that was trained on a similar dataset as our production model and
     had performance similar to it. Then we crafted adversarial samples and queried
     the model and adjusted the adversarial sample accordingly till the model was evaded.
-  incident-date: ''
+  incident-date: 2018-03-02
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: The team trained the model on ~ 33 million benign and ~ 27 million
-      malicious HTTP packet headers
-  - tactic: ''
-    technique: ''
-    description: Evaluation showed a true positive rate of ~ 99% and false positive
-      rate of ~0.01%, on average
-  - tactic: ''
-    technique: ''
-    description: Testing the model with a HTTP packet header from known malware command
+      malicious HTTP packet headers. Evaluation showed a true positive rate of ~ 99% and false positive
+      rate of ~0.01%, on average. Testing the model with a HTTP packet header from known malware command
       and control traffic samples was detected as malicious with high confidence (>
       99%).
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0015
     description: The attackers crafted evasion samples by removing fields from packet
       header which are typically not used for C&C communication (e.g. cache-control,
-      connection, etc.)
-  - tactic: ''
-    technique: ''
-    description: With the crafted samples the attackers performed online evasion of
+      connection, etc.) With the crafted samples the attackers performed online evasion of
       the ML based spyware detection model. The crafted packets were identified as
-      benign with >80% confidence.
-  - tactic: ''
-    technique: ''
-    description: This evaluation demonstrates that adversaries are able to bypass
+      benign with >80% confidence. This evaluation demonstrates that adversaries are able to bypass
       advanced ML detection techniques, by crafting samples that are misclassified
       by an ML model.
   reported-by:
@@ -51,39 +39,27 @@
     [1] by domain name mutations. It is a generic domain mutation technique which
     can evade most ML-based DGA detection modules, and can also be used for testing
     against all DGA detection products in the security industry.
-  incident-date: ''
+  incident-date: 2018-07-01
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0004
     description: DGA detection is a widely used technique to detect botnets in academia
-      and industry.
-  - tactic: ''
-    technique: ''
-    description: The researchers look into a publicly available CNN-based DGA detection
+      and industry. The researchers look into a publicly available CNN-based DGA detection
       model [1] and tested against a well-known DGA generated domain name data sets,
-      which includes ~50 million domain names from 64 botnet DGA families.
-  - tactic: ''
-    technique: ''
-    description: The CNN-based DGA detection model shows more than 70% detection accuracy
+      which includes ~50 million domain names from 64 botnet DGA families. The CNN-based DGA detection model shows more than 70% detection accuracy
       on 16 (~25%) botnet DGA families.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0015
     description: On the DGA generated domain names from 16 botnet DGA families, we
       developed a generic mutation technique that requires a minimum number of mutations,
-      but achieves a very high evasion rate.
-  - tactic: ''
-    technique: ''
-    description: Experiment results show that, after only one string is inserted once
+      but achieves a very high evasion rate. Experiment results show that, after only one string is inserted once
       to the DGA generated domain names, the detection rate of all 16 botnet DGA families
       can drop to less than 25% detection accuracy.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0040
+    technique: T1496
     description: The mutation technique can evade almost all DGA detections, not limited
       to CNN-based DGA detection shown in this example. If the attackers add it on
-      top of the existing DGA, most of the DGA detections might fail.
-  - tactic: ''
-    technique: ''
-    description: The generic mutation techniques can also be used to test the effectiveness
+      top of the existing DGA, most of the DGA detections might fail. The generic mutation techniques can also be used to test the effectiveness
       and robustness of all DGA detection methods developed by security companies
       in the industry before it is deployed to the production environment.
   reported-by:
@@ -107,23 +83,17 @@
     made that someone used 'metame' a metamorphic code manipulating tool to manipulate
     the original file towards mutant variants. The variants wouldn't always be executable
     but still classified as the same ransomware family.
-  incident-date: ''
+  incident-date: 2020-01-01
   procedure:
-  - tactic: ''
-    technique: ''
-    description: "The actor used a malware sample from a prevalent ransomware family\
-      \ as a start to create 'mutant' variants."
-  - tactic: ''
-    technique: ''
-    description: "The actor uploaded 'mutant' samples to the platform."
-  - tactic: ''
-    technique: ''
-    description: "Several vendors started to classify the files as the ransomware\
-      \ family even though most of them won't run."
-  - tactic: ''
-    technique: ''
-    description: "The 'mutant' samples poisoned the dataset the ML model(s)\
-      \ use to identify and classify this ransomware family."
+  - tactic: MLTA0000
+    technique: MLTA0019
+    description: The actor used a malware sample from a prevalent ransomware family\
+      \ as a start to create 'mutant' variants. The actor uploaded 'mutant' samples to the platform.
+  - tactic: MLTA0000
+    technique: MLT0015
+    description: Several vendors started to classify the files as the ransomware\
+      \ family even though most of them won't run. The 'mutant' samples poisoned the dataset the ML model(s)\
+      \ use to identify and classify this ransomware family.
   reported-by:
   - Christiaan Beek (@ChristiaanBeek) - McAfee ATR Team
   verified-by: ''
@@ -134,22 +104,22 @@
   name: Bypassing Cylance's AI Malware Detection
   summary: Researchers at Skylight were able to create a universal bypass string that
     when appended to a malicious file evades detection by Cylance's AI Malware detector.
-  incident-date: ''
+  incident-date: 2019-09-07
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: The researchers read publicly available information and enabled verbose
       logging to understand the inner workings of the ML model, particularly around
       reputation scoring.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0016
     description: The researchers reverse-engineered the ML model to understand which
       attributes provided what level of positive or negative reputation. Along the
       way, they discovered a secondary model which was an override for the first model.
       Positive assessments from the second model overrode the decision of the core
       ML model.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: Using this knowledge, the researchers fused attributes of known good
       files with malware. Due to the secondary model overriding the primary, the researchers
       were effectively able to bypass the ML model.
@@ -164,27 +134,24 @@
   name: Camera Hijack Attack on Facial Recognition System
   summary: This type of attack can break through the traditional live detection model
     and cause the misuse of face recognition.
-  incident-date: ''
+  incident-date: 2020-01-01
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0042
+    technique: T1583
     description: The attackers bought customized low-end mobile phones, customized
       android ROMs, a specific virtual camera application, identity information and
       face photos.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0042
+    technique: T1587
     description: The attackers used software to turn static photos into videos, adding
       realistic effects such as blinking eyes. Then the attackers use the purchased
       low-end mobile phone to import the generated video into the virtual camera app.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: The attackers registered an account with the victim's identity information.
       In the verification phase, the face recognition system called the camera API,
       but because the system was hooked or rooted, the video stream given to the face
-      recognition system was actually provided by the virtual camera app.
-  - tactic: ''
-    technique: ''
-    description: The attackers successfully evaded the face recognition system and
+      recognition system was actually provided by the virtual camera app. The attackers successfully evaded the face recognition system and
       impersonated the victim.
   reported-by:
   - Henry Xuef, Ant Group AISEC Team
@@ -203,22 +170,22 @@
     transfer adversarial examples to the real production services. These adversarial
     inputs successfully cause targeted word flips, vulgar outputs, and dropped sentences
     on Google Translate and Systran Translate websites.
-  incident-date: ''
+  incident-date: 2020-04-30
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: Using published research papers, the researchers gathered similar
       datasets and model architectures that these translation services used
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0004
     description: They abuse a public facing application to query the model and produce
       machine translated sentence pairs as training data
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0006
     description: Using these translated sentence pairs, researchers trained a substitute
       model (model replication)
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: The replicated models were used to construct offline adversarial
       examples that successfully transferred to an online evasion attack
   reported-by:
@@ -237,16 +204,13 @@
     credentials, keys to cloud storage buckets containing 70K video samples, and copies
     of its applications and Slack tokens. With access to training data, a bad-actor
     has the ability to cause an arbitrary misclassification in the deployed model.
-  incident-date: ''
+  incident-date: 2020-04-16
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0001
+    technique: T1078
     description: In this scenario, a security researcher gained initial access to
       via a "Valid Account" that was created through a misconfiguration. No Adversarial
-      ML techniques were used.
-  - tactic: ''
-    technique: ''
-    description: These kinds of attacks illustrate that any attempt to secure ML system
+      ML techniques were used. These kinds of attacks illustrate that any attempt to secure ML system
       should be on top of "traditional" good cybersecurity hygiene such as locking
       down the system with least privileges, multi-factor authentication and monitoring
       and auditing.
@@ -255,7 +219,7 @@
   verified-by: ''
   sources:
   -   https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-  -   https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772'
+  -   https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
 - id: MLCS0007
   object-type: case-study
   name: GPT-2 Model Replication
@@ -267,31 +231,22 @@
     equivalent model but generally with lower fidelity than the original model, perhaps
     to do reconnaissance (See ProofPoint attack). In Model extraction, the fidelity
     of the model is comparable to the original, victim model.*
-  incident-date: ''
+  incident-date: 2019-08-22
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: Using public documentation about GPT-2, ML researchers gathered similar
       datasets used during the original GPT-2 training.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0006
     description: Next, they used a different publicly available NLP model (called
-      Grover) and modified Grover's objective function to reflect
-  - tactic: ''
-    technique: ''
-    description: PT-2's objective function.
-  - tactic: ''
-    technique: ''
-    description: The researchers then trained the modified Grover on the dataset they
-      curated, using Grover's initial hyperparameters, which
-  - tactic: ''
-    technique: ''
-    description: resulted in their replicated model.
+      Grover) and modified Grover's objective function to reflect GPT-2's objective function. The researchers then trained the modified Grover on the dataset they
+      curated, using Grover's initial hyperparameters, which resulted in their replicated model.
   reported-by:
   - Vanya Cohen (@VanyaCohen)
   - Aaron Gokaslan (@SkyLi0n)
   - Ellie Pavlick
-  - Stefanie Tellex'
+  - Stefanie Tellex
   verified-by: ''
   sources:
   - https://www.wired.com/story/dangerous-ai-open-source/
@@ -302,22 +257,22 @@
   summary: CVE-2019-20634 describes how ML researchers evaded ProofPoint's email protection
     system by first building a copy-cat email protection ML model, and using the insights
     to evade the live system.
-  incident-date: ''
+  incident-date: 2019-09-09
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: The researchers first gathered the scores from the Proofpoint's ML
       system used in email email headers.
-  - tactic: ''
-    technique: ''
+  - tactic: MLT0000
+    technique: MLT0006
     description: Using these scores, the researchers replicated the ML mode by building
       a "shadow" aka copy-cat ML model.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0016
     description: Next, the ML researchers algorithmically found samples that this
       "offline" copy cat model.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: Finally, these insights from the offline model allowed the researchers
       to create malicious emails that received preferable scores from the real ProofPoint
       email protection system, hence bypassing it.
@@ -335,18 +290,15 @@
   summary: Microsoft created Tay, a twitter chatbot for 18- to 24- year-olds in the
     U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to
     be decommissioned because it tweeted reprehensible words.
-  incident-date: ''
+  incident-date: 2016-03-23
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0019
     description: Tay bot used the interactions with its twitter users as training
-      data to improve its conversations.
-  - tactic: ''
-    technique: ''
-    description: Average users of Twitter coordinated together with the intent of
+      data to improve its conversations. Average users of Twitter coordinated together with the intent of
       defacing Tay bot by exploiting this feedback loop.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0040
+    technique: MLT0028
     description: As a result of this coordinated attack, Tay's training data was poisoned
       which led its conversation algorithms to generate more reprehensible material.
   reported-by:
@@ -354,32 +306,32 @@
   verified-by: ''
   sources:
   - https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-  - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation'
+  - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 - id: MLCS0010
   object-type: case-study
   name: Microsoft - Azure Service
   summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
     on an internal Azure service with the intention of disrupting its service.
-  incident-date: ''
+  incident-date: 2020-01-01
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: The team first performed reconnaissance to gather information about
       the target ML model.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0001
+    technique: T1078
     description: Then, using a valid account the team found the model file of the
       target ML model and the necessary training data.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0016
     description: Using this, the red team performed an offline evasion attack by methodically
       searching for adversarial examples.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: Via an exposed API interface, the team performed an online evasion
       attack by replaying the adversarial examples, which helped achieve this goal.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0040
+    technique: T1499
     description: This operation had a combination of traditional ATT&CK enterprise
       techniques such as finding Valid account, and Executing code via an API -- all
       interleaved with adversarial ML specific steps such as offline and online evasion
@@ -395,14 +347,14 @@
     designed for running AI workloads at the Edge.
   incident-date: 2020-02-01
   procedure:
-  - tactic: org.mitre.attack.enterprise.TA0043
+  - tactic: TA0043
     technique: MLT0000
     description: The team first performed reconnaissance to gather information about
       the target ML model.
-  - tactic: org.mitre.attack.enterprise.TA0043
+  - tactic: TA0043
     technique: MLT0001
     description: The team identified and obtained the publically available base model.
-  - tactic: org.mitre.attack.enterprise.TA0043
+  - tactic: TA0043
     technique: MLT0004
     description: The team obtained the datasets used by the model.
   - tactic: MLTA0000
@@ -428,32 +380,32 @@
   summary: "MITRE's AI Red Team demonstrated a physical-domain evasion attack\
     \ on a commercial face identification service with the intention of inducing a\
     \ targeted misclassification."
-  incident-date: ''
+  incident-date: 2020-01-01
   procedure:
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0000
     description: The team first performed reconnaissance to gather information about
       the target ML model.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0001
+    technique: T1078
     description: Using a valid account, the team identified the list of IDs targeted
       by the model.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0043
+    technique: MLT0006
     description: The team developed a proxy model using open source data.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0016
     description: Using the proxy model, the red team optimized a physical domain patch-based
       attack using an expectation of transformations.
-  - tactic: ''
-    technique: ''
+  - tactic: TA0002
+    technique: T1106
     description: Via an exposed API interface, the team performed an online physical-domain
       evasion attack including the adversarial patch in the input stream which resulted
       in a targeted misclassification.
-  - tactic: ''
-    technique: ''
+  - tactic: MLTA0000
+    technique: MLT0017
     description: "This operation had a combination of traditional ATT&CK enterprise\
-      \ techniques such as finding Valid account, and Executing code via an API \u2013\
+      \ techniques such as finding Valid account, and Executing code via an API -
       \ all interleaved with adversarial ML specific attacks."
   reported-by:
   - MITRE AI Red Team
