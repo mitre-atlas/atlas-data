@@ -86,7 +86,7 @@
   incident-date: 2020-01-01
   procedure:
   - tactic: MLTA0000
-    technique: MLTA0019
+    technique: MLT0019
     description: The actor used a malware sample from a prevalent ransomware family\
       \ as a start to create 'mutant' variants. The actor uploaded 'mutant' samples to the platform.
   - tactic: MLTA0000
@@ -263,7 +263,7 @@
     technique: MLT0000
     description: The researchers first gathered the scores from the Proofpoint's ML
       system used in email email headers.
-  - tactic: MLT0000
+  - tactic: TA0043
     technique: MLT0006
     description: Using these scores, the researchers replicated the ML mode by building
       a "shadow" aka copy-cat ML model.
