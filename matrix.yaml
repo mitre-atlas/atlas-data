@@ -9,7 +9,7 @@ tactics:
   1: TA0001  # Initial Access
   2: TA0002  # Execution
   3: TA0003  # Persistence
-  4: AML.TA0000
+  4: MLTA0000
   5: TA0010  # Exfiltration
   6: TA0040  # Impact
 
