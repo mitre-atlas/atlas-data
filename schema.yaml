@@ -19,7 +19,7 @@ matrix:
   id: str()
   name: str()
   version: num()
-  tactics: map(include('object-id'), key=int())
+  tactics: list(include('object-id'))
   data: list(include('data-source'))
 
 data-source:

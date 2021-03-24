@@ -5,13 +5,13 @@ name: Adversarial Machine Learning Threat Matrix
 version: 1.0
 
 tactics:
-  0: TA0043  # Reconnaissance
-  1: TA0001  # Initial Access
-  2: TA0002  # Execution
-  3: TA0003  # Persistence
-  4: MLTA0000
-  5: TA0010  # Exfiltration
-  6: TA0040  # Impact
+  - TA0043  # Reconnaissance
+  - TA0001  # Initial Access
+  - TA0002  # Execution
+  - TA0003  # Persistence
+  - MLTA0000
+  - TA0010  # Exfiltration
+  - TA0040  # Impact
 
 data:
   - uri: tactics.yaml
