@@ -88,12 +88,12 @@
   - tactic: MLTA0000
     technique: MLT0019
     description: The actor used a malware sample from a prevalent ransomware family\
-      \ as a start to create 'mutant' variants. The actor uploaded 'mutant' samples to the platform.
+      as a start to create 'mutant' variants. The actor uploaded 'mutant' samples to the platform.
   - tactic: MLTA0000
     technique: MLT0015
     description: Several vendors started to classify the files as the ransomware\
-      \ family even though most of them won't run. The 'mutant' samples poisoned the dataset the ML model(s)\
-      \ use to identify and classify this ransomware family.
+      family even though most of them won't run. The 'mutant' samples poisoned the dataset the ML model(s)\
+      use to identify and classify this ransomware family.
   reported-by:
   - Christiaan Beek (@ChristiaanBeek) - McAfee ATR Team
   verified-by: ''
