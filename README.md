@@ -1,8 +1,8 @@
 # advmlthreatmatrix data
 
-Data for adversarial ml threat matrix.
+Data for the Adversarial Machine Learning Threat Matrix.
 
-The advmlthreatmatrix data is stored in yaml files designed to be easy to read and edit, but also easy to load, parse, and validate.
+The advmlthreatmatrix data is stored in YAML files designed to be easy to read and edit, but also easy to load, parse, and validate.
 
 `matrix.yaml` contains the metadata for the matrix and references the underlying data files for tactics and techniques. It also allows for referencing external threat intelligence such as ATT&CK.
 
@@ -10,18 +10,18 @@ The advmlthreatmatrix data is stored in yaml files designed to be easy to read a
 
 `techniques.yaml` contains all of the adversarial ML techniques.
 
-`schema.yaml` defines the schemai for the matrix, and technique and tactic objects.
+`case-studies.yaml` contains all of the adversarial ML case studies.
 
-### data validation
+`schema.yaml` defines the schema for the matrix, tactic, technique, and case-study objects.
 
-validate data by running the linter and validating against the advml schema after making changes.
+### tools
 
-```
-yamllint *.yaml
-```
+`tools/get_attack.py` is a simple script for downloading ATT&CK STIX data and converting it into a YAML format compatible with the advmlthreatmatrix data.
 
-```
-yamale matrix.yaml
-yamale tactics.yaml
-yamale techniques.yaml
-```
+`tools/create_matrix.py` compiles the threat matrix data sources into a single standard YAML file.
+
+### non-standard YAML
+
+The advmlthreatmatrix data files contain several non-standard YAML features.
+The files use cross-document anchors for referencing objects, an !include constructor for loading multiple data sources, and some custom parsing for referencing objects in text blocks.
+Parsing these non-standard features is handled by `tools/create_matrix.py` which outputs a standard YAML file.

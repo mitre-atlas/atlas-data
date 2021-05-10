@@ -1,8 +1,24 @@
 ---
 
-- id: MLTA0000
+- &ml_model_access
+  id: AML.TA0000
+  name: ML Model Access
   object-type: tactic
-  name: Model Evasion
   description: |
-    The adversary is trying to evade detection by one of your machine learning models.\n
-    Model Evasion includes techniques that allow an attacker to...
+    An adversary is attempting to gain some level of access to a machine learning model.
+
+    ML Model Access consists of techniques that use various types of access to the machine learning model that can be used by the adversary to gain information, develop attacks, and as a means to input data to the model.
+    The level of access can range from the full knowledge of the internals of the model to access to the physical environment where data is collected for use in the machine learning model.
+    The adversary may use varying levels of model access during the course of their attack, from staging the attack to impacting the target system..
+
+- &ml_attack_staging
+  id: AML.TA0001
+  name: ML Attack Staging
+  object-type: tactic
+  description: |
+    An adversary is leveraging their knowledge of and access to the target system to tailor the attack.
+
+    ML Attack Staging consists of techniques adversaries use to prepare their attack on the target ML model.
+    Techniques can include training proxy models, poisoning the target model, and crafting adversarial data to feed the target model.
+    Some of these techniques can be performed in an offline manor and are thus difficult to mitigate.
+    These techniques are often used to achieve the adversary's end goal.

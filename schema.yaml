@@ -35,7 +35,7 @@ technique:
   object-type: include('object-type')
   name: str()
   description: str()
-  tactics: list(include('object-id'))
+  tactics: list(include('object-id'), required=False)
   subtechnique-of: include('object-id', required=False)
 
 tactic:
@@ -49,13 +49,18 @@ case-study:
   object-type: str()
   name: str()
   summary: str()
-  incident-date: timestamp()
+  incident-date: day()
   procedure: list(include('case-study-procedure'))
-  reported-by: list(str())
-  verified-by: str()
-  sources: list(str())
+  reported-by: any(null(), str(), list(str()))
+  references: any(null(), str(), list(str()))
 
 case-study-procedure:
   tactic: include('object-id')
   technique: include('object-id')
   description: str()
+
+reference:
+  title: str()
+  author: list(str())
+  year: int()
+  url: str()
