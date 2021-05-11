@@ -183,7 +183,7 @@
       description: |
         The attackers used the virtual camera app to present the generated video to the ML-based facial recongition product used for user verification.
     - tactic: *id_impact
-      techniquue: "{{evade_model.id}}"
+      technique: "{{evade_model.id}}"
       description: |
         The attackers successfully evaded the face recognition system and impersonated the victim.
   reported-by:
@@ -221,7 +221,7 @@
       description: |
         Using these translated sentence pairs, the researchers trained a model that replicates the behavior of the target model.
     - tactic: *id_impact
-      techniuqe: "{{ip_theft.id}}"
+      technique: "{{ip_theft.id}}"
       description: |
         By replicating the model with high fidelity, the researchers demonstrated that an adversary could steal a model and violate the victim's intellectual property rights.
     - tactic: "{{ml_attack_staging.id}}"
