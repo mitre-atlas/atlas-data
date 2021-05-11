@@ -113,7 +113,7 @@
 
     This is often a requirement for [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}).
     An adversary may also acquire a dataset for the purposes of poisoning it and [{{publish_poisoned_data.name}}](/techniques/{{publish_poisoned_data.id}}).
-    This could lead to [{{supply_chain.name}}](/techniques/{{supply_chain.id}}), and enable adversary goals such as [{{erode_integrity.name}}](/techniques/{{erode_integrity}}) and [{{evade_model.id}}](/techniques/{{evade_model.name}}).
+    This could lead to [{{supply_chain.name}}](/techniques/{{supply_chain.id}}), and enable adversary goals such as [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}}) and [{{evade_model.name}}](/techniques/{{evade_model.id}}).
   subtechnique-of: AML.T0002
 
 - &acquire_ml_artifacts_model
@@ -150,7 +150,7 @@
   object-type: technique
   description:
     Adversaries may develop their own adversarial attacks.
-    They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/obtain_advml.id}}).
+    They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}}).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
   tactics:
     - *id_resource_development
@@ -184,7 +184,7 @@
   object-type: technique
   description: |
     Adversaries may gain initial access to a system by compromising the unique portions of the ML supply chain.
-    This could include [{{supply_chain_gpu.name}}](/techniuqes/{{supply_chain_gpu.id}}), [{{supply_chain_data}})(/techniques/{{supply_chain_data.id}}} and its annotations, parts of the ML [{{supply_chain_software.name}}](/techniuqes/supply_chain_software.id}}) stack, or the [{{supply_chain_model.name}}](/techniques/{{supply_chain_model.id}} itself.
+    This could include [{{supply_chain_gpu.name}}](/techniques/{{supply_chain_gpu.id}}), [{{supply_chain_data.name}}](/techniques/{{supply_chain_data.id}}) and its annotations, parts of the ML [{{supply_chain_software.name}}](/techniques/{{supply_chain_software.id}}) stack, or the [{{supply_chain_model.name}}](/techniques/{{supply_chain_model.id}}) itself.
     In some instances the attacker will need secondary access to fully carry out an attack using compromised components of the supply chain.
   tactics:
     - *id_initial_access
@@ -243,7 +243,7 @@
   object-type: technique
   description: |
     Adversaries may gain access to a model via legitimate access to the inference API.
-    Inference API access can be a source of information to the adversary ([{{discover_model_ontology}}](/techniques/{{discover_model_ontology}}), [{{discover_model_family}}](/techniques/{{discover_model_ontology}})), a means of staging the attack ([{{verify_attack.name}}(/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for indroducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
+    Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_ontology.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for indroducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
   tactics:
     - "{{ml_model_access.id}}"
 
@@ -275,7 +275,7 @@
   description: |
     Adversaries may gain full "white-box" access to a machine learning model.
     This means the adversary has complete knowledge of the model architecture, its parameters, and class ontology.
-    They may exfiltrate the model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}] and [{{verify_attack.name}}](/techniques/verify_attack.id}} in an offline where it is hard to detect their behavior.
+    They may exfiltrate the model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) and [{{verify_attack.name}}](/techniques/verify_attack.id}}) in an offline where it is hard to detect their behavior.
   tactics:
     - "{{ml_model_access.id}}"
 
@@ -489,7 +489,7 @@
   name: ML Artifact Collection
   object-type: technique
   description: |
-    After identifying machine learning artifacts existing on the network, adversaries may collect them for [Exfiltration](/techniques/TA0010) or for use in [{{ml_attack_staging.name}}](/techniques/{{ml_attack_staging.id}}).
+    After identifying machine learning artifacts existing on the network, adversaries may collect them for [Exfiltration](/tactics/TA0010) or for use in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
   tactics:
     - *id_collection
 
