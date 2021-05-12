@@ -347,7 +347,7 @@ case-studies:
 
       '
     tactic: AML.TA0001
-    technique: T0043.002
+    technique: AML.T0043.002
   - description: 'The adversarial examples were used to evade the machine translation
       services.
 
@@ -503,7 +503,7 @@ case-studies:
 
       '
     tactic: AML.TA0001
-    technique: T0043.002
+    technique: AML.T0043.002
   references:
   - https://nvd.nist.gov/vuln/detail/CVE-2019-20634
   - https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
@@ -1645,7 +1645,7 @@ techniques:
     Depending on the adversary''s knowledge of and access to the target model, the
     adversary may use different classes of algorithms to develop the adversarial example
     such as [White-Box Optimization](/techniques/AML.T0043.000), [Black-Box Optimization](/techniques/AML.T0043.001),
-    [Black-Box Transfer](/techniques/T0043.002), or [Manual Modification](/techniques/AML.T0043.003).
+    [Black-Box Transfer](/techniques/AML.T0043.002), or [Manual Modification](/techniques/AML.T0043.003).
 
 
     The adversary may [Verify Attack](/techniques/AML.T0042) their approach works
@@ -1709,7 +1709,7 @@ techniques:
     and incorporate that information into their training process.
 
     '
-  id: T0043.002
+  id: AML.T0043.002
   name: Black-Box Transfer
   object-type: technique
   subtechnique-of: AML.T0043

@@ -526,10 +526,8 @@
     - "{{ml_attack_staging.id}}"
 
 - &craft_adv_whitebox
-  id: &id_whitebox_optim >-
-    AML.T0043.000
-  name: &name_whitebox_optim >-
-    White-Box Optimization
+  id: AML.T0043.000
+  name: White-Box Optimization
   object-type: technique
   description: |
     In White-Box Optimization, the adversary has full access to the target model and optimizes the adversarial example directly.
@@ -547,7 +545,7 @@
   subtechnique-of: AML.T0043
 
 - &craft_adv_transfer
-  id: T0043.002
+  id: AML.T0043.002
   name: Black-Box Transfer
   object-type: technique
   description: |
