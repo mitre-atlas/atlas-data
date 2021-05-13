@@ -229,7 +229,7 @@
       description: |
         The replicated models were used to generate adversarial examples that successfully transferred to the black-box translation services.
     - tactic: *id_impact
-      technique: "{{evade_model}}"
+      technique: "{{evade_model.id}}"
       description: |
         The adversarial examples were used to evade the machine translation services.
   reported-by:
