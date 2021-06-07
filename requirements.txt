@@ -1,0 +1,5 @@
+easydict==1.9
+pkg-resources==0.0.0
+python-dateutil==2.8.1
+PyYAML==5.4.1
+schema==0.7.4
