@@ -150,7 +150,7 @@
   object-type: technique
   description:
     Adversaries may develop their own adversarial attacks.
-    They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}}).
+    They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}})).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
   tactics:
     - *id_resource_development
@@ -275,7 +275,7 @@
   description: |
     Adversaries may gain full "white-box" access to a machine learning model.
     This means the adversary has complete knowledge of the model architecture, its parameters, and class ontology.
-    They may exfiltrate the model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) and [{{verify_attack.name}}](/techniques/verify_attack.id}}) in an offline where it is hard to detect their behavior.
+    They may exfiltrate the model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) and [{{verify_attack.name}}](/techniques/{{verify_attack.id}}) in an offline where it is hard to detect their behavior.
   tactics:
     - "{{ml_model_access.id}}"
 
@@ -341,7 +341,7 @@
     The inferences are used as labels for training a separate model offline that will mimic the behavior and performance of the target model.
 
     A replicated model that closely mimic's the target model is a valuable resource in staging the attack.
-    The adversary can use the replicated model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) for various purposes (e.g. [{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{chaff_data.name}}](/techniques/{{chaff_data.id}}).
+    The adversary can use the replicated model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) for various purposes (e.g. [{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{chaff_data.name}}](/techniques/{{chaff_data.id}})).
   tactics:
     - *id_ml_attack_staging
 
@@ -401,8 +401,8 @@
   object-type: technique
   description: |
     Adversaries may exfiltrate private information via [{{inference_api.name}}](/techniques/{{inference_api.id}}).
-    ML Models have been shown leak private information about their training data (e.g.  [{{membership_inference.name}}](/techniques/{{membership_inference.id}}), [{{model_inversion.name}}](/techniques/{{model_inversion.id}}).
-    The model itself may also be extracted ([{{extract_model.name}}](/techniques/{{extract_model.id}}) for the purposes of [{{ip_theft.name}}](/techniques/{{ip_theft.id}}).
+    ML Models have been shown leak private information about their training data (e.g.  [{{membership_inference.name}}](/techniques/{{membership_inference.id}}), [{{model_inversion.name}}](/techniques/{{model_inversion.id}})).
+    The model itself may also be extracted ([{{extract_model.name}}](/techniques/{{extract_model.id}})) for the purposes of [{{ip_theft.name}}](/techniques/{{ip_theft.id}}).
 
     Exfiltration of information relating to private training data raises privacy concerns.
     Private training data may include personally identifiable information, or other protected data.
