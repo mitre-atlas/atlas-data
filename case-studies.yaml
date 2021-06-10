@@ -24,11 +24,11 @@
         We trained the model on ~ 33 million benign and ~ 27 million malicious HTTP packet headers.
         Evaluation showed a true positive rate of ~ 99% and false positive rate of ~0.01%, on average.
         Testing the model with a HTTP packet header from known malware command and control traffic samples was detected as malicious with high confidence (> 99%).
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_manual.id}}"
       description: |
         We crafted evasion samples by removing fields from packet header which are typically not used for C&C communication (e.g. cache-control, connection, etc.)
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{verify_attack.id}}"
       description: |
         We queried the model with our adversarial examples and adjusted them until the model was evaded.
@@ -66,11 +66,11 @@
       technique: "{{develop_advml.id}}"
       description: |
         The researchers developed a generic mutation technique that requires a minimal number of iterations.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_blackbox.id}}"
       description: |
         The researchers used the mutation technique to generate evasive domain names.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{verify_attack.id}}"
       description: |
         Experiment results show that, after only one string is inserted once to the DGA generated domain names, the detection rate of all 16 botnet DGA families can drop to less than 25% detection accuracy.
@@ -99,7 +99,7 @@
       technique: "{{obtain_advml.id}}"
       description: |
         The actor obtained [metame](https://github.com/a0rtega/metame), a simple metamorphic code engine for arbitrary executables.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv.id}}"
       description: |
         The actor used a malware sample from a prevalent ransomware family as a start to create 'mutant' variants.
@@ -127,7 +127,7 @@
       technique: T1594  # Search Victim-Owned Websites
       description: |
         The researchers read publicly available information about Cylance's AI Malware detector.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{ml_service.id}}"
       description: |
         The researchers used Cylance's AI Malware detector and enabled verbose logging to understand the inner workings of the ML model, particularly around reputation scoring.
@@ -137,7 +137,7 @@
         The researchers used the reputation scoring information to reverse engineer which attributes provided what level of positive or negative reputation.
         Along the way, they discovered a secondary model which was an override for the first model.
         Positive assessments from the second model overrode the decision of the core ML model.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_manual.id}}"
       description: |
         Using this knowledge, the researchers fused attributes of known good files with malware to manually create adversarial malware.
@@ -178,7 +178,7 @@
       technique: T1585  # Establish Accounts
       description: |
         The attackers registered accounts with the victims' identity information.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{ml_service.id}}"
       description: |
         The attackers used the virtual camera app to present the generated video to the ML-based facial recongition product used for user verification.
@@ -212,11 +212,11 @@
       technique: "{{acquire_ml_artifacts_model.id}}"
       description: |
         The researchers gathered similar model architectures that the target translation services used.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
         They abuse a public facing application to query the model and produce machine translated sentence pairs as training data.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{replicate_model.id}}"
       description: |
         Using these translated sentence pairs, the researchers trained a model that replicates the behavior of the target model.
@@ -224,7 +224,7 @@
       technique: "{{ip_theft.id}}"
       description: |
         By replicating the model with high fidelity, the researchers demonstrated that an adversary could steal a model and violate the victim's intellectual property rights.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_transfer.id}}"
       description: |
         The replicated models were used to generate adversarial examples that successfully transferred to the black-box translation services.
@@ -281,7 +281,7 @@
       technique: "{{acquire_workspaces.id}}"
       description: |
         The researchers were able to use TensorFlow Research Cloud via their academic credentials.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{train_proxy_model.id}}"
       description: |
         The researchers modified Grover's objective function to reflect GPT-2's objective function and then trained on the dataset they curated.
@@ -311,15 +311,15 @@
       technique: "{{acquire_ml_artifacts_data.id}}"
       description: |
         The researchers converted the collected scores into a dataset.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{train_proxy_model.id}}"
       description: |
         Using these scores, the researchers replicated the ML mode by building a "shadow" aka copy-cat ML model.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_whitebox.id}}"
       description: |
         Next, the ML researchers algorithmically found samples that this "offline" copy cat model.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_transfer.id}}"
       description: |
         Finally, these insights from the offline model allowed the researchers to create malicious emails that received preferable scores from the real ProofPoint email protection system, hence bypassing it.
@@ -338,7 +338,7 @@
     Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted reprehensible words.
   incident-date: 2016-03-23
   procedure:
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
         Adversaries were able to interact with Tay via a few different publicly available methods.
@@ -382,11 +382,11 @@
       technique: "{{ml_artifact_collection.id}}"
       description: |
         The team found the model file of the target ML model and the necessary training data.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_whitebox.id}}"
       description: |
         Using the target model and data, the red team crafted evasive adversarial data.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
         The team used an exposed API to access the target model.
@@ -417,11 +417,11 @@
       technique: "{{acquire_ml_artifacts.id}}"
       description: |
         The team identified and obtained the publically dataset used by the model
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
         Then using the publicly available version of the ML model, started sending queries and analyzing the responses (inferences) from the ML model.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_blackbox.id}}"
       description: |
         The red team created an automated system that continuously manipulated an original target image, that tricked the ML model into producing incorrect inferences, but the perturbations in the image were unnoticeable to the human eye.
@@ -449,7 +449,7 @@
       technique: T1078
       description: |
         The team gained access via a valid account.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
         The team accessed the inference API of the target model.
@@ -465,11 +465,11 @@
       technique: "{{train_proxy_model.id}}"
       description: |
         The team developed a proxy model using the open source data.
-    - tactic: "{{ml_attack_staging.id}}"
+    - tactic: *id_ml_attack_staging
       technique: "{{craft_adv_whitebox.id}}"
       description: |
         Using the proxy model, the red team optimized a physical domain patch-based attack using expectation over transformation.
-    - tactic: "{{ml_model_access.id}}"
+    - tactic: *id_ml_model_access
       technique: "{{physical_env.id}}"
       description: |
         The team placed the physical countermeasure in the physical environment.
