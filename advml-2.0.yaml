@@ -1111,7 +1111,7 @@ techniques:
   - TA0042
 - description: 'Adversaries may develop their own adversarial attacks. They may leverage
     existing libraries as a starting point ([Obtain Capabilities: Adversarial ML Attack
-    Implementations](/techniques/AML.T0016). They may implement ideas described in
+    Implementations](/techniques/AML.T0016)). They may implement ideas described in
     public research papers or develop custom made attacks for the victim model.'
   id: AML.T0017
   name: 'Develop Capabilities: Adversarial ML Attack Implementations'
@@ -1286,8 +1286,8 @@ techniques:
     parameters, and class ontology.
 
     They may exfiltrate the model to [Craft Adversarial Data](/techniques/AML.T0043)
-    and [Verify Attack](/techniques/verify_attack.id}}) in an offline where it is
-    hard to detect their behavior.
+    and [Verify Attack](/techniques/AML.T0042) in an offline where it is hard to detect
+    their behavior.
 
     '
   id: AML.T0044
@@ -1385,7 +1385,7 @@ techniques:
 
     The adversary can use the replicated model to [Craft Adversarial Data](/techniques/AML.T0043)
     for various purposes (e.g. [Evade ML Model](/techniques/AML.T0015), [Spamming
-    ML System with Chaff Data](/techniques/AML.T0046).
+    ML System with Chaff Data](/techniques/AML.T0046)).
 
     '
   id: AML.T0006
@@ -1467,9 +1467,9 @@ techniques:
     API Access](/techniques/AML.T0040).
 
     ML Models have been shown leak private information about their training data (e.g.  [Infer
-    Training Data Membership](/techniques/AML.T0024.000), [Invert ML Model](/techniques/AML.T0024.001).
+    Training Data Membership](/techniques/AML.T0024.000), [Invert ML Model](/techniques/AML.T0024.001)).
 
-    The model itself may also be extracted ([Extract ML Model](/techniques/AML.T0024.002)
+    The model itself may also be extracted ([Extract ML Model](/techniques/AML.T0024.002))
     for the purposes of [ML Intellectual Property Theft](/techniques/AML.T0045).
 
 
