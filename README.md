@@ -20,6 +20,8 @@ The advmlthreatmatrix data is stored in YAML files designed to be easy to read a
 
 `tools/create_matrix.py` compiles the threat matrix data sources into a single standard YAML file.
 
+`tools/data_validation.py` validates the YAML files for schema and link syntax, outputting any errors to console or to file via the `-f` option.
+
 ### non-standard YAML
 
 The advmlthreatmatrix data files contain several non-standard YAML features.
