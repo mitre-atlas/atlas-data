@@ -58,10 +58,11 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references:
-  - 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning for
-    malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
-  reported-by:
-  - Palo Alto Networks (Network Security AI Research Team)
+  - sourceDescription: 'Le, Hung, et al. "URLNet: Learning a URL representation with
+      deep learning for malicious URL detection." arXiv preprint arXiv:1802.03162
+      (2018).'
+    url: null
+  reported-by: Palo Alto Networks (Network Security AI Research Team)
   summary: 'Palo Alto Networks Security AI research team tested a deep learning model
     for malware command and control (C&C) traffic detection in HTTP traffic.
 
@@ -123,12 +124,12 @@ case-studies:
     tactic: TA0005
     technique: AML.T0015
   references:
-  - '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character
-    level based detection of DGA domain names." In 2018 International Joint Conference
-    on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from
-    Github: https://github.com/matthoffman/degas'
-  reported-by:
-  - Palo Alto Networks (Network Security AI Research Team)
+  - sourceDescription: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and
+      Martine De Cock. "Character level based detection of DGA domain names." In 2018
+      International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018.
+      Source code is available from Github: https://github.com/matthoffman/degas'
+    url: https://github.com/matthoffman/degas
+  reported-by: Palo Alto Networks (Network Security AI Research Team)
   summary: 'The Palo Alto Networks Security AI research team was able to bypass a
     Convolutional Neural Network (CNN)-based botnet Domain Generation Algorithm (DGA)
     detection [1] by domain name mutations.
@@ -172,8 +173,8 @@ case-studies:
       '
     tactic: TA0003
     technique: AML.T0020
-  reported-by:
-  - Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  references: null
+  reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
   summary: 'An increase in reports of a certain ransomware family that was out of
     the ordinary was noticed.
 
@@ -237,10 +238,10 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references:
-  - https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
-  reported-by:
-  - Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team.Notified
-    to us by Ken Luu (@devianz_)
+  - sourceDescription: null
+    url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
+  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber
+    team.Notified to us by Ken Luu (@devianz_)
   summary: 'Researchers at Skylight were able to create a universal bypass string
     that
 
@@ -292,8 +293,7 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references: null
-  reported-by:
-  - Henry Xuef, Ant Group AISEC Team
+  reported-by: Henry Xuef, Ant Group AISEC Team
   summary: 'This type of attack can break through the traditional live detection model
 
     and cause the misuse of face recognition.
@@ -355,10 +355,12 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references:
-  - https://arxiv.org/abs/2004.15015
-  - https://www.ericswallace.com/imitation
-  reported-by:
-  - Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny Song (@helloksong)
+  - sourceDescription: null
+    url: https://arxiv.org/abs/2004.15015
+  - sourceDescription: null
+    url: https://www.ericswallace.com/imitation
+  reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
+    Song (@helloksong)
   summary: 'Machine translation services (such as Google Translate, Bing Translator,
     and Systran Translate) provide public-facing UIs and APIs.
 
@@ -385,10 +387,11 @@ case-studies:
     tactic: TA0001
     technique: T1078
   references:
-  - https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-  - https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
-  reported-by:
-  - Mossab Hussein (@mossab_hussein)
+  - sourceDescription: null
+    url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
+  - sourceDescription: null
+    url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
+  reported-by: Mossab Hussein (@mossab_hussein)
   summary: 'Clearview AI''s source code repository, though password protected, was
     misconfigured to allow an arbitrary user to register an account.
 
@@ -444,13 +447,12 @@ case-studies:
     tactic: AML.TA0001
     technique: AML.T0005
   references:
-  - https://www.wired.com/story/dangerous-ai-open-source/
-  - https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
-  reported-by:
-  - Vanya Cohen (@VanyaCohen)
-  - Aaron Gokaslan (@SkyLi0n)
-  - Ellie Pavlick
-  - Stefanie Tellex
+  - sourceDescription: null
+    url: https://www.wired.com/story/dangerous-ai-open-source/
+  - sourceDescription: null
+    url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
+  reported-by: Vanya Cohen (@VanyaCohen) - Aaron Gokaslan (@SkyLi0n) - Ellie Pavlick
+    - Stefanie Tellex
   summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
     process to incrementally release 1.5 Billion parameter model. Before the 1.5B
     parameter model could be released by OpenAI eventually, two ML researchers replicated
@@ -494,12 +496,13 @@ case-studies:
     tactic: AML.TA0001
     technique: AML.T0043.002
   references:
-  - https://nvd.nist.gov/vuln/detail/CVE-2019-20634
-  - https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
-  - https://github.com/moohax/Proof-Pudding
-  reported-by:
-  - Will Pearce (@moo_hax)
-  - Nick Landers (@monoxgas)
+  - sourceDescription: null
+    url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
+  - sourceDescription: null
+    url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
+  - sourceDescription: null
+    url: https://github.com/moohax/Proof-Pudding
+  reported-by: Will Pearce (@moo_hax) - Nick Landers (@monoxgas)
   summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email
     protection system by first building a copy-cat email protection ML model, and
     using the insights to evade the live system.
@@ -540,10 +543,11 @@ case-studies:
     tactic: TA0040
     technique: AML.T0031
   references:
-  - https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-  - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
-  reported-by:
-  - Microsoft
+  - sourceDescription: null
+    url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
+  - sourceDescription: null
+    url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
+  reported-by: Microsoft
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
     U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to
     be decommissioned because it tweeted reprehensible words.
@@ -589,8 +593,7 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references: null
-  reported-by:
-  - Microsoft (Azure Trustworthy Machine Learning)
+  reported-by: Microsoft (Azure Trustworthy Machine Learning)
   summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
     on an internal Azure service with the intention of disrupting its service. This
     operation had a combination of traditional ATT&CK enterprise techniques such as
@@ -639,8 +642,7 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references: null
-  reported-by:
-  - Microsoft
+  reported-by: Microsoft
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
     designed for running AI workloads at the Edge.
 
@@ -700,8 +702,7 @@ case-studies:
     tactic: TA0040
     technique: AML.T0015
   references: null
-  reported-by:
-  - MITRE AI Red Team
+  reported-by: MITRE AI Red Team
   summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on
     a commercial face identification service with the intention of inducing a targeted
     misclassification.
