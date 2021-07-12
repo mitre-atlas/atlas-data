@@ -26,4 +26,4 @@ data:
   - !include tactics.yaml
   - !include techniques.yaml
   - !include case-studies.yaml
-  - !include enterprise-attack-9.0.yaml
+#  - !include enterprise-attack-9.0.yaml

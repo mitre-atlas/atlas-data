@@ -38,10 +38,10 @@
         With the crafted samples we performed online evasion of the ML-based spyware detection model.
         The crafted packets were identified as benign with >80% confidence.
         This evaluation demonstrates that adversaries are able to bypass advanced ML detection techniques, by crafting samples that are misclassified by an ML model.
-  reported-by:
-    - Palo Alto Networks (Network Security AI Research Team)
+  reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
-    - 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
+    - sourceDescription: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
+      url:
 
 - id: AML.CS0001
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
@@ -78,10 +78,10 @@
       technique: "{{evade_model.id}}"
       description: |
         The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control]() servers.
-  reported-by:
-    - Palo Alto Networks (Network Security AI Research Team)
+  reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
-    - '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
+    - sourceDescription: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
+      url: https://github.com/matthoffman/degas
 
 - id: AML.CS0002
   name: VirusTotal Poisoning
@@ -112,8 +112,7 @@
       description: |
         Several vendors started to classify the files as the ransomware family even though most of them won't run.
         The "mutant" samples poisoned the dataset the ML model(s) use to identify and classify this ransomware family.
-  reported-by:
-    - Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
 
 - id: AML.CS0003
   name: Bypassing Cylance's AI Malware Detection
@@ -145,10 +144,10 @@
       technique: "{{evade_model.id}}"
       description: |
         Due to the secondary model overriding the primary, the researchers were effectively able to bypass the ML model.
-  reported-by:
-    - Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team.Notified to us by Ken Luu (@devianz_)
+  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team.Notified to us by Ken Luu (@devianz_)
   references:
-    - https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
+    - sourceDescription:
+      url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
 
 - id: AML.CS0004
   name: Camera Hijack Attack on Facial Recognition System
@@ -186,8 +185,7 @@
       technique: "{{evade_model.id}}"
       description: |
         The attackers successfully evaded the face recognition system and impersonated the victim.
-  reported-by:
-    - Henry Xuef, Ant Group AISEC Team
+  reported-by: Henry Xuef, Ant Group AISEC Team
   references:
 
 - id: AML.CS0005
@@ -232,11 +230,12 @@
       technique: "{{evade_model.id}}"
       description: |
         The adversarial examples were used to evade the machine translation services.
-  reported-by:
-    - Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny Song (@helloksong)
+  reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny Song (@helloksong)
   references:
-    - https://arxiv.org/abs/2004.15015
-    - https://www.ericswallace.com/imitation
+    - sourceDescription:
+      url: https://arxiv.org/abs/2004.15015
+    - sourceDescription:
+      url: https://www.ericswallace.com/imitation
 
 - id: AML.CS0006
   name: ClearviewAI Misconfiguration
@@ -252,11 +251,12 @@
       technique: T1078  # Valid Accounts
       description: |
         In this scenario, a security researcher gained initial access to via a valid account that was created through a misconfiguration.
-  reported-by:
-    - Mossab Hussein (@mossab_hussein)
+  reported-by: Mossab Hussein (@mossab_hussein)
   references:
-    - https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-    - https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
+    - sourceDescription:
+      url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
+    - sourceDescription:
+      url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
 
 - id: AML.CS0007
   name: GPT-2 Model Replication
@@ -287,14 +287,15 @@
         The researchers modified Grover's objective function to reflect GPT-2's objective function and then trained on the dataset they curated.
         They used Grover's initial hyperparameters for training.
         This resulted in their replicated model.
-  reported-by:
-    - Vanya Cohen (@VanyaCohen)
+  reported-by: Vanya Cohen (@VanyaCohen)
     - Aaron Gokaslan (@SkyLi0n)
     - Ellie Pavlick
     - Stefanie Tellex
   references:
-    - https://www.wired.com/story/dangerous-ai-open-source/
-    - https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
+    - sourceDescription:
+      url: https://www.wired.com/story/dangerous-ai-open-source/
+    - sourceDescription:
+      url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
 
 - id: AML.CS0008
   name: ProofPoint Evasion
@@ -323,13 +324,15 @@
       technique: "{{craft_adv_transfer.id}}"
       description: |
         Finally, these insights from the offline model allowed the researchers to create malicious emails that received preferable scores from the real ProofPoint email protection system, hence bypassing it.
-  reported-by:
-    - Will Pearce (@moo_hax)
+  reported-by: Will Pearce (@moo_hax)
     - Nick Landers (@monoxgas)
   references:
-    - https://nvd.nist.gov/vuln/detail/CVE-2019-20634
-    - https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
-    - https://github.com/moohax/Proof-Pudding
+    - sourceDescription:
+      url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
+    - sourceDescription:
+      url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
+    - sourceDescription:
+      url: https://github.com/moohax/Proof-Pudding
 
 - id: AML.CS0009
   name: Tay Poisoning
@@ -356,11 +359,12 @@
       description: |
         As a result of this coordinated attack, Tay's conversation algorithms began to learn to generate reprehensible material.
         This quickly lead to its decommissioning.
-  reported-by:
-    - Microsoft
+  reported-by: Microsoft
   references:
-    - https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-    - https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
+    - sourceDescription:
+      url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
+    - sourceDescription:
+      url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 
 - id: AML.CS0010
   name: Microsoft - Azure Service
@@ -394,8 +398,7 @@
       technique: "{{evade_model.id}}"
       description: |
         The team performed an online evasion attack by replaying the adversarial examples, which helped achieve this goal.
-  reported-by:
-    - Microsoft (Azure Trustworthy Machine Learning)
+  reported-by: Microsoft (Azure Trustworthy Machine Learning)
   references:
 
 - id: AML.CS0011
@@ -429,8 +432,7 @@
       technique: "{{evade_model.id}}"
       description: |
         Feeding this perturbed image, the red team was able to evade the ML model by causing misclassifications.
-  reported-by:
-    - Microsoft
+  reported-by: Microsoft
   references:
 
 - id: AML.CS0012
@@ -477,6 +479,5 @@
       technique: "{{evade_model.id}}"
       description: |
         The team successfully evaded the model using the physical countermeasure and causing targeted misclassifications.
-  reported-by:
-    - MITRE AI Red Team
+  reported-by: MITRE AI Red Team
   references:
