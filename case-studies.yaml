@@ -113,6 +113,7 @@
         Several vendors started to classify the files as the ransomware family even though most of them won't run.
         The "mutant" samples poisoned the dataset the ML model(s) use to identify and classify this ransomware family.
   reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  references:
 
 - id: AML.CS0003
   name: Bypassing Cylance's AI Malware Detection

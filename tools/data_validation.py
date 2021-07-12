@@ -13,32 +13,32 @@ def main():
     parser.add_argument("--matrix", "-m", type=str, default="matrix.yaml")
     args = parser.parse_args()
     file_name=args.file[0]
-    
+
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
     with open(args.matrix, "rb") as f:
         data = yaml_safe_load(f, master=master)
 
-    
+
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
     with open(args.matrix, "rb") as f:
         data = yaml_safe_load(f, master=master)
-    
+
     # construct anchors into dict store and for further parsing
     const = yaml.constructor.SafeConstructor()
     anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
 
     # flatten the objects list of lists
     objects = [object for objects in data["data"] for object in objects]
-    
-    #handling for if name/id is misspelled 
+
+    #handling for if name/id is misspelled
     try:
     # replace all "super aliases" in strings in the document
         objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
     except:
         print(end='')
-    
+
     # organize objects into dicts by object-type
     # and make sure techniques are in the order defined in the matrix
     matrix = {
@@ -56,18 +56,18 @@ def main():
                         if object['id'].startswith('AML') or object['id'].startswith('T'):
                             matrix["techniques"].append(object)
                         else:
-                            errormsg(object,file_name,'technique id error')     
+                            errormsg(object,file_name,'technique id error')
                 elif object["object-type"] == "tactic":
                         if (object['id'].startswith('AML') or object['id'].startswith('T')):
                             idx = matrix["tactics"].index(object["id"])
                             matrix["tactics"][idx] = object
                         else:
-                            errormsg(object,file_name,'tactic id error') 
-                elif object["object-type"] == "case-study":                
+                            errormsg(object,file_name,'tactic id error')
+                elif object["object-type"] == "case-study":
                         if object['id'].startswith('AML') or object['id'].startswith('T1'):
                             matrix["case-studies"].append(object)
                         else:
-                            errormsg(object,file_name,'case-study id error')    
+                            errormsg(object,file_name,'case-study id error')
                     #handling for if object-type value is missing
                 elif object["object-type"] ==  None:
                     errormsg(object,file_name,'object-type missing')
@@ -80,7 +80,7 @@ def main():
                 errormsg(object,file_name,'error with object-type spelling')
         elif 'id' not in object:
                 errormsg(object,file_name,'error with id spelling')
-                
+
     def check_structure(struct, conf):
         if isinstance(struct, dict) and isinstance(conf, dict):
             # struct is a dict of types or other dicts
@@ -94,12 +94,12 @@ def main():
         else:
             # struct is neither a dict, nor list, not type
             return False
-   
+
     # validate setup of matrix
     matrix_schema = Schema({"case-studies":list, "tactics":list,"techniques":list})
     print('\033[1mMatrix Validity:\033[0m')
     print(matrix_schema.is_valid(matrix))
-    
+
     # validate all case studies
     case_study_schema=Schema({
         "id":str,
@@ -108,13 +108,13 @@ def main():
         "summary":str,
         "incident-date":datetime.date,
         "procedure":list,
-        Optional("reported-by"):Or(list,None),
+        "reported-by":str,
         Optional("references"):Or(list,None)
     })
     print('\033[1mCase-study Validity:\033[0m')
     print_results(test_validity(matrix["case-studies"],case_study_schema,file_name,errormsg))
 
-    # validate all tactics 
+    # validate all tactics
     tactics_schema=Schema({
         "description":str,
         "id":str,
@@ -123,7 +123,7 @@ def main():
     })
     print('\033[1mTactics Validity:\033[0m')
     print_results(test_validity(matrix["tactics"],tactics_schema,file_name,errormsg))
-    
+
     # validate techniques
     techniques_schema=Schema({
         "id":str,
@@ -136,7 +136,7 @@ def main():
     print("\033[1mTechniques Validity:\033[0m")
     print_results(test_validity(matrix["techniques"],techniques_schema,file_name,errormsg))
 
-    # validate procedure 
+    # validate procedure
     procedure_schema=Schema({
         'tactic':str,
         'technique':str,
@@ -147,19 +147,35 @@ def main():
     for casestudy in matrix['case-studies']:
         procedure_validity.append(test_validity(casestudy['procedure'],procedure_schema,file_name,errormsg))
     print_results(list(itertools.chain(*procedure_validity)))
-    
+
+    # validate references
+    references_schema=Schema({
+        'sourceDescription':Or(str, None),
+        'url':Or(str, None),
+    })
+    print('\033[1mReferences Validity:\033[0m')
+    references_validity=[]
+    for casestudy in matrix['case-studies']:
+        try:
+            if casestudy['references']:
+                references_validity.append(test_validity(casestudy['references'],references_schema,file_name,errormsg))
+        except:
+            print(f"Invalid 'references' format for {casestudy['id']}")
+            references_validity.append([False])
+    print_results(list(itertools.chain(*references_validity)))
+
     # check for balanced parentheses in case-studies
     print('\033[1mCase-study Parentheses Balance:\033[0m')
     print_results(balanced_parentheses(matrix['case-studies'],file_name,errormsg))
-    
+
     # check for balanced parentheses in tactics
     print('\033[1mTactic Parentheses Balance:\033[0m')
     print_results(balanced_parentheses(matrix['tactics'],file_name,errormsg))
-    
+
     # check for balanced parentheses in techniques
     print('\033[1mTechniques Parentheses Balance:\033[0m')
     print_results(balanced_parentheses(matrix['techniques'],file_name,errormsg))
-    
+
     # check for balanced parentheses in procedures
     print('\033[1mProcedure Parentheses Balance:\033[0m')
     procedure_parentheses_balance=[]
@@ -167,7 +183,7 @@ def main():
         procedure_parentheses_balance.append(balanced_parentheses(casestudy['procedure'],file_name,errormsg))
     print_results(list(itertools.chain(*procedure_validity)))
 
-    
+
 def balanced_parentheses(matrix_section,file_name,errormsg):
     pp=pprint.PrettyPrinter(indent=4)
     """
@@ -181,7 +197,7 @@ def balanced_parentheses(matrix_section,file_name,errormsg):
             errorstr='Error with Object #{}.'
             errormsg(obj,file_name,errorstr.format(index))
     return(balanced)
-            
+
 # Function to check parentheses adapted from https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-python/
 def check(myStr):
     open_list = ["[","{","("]
@@ -201,7 +217,7 @@ def check(myStr):
         return True
     else:
         return False
-      
+
 def errormsg(objoutput,file_name,errorstr=''):
     """
     prints error to the console by default or to a file specified by the user
@@ -215,7 +231,7 @@ def errormsg(objoutput,file_name,errorstr=''):
         print(errorstr)
         f.write(json.dumps(objoutput,indent=4))
         f.close()
-        
+
 def test_validity(matrix_section, schema,file_name,errormsg):
     """
     iterates through objects in specified matrix section to check for proper format of keys and value
@@ -236,10 +252,10 @@ def print_results(test_results):
     if(False in test_results and True not in test_results):
         print('False')
     if(False in test_results and True in test_results):
-        print('The rest are true')   
+        print('The rest are true')
     if(False not in test_results and True in test_results):
-        print('True')  
-  
+        print('True')
+
 def objget(x, path,sep='.'):
     """
     traverses object 'x' (nested indexible objects) according to path
@@ -254,19 +270,19 @@ def objget(x, path,sep='.'):
         return x[path]
     else:
         return x
-    
+
 def walkmap(x, f, types=str):
     """
     recursively walks an an an object 'x' of nested dicts/lists/tuples
     and applies function 'f' to all objects of types 'types'
     """
-    
+
     if isinstance(x, dict):
         x = {k: walkmap(v, f, types) for k, v in x.items()}
     elif isinstance(x, list) or isinstance(x, tuple):
         x = [walkmap(v, f, types) for v in x]
     elif isinstance(x, types):
-        x = f(x)      
+        x = f(x)
     return x
 
 
@@ -278,10 +294,10 @@ def replace_anchors(x, anchors):
     matches = re.findall("{{\s*(.*?)\s*}}", x, re.DOTALL)
     for match in matches:
             val = objget(anchors, match)
-            x = re.sub(f"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL) 
+            x = re.sub(f"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
     return x
-    
-           
+
+
 # taken from
 # https://stackoverflow.com/questions/44910886/pyyaml-include-file-and-yaml-aliases-anchors-references
 

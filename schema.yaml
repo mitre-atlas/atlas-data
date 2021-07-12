@@ -51,8 +51,8 @@ case-study:
   summary: str()
   incident-date: day()
   procedure: list(include('case-study-procedure'))
-  reported-by: any(null(), str(), list(str()))
-  references: any(null(), str(), list(str()))
+  reported-by: str()
+  references: any(null(), list(include('reference')))
 
 case-study-procedure:
   tactic: include('object-id')
@@ -60,7 +60,11 @@ case-study-procedure:
   description: str()
 
 reference:
-  title: str()
-  author: list(str())
-  year: int()
-  url: str()
+  sourceDescription: any(null(), str())
+  url: any(null(), str())
+
+# reference:
+#   title: str()
+#   author: list(str())
+#   year: int()
+#   url: str()
