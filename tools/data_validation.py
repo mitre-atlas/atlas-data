@@ -156,12 +156,13 @@ def main():
     print('\033[1mReferences Validity:\033[0m')
     references_validity=[]
     for casestudy in matrix['case-studies']:
-        try:
-            if casestudy['references']:
-                references_validity.append(test_validity(casestudy['references'],references_schema,file_name,errormsg))
-        except:
-            print(f"Invalid 'references' format for {casestudy['id']}")
-            references_validity.append([False])
+        if 'references' in casestudy:
+            try:
+                if casestudy['references']:
+                    references_validity.append(test_validity(casestudy['references'],references_schema,file_name,errormsg))
+            except:
+                print(f"Invalid 'references' format for {casestudy['id']}")
+                references_validity.append([False])
     print_results(list(itertools.chain(*references_validity)))
 
     # check for balanced parentheses in case-studies
