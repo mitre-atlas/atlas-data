@@ -32,7 +32,7 @@
       technique: "{{verify_attack.id}}"
       description: |
         We queried the model with our adversarial examples and adjusted them until the model was evaded.
-    - tactic: *id_impact
+    - tactic: *id_defense_evasion
       technique: "{{evade_model.id}}"
       description: |
         With the crafted samples we performed online evasion of the ML-based spyware detection model.
@@ -141,7 +141,7 @@
       technique: "{{craft_adv_manual.id}}"
       description: |
         Using this knowledge, the researchers fused attributes of known good files with malware to manually create adversarial malware.
-    - tactic: *id_impact
+    - tactic: *id_defense_evasion
       technique: "{{evade_model.id}}"
       description: |
         Due to the secondary model overriding the primary, the researchers were effectively able to bypass the ML model.
@@ -416,11 +416,7 @@
     - tactic: *id_resource_development
       technique: "{{acquire_ml_artifacts.id}}"
       description: |
-        The team identified and obtained the publically available base model.
-    - tactic: *id_resource_development
-      technique: "{{acquire_ml_artifacts.id}}"
-      description: |
-        The team identified and obtained the publically dataset used by the model
+        The team identified and obtained the publicly available base model.
     - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
