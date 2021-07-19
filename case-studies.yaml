@@ -416,11 +416,7 @@
     - tactic: *id_resource_development
       technique: "{{acquire_ml_artifacts.id}}"
       description: |
-        The team identified and obtained the publically available base model.
-    - tactic: *id_resource_development
-      technique: "{{acquire_ml_artifacts.id}}"
-      description: |
-        The team identified and obtained the publically dataset used by the model
+        The team identified and obtained the publicly available base model.
     - tactic: *id_ml_model_access
       technique: "{{inference_api.id}}"
       description: |
