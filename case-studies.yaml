@@ -17,7 +17,7 @@
       technique: "{{acquire_ml_artifacts_data.id}}"
       description: |
         We acquired a similar dataset to the target production model.
-    - tactic: *id_resource_development
+    - tactic: *id_ml_attack_staging
       technique: "{{train_proxy_model.id}}"
       description: |
         We built a model that was trained on a similar dataset as the production model.
@@ -460,7 +460,7 @@
       technique: "{{acquire_ml_artifacts_data.id}}"
       description: |
         The team acquired representative open source data.
-    - tactic: *id_resource_development
+    - tactic: *id_ml_attack_staging
       technique: "{{train_proxy_model.id}}"
       description: |
         The team developed a proxy model using the open source data.
