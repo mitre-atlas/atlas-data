@@ -1,7 +1,7 @@
 ---
 
-id: advml
-name: Adversarial Machine Learning Threat Matrix
+id: ATLAS
+name: ATLAS Machine Learning Threat Matrix
 version: 2.0
 
 tactics:

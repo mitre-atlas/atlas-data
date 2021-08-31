@@ -21,7 +21,7 @@ def main():
     data = load_attack(attack_url)
     attack = parse_attack(data)
 
-    with open(f"enterprise-attack-{args.version}.yaml", "w") as f:
+    with open(os.path.join("data", f"enterprise-attack-{args.version}.yaml"), "w") as f:
         yaml.dump(attack, f, default_flow_style=False, explicit_start=True)
 
 

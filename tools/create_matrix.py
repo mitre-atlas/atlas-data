@@ -1,3 +1,4 @@
+import os
 import re
 import yaml
 from argparse import ArgumentParser
@@ -10,12 +11,16 @@ Creates the Adversarial Threat Matrix from
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("--matrix", "-m", type=str, default="matrix.yaml")
+    parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml")
+    parser.add_argument("--output", "-o", type=str, default=".", help="output directory")
     args = parser.parse_args()
+
+    wd = os.getcwd()
+    os.chdir(os.path.dirname(args.matrix))
 
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
-    with open(args.matrix, "rb") as f:
+    with open(os.path.basename(args.matrix), "rb") as f:
         data = yaml_safe_load(f, master=master)
 
     # construct anchors into dict store and for further parsing
@@ -45,14 +50,17 @@ def main():
         elif object["object-type"] == "case-study":
             matrix["case-studies"].append(object)
 
+    os.chdir(wd)
+    os.makedirs(args.output, exist_ok=True)
+
     # save composite document as a standard yaml file
-    id = data["id"]
-    version = data["version"]
-    with open(f"{id}-{version}.yaml", "w") as f:
+    matrix_id = data["id"]
+    matrix_ver = data["version"]
+    with open(f"{matrix_id}-{matrix_ver}.yaml", "w") as f:
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
 
 
-def objget(x, path, sep='.'):
+def objget(x, path, sep="."):
     """
     traverses object 'x' (nested indexible objects) according to path
     converts indices to ints if they are digits
@@ -96,6 +104,7 @@ def replace_anchors(x, anchors):
         x = re.sub(f"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
     return x
 
+
 # taken from
 # https://stackoverflow.com/questions/44910886/pyyaml-include-file-and-yaml-aliases-anchors-references
 
@@ -118,6 +127,7 @@ def yaml_include(loader, node):
 
 
 yaml.add_constructor("!include", yaml_include, Loader=yaml.SafeLoader)
+
 
 def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None):
     loader = Loader(stream)
