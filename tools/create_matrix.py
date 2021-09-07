@@ -56,7 +56,10 @@ def main():
     # save composite document as a standard yaml file
     matrix_id = data["id"]
     matrix_ver = data["version"]
-    with open(f"{matrix_id}-{matrix_ver}.yaml", "w") as f:
+    output_filename = f"{matrix_id}-{matrix_ver}.yaml"
+    output_filepath = os.path.join(args.output, output_filename)
+
+    with open(output_filepath, "w") as f:
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
 
 
