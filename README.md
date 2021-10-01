@@ -23,6 +23,25 @@ It also allows for referencing external threat intelligence such as ATT&CK.
 
 `tools/data_validation.py` validates the YAML files for schema and link syntax, outputting any errors to console or to file via the `-f` option.
 
+`tools/generate_stix` creates the ATLAS + ATTACK STIX JSON file.
+
+`tools/generate_navigator_layer` creates ATLAS Navigator layer files, including the ATLAS Matrix, case study frequency, and individual case study layers.
+
+Run each script with `-h` to see full options.
+
+#### Setup
+
+1. Use Python 3.6+.
+
+2. Set up a virtual environment and install dependencies.
+```
+pip -m venv venv
+pip install --upgrade pip
+pip install -r tools/requirements.txt
+```
+
+3. Obtain a local copy of ATT&CK Enterprise data by running `python tools/get_attack.py`, which outputs the file `data/enterprise-attack-{version}.yaml`.
+
 ### A Note on Non-Standard YAML
 
 The ATLAS data files contain several non-standard YAML features.
