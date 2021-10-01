@@ -13,44 +13,6 @@ from create_matrix import load_atlas_data
 # An lowercase, hyphened identifier for this data
 SOURCE_NAME = 'mitre-atlas'
 
-def parse_data_files(data_dir_path):
-    """Parses the YAML data."""
-    data_dir = Path(data_dir_path)
-    master = yaml.SafeLoader(data_dir.as_posix())
-
-    # Load the matrix file
-    with open(data_dir / 'matrix.yaml', 'r') as f:
-        data = yaml_safe_load(f,master=master)
-        # TODO Version?
-        # construct anchors into dict store and for further parsing
-        const = yaml.constructor.SafeConstructor()
-        anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
-        # Build flat list of AdvML objects
-        case_studies_list=[]
-        case_studies_data=data['data'][2]
-        for study in case_studies_data:
-            for procedure in study['procedure']:
-                case_studies_list.append(procedure)
-        objects = [object for objects in data["data"] for object in objects]
-        # replace all "super aliases" in strings in the document
-        objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
-        case_studies_list=walkmap(case_studies_list, lambda x: replace_anchors(x, anchors))
-        matrix = {
-            "tactics": [],
-            "techniques": [],
-            "case-studies": [],
-        }
-
-        # Partition all objects into a dictionary by object type
-        for object in objects:
-            if object["object-type"] == "technique":
-                matrix["techniques"].append(object)
-            elif object["object-type"] == "tactic":
-                matrix["tactics"].append(object)
-            elif object["object-type"] == "case-study":
-                matrix["case-studies"].append(object)
-
-    return matrix
 
 def generate_individual_case_study_layers(matrix, individual_case_study_layer_directory):
     """
@@ -242,8 +204,7 @@ def generate_case_study_layers(matrix, layer_output_directory):
 
 def generate_matrix_layers(matrix, matrix_layer_directory):
     """
-    Outputs a layer JSON file highlighting the frequency of techniques
-    used in all of the matrix
+    Outputs a layer JSON file highlighting the techniques used in ATLAS
     """
 
     domain = 'atlas-v2-+-enterprise-v9-atlas'
@@ -271,6 +232,7 @@ def generate_matrix_layers(matrix, matrix_layer_directory):
     for t in matrix['techniques']:
         id_tactic={}
         if 'AML' in t['id'] and len(t['id'].split('.'))<3:
+            # Parent-level technique
             id_tactic['id']=t['id']
             for tactic in t['tactics']:
                 for map in tactic_map:
@@ -279,6 +241,7 @@ def generate_matrix_layers(matrix, matrix_layer_directory):
                         id_tactic['tactic']=navigator_tactic
             advml_matrix_id.append(id_tactic)
         elif 'AML' in t['id']:
+            # Subtechnique
             advml_matrix_id.append({'id':t['id']})
     ts=[]
     for id_tactic in advml_matrix_id:
