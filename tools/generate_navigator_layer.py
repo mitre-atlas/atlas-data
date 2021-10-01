@@ -39,10 +39,12 @@ def generate_individual_case_study_layers(matrix, individual_case_study_layer_di
         # Appears in layer dropdown
         summary = case_study['summary']
         color = '#C8E6C9'
+
         # Maps tactic IDs to their name
         tactic_map=[]
         for tactic in matrix['tactics']:
             tactic_map.append({'id':tactic['id'],'name':tactic['name']})
+            
         ts=[]
         # Build dictionary of techniques used in each specific case study
         # These can be a mix of AdvML and ATT&CK techniques
@@ -208,9 +210,11 @@ def generate_matrix_layers(matrix, matrix_layer_directory):
     """
 
     domain = 'atlas-v2-+-enterprise-v9-atlas'
-    tactic_map=[]
+
+    # Build mapping of tactic ID to name
+    tactic_map = {}
     for tactic in matrix['tactics']:
-        tactic_map.append({'id':tactic['id'],'name':tactic['name']})
+        tactic_map[tactic['id']] = tactic['name']
 
     # Base for all layers
     layer_data = {
@@ -233,16 +237,23 @@ def generate_matrix_layers(matrix, matrix_layer_directory):
         id_tactic={}
         if 'AML' in t['id'] and len(t['id'].split('.'))<3:
             # Parent-level technique
-            id_tactic['id']=t['id']
+            id_tactic['id'] = t['id']
+
             for tactic in t['tactics']:
-                for map in tactic_map:
-                    if tactic == map['id']:
-                        navigator_tactic=map['name'].replace(' ','-').lower()
-                        id_tactic['tactic']=navigator_tactic
-            advml_matrix_id.append(id_tactic)
+                if tactic in tactic_map:
+                    # Tactic name with hyphens
+                    navigator_tactic = tactic_map[tactic].replace(' ','-').lower()
+                    id_tactic['tactic'] = navigator_tactic
+                else:
+                    raise ValueError(f"Expected to find tactic ID {tactic} in tactic_map")
+
+                # Append a copy of this object
+                advml_matrix_id.append(deepcopy(id_tactic))
+
         elif 'AML' in t['id']:
             # Subtechnique
             advml_matrix_id.append({'id':t['id']})
+
     ts=[]
     for id_tactic in advml_matrix_id:
             id=id_tactic['id']
