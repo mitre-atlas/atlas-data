@@ -2,6 +2,7 @@ import re
 import yaml
 from argparse import ArgumentParser
 import datetime
+import os
 from schema import Schema, Or, Optional
 import itertools
 import pprint
@@ -19,18 +20,22 @@ def main():
         default=["console"],
         help="input a text file name to hold the faulty objects from the matrix",
     )
-    parser.add_argument("--matrix", "-m", type=str, default="matrix.yaml")
+    parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml")
     args = parser.parse_args()
     file_name = args.file[0]
 
+    wd = os.getcwd()
+    os.chdir(os.path.dirname(args.matrix))
+    matrix_filename = os.path.basename(args.matrix)
+
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
-    with open(args.matrix, "rb") as f:
+    with open(matrix_filename, "rb") as f:
         data = yaml_safe_load(f, master=master)
 
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
-    with open(args.matrix, "rb") as f:
+    with open(matrix_filename, "rb") as f:
         data = yaml_safe_load(f, master=master)
 
     # construct anchors into dict store and for further parsing
@@ -212,6 +217,8 @@ def main():
             balanced_parentheses(casestudy["procedure"], file_name, errormsg)
         )
     print_results(list(itertools.chain(*procedure_validity)))
+
+    os.chdir(wd)
 
 
 def balanced_parentheses(matrix_section, file_name, errormsg):

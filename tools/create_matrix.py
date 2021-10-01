@@ -11,16 +11,31 @@ Creates the Adversarial Threat Matrix from
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml")
-    parser.add_argument("--output", "-o", type=str, default=".", help="output directory")
+    parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml", help="Path to matrix.yaml")
+    parser.add_argument("--output", "-o", type=str, default=".", help="Output directory")
     args = parser.parse_args()
 
+    os.makedirs(args.output, exist_ok=True)
+
+    matrix_id, matrix_ver, matrix = load_atlas_data(args.matrix)
+
+    # save composite document as a standard yaml file
+    output_filename = f"{matrix_id}-{matrix_ver}.yaml"
+    output_filepath = os.path.join(args.output, output_filename)
+
+    with open(output_filepath, "w") as f:
+        yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
+
+def load_atlas_data(matrix_yaml_filepath):
+    """Returns the matrix ID, version, and dictionary representing ATLAS data 
+    as read from the provided YAML file.
+    """
     wd = os.getcwd()
-    os.chdir(os.path.dirname(args.matrix))
+    os.chdir(os.path.dirname(matrix_yaml_filepath))
 
     # load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
-    with open(os.path.basename(args.matrix), "rb") as f:
+    with open(os.path.basename(matrix_yaml_filepath), "rb") as f:
         data = yaml_safe_load(f, master=master)
 
     # construct anchors into dict store and for further parsing
@@ -38,7 +53,7 @@ def main():
     matrix = {
         "tactics": data["tactics"],
         "techniques": [],
-        "case-studies": [],
+        "case-studies": []
     }
     for object in objects:
         if object["object-type"] == "technique":
@@ -51,17 +66,8 @@ def main():
             matrix["case-studies"].append(object)
 
     os.chdir(wd)
-    os.makedirs(args.output, exist_ok=True)
 
-    # save composite document as a standard yaml file
-    matrix_id = data["id"]
-    matrix_ver = data["version"]
-    output_filename = f"{matrix_id}-{matrix_ver}.yaml"
-    output_filepath = os.path.join(args.output, output_filename)
-
-    with open(output_filepath, "w") as f:
-        yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
-
+    return data["id"], data["version"], matrix
 
 def objget(x, path, sep="."):
     """
