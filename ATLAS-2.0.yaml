@@ -257,13 +257,13 @@ case-studies:
 
       '
     tactic: AML.TA0003
-    technique: AML.T0009
+    technique: AML.T0008.001
   - description: 'The attackers obtained customized android ROMs and a virtual camera
       application.
 
       '
     tactic: AML.TA0003
-    technique: AML.T0016
+    technique: AML.T0016.001
   - description: 'The attackers obtained software that turns static photos into videos,
       adding realistic effects such as blinking eyes.
 
@@ -435,7 +435,7 @@ case-studies:
 
       '
     tactic: AML.TA0003
-    technique: AML.T0008
+    technique: AML.T0008.000
   - description: 'The researchers modified Grover''s objective function to reflect
       GPT-2''s objective function and then trained on the dataset they curated.
 
@@ -984,7 +984,7 @@ techniques:
     were not originally designed for adversarial ML attacks as part of their attack.
 
     See the ATT&CK technique [Obtain Capabilities:\ Tool](https://attack.mitre.org/techniques/T1588/002/).'
-  id: AML.T0016
+  id: AML.T0016.001
   name: Tool
   object-type: technique
   subtechnique-of: AML.T0016
@@ -997,6 +997,27 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0003
+- description: 'Adversaries may buy, lease, or rent infrastructure that can be used
+    during targeting. A wide variety of infrastructure exists for hosting and orchestrating
+    adversary operations. Infrastructure solutions include physical or cloud servers,
+    domains, and third-party web services. Additionally, botnets are available for
+    rent or purchase.
+
+
+    Use of these infrastructure solutions allows an adversary to stage, launch, and
+    execute an operation. Solutions may help adversary operations blend in with traffic
+    that is seen as normal, such as contact to third-party web services. Depending
+    on the implementation, adversaries may use infrastructure that makes it difficult
+    to physically tie back to them as well as utilize infrastructure that can be rapidly
+    provisioned, modified, and shut down.
+
+
+    See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
+
+    '
+  id: AML.T0008
+  name: Acquire Infrastructure
+  object-type: technique
 - description: 'Developing and staging machine learning attacks often requires expensive
     compute resources.
 
@@ -1008,31 +1029,57 @@ techniques:
 
     Multiple workspaces may be used to avoid detection.
 
+    '
+  id: AML.T0008.000
+  name: ML Development Workspaces
+  object-type: technique
+  subtechnique-of: '{''id'': ''AML.T0008'', ''name'': ''Acquire Infrastructure'',
+    ''object-type'': ''technique'', ''description'': ''Adversaries may buy, lease,
+    or rent infrastructure that can be used during targeting. A wide variety of infrastructure
+    exists for hosting and orchestrating adversary operations. Infrastructure solutions
+    include physical or cloud servers, domains, and third-party web services. Additionally,
+    botnets are available for rent or purchase.
+
+
+    Use of these infrastructure solutions allows an adversary to stage, launch, and
+    execute an operation. Solutions may help adversary operations blend in with traffic
+    that is seen as normal, such as contact to third-party web services. Depending
+    on the implementation, adversaries may use infrastructure that makes it difficult
+    to physically tie back to them as well as utilize infrastructure that can be rapidly
+    provisioned, modified, and shut down.
+
 
     See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
 
-    '
-  id: AML.T0008
-  name: 'Acquire Infrastructure: Attack Development and Staging Workspaces'
-  object-type: technique
-  tactics:
-  - AML.TA0003
+    ''}'
 - description: 'Adversaries may acquire consumer hardware to conduct their attacks.
 
     Owning the hardware provides the adversary with complete control of the environment.
-
-
     These devices can be hard to trace.
+
+    '
+  id: AML.T0008.001
+  name: Consumer Hardware
+  object-type: technique
+  subtechnique-of: '{''id'': ''AML.T0008'', ''name'': ''Acquire Infrastructure'',
+    ''object-type'': ''technique'', ''description'': ''Adversaries may buy, lease,
+    or rent infrastructure that can be used during targeting. A wide variety of infrastructure
+    exists for hosting and orchestrating adversary operations. Infrastructure solutions
+    include physical or cloud servers, domains, and third-party web services. Additionally,
+    botnets are available for rent or purchase.
+
+
+    Use of these infrastructure solutions allows an adversary to stage, launch, and
+    execute an operation. Solutions may help adversary operations blend in with traffic
+    that is seen as normal, such as contact to third-party web services. Depending
+    on the implementation, adversaries may use infrastructure that makes it difficult
+    to physically tie back to them as well as utilize infrastructure that can be rapidly
+    provisioned, modified, and shut down.
 
 
     See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
 
-    '
-  id: AML.T0009
-  name: 'Acquire Infrastructure: Consumer Hardware'
-  object-type: technique
-  tactics:
-  - AML.TA0003
+    ''}'
 - description: 'Adversaries may [Poison Training Data](/techniques/AML.T0020) and
     publish it to a public location.
 
