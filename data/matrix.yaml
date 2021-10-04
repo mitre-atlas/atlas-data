@@ -5,25 +5,22 @@ name: ATLAS Machine Learning Threat Matrix
 version: 2.0
 
 tactics:
-  - &id_reconnaissance       TA0043
-  - &id_resource_development TA0042
-  - &id_initial_access       TA0001
-  - &id_ml_model_access      AML.TA0000
-  - &id_execution            TA0002
-  - &id_persistence          TA0003
-  - &id_privilege_escalation TA0004
-  - &id_defense_evasion      TA0005
-  - &id_credential_access    TA0006
-  - &id_discovery            TA0007
-  - &id_lateral_movement     TA0008
-  - &id_collection           TA0009
-  - &id_command_and_control  TA0011
-  - &id_ml_attack_staging    AML.TA0001
-  - &id_exfiltration         TA0010
-  - &id_impact               TA0040
+  - "{{reconnaissance.id}}"
+  - "{{resource_development.id}}"
+  - "{{initial_access.id}}"
+  - "{{ml_model_access.id}}"
+  - "{{execution.id}}"
+  - "{{persistence.id}}"
+  - "{{defense_evasion.id}}"
+  - "{{credential_access.id}}"
+  - "{{discovery.id}}"
+  - "{{collection.id}}"
+  - "{{command_and_control.id}}"
+  - "{{ml_attack_staging.id}}"
+  - "{{exfiltration.id}}"
+  - "{{impact.id}}"
 
 data:
   - !include tactics.yaml
   - !include techniques.yaml
   - !include case-studies.yaml
-  - !include enterprise-attack-9.0.yaml

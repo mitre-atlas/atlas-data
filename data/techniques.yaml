@@ -18,7 +18,7 @@
 #   description: |
 #     The description of the technique.
 #   tactics:
-#     - *id_tactic_short_name
+#     - "{{tactic_short_name.id}}"
 #   subtechnique-of: "{{parent_short_name}}"
 
 - &victim_research
@@ -31,19 +31,19 @@
     Organizations often use open source model architectures trained on additional proprietary data in production.
     Knowledge of this underlying architecture allows the adversary to craft more realistic proxy models ([{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}})).
     An adversary can search these resources for publications for authors employed at the victim organization.
-
+    \n
     Research materials may exist as academic papers published in [{{victim_research_journals.name}}](/techniques/{{victim_research_journals.id}}), or stored in [{{victim_research_preprint.name}}](/techniques/{{victim_research_preprint.id}}), as well as [{{victim_research_blogs.name}}](/techniques/{{victim_research_blogs.id}}).
   tactics:
-    - *id_reconnaissance
+    - "{{reconnaissance.id}}"
 
 - &victim_research_journals
   id: AML.T0000.000
-  name: Journals and Conference Proceedings
+  name: "Search for Victim's Publicly Available Research Materials: Journals and Conference Proceedings"
   object-type: technique
   description: |
     Many of the publications accepted at premier machine learning conferences and journals come from commercial labs.
     Some journals and conferences are open access, others may require paying for access or a membership.
-    These publications will often describe in detail all aspects of a particular approach for reproducability.
+    These publications will often describe in detail all aspects of a particular approach for reproducibility.
     This information can be used by adversaries to implement the paper.
   subtechnique-of: "{{victim_research.id}}"
 
@@ -82,7 +82,25 @@
     This will include not only reading academic papers that may identify the particulars of a successful attack, but also identifying pre-existing implementations of those attacks.
     The adversary may [{{obtain_advml.name}}](/techniques/{{obtain_advml.id}}) or [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) their own if necessary.
   tactics:
-    - *id_reconnaissance
+    - "{{reconnaissance.id}}"
+
+- &victim_website
+  id: AML.T0048
+  name: Search Victim-Owned Websites
+  object-type: technique
+  description: |
+    Adversaries may search websites owned by the victim for information that can be used during targeting.
+    Victim-owned websites may contain technical details about their ML-enabled products or services.
+    Victim-owned websites may contain a variety of details, including names of departments/divisions, physical locations, and data about key employees such as names, roles, and contact info.
+    These sites may also have details highlighting business operations and relationships.
+
+    Adversaries may search victim-owned websites to gather actionable information.
+    This information may help adversaries tailor their attacks (ex:\ [{{develop_advml.name}}](/techniques/develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
+    Information from these sources may reveal opportunities for other forms of reconnaissance (ex:\ [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
+ 
+    See the ATT&CK technique [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594/).
+  tactics:
+    - "{{reconnaissance.id}}"
 
 - &acquire_ml_artifacts
   id: AML.T0002
@@ -92,16 +110,16 @@
     Adversaries may search public sources, including cloud storage, public-facing services, and software or data repositories, to identify machine learning artifacts.
     These machine learning artifacts may include the software stack used to train and deploy models, training and testing data, model configurations and parameters.
     An adversary will be particularly interested in artifacts hosted by or associated with the victim organization as they may represent what that organization uses in a production environment.
-    Adversaries may identify artifact repositories via other resources associated with the victim organization (e.g. [Search Victim-Owned Websites](/techniques/T1594) or [{{victim_research.name}}](/techniques/{{victim_research.id}})).
+    Adversaries may identify artifact repositories via other resources associated with the victim organization (e.g. [{{victim_website.name}}](/techniques/{{victim_website.id}}) or [{{victim_research.name}}](/techniques/{{victim_research.id}})).
     These ML artifacts often provide adversaries with details of the ML task and approach.
 
     ML artifacts can aid in an adversary's ability to [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}).
     If these artifacts include pieces of the actual model in production, they can be used to directly [{{craft_adv.name}}](/techniques/{{craft_adv.id}}).
-    Acquiring some artifacts requires registration (providing user details such email/name), AWS keys, or written requests, and may require the adversary to [Establish Accounts](/techniques/T1585).
+    Acquiring some artifacts requires registration (providing user details such email/name), AWS keys, or written requests, and may require the adversary to [{{establish_accounts.name}}](/techniques/{{establish_accounts.id}}).
 
     Artifacts might be hosted on victim-controlled infrastructure, providing the victim with some information on who has accessed that data.
   tactics:
-    - *id_resource_development
+    - "{{resource_development.id}}"
 
 - &acquire_ml_artifacts_data
   id: AML.T0002.000
@@ -129,20 +147,47 @@
 
     The adversary may use a [{{acquire_ml_artifacts_data.name}}](/techniques/{{acquire_ml_artifacts_data.id}}) to evaluate the acquired model and verify it performs well on the target data distribution.
 
-    The adversary may search public sources for common model architecture configuration file formats such as yaml or python configuration files, and common model storage file formats such as ONNX, H5, Pickle (.pkl), PyTorch (.pth), or TensorFlow (.pb).
+    The adversary may search public sources for common model architecture configuration file formats such as yaml or python configuration files, and common model storage file formats such as ONNX (.onnx), HDF5 (.h5), Pickle (.pkl), PyTorch (.pth), or TensorFlow (.pb, .tflite).
   subtechnique-of: "{{acquire_ml_artifacts.id}}"
 
-- &obtain_advml
+- &obtain_cap
   id: AML.T0016
-  name: "Obtain Capabilities: Adversarial ML Attack Implementations"
+  name: Obtain Capabilities
+  object-type: technique
+  description:
+    Adversaries may buy and/or steal capabilities that can be used during targeting. Rather than developing their own capabilities in-house, adversaries may purchase, freely download, or steal them. Activities may include the acquisition of malware, software (including licenses), exploits, certificates, and information relating to vulnerabilities. Adversaries may obtain capabilities to support their operations throughout numerous phases of the adversary lifecycle.
+
+    In addition to downloading free malware, software, and exploits from the internet, adversaries may purchase these capabilities from third-party entities. Third-party entities can include technology companies that specialize in malware and exploits, criminal marketplaces, or from individuals.
+
+    In addition to purchasing capabilities, adversaries may steal capabilities from third-party entities (including other adversaries). This can include stealing software licenses, malware, SSL/TLS and code-signing certificates, or raiding closed databases of vulnerabilities or exploits.
+
+    See the ATT&CK technique [Obtain Capabilities](https://attack.mitre.org/techniques/T1588/).
+  tactics:
+    - "{{resource_development.id}}"
+
+- &obtain_advml
+  id: AML.T0016.000
+  name: Adversarial ML Attack Implementations
   object-type: technique
   description:
     Adversaries may search for existing open source implementations of machine learning attacks.
     The research community often publishes their code for reproducibility and to further future research.
     Libraries intended for research purposes, such as CleverHans, the Adversarial Robustness Toolbox, and FoolBox, can be weaponized by an adversary.
     Adversaries may also obtain and use tools that were not originally designed for adversarial ML attacks as part of their attack.
-  tactics:
-    - *id_resource_development
+  subtechnique-of: "{{obtain_cap.id}}"
+
+- &obtain_tool
+  id: AML.T0016.001
+  name: Tool
+  object-type: technique
+  description:
+    Adversaries may search for existing open source implementations of machine learning attacks.
+    The research community often publishes their code for reproducibility and to further future research.
+    Libraries intended for research purposes, such as CleverHans, the Adversarial Robustness Toolbox, and FoolBox, can be weaponized by an adversary.
+    Adversaries may also obtain and use tools that were not originally designed for adversarial ML attacks as part of their attack.
+
+    See the ATT&CK technique [Obtain Capabilities:\ Tool](https://attack.mitre.org/techniques/T1588/002/).
+  subtechnique-of: "{{obtain_cap.id}}"
 
 - &develop_advml
   id: AML.T0017
@@ -153,19 +198,38 @@
     They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}})).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
   tactics:
-    - *id_resource_development
+    - "{{resource_development.id}}"
+
+- &acquire_infra
+  id: AML.T0008
+  name: Acquire Infrastructure
+  object-type: technique
+  description: |
+    Adversaries may buy, lease, or rent infrastructure that can be used during targeting. A wide variety of infrastructure exists for hosting and orchestrating adversary operations. Infrastructure solutions include physical or cloud servers, domains, and third-party web services. Additionally, botnets are available for rent or purchase.
+
+    Use of these infrastructure solutions allows an adversary to stage, launch, and execute an operation. Solutions may help adversary operations blend in with traffic that is seen as normal, such as contact to third-party web services. Depending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.
+
+    See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
 
 - &acquire_workspaces
-  id: AML.T0008
-  name: "Acquire Infrastructure: Attack Development and Staging Workspaces"
+  id: AML.T0008.000
+  name: ML Development Workspaces
   object-type: technique
   description: |
     Developing and staging machine learning attacks often requires expensive compute resources.
     Adversaries may need access to one or many GPUs in order to develop an attack.
     They may try to anonymously use free resources such as Google Colaboratory, or cloud resources such as AWS, Azure, or Google Cloud as an efficient way to stand up temporary resources to conduct operations.
     Multiple workspaces may be used to avoid detection.
-  tactics:
-    - *id_resource_development
+  subtechnique-of: "{{acquire_infra}}"
+
+- &acquire_hw
+  id: AML.T0008.001
+  name: Consumer Hardware
+  object-type: technique
+  description: |
+    Adversaries may acquire consumer hardware to conduct their attacks.
+    Owning the hardware provides the adversary with complete control of the environment. These devices can be hard to trace.
+  subtechnique-of: "{{acquire_infra}}"
 
 - &publish_poisoned_data
   id: AML.T0019
@@ -176,7 +240,7 @@
     The poisoned dataset may be a novel dataset or a poisoned variant of an existing open source dataset.
     This data may be introduced to a victim system via [{{supply_chain.name}}](/techniques/{{supply_chain.id}}).
   tactics:
-    - *id_resource_development
+    - "{{resource_development.id}}"
 
 - &supply_chain
   id: AML.T0010
@@ -187,7 +251,7 @@
     This could include [{{supply_chain_gpu.name}}](/techniques/{{supply_chain_gpu.id}}), [{{supply_chain_data.name}}](/techniques/{{supply_chain_data.id}}) and its annotations, parts of the ML [{{supply_chain_software.name}}](/techniques/{{supply_chain_software.id}}) stack, or the [{{supply_chain_model.name}}](/techniques/{{supply_chain_model.id}}) itself.
     In some instances the attacker will need secondary access to fully carry out an attack using compromised components of the supply chain.
   tactics:
-    - *id_initial_access
+    - "{{initial_access.id}}"
 
 - &supply_chain_gpu
   id: AML.T0010.000
@@ -245,7 +309,7 @@
     Adversaries may gain access to a model via legitimate access to the inference API.
     Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_ontology.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for indroducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
   tactics:
-    - *id_ml_model_access
+    - "{{ml_model_access.id}}"
 
 - &ml_service
   id: AML.T0047
@@ -255,7 +319,7 @@
     Adversaries may use a product or service that uses machine learning under the hood to gain access to the underlying machine learning model.
     This type of indirect model access may reveal details of the ML model or its inferences in logs or metadata.
   tactics:
-    - *id_ml_model_access
+    - "{{ml_model_access.id}}"
 
 - &physical_env
   id: AML.T0041
@@ -266,7 +330,7 @@
     If the model is interacting with data collected from the real world in some way, the adversary can influence the model through access to wherever the data is being collected.
     By modifying the data in the collection process, the adversary can perform modified versions of attacks designed for digital access.
   tactics:
-    - *id_ml_model_access
+    - "{{ml_model_access.id}}"
 
 - &full_access
   id: AML.T0044
@@ -277,7 +341,7 @@
     This means the adversary has complete knowledge of the model architecture, its parameters, and class ontology.
     They may exfiltrate the model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) and [{{verify_attack.name}}](/techniques/{{verify_attack.id}}) in an offline where it is hard to detect their behavior.
   tactics:
-    - *id_ml_model_access
+    - "{{ml_model_access.id}}"
 
 - &discover_model_ontology
   id: AML.T0013
@@ -291,7 +355,7 @@
     The model ontology helps the adversary understand how the model is being used by the victim.
     It is useful to the adversary in creating targeted attacks.
   tactics:
-    - *id_discovery
+    - "{{discovery.id}}"
 
 - &discover_model_family
   id: AML.T0014
@@ -303,7 +367,7 @@
 
     Knowledge of the model family can help the adversary identify means of attacking the model and help tailor the attack.
   tactics:
-    - *id_discovery
+    - "{{discovery.id}}"
 
 - &poison_data
   id: AML.T0020
@@ -315,10 +379,25 @@
     Data poisoning attacks may or may not require modifying the labels.
     The embedded vulnerability is activated at a later time by data samples with an [{{craft_adv_trigger.name}}](/techniques/{{craft_adv_trigger.id}})
 
-    Poisoned data can be introduced via [{{supply_chain.name}}](/techniques/{{supply_chain.id}}) or the data may be poisoned after the adversary gains [Initial Access](/tactics/TA0001) to the system.
+    Poisoned data can be introduced via [{{supply_chain.name}}](/techniques/{{supply_chain.id}}) or the data may be poisoned after the adversary gains [{{initial_access.name}}](/tactics/{{initial_access.id}}) to the system.
   tactics:
-    - *id_resource_development
-    - *id_persistence
+    - "{{resource_development.id}}"
+    - "{{persistence.id}}"
+
+- &establish_accounts
+  id: AML.T0021
+  name: Establish Accounts
+  object-type: technique
+  description: | 
+    Adversaries may create and cultivate accounts with services that can be used during targeting. Adversaries can create accounts that can be used to build a persona to further operations. Persona development consists of the development of public information, presence, history and appropriate affiliations. This development could be applied to social media, website, or other publicly available information that could be referenced and scrutinized for legitimacy over the course of an operation using that persona or identity.
+
+    For operations incorporating social engineering, the utilization of an online persona may be important. These personas may be fictitious or impersonate real people. The persona may exist on a single site or across multiple sites (ex:\ Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may require development of additional documentation to make them seem real. This could include filling out profile information, developing social networks, or incorporating photos.
+
+    Establishing accounts can also include the creation of accounts with email providers, which may be directly leveraged for Phishing for Information or Phishing.
+
+    See the ATT&CK technique [Establish Accounts](https://attack.mitre.org/techniques/T1585/).
+  tactics:
+    - "{{resource_development.id}}"
 
 - &train_proxy_model
   id: AML.T0005
@@ -329,7 +408,7 @@
     Proxy models are used to simulate complete access to the target model in a fully offline manner.
     This can be used to develop attacks that require higher levels of access than the adversary has available or as a means to validate pre-existing attacks without interacting with the target model.
   tactics:
-    - *id_ml_attack_staging
+    - "{{ml_attack_staging.id}}"
 
 - &replicate_model
   id: AML.T0006
@@ -343,7 +422,7 @@
     A replicated model that closely mimic's the target model is a valuable resource in staging the attack.
     The adversary can use the replicated model to [{{craft_adv.name}}](/techniques/{{craft_adv.id}}) for various purposes (e.g. [{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{chaff_data.name}}](/techniques/{{chaff_data.id}})).
   tactics:
-    - *id_ml_attack_staging
+    - "{{ml_attack_staging.id}}"
 
 - &discover_ml_artifacts
   id: AML.T0007
@@ -355,7 +434,7 @@
 
     This information can be used to identify targets for further collection, exfiltration, or disruption, and to tailor and improve attacks.
   tactics:
-    - *id_discovery
+    - "{{discovery.id}}"
 
 - &unsafe_ml_artifacts
   id: AML.T0011
@@ -369,7 +448,20 @@
     Serialization of models is a popular technique for model storage, transfer, and loading.
     However, this format without proper checking presents an opportunity for code execution.
   tactics:
-    - *id_execution
+    - "{{execution.id}}"
+
+- &valid_accounts
+  id: AML.T0012
+  name: Valid Accounts
+  object-type: technique
+  description: |
+    Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion. Compromised credentials may be used to bypass access controls placed on various resources on systems within the network and may even be used for persistent access to remote systems and externally available services, such as VPNs, Outlook Web Access and remote desktop. Compromised credentials may also grant an adversary increased privilege to specific systems or access to restricted areas of the network. Adversaries may choose not to use malware or tools in conjunction with the legitimate access those credentials provide to make it harder to detect their presence.
+
+    The overlap of permissions for local, domain, and cloud accounts across a network of systems is of concern because the adversary may be able to pivot across accounts and systems to reach a high level of access (i.e., domain or enterprise administrator) to bypass access controls set within the enterprise.
+
+    See the ATT&CK technique [Valid Accounts](https://attack.mitre.org/techniques/T1078/")
+  tactics:
+    - "{{initial_access.id}}"
 
 - &evade_model
   id: AML.T0015
@@ -380,8 +472,8 @@
     This technique can be used to evade a downstream task where machine learning is utilized.
     The adversary may evade machine learning based virus/malware detection, or network scanning towards the goal of a traditional cyber attack.
   tactics:
-    - *id_defense_evasion
-    - *id_impact
+    - "{{defense_evasion.id}}"
+    - "{{impact.id}}"
 
 - &poison_model
   id: AML.T0018
@@ -392,8 +484,8 @@
     The poisoned model provides the adversary with a persistent artifact on the victim system.
     The embedded vulnerability is activated at a later time by data samples with an [{{craft_adv_trigger.name}}](/techniques/{{craft_adv_trigger.id}})
   tactics:
-    - *id_persistence
-    - *id_ml_attack_staging
+    - "{{persistence.id}}"
+    - "{{ml_attack_staging.id}}"
 
 - &exfiltrate_via_api
   id: AML.T0024
@@ -407,7 +499,7 @@
     Exfiltration of information relating to private training data raises privacy concerns.
     Private training data may include personally identifiable information, or other protected data.
   tactics:
-    - *id_exfiltration
+    - "{{exfiltration.id}}"
 
 - &membership_inference
   id: AML.T0024.000
@@ -452,7 +544,7 @@
     Since many machine learning systems require significant amounts of specialized compute, they are often expensive bottlenecks that can become overloaded.
     Adversaries can intentionally craft inputs that require heavy amounts of useless compute from the machine learning system.
   tactics:
-    - *id_impact
+    - "{{impact.id}}"
 
 - &chaff_data
   id: AML.T0046
@@ -462,7 +554,7 @@
     Adversaries may spam the machine learning system with chaff data that causes increase in the number of detections.
     This can cause analysts at the victim organization to waste time reviewing and correcting incorrect inferences.
   tactics:
-    - *id_impact
+    - "{{impact.id}}"
 
 - &erode_integrity
   id: AML.T0031
@@ -472,7 +564,7 @@
     Adversaries may degrade the target model's performance with adversarial data inputs to erode confidence in the system over time.
     This can lead to the victim organization wasting time and money both attempting to fix the system and performing the tasks it was meant to automate by hand.
   tactics:
-    - *id_impact
+    - "{{impact.id}}"
 
 - &cost_harvesting
   id: AML.T0034
@@ -482,16 +574,40 @@
     Adversaries may target different machine learning services to send useless queries or computationally expensive inputs to increase the cost of running services at the victim organization.
     Sponge examples are a particular type of adversarial data designed to maximize energy consumption and thus operating cost.
   tactics:
-    - *id_impact
+    - "{{impact.id}}"
 
 - &ml_artifact_collection
   id: AML.T0035
   name: ML Artifact Collection
   object-type: technique
   description: |
-    After identifying machine learning artifacts existing on the network, adversaries may collect them for [Exfiltration](/tactics/TA0010) or for use in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
+    After identifying machine learning artifacts existing on the network, adversaries may collect them for [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or for use in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
   tactics:
-    - *id_collection
+    - "{{collection.id}}"
+
+- &info_repos
+  id: AML.T0036
+  name: Data from Information Repositories
+  object-type: technique
+  description:
+    Adversaries may leverage information repositories to mine valuable information. Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.
+
+   The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:\
+
+    \- Policies, procedures, and standards
+    \- Physical / logical network diagrams
+    \- System architecture diagrams
+    \- Technical system documentation
+    \- Testing / development credentials
+    \- Work / project schedules
+    \- Source code snippets
+    \- Links to network shares and other internal resources
+
+    Information stored in a repository may vary based on the specific instance or environment. Specific common information repositories include Sharepoint, Confluence, and enterprise databases such as SQL Server.
+
+    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)
+  tactics:
+    - "{{collection.id}}"
 
 - &verify_attack
   id: AML.T0042
@@ -504,7 +620,7 @@
     The adversary may verify their attack digitally, then deploy it in the [{{physical_env.name}}](/techniques/{{physical_env.id}}) at a later time.
     Verifying the attack may be hard to detect since the adversary can use a minimal number of queries or an offline copy of the model.
   tactics:
-    - *id_ml_attack_staging
+    - "{{ml_attack_staging.id}}"
 
 - &craft_adv
   id: AML.T0043
@@ -523,7 +639,7 @@
     They can then use the attack at a later time to accomplish their goals.
     An adversary may optimize adversarial examples for [{{evade_model.name}}](/techniques/{{evade_model.id}}), or to [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}}).
   tactics:
-    - *id_ml_attack_staging
+    - "{{ml_attack_staging.id}}"
 
 - &craft_adv_whitebox
   id: AML.T0043.000
@@ -583,9 +699,9 @@
   description: |
     Adversaries may exfiltrate ML artifacts to steal intellectual property and cause economic harm to the victim organization.
 
-    Proprietary training data is costly to collect and annotate and may be a target for [Exfiltration](/tactics/TA0010) and theft.
+    Proprietary training data is costly to collect and annotate and may be a target for [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) and theft.
 
     MLaaS providers charge for use of their API.
-    An adversary who has stolen a model via [Exfiltration](/tactics/TA0010) or via [{{extract_model.name}}](/techniques/{{extract_model.id}}) now has unlimited use of that service without paying the owner of the intellectual property.
+    An adversary who has stolen a model via [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or via [{{extract_model.name}}](/techniques/{{extract_model.id}}) now has unlimited use of that service without paying the owner of the intellectual property.
   tactics:
-    - *id_impact
+    - "{{impact.id}}"

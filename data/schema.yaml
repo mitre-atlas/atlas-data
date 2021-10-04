@@ -22,10 +22,6 @@ matrix:
   tactics: list(include('object-id'))
   data: list(include('data-source'))
 
-data-source:
-  uri: str()
-  format: enum('ADVML', 'STIX')
-
 object-id: regex('([a-zA-Z]+\.)*([A-Z]+[0-9]{4})')
 
 object-type: enum('tactic', 'technique', 'case-study')
