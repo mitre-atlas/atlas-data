@@ -47,11 +47,12 @@ def load_atlas_data(matrix_yaml_filepath):
 
     # replace all "super aliases" in strings in the document
     objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
+    tactics = walkmap(data["tactics"], lambda x: replace_anchors(x, anchors))
 
     # organize objects into dicts by object-type
     # and make sure techniques are in the order defined in the matrix
     matrix = {
-        "tactics": data["tactics"],
+        "tactics": tactics,
         "techniques": [],
         "case-studies": []
     }
