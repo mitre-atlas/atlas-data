@@ -241,7 +241,7 @@ case-studies:
   - sourceDescription: null
     url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
   reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber
-    team.Notified to us by Ken Luu (@devianz_)
+    team. Notified to us by Ken Luu (@devianz_)
   summary: 'Researchers at Skylight were able to create a universal bypass string
     that
 
@@ -451,8 +451,8 @@ case-studies:
     url: https://www.wired.com/story/dangerous-ai-open-source/
   - sourceDescription: null
     url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
-  reported-by: Vanya Cohen (@VanyaCohen) - Aaron Gokaslan (@SkyLi0n) - Ellie Pavlick
-    - Stefanie Tellex
+  reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
+    Stefanie Tellex
   summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
     process to incrementally release 1.5 Billion parameter model. Before the 1.5B
     parameter model could be released by OpenAI eventually, two ML researchers replicated
@@ -502,7 +502,7 @@ case-studies:
     url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
   - sourceDescription: null
     url: https://github.com/moohax/Proof-Pudding
-  reported-by: Will Pearce (@moo_hax) - Nick Landers (@monoxgas)
+  reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email
     protection system by first building a copy-cat email protection ML model, and
     using the insights to evade the live system.

@@ -145,7 +145,7 @@
       technique: "{{evade_model.id}}"
       description: |
         Due to the secondary model overriding the primary, the researchers were effectively able to bypass the ML model.
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team.Notified to us by Ken Luu (@devianz_)
+  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team. Notified to us by Ken Luu (@devianz_)
   references:
     - sourceDescription:
       url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
@@ -288,10 +288,7 @@
         The researchers modified Grover's objective function to reflect GPT-2's objective function and then trained on the dataset they curated.
         They used Grover's initial hyperparameters for training.
         This resulted in their replicated model.
-  reported-by: Vanya Cohen (@VanyaCohen)
-    - Aaron Gokaslan (@SkyLi0n)
-    - Ellie Pavlick
-    - Stefanie Tellex
+  reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick, Stefanie Tellex
   references:
     - sourceDescription:
       url: https://www.wired.com/story/dangerous-ai-open-source/
@@ -325,8 +322,7 @@
       technique: "{{craft_adv_transfer.id}}"
       description: |
         Finally, these insights from the offline model allowed the researchers to create malicious emails that received preferable scores from the real ProofPoint email protection system, hence bypassing it.
-  reported-by: Will Pearce (@moo_hax)
-    - Nick Landers (@monoxgas)
+  reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   references:
     - sourceDescription:
       url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
