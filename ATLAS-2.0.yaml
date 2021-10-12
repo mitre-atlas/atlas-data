@@ -11,7 +11,7 @@ case-studies:
       [1], which was found on arXiv (a pre-print repository).
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000.001
   - description: 'We acquired a similar dataset to the target production model.
 
@@ -85,7 +85,7 @@ case-studies:
       The searched for research papers related to DGA detection.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers acquired a publicly available CNN-based DGA detection
       model [1] and tested against a well-known DGA generated domain name data sets,
@@ -204,7 +204,7 @@ case-studies:
       AI Malware detector.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0048
   - description: 'The researchers used Cylance''s AI Malware detector and enabled
       verbose logging to understand the inner workings of the ML model, particularly
@@ -309,7 +309,7 @@ case-studies:
       and model architectures used by the target translation services.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers gathered similar datasets that the target translation
       services used.
@@ -416,7 +416,7 @@ case-studies:
       information about the dataset, model architecture, and training hyper-parameters.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers obtained a reference implementation of a similar
       publicly available model called Grover.
@@ -562,7 +562,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team used a valid account to gain access to the network.
 
@@ -608,7 +608,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team identified and obtained the publicly available base model.
 
@@ -650,7 +650,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team gained access via a valid account.
 
@@ -724,17 +724,25 @@ tactics:
     further Reconnaissance efforts.
 
     '
-  id: AML.TA002
+  id: AML.TA0002
   name: Reconnaissance
   object-type: tactic
-- description: "The adversary is trying to establish resources they can use to support\
-    \ operations.  \n\nResource Development consists of techniques that involve adversaries\
-    \ creating,\npurchasing, or compromising/stealing resources that can be used to\
-    \ support targeting.\nSuch resources include infrastructure, accounts, or capabilities.\n\
-    These resources can be leveraged by the adversary to aid in other phases of the\
-    \ adversary lifecycle, such as using purchased domains to support Command and\
-    \ Control, email accounts for phishing as a part of Initial Access, or stealing\
-    \ code signing certificates to help with Defense Evasion.\n"
+- description: 'The adversary is trying to establish resources they can use to support
+    operations.
+
+
+    Resource Development consists of techniques that involve adversaries creating,
+
+    purchasing, or compromising/stealing resources that can be used to support targeting.
+
+    Such resources include infrastructure, accounts, or capabilities.
+
+    These resources can be leveraged by the adversary to aid in other phases of the
+    adversary lifecycle, such as using purchased domains to support Command and Control,
+    email accounts for phishing as a part of Initial Access, or stealing code signing
+    certificates to help with Defense Evasion.
+
+    '
   id: AML.TA0003
   name: Resource Development
   object-type: tactic
@@ -942,7 +950,7 @@ techniques:
   name: Search for Victim's Publicly Available Research Materials
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Many of the publications accepted at premier machine learning conferences
     and journals come from commercial labs.
 
@@ -1017,7 +1025,7 @@ techniques:
   name: Search for Publicly Available Adversarial Vulnerability Analysis
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Adversaries may search websites owned by the victim for information
     that can be used during targeting.
 
@@ -1048,7 +1056,7 @@ techniques:
   name: Search Victim-Owned Websites
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Adversaries may search public sources, including cloud storage, public-facing
     services, and software or data repositories, to identify machine learning artifacts.
 
