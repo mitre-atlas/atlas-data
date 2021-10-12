@@ -95,9 +95,9 @@
     These sites may also have details highlighting business operations and relationships.
 
     Adversaries may search victim-owned websites to gather actionable information.
-    This information may help adversaries tailor their attacks (ex:\ [{{develop_advml.name}}](/techniques/develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
+    This information may help adversaries tailor their attacks (ex:\ [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
     Information from these sources may reveal opportunities for other forms of reconnaissance (ex:\ [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
- 
+
     See the ATT&CK technique [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594/).
   tactics:
     - "{{reconnaissance.id}}"
@@ -210,6 +210,8 @@
     Use of these infrastructure solutions allows an adversary to stage, launch, and execute an operation. Solutions may help adversary operations blend in with traffic that is seen as normal, such as contact to third-party web services. Depending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.
 
     See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
+  tactics:
+    - "{{resource_development.id}}"
 
 - &acquire_workspaces
   id: AML.T0008.000
@@ -220,7 +222,7 @@
     Adversaries may need access to one or many GPUs in order to develop an attack.
     They may try to anonymously use free resources such as Google Colaboratory, or cloud resources such as AWS, Azure, or Google Cloud as an efficient way to stand up temporary resources to conduct operations.
     Multiple workspaces may be used to avoid detection.
-  subtechnique-of: "{{acquire_infra}}"
+  subtechnique-of: "{{acquire_infra.id}}"
 
 - &acquire_hw
   id: AML.T0008.001
@@ -229,7 +231,7 @@
   description: |
     Adversaries may acquire consumer hardware to conduct their attacks.
     Owning the hardware provides the adversary with complete control of the environment. These devices can be hard to trace.
-  subtechnique-of: "{{acquire_infra}}"
+  subtechnique-of: "{{acquire_infra.id}}"
 
 - &publish_poisoned_data
   id: AML.T0019
@@ -388,7 +390,7 @@
   id: AML.T0021
   name: Establish Accounts
   object-type: technique
-  description: | 
+  description: |
     Adversaries may create and cultivate accounts with services that can be used during targeting. Adversaries can create accounts that can be used to build a persona to further operations. Persona development consists of the development of public information, presence, history and appropriate affiliations. This development could be applied to social media, website, or other publicly available information that could be referenced and scrutinized for legitimacy over the course of an operation using that persona or identity.
 
     For operations incorporating social engineering, the utilization of an online persona may be important. These personas may be fictitious or impersonate real people. The persona may exist on a single site or across multiple sites (ex:\ Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may require development of additional documentation to make them seem real. This could include filling out profile information, developing social networks, or incorporating photos.
