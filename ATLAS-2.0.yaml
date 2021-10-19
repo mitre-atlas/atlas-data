@@ -938,12 +938,10 @@ techniques:
     An adversary can search these resources for publications for authors employed
     at the victim organization.
 
-    \n
 
-    Research materials may exist as academic papers published in [Search for Victim''s
-    Publicly Available Research Materials: Journals and Conference Proceedings](/techniques/AML.T0000.000),
-    or stored in [Pre-Print Repositories](/techniques/AML.T0000.001), as well as [Technical
-    Blogs](/techniques/AML.T0000.002).
+    Research materials may exist as academic papers published in [Journals and Conference
+    Proceedings](/techniques/AML.T0000.000), or stored in [Pre-Print Repositories](/techniques/AML.T0000.001),
+    as well as [Technical Blogs](/techniques/AML.T0000.002).
 
     '
   id: AML.T0000
@@ -964,8 +962,7 @@ techniques:
 
     '
   id: AML.T0000.000
-  name: 'Search for Victim''s Publicly Available Research Materials: Journals and
-    Conference Proceedings'
+  name: Journals and Conference Proceedings
   object-type: technique
   subtechnique-of: AML.T0000
 - description: 'Pre-Print repositories, such as arXiv, contain the latest academic
@@ -994,10 +991,9 @@ techniques:
     An adversary may search for posts made by the target victim organization or its
     employees.
 
-    In comparison to [Search for Victim''s Publicly Available Research Materials:
-    Journals and Conference Proceedings](/techniques/AML.T0000.000) and [Pre-Print
-    Repositories](/techniques/AML.T0000.001) this material will often contain more
-    practical aspects of the machine learning system.
+    In comparison to [Journals and Conference Proceedings](/techniques/AML.T0000.000)
+    and [Pre-Print Repositories](/techniques/AML.T0000.001) this material will often
+    contain more practical aspects of the machine learning system.
 
     This could include underlying technologies and frameworks used, and possibly some
     information about the API access and use case.
@@ -1041,11 +1037,11 @@ techniques:
 
     Adversaries may search victim-owned websites to gather actionable information.
 
-    This information may help adversaries tailor their attacks (ex:\ [Develop Capabilities:
+    This information may help adversaries tailor their attacks (ex: [Develop Capabilities:
     Adversarial ML Attack Implementations](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
 
     Information from these sources may reveal opportunities for other forms of reconnaissance
-    (ex:\ [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
+    (ex: [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
     or [Search for Publicly Available Adversarial Vulnerability Analysis](/techniques/AML.T0001))
 
 
@@ -1183,7 +1179,9 @@ techniques:
     can be weaponized by an adversary. Adversaries may also obtain and use tools that
     were not originally designed for adversarial ML attacks as part of their attack.
 
-    See the ATT&CK technique [Obtain Capabilities:\ Tool](https://attack.mitre.org/techniques/T1588/002/).'
+    See the ATT&CK technique [Obtain Capabilities: Tool](https://attack.mitre.org/techniques/T1588/002/).
+
+    '
   id: AML.T0016.001
   name: Tool
   object-type: technique
@@ -1477,11 +1475,11 @@ techniques:
 
     For operations incorporating social engineering, the utilization of an online
     persona may be important. These personas may be fictitious or impersonate real
-    people. The persona may exist on a single site or across multiple sites (ex:\
-    Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a
-    persona may require development of additional documentation to make them seem
-    real. This could include filling out profile information, developing social networks,
-    or incorporating photos.
+    people. The persona may exist on a single site or across multiple sites (ex: Facebook,
+    LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may
+    require development of additional documentation to make them seem real. This could
+    include filling out profile information, developing social networks, or incorporating
+    photos.
 
 
     Establishing accounts can also include the creation of accounts with email providers,
@@ -1766,19 +1764,36 @@ techniques:
     can store a wide variety of data that may aid adversaries in further objectives,
     or direct access to the target information.
 
-    The following is a brief list of example information that may hold potential value
-    to an adversary and may also be found on an information repository:\
 
-    \- Policies, procedures, and standards \- Physical / logical network diagrams
-    \- System architecture diagrams \- Technical system documentation \- Testing /
-    development credentials \- Work / project schedules \- Source code snippets \-
-    Links to network shares and other internal resources
+    The following is a brief list of example information that may hold potential value
+    to an adversary and may also be found on an information repository:
+
+
+    - Policies, procedures, and standards
+
+    - Physical / logical network diagrams
+
+    - System architecture diagrams
+
+    - Technical system documentation
+
+    - Testing / development credentials
+
+    - Work / project schedules
+
+    - Source code snippets
+
+    - Links to network shares and other internal resources
+
 
     Information stored in a repository may vary based on the specific instance or
     environment. Specific common information repositories include Sharepoint, Confluence,
     and enterprise databases such as SQL Server.
 
-    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)'
+
+    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)
+
+    '
   id: AML.T0036
   name: Data from Information Repositories
   object-type: technique
