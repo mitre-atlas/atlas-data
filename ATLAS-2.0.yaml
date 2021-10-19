@@ -1,6 +1,7 @@
 ---
 case-studies:
-- id: AML.CS0000
+- dateGranularity: YEAR
+  id: AML.CS0000
   incident-date: 2020-01-01
   name: Evasion of Deep Learning detector for malware C&C traffic
   object-type: case-study
@@ -74,7 +75,8 @@ case-studies:
     sample accordingly till the model was evaded.
 
     '
-- id: AML.CS0001
+- dateGranularity: YEAR
+  id: AML.CS0001
   incident-date: 2020-01-01
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
   object-type: case-study
@@ -142,7 +144,8 @@ case-studies:
     industry before it is deployed to the production environment.
 
     '
-- id: AML.CS0002
+- dateGranularity: YEAR
+  id: AML.CS0002
   incident-date: 2020-01-01
   name: VirusTotal Poisoning
   object-type: case-study
@@ -195,7 +198,8 @@ case-studies:
     family.
 
     '
-- id: AML.CS0003
+- dateGranularity: DATE
+  id: AML.CS0003
   incident-date: 2019-09-07
   name: Bypassing Cylance's AI Malware Detection
   object-type: case-study
@@ -248,7 +252,8 @@ case-studies:
     when appended to a malicious file evades detection by Cylance''s AI Malware detector.
 
     '
-- id: AML.CS0004
+- dateGranularity: YEAR
+  id: AML.CS0004
   incident-date: 2020-01-01
   name: Camera Hijack Attack on Facial Recognition System
   object-type: case-study
@@ -299,7 +304,8 @@ case-studies:
     and cause the misuse of face recognition.
 
     '
-- id: AML.CS0005
+- dateGranularity: DATE
+  id: AML.CS0005
   incident-date: 2020-04-30
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
     and Systran Translate
@@ -375,7 +381,8 @@ case-studies:
     and dropped sentences on Google Translate and Systran Translate websites.
 
     '
-- id: AML.CS0006
+- dateGranularity: DATE
+  id: AML.CS0006
   incident-date: 2020-04-16
   name: ClearviewAI Misconfiguration
   object-type: case-study
@@ -407,7 +414,8 @@ case-studies:
     system with least privileges, multi-factor authentication and monitoring and auditing.
 
     '
-- id: AML.CS0007
+- dateGranularity: DATE
+  id: AML.CS0007
   incident-date: 2019-08-22
   name: GPT-2 Model Replication
   object-type: case-study
@@ -459,7 +467,8 @@ case-studies:
     the model and released it to the public.
 
     '
-- id: AML.CS0008
+- dateGranularity: DATE
+  id: AML.CS0008
   incident-date: 2019-09-09
   name: ProofPoint Evasion
   object-type: case-study
@@ -508,7 +517,8 @@ case-studies:
     using the insights to evade the live system.
 
     '
-- id: AML.CS0009
+- dateGranularity: DATE
+  id: AML.CS0009
   incident-date: 2016-03-23
   name: Tay Poisoning
   object-type: case-study
@@ -553,7 +563,8 @@ case-studies:
     be decommissioned because it tweeted reprehensible words.
 
     '
-- id: AML.CS0010
+- dateGranularity: YEAR
+  id: AML.CS0010
   incident-date: 2020-01-01
   name: Microsoft - Azure Service
   object-type: case-study
@@ -599,7 +610,8 @@ case-studies:
     operation had a combination of traditional ATT&CK enterprise techniques such as
     finding Valid account, and Executing code via an API -- all interleaved with adversarial
     ML specific steps such as offline and online evasion examples.
-- id: AML.CS0011
+- dateGranularity: MONTH
+  id: AML.CS0011
   incident-date: 2020-02-01
   name: Microsoft Edge AI - Evasion
   object-type: case-study
@@ -641,7 +653,8 @@ case-studies:
     designed for running AI workloads at the Edge.
 
     '
-- id: AML.CS0012
+- dateGranularity: YEAR
+  id: AML.CS0012
   incident-date: 2020-01-01
   name: MITRE - Physical Adversarial Attack on Face Identification
   object-type: case-study
