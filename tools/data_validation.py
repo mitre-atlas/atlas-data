@@ -71,11 +71,12 @@ def main():
                     else:
                         errormsg(object, file_name, "technique id error")
                 elif object["object-type"] == "tactic":
-                    if object["id"].startswith("AML") or object["id"].startswith("T"):
-                        idx = matrix["tactics"].index(object["id"])
-                        matrix["tactics"][idx] = object
-                    else:
-                        errormsg(object, file_name, "tactic id error")
+                    pass
+                #     if object["id"].startswith("AML") or object["id"].startswith("T"):
+                #         idx = matrix["tactics"].index(object["id"])
+                #         matrix["tactics"][idx] = object
+                #     else:
+                #         errormsg(object, file_name, "tactic id error")
                 elif object["object-type"] == "case-study":
                     if object["id"].startswith("AML") or object["id"].startswith("T1"):
                         matrix["case-studies"].append(object)

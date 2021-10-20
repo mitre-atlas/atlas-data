@@ -31,14 +31,14 @@
     Organizations often use open source model architectures trained on additional proprietary data in production.
     Knowledge of this underlying architecture allows the adversary to craft more realistic proxy models ([{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}})).
     An adversary can search these resources for publications for authors employed at the victim organization.
-    \n
+
     Research materials may exist as academic papers published in [{{victim_research_journals.name}}](/techniques/{{victim_research_journals.id}}), or stored in [{{victim_research_preprint.name}}](/techniques/{{victim_research_preprint.id}}), as well as [{{victim_research_blogs.name}}](/techniques/{{victim_research_blogs.id}}).
   tactics:
     - "{{reconnaissance.id}}"
 
 - &victim_research_journals
   id: AML.T0000.000
-  name: "Search for Victim's Publicly Available Research Materials: Journals and Conference Proceedings"
+  name: Journals and Conference Proceedings
   object-type: technique
   description: |
     Many of the publications accepted at premier machine learning conferences and journals come from commercial labs.
@@ -95,9 +95,9 @@
     These sites may also have details highlighting business operations and relationships.
 
     Adversaries may search victim-owned websites to gather actionable information.
-    This information may help adversaries tailor their attacks (ex:\ [{{develop_advml.name}}](/techniques/develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
-    Information from these sources may reveal opportunities for other forms of reconnaissance (ex:\ [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
- 
+    This information may help adversaries tailor their attacks (ex: [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
+    Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
+
     See the ATT&CK technique [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594/).
   tactics:
     - "{{reconnaissance.id}}"
@@ -180,13 +180,13 @@
   id: AML.T0016.001
   name: Tool
   object-type: technique
-  description:
+  description: >
     Adversaries may search for existing open source implementations of machine learning attacks.
     The research community often publishes their code for reproducibility and to further future research.
     Libraries intended for research purposes, such as CleverHans, the Adversarial Robustness Toolbox, and FoolBox, can be weaponized by an adversary.
     Adversaries may also obtain and use tools that were not originally designed for adversarial ML attacks as part of their attack.
 
-    See the ATT&CK technique [Obtain Capabilities:\ Tool](https://attack.mitre.org/techniques/T1588/002/).
+    See the ATT&CK technique [Obtain Capabilities: Tool](https://attack.mitre.org/techniques/T1588/002/).
   subtechnique-of: "{{obtain_cap.id}}"
 
 - &develop_advml
@@ -210,6 +210,8 @@
     Use of these infrastructure solutions allows an adversary to stage, launch, and execute an operation. Solutions may help adversary operations blend in with traffic that is seen as normal, such as contact to third-party web services. Depending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.
 
     See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
+  tactics:
+    - "{{resource_development.id}}"
 
 - &acquire_workspaces
   id: AML.T0008.000
@@ -220,7 +222,7 @@
     Adversaries may need access to one or many GPUs in order to develop an attack.
     They may try to anonymously use free resources such as Google Colaboratory, or cloud resources such as AWS, Azure, or Google Cloud as an efficient way to stand up temporary resources to conduct operations.
     Multiple workspaces may be used to avoid detection.
-  subtechnique-of: "{{acquire_infra}}"
+  subtechnique-of: "{{acquire_infra.id}}"
 
 - &acquire_hw
   id: AML.T0008.001
@@ -229,7 +231,7 @@
   description: |
     Adversaries may acquire consumer hardware to conduct their attacks.
     Owning the hardware provides the adversary with complete control of the environment. These devices can be hard to trace.
-  subtechnique-of: "{{acquire_infra}}"
+  subtechnique-of: "{{acquire_infra.id}}"
 
 - &publish_poisoned_data
   id: AML.T0019
@@ -388,10 +390,10 @@
   id: AML.T0021
   name: Establish Accounts
   object-type: technique
-  description: | 
+  description: |
     Adversaries may create and cultivate accounts with services that can be used during targeting. Adversaries can create accounts that can be used to build a persona to further operations. Persona development consists of the development of public information, presence, history and appropriate affiliations. This development could be applied to social media, website, or other publicly available information that could be referenced and scrutinized for legitimacy over the course of an operation using that persona or identity.
 
-    For operations incorporating social engineering, the utilization of an online persona may be important. These personas may be fictitious or impersonate real people. The persona may exist on a single site or across multiple sites (ex:\ Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may require development of additional documentation to make them seem real. This could include filling out profile information, developing social networks, or incorporating photos.
+    For operations incorporating social engineering, the utilization of an online persona may be important. These personas may be fictitious or impersonate real people. The persona may exist on a single site or across multiple sites (ex: Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may require development of additional documentation to make them seem real. This could include filling out profile information, developing social networks, or incorporating photos.
 
     Establishing accounts can also include the creation of accounts with email providers, which may be directly leveraged for Phishing for Information or Phishing.
 
@@ -589,19 +591,19 @@
   id: AML.T0036
   name: Data from Information Repositories
   object-type: technique
-  description:
+  description: |
     Adversaries may leverage information repositories to mine valuable information. Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.
 
-   The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:\
+    The following is a brief list of example information that may hold potential value to an adversary and may also be found on an information repository:
 
-    \- Policies, procedures, and standards
-    \- Physical / logical network diagrams
-    \- System architecture diagrams
-    \- Technical system documentation
-    \- Testing / development credentials
-    \- Work / project schedules
-    \- Source code snippets
-    \- Links to network shares and other internal resources
+    - Policies, procedures, and standards
+    - Physical / logical network diagrams
+    - System architecture diagrams
+    - Technical system documentation
+    - Testing / development credentials
+    - Work / project schedules
+    - Source code snippets
+    - Links to network shares and other internal resources
 
     Information stored in a repository may vary based on the specific instance or environment. Specific common information repositories include Sharepoint, Confluence, and enterprise databases such as SQL Server.
 

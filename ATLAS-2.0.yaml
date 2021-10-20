@@ -11,7 +11,7 @@ case-studies:
       [1], which was found on arXiv (a pre-print repository).
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000.001
   - description: 'We acquired a similar dataset to the target production model.
 
@@ -85,7 +85,7 @@ case-studies:
       The searched for research papers related to DGA detection.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers acquired a publicly available CNN-based DGA detection
       model [1] and tested against a well-known DGA generated domain name data sets,
@@ -204,7 +204,7 @@ case-studies:
       AI Malware detector.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0048
   - description: 'The researchers used Cylance''s AI Malware detector and enabled
       verbose logging to understand the inner workings of the ML model, particularly
@@ -309,7 +309,7 @@ case-studies:
       and model architectures used by the target translation services.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers gathered similar datasets that the target translation
       services used.
@@ -416,7 +416,7 @@ case-studies:
       information about the dataset, model architecture, and training hyper-parameters.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The researchers obtained a reference implementation of a similar
       publicly available model called Grover.
@@ -562,7 +562,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team used a valid account to gain access to the network.
 
@@ -608,7 +608,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team identified and obtained the publicly available base model.
 
@@ -650,7 +650,7 @@ case-studies:
       the target ML model.
 
       '
-    tactic: AML.TA002
+    tactic: AML.TA0002
     technique: AML.T0000
   - description: 'The team gained access via a valid account.
 
@@ -724,17 +724,25 @@ tactics:
     further Reconnaissance efforts.
 
     '
-  id: AML.TA002
+  id: AML.TA0002
   name: Reconnaissance
   object-type: tactic
-- description: "The adversary is trying to establish resources they can use to support\
-    \ operations.  \n\nResource Development consists of techniques that involve adversaries\
-    \ creating,\npurchasing, or compromising/stealing resources that can be used to\
-    \ support targeting.\nSuch resources include infrastructure, accounts, or capabilities.\n\
-    These resources can be leveraged by the adversary to aid in other phases of the\
-    \ adversary lifecycle, such as using purchased domains to support Command and\
-    \ Control, email accounts for phishing as a part of Initial Access, or stealing\
-    \ code signing certificates to help with Defense Evasion.\n"
+- description: 'The adversary is trying to establish resources they can use to support
+    operations.
+
+
+    Resource Development consists of techniques that involve adversaries creating,
+
+    purchasing, or compromising/stealing resources that can be used to support targeting.
+
+    Such resources include infrastructure, accounts, or capabilities.
+
+    These resources can be leveraged by the adversary to aid in other phases of the
+    adversary lifecycle, such as using purchased domains to support Command and Control,
+    email accounts for phishing as a part of Initial Access, or stealing code signing
+    certificates to help with Defense Evasion.
+
+    '
   id: AML.TA0003
   name: Resource Development
   object-type: tactic
@@ -930,19 +938,17 @@ techniques:
     An adversary can search these resources for publications for authors employed
     at the victim organization.
 
-    \n
 
-    Research materials may exist as academic papers published in [Search for Victim''s
-    Publicly Available Research Materials: Journals and Conference Proceedings](/techniques/AML.T0000.000),
-    or stored in [Pre-Print Repositories](/techniques/AML.T0000.001), as well as [Technical
-    Blogs](/techniques/AML.T0000.002).
+    Research materials may exist as academic papers published in [Journals and Conference
+    Proceedings](/techniques/AML.T0000.000), or stored in [Pre-Print Repositories](/techniques/AML.T0000.001),
+    as well as [Technical Blogs](/techniques/AML.T0000.002).
 
     '
   id: AML.T0000
   name: Search for Victim's Publicly Available Research Materials
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Many of the publications accepted at premier machine learning conferences
     and journals come from commercial labs.
 
@@ -956,8 +962,7 @@ techniques:
 
     '
   id: AML.T0000.000
-  name: 'Search for Victim''s Publicly Available Research Materials: Journals and
-    Conference Proceedings'
+  name: Journals and Conference Proceedings
   object-type: technique
   subtechnique-of: AML.T0000
 - description: 'Pre-Print repositories, such as arXiv, contain the latest academic
@@ -986,10 +991,9 @@ techniques:
     An adversary may search for posts made by the target victim organization or its
     employees.
 
-    In comparison to [Search for Victim''s Publicly Available Research Materials:
-    Journals and Conference Proceedings](/techniques/AML.T0000.000) and [Pre-Print
-    Repositories](/techniques/AML.T0000.001) this material will often contain more
-    practical aspects of the machine learning system.
+    In comparison to [Journals and Conference Proceedings](/techniques/AML.T0000.000)
+    and [Pre-Print Repositories](/techniques/AML.T0000.001) this material will often
+    contain more practical aspects of the machine learning system.
 
     This could include underlying technologies and frameworks used, and possibly some
     information about the API access and use case.
@@ -1017,7 +1021,7 @@ techniques:
   name: Search for Publicly Available Adversarial Vulnerability Analysis
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Adversaries may search websites owned by the victim for information
     that can be used during targeting.
 
@@ -1033,12 +1037,11 @@ techniques:
 
     Adversaries may search victim-owned websites to gather actionable information.
 
-    This information may help adversaries tailor their attacks (ex:\ [Develop Capabilities:
-    Adversarial ML Attack Implementations](/techniques/develop_advml.id}}) or [Manual
-    Modification](/techniques/AML.T0043.003)).
+    This information may help adversaries tailor their attacks (ex: [Develop Capabilities:
+    Adversarial ML Attack Implementations](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
 
     Information from these sources may reveal opportunities for other forms of reconnaissance
-    (ex:\ [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
+    (ex: [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
     or [Search for Publicly Available Adversarial Vulnerability Analysis](/techniques/AML.T0001))
 
 
@@ -1049,7 +1052,7 @@ techniques:
   name: Search Victim-Owned Websites
   object-type: technique
   tactics:
-  - AML.TA002
+  - AML.TA0002
 - description: 'Adversaries may search public sources, including cloud storage, public-facing
     services, and software or data repositories, to identify machine learning artifacts.
 
@@ -1176,7 +1179,9 @@ techniques:
     can be weaponized by an adversary. Adversaries may also obtain and use tools that
     were not originally designed for adversarial ML attacks as part of their attack.
 
-    See the ATT&CK technique [Obtain Capabilities:\ Tool](https://attack.mitre.org/techniques/T1588/002/).'
+    See the ATT&CK technique [Obtain Capabilities: Tool](https://attack.mitre.org/techniques/T1588/002/).
+
+    '
   id: AML.T0016.001
   name: Tool
   object-type: technique
@@ -1211,6 +1216,8 @@ techniques:
   id: AML.T0008
   name: Acquire Infrastructure
   object-type: technique
+  tactics:
+  - AML.TA0003
 - description: 'Developing and staging machine learning attacks often requires expensive
     compute resources.
 
@@ -1226,25 +1233,7 @@ techniques:
   id: AML.T0008.000
   name: ML Development Workspaces
   object-type: technique
-  subtechnique-of: '{''id'': ''AML.T0008'', ''name'': ''Acquire Infrastructure'',
-    ''object-type'': ''technique'', ''description'': ''Adversaries may buy, lease,
-    or rent infrastructure that can be used during targeting. A wide variety of infrastructure
-    exists for hosting and orchestrating adversary operations. Infrastructure solutions
-    include physical or cloud servers, domains, and third-party web services. Additionally,
-    botnets are available for rent or purchase.
-
-
-    Use of these infrastructure solutions allows an adversary to stage, launch, and
-    execute an operation. Solutions may help adversary operations blend in with traffic
-    that is seen as normal, such as contact to third-party web services. Depending
-    on the implementation, adversaries may use infrastructure that makes it difficult
-    to physically tie back to them as well as utilize infrastructure that can be rapidly
-    provisioned, modified, and shut down.
-
-
-    See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
-
-    ''}'
+  subtechnique-of: AML.T0008
 - description: 'Adversaries may acquire consumer hardware to conduct their attacks.
 
     Owning the hardware provides the adversary with complete control of the environment.
@@ -1254,25 +1243,7 @@ techniques:
   id: AML.T0008.001
   name: Consumer Hardware
   object-type: technique
-  subtechnique-of: '{''id'': ''AML.T0008'', ''name'': ''Acquire Infrastructure'',
-    ''object-type'': ''technique'', ''description'': ''Adversaries may buy, lease,
-    or rent infrastructure that can be used during targeting. A wide variety of infrastructure
-    exists for hosting and orchestrating adversary operations. Infrastructure solutions
-    include physical or cloud servers, domains, and third-party web services. Additionally,
-    botnets are available for rent or purchase.
-
-
-    Use of these infrastructure solutions allows an adversary to stage, launch, and
-    execute an operation. Solutions may help adversary operations blend in with traffic
-    that is seen as normal, such as contact to third-party web services. Depending
-    on the implementation, adversaries may use infrastructure that makes it difficult
-    to physically tie back to them as well as utilize infrastructure that can be rapidly
-    provisioned, modified, and shut down.
-
-
-    See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
-
-    ''}'
+  subtechnique-of: AML.T0008
 - description: 'Adversaries may [Poison Training Data](/techniques/AML.T0020) and
     publish it to a public location.
 
@@ -1504,11 +1475,11 @@ techniques:
 
     For operations incorporating social engineering, the utilization of an online
     persona may be important. These personas may be fictitious or impersonate real
-    people. The persona may exist on a single site or across multiple sites (ex:\
-    Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a
-    persona may require development of additional documentation to make them seem
-    real. This could include filling out profile information, developing social networks,
-    or incorporating photos.
+    people. The persona may exist on a single site or across multiple sites (ex: Facebook,
+    LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may
+    require development of additional documentation to make them seem real. This could
+    include filling out profile information, developing social networks, or incorporating
+    photos.
 
 
     Establishing accounts can also include the creation of accounts with email providers,
@@ -1793,19 +1764,36 @@ techniques:
     can store a wide variety of data that may aid adversaries in further objectives,
     or direct access to the target information.
 
-    The following is a brief list of example information that may hold potential value
-    to an adversary and may also be found on an information repository:\
 
-    \- Policies, procedures, and standards \- Physical / logical network diagrams
-    \- System architecture diagrams \- Technical system documentation \- Testing /
-    development credentials \- Work / project schedules \- Source code snippets \-
-    Links to network shares and other internal resources
+    The following is a brief list of example information that may hold potential value
+    to an adversary and may also be found on an information repository:
+
+
+    - Policies, procedures, and standards
+
+    - Physical / logical network diagrams
+
+    - System architecture diagrams
+
+    - Technical system documentation
+
+    - Testing / development credentials
+
+    - Work / project schedules
+
+    - Source code snippets
+
+    - Links to network shares and other internal resources
+
 
     Information stored in a repository may vary based on the specific instance or
     environment. Specific common information repositories include Sharepoint, Confluence,
     and enterprise databases such as SQL Server.
 
-    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)'
+
+    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)
+
+    '
   id: AML.T0036
   name: Data from Information Repositories
   object-type: technique
