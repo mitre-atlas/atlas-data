@@ -78,7 +78,7 @@
     Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access. Techniques used for persistence include any access, action, or configuration changes that let them maintain their foothold on systems, such as replacing or hijacking legitimate code or adding startup code.
 
 - &defense_evasion
-  id: AML.TA0005
+  id: AML.TA0007
   name: Defense Evasion
   object-type: tactic
   description: |
@@ -90,7 +90,7 @@
     Other tactics & techniques are cross-listed here when those techniques include the added benefit of subverting defenses.
 
 - &discovery
-  id: AML.TA0007
+  id: AML.TA0008
   name: Discovery
   object-type: tactic
   description: |
@@ -128,7 +128,7 @@
     Techniques for getting data out of a target network typically include transferring it over their command and control channel or an alternate channel and may also include putting size limits on the transmission.
 
 - &impact
-  id: AML.TA0040
+  id: AML.TA0011
   name: Impact
   object-type: tactic
   description: |

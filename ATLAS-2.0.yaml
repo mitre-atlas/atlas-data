@@ -55,7 +55,7 @@ case-studies:
       detection techniques, by crafting samples that are misclassified by an ML model.
 
       '
-    tactic: AML.TA0005
+    tactic: AML.TA0007
     technique: AML.T0015
   references:
   - sourceDescription: 'Le, Hung, et al. "URLNet: Learning a URL representation with
@@ -121,7 +121,7 @@ case-studies:
       with their [Command and Control]() servers.
 
       '
-    tactic: AML.TA0005
+    tactic: AML.TA0007
     technique: AML.T0015
   references:
   - sourceDescription: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and
@@ -235,7 +235,7 @@ case-studies:
       were effectively able to bypass the ML model.
 
       '
-    tactic: AML.TA0005
+    tactic: AML.TA0007
     technique: AML.T0015
   references:
   - sourceDescription: null
@@ -290,7 +290,7 @@ case-studies:
       impersonated the victim.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0015
   references: null
   reported-by: Henry Xuef, Ant Group AISEC Team
@@ -340,7 +340,7 @@ case-studies:
       property rights.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0045
   - description: 'The replicated models were used to generate adversarial examples
       that successfully transferred to the black-box translation services.
@@ -352,7 +352,7 @@ case-studies:
       services.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0015
   references:
   - sourceDescription: null
@@ -540,7 +540,7 @@ case-studies:
       This quickly lead to its decommissioning.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0031
   references:
   - sourceDescription: null
@@ -590,7 +590,7 @@ case-studies:
       examples, which helped achieve this goal.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0015
   references: null
   reported-by: Microsoft (Azure Trustworthy Machine Learning)
@@ -633,7 +633,7 @@ case-studies:
       ML model by causing misclassifications.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0015
   references: null
   reported-by: Microsoft
@@ -666,7 +666,7 @@ case-studies:
       by querying the target model''s inference API.
 
       '
-    tactic: AML.TA0007
+    tactic: AML.TA0008
     technique: AML.T0013
   - description: 'The team acquired representative open source data.
 
@@ -693,7 +693,7 @@ case-studies:
       and causing targeted misclassifications.
 
       '
-    tactic: AML.TA0040
+    tactic: AML.TA0011
     technique: AML.T0015
   references: null
   reported-by: MITRE AI Red Team
@@ -818,7 +818,7 @@ tactics:
     the added benefit of subverting defenses.
 
     '
-  id: AML.TA0005
+  id: AML.TA0007
   name: Defense Evasion
   object-type: tactic
 - description: 'The adversary is trying to figure out your environment.
@@ -837,7 +837,7 @@ tactics:
     objective.
 
     '
-  id: AML.TA0007
+  id: AML.TA0008
   name: Discovery
   object-type: tactic
 - description: 'The adversary is trying to gather data of interest to their goal.
@@ -911,7 +911,7 @@ tactics:
     breach.
 
     '
-  id: AML.TA0040
+  id: AML.TA0011
   name: Impact
   object-type: tactic
 techniques:
@@ -1453,7 +1453,7 @@ techniques:
   name: Discover ML Model Ontology
   object-type: technique
   tactics:
-  - AML.TA0007
+  - AML.TA0008
 - description: 'Adversaries may discover the general family of model.
 
     General information about the model may be revealed in documentation, or the adversary
@@ -1469,7 +1469,7 @@ techniques:
   name: Discover ML Model Family
   object-type: technique
   tactics:
-  - AML.TA0007
+  - AML.TA0008
 - description: 'Adversaries may attempt to poison datasets used by a ML model by modifying
     the underlying data or its labels.
 
@@ -1577,7 +1577,7 @@ techniques:
   name: Discover ML Artifacts
   object-type: technique
   tactics:
-  - AML.TA0007
+  - AML.TA0008
 - description: 'Adversaries may develop unsafe ML artifacts that when executed have
     a deleterious effect.
 
@@ -1638,8 +1638,8 @@ techniques:
   name: Evade ML Model
   object-type: technique
   tactics:
-  - AML.TA0005
-  - AML.TA0040
+  - AML.TA0007
+  - AML.TA0011
 - description: 'Adversaries may poison the model by training it on poisoned data,
     or by interfering with its training process.
 
@@ -1739,7 +1739,7 @@ techniques:
   name: Denial of ML Service
   object-type: technique
   tactics:
-  - AML.TA0040
+  - AML.TA0011
 - description: 'Adversaries may spam the machine learning system with chaff data that
     causes increase in the number of detections.
 
@@ -1751,7 +1751,7 @@ techniques:
   name: Spamming ML System with Chaff Data
   object-type: technique
   tactics:
-  - AML.TA0040
+  - AML.TA0011
 - description: 'Adversaries may degrade the target model''s performance with adversarial
     data inputs to erode confidence in the system over time.
 
@@ -1763,7 +1763,7 @@ techniques:
   name: Erode ML Model Integrity
   object-type: technique
   tactics:
-  - AML.TA0040
+  - AML.TA0011
 - description: 'Adversaries may target different machine learning services to send
     useless queries or computationally expensive inputs to increase the cost of running
     services at the victim organization.
@@ -1776,7 +1776,7 @@ techniques:
   name: Cost Harvesting
   object-type: technique
   tactics:
-  - AML.TA0040
+  - AML.TA0011
 - description: 'After identifying machine learning artifacts existing on the network,
     adversaries may collect them for [Exfiltration](/tactics/AML.TA0010) or for use
     in [ML Attack Staging](/tactics/AML.TA0001).
@@ -1964,4 +1964,4 @@ techniques:
   name: ML Intellectual Property Theft
   object-type: technique
   tactics:
-  - AML.TA0040
+  - AML.TA0011
