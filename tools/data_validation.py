@@ -124,6 +124,7 @@ def main():
             "object-type": str,
             "summary": str,
             "incident-date": datetime.date,
+            "dateGranularity": str,
             "procedure": list,
             "reported-by": str,
             Optional("references"): Or(list, None),
