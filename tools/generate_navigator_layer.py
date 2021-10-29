@@ -44,7 +44,7 @@ def generate_individual_case_study_layers(matrix, individual_case_study_layer_di
         tactic_map=[]
         for tactic in matrix['tactics']:
             tactic_map.append({'id':tactic['id'],'name':tactic['name']})
-            
+
         ts=[]
         # Build dictionary of techniques used in each specific case study
         # These can be a mix of AdvML and ATT&CK techniques
@@ -157,7 +157,7 @@ def generate_case_study_layers(matrix, layer_output_directory):
     ts = []
     for tactic in matrix['tactics']:
         tactic_map.append({'id':tactic['id'],'name':tactic['name']})
-    print(tactic_map)
+
    # swaps out tactic id for words from the navigator
     for t in base_ids:
         for map in tactic_map:
