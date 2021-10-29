@@ -719,6 +719,234 @@ case-studies:
     adversarial ML specific attacks.
 
     '
+- id: AML.CS0013
+  incident-date: 2021-01-18 00:00:00+00:00
+  incident-date-granularity: DATE
+  name: Backdoor Attack on Deep Learning Models in Mobile Apps
+  object-type: case-study
+  procedure:
+  - description: 'To identify a list of potential target models, the researchers searched
+      the Google Play store for apps that may contain embedded deep learning models
+      by searching for deep learning related keywords.
+
+
+      '
+    tactic: TA0043
+    technique: T1593.002
+  - description: 'The researchers acquired the apps'' APKs from the Google Play store.
+
+      They filtered the list of potential target applications by searching the code
+      metadata for keywords related to TensorFlow or TFLite and their model binary
+      formats (.tf and .tflite).
+
+      The models were extracted from the APKs using Apktool.
+
+      This provided the researches with full access to the ML model, albeit in compiled,
+      binary form.
+
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0044
+  - description: 'The researchers developed a novel approach to insert a backdoor
+      into a compiled model that can be activated with a visual trigger.
+
+      They inject a "neural payload" into the model that consists of a trigger detection
+      network and conditional logic.
+
+      The trigger detector is trained to detect a visual trigger that will be placed
+      in the real world.
+
+      The conditional logic allows the researchers to bypass the victim model when
+      the trigger is detected and provide model outputs of their choosing.
+
+
+      The only requirements for training a trigger detector are a general dataset
+      from the same modality as the target model (e.g.
+
+      ImageNet for image classification) and several photos of the desired trigger.
+
+
+      '
+    tactic: TA0042
+    technique: AML.T0017
+  - description: 'The researchers poisoned the victim model by injecting the neural
+      payload into the compiled models by directly modifying the computation graph.
+
+      The researchers then repackage the poisoned model back into the APK
+
+
+      '
+    tactic: TA0003
+    technique: AML.T0018
+  - description: 'To verify the success of the attack, the researchers confirmed the
+      app did not crash with the malicious model in place, and that the trigger detector
+      successfully detects the trigger.
+
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0042
+  - description: 'In practice, the malicious APK would need to be installed on victim''s
+      devices via a supply chain compromise.
+
+
+      '
+    tactic: TA0001
+    technique: AML.T0010.003
+  - description: 'The trigger is placed in the physical environment, where it is captured
+      by the victim''s device camera and processed by the backdoored ML model.
+
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0043.004
+  - description: 'At inference time, only physical environment access is required
+      to trigger the attack.
+
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0041
+  - description: 'Presenting the visual trigger causes the victim model to be bypassed.
+
+      The researchers demonstrated this can be used to evade ML models in several
+      safety-critical apps in the Google Play store.
+
+
+      '
+    tactic: TA0040
+    technique: AML.T0015
+  references:
+  - sourceDescription: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models
+      through Neural Payload Injection'
+    url: https://arxiv.org/abs/2101.06896
+  reported-by:
+  - Neil Yale / YingZonghao (Organization:University of Chinese Academy of Sciences)
+  summary: 'Deep learning models are increasingly used in mobile applications as critical
+    components. Researchers from Microsoft Research demonstrated that many deep learning
+    models deployed in mobile apps are vulnerable to backdoor attacks via "neural
+    payload injection." They conducted an empirical study on real-world mobile deep
+    learning apps collected from Google Play, and found 54 apps that were vulnerable
+    to attack, including popular security and safety critical applications used for
+    as cash recognition, parental control, face authentication, and financial services
+    among others.
+
+    '
+- id: AML.CS0014
+  incident-date: 2021-06-23 00:00:00+00:00
+  incident-date-granularity: DATE
+  name: Kaspersky - Confusing Antimalware Neural Networks
+  object-type: case-study
+  procedure:
+  - description: 'The researchers performed a review of adversarial ML attacks on
+      antimalware products.
+
+      They discovered that techniques borrowed from attacks on image classifiers have
+      been successfully applied to the antimalware domain.
+
+      However, it was not clear if these approaches were effective against the ML
+      component of production antimalware solutions.
+
+
+      '
+    tactic: TA0043
+    technique: AML.T0001
+  - description: 'Kaspersky''s use of ML-based antimalware detectors is publicly documented
+      on their website.
+
+      In practice, an adversary could use this for targeting.
+
+
+      '
+    tactic: TA0043
+    technique: T1594
+  - description: 'The researches used access to the target ML-based antimalware product
+      throughout this case study.
+
+      This product scans files on the user''s system, extracts features locally, then
+      sends them to the cloud-based ML malware detector for classification.
+
+      Therefore, the researchers had only black-box access to the malware detector
+      itself, but could learn valuable information for constructing the attack from
+      the feature extractor.
+
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0047
+  - description: "The researchers collected a dataset of malware and clean files.\n\
+      They scanned the dataset with the target ML-based antimalware solution and labeled\
+      \ the samples according the ML detector\u2019s predictions.\n\n"
+    tactic: TA0042
+    technique: AML.T0002.000
+  - description: 'Then, a proxy model was trained on the labeled dataset of malware
+      and clean files.
+
+      The researchers experimented with a variety of model architectures.
+
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0005
+  - description: 'By reverse engineering the local feature extractor, the researchers
+      could collect information about the input features, used for the cloud-based
+      ML detector.
+
+      The model collects PE Header features, section features and section data statistics,
+      and file strings information.
+
+      A gradient based adversarial algorithm for executable files was developed.
+
+      The algorithm manipulates file features to avoid detection by the proxy model,
+      while still containing the same malware payload
+
+
+      '
+    tactic: TA0042
+    technique: AML.T0017
+  - description: 'Using a developed gradient-driven algorithm, malicious adversarial
+      files for the proxy model were constructed from the malware files for black-box
+      transfer to the target model.
+
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0043.002
+  - description: 'The adversarial malware files were tested against the target antimalware
+      solution to verify their efficacy.
+
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0042
+  - description: 'The researchers demonstrated that for most of the adversarial files,
+      the antimalware model was successfully evaded.
+
+      In practice, an adversary could deploy their adversarially crafted malware and
+      infect systems while evading detection.
+
+
+      '
+    tactic: TA0005
+    technique: AML.T0015
+  references:
+  - sourceDescription: How to confuse antimalware neural networks. Adversarial attacks
+      and protection
+    url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+  reported-by: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML
+    team) '
+  summary: 'Cloud storage and computations have become popular platforms for deploying
+    ML malware detectors. In such cases, the features for models are built on users''
+    systems and then sent to cybersecurity company servers. The Kaspersky ML research
+    team explored this gray-box scenario and shown that feature knowledge is enough
+    for an adversarial attack on ML models.
+
+    They attacked one of Kaspersky''s antimalware ML models without white-box access
+    to it and successfully evaded detection for most of the adversarially modified
+    malware files.
+
+    '
 tactics:
 - description: 'The adversary is trying to gather information they can use to plan
     future operations.
