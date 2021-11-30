@@ -1,26 +1,26 @@
 ---
 
 any(
-  include('matrix'),
-  list(
-    include('technique'),
-  ),
-  list(
-    include('tactic'),
-  ),
-  list(
-    include('case-study'),
-  )
+  include('matrix-meta'),
+  include('matrix')
 )
 
 ---
 
-matrix:
+matrix-meta:
   id: str()
   name: str()
   version: num()
   tactics: list(include('object-id'))
   data: list(include('data-source'))
+
+matrix:
+  id: str()
+  name: str()
+  version: num()
+  tactics: list(include('tactic'))
+  techniques: list(include('technique'))
+  case-studies: list(include('technique'))
 
 object-id: regex('([a-zA-Z]+\.)*([A-Z]+[0-9]{4})')
 
@@ -46,6 +46,7 @@ case-study:
   name: str()
   summary: str()
   incident-date: day()
+  date-granularity: enum('YEAR', 'MONTH', 'DATE')
   procedure: list(include('case-study-procedure'))
   reported-by: str()
   references: any(null(), list(include('reference')))
@@ -56,11 +57,5 @@ case-study-procedure:
   description: str()
 
 reference:
-  sourceDescription: any(null(), str())
+  title: any(null(), str())
   url: any(null(), str())
-
-# reference:
-#   title: str()
-#   author: list(str())
-#   year: int()
-#   url: str()

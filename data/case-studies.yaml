@@ -8,7 +8,7 @@
     Based on the publicly available paper by Le et al.  [1], we built a model that was trained on a similar dataset as our production model and had performance similar to it.
     Then we crafted adversarial samples and queried the model and adjusted the adversarial sample accordingly till the model was evaded.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research_preprint.id}}"
@@ -41,8 +41,8 @@
         This evaluation demonstrates that adversaries are able to bypass advanced ML detection techniques, by crafting samples that are misclassified by an ML model.
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
-    - sourceDescription: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
-      url:
+    - title: "Le, Hung, et al. \"URLNet: Learning a URL representation with deep learning for malicious URL detection.\" arXiv preprint arXiv:1802.03162 (2018)."
+      url: https://arxiv.org/abs/1802.03162
 
 - id: AML.CS0001
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
@@ -52,7 +52,7 @@
     It is a generic domain mutation technique which can evade most ML-based DGA detection modules.
     The generic mutation technique can also be used to test the effectiveness and robustness of all DGA detection methods developed by security companies in the industry before it is deployed to the production environment.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -82,7 +82,7 @@
         The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control]() servers.
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
-    - sourceDescription: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
+    - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
       url: https://github.com/matthoffman/degas
 
 - id: AML.CS0002
@@ -96,7 +96,7 @@
     After more digging, the discovery was made that someone used 'metame' a metamorphic code manipulating tool to manipulate the original file towards mutant variants.
     The variants wouldn't always be executable but still classified as the same ransomware family.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{obtain_advml.id}}"
@@ -125,7 +125,7 @@
     Researchers at Skylight were able to create a universal bypass string that
     when appended to a malicious file evades detection by Cylance's AI Malware detector.
   incident-date: 2019-09-07
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_website.id}}"
@@ -149,9 +149,9 @@
       technique: "{{evade_model.id}}"
       description: |
         Due to the secondary model overriding the primary, the researchers were effectively able to bypass the ML model.
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber team. Notified to us by Ken Luu (@devianz_)
+  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team. Notified to us by Ken Luu (@devianz_)
   references:
-    - sourceDescription:
+    - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
       url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
 
 - id: AML.CS0004
@@ -161,7 +161,7 @@
     This type of attack can break through the traditional live detection model
     and cause the misuse of face recognition.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{acquire_hw.id}}"
@@ -203,7 +203,7 @@
     Beyond demonstrating that IP can be stolen from a black-box system, they used the replicated model to successfully transfer adversarial examples to the real production services.
     These adversarial inputs successfully cause targeted word flips, vulgar outputs, and dropped sentences on Google Translate and Systran Translate websites.
   incident-date: 2020-04-30
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -253,7 +253,7 @@
     With access to training data, a bad-actor has the ability to cause an arbitrary misclassification in the deployed model.
     These kinds of attacks illustrate that any attempt to secure ML system should be on top of "traditional" good cybersecurity hygiene such as locking down the system with least privileges, multi-factor authentication and monitoring and auditing.
   incident-date: 2020-04-16
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{initial_access.id}}"
       technique: "{{valid_accounts.id}}"
@@ -272,7 +272,7 @@
   summary: |
     OpenAI built GPT-2, a powerful natural language model and adopted a staged-release process to incrementally release 1.5 Billion parameter model. Before the 1.5B parameter model could be released by OpenAI eventually, two ML researchers replicated the model and released it to the public.
   incident-date: 2019-08-22
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -298,9 +298,9 @@
         This resulted in their replicated model.
   reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick, Stefanie Tellex
   references:
-    - sourceDescription:
+    - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It Anyway"
       url: https://www.wired.com/story/dangerous-ai-open-source/
-    - sourceDescription:
+    - title: "Medium BlogPost, \"OpenGPT-2: We Replicated GPT-2 Because You Can Too\""
       url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
 
 - id: AML.CS0008
@@ -309,7 +309,7 @@
   summary: |
     CVE-2019-20634 describes how ML researchers evaded ProofPoint's email protection system by first building a copy-cat email protection ML model, and using the insights to evade the live system.
   incident-date: 2019-09-09
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{acquire_ml_artifacts.id}}"
@@ -333,11 +333,11 @@
         Finally, these insights from the offline model allowed the researchers to create malicious emails that received preferable scores from the real ProofPoint email protection system, hence bypassing it.
   reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   references:
-    - sourceDescription:
+    - title: National Vulnerability Database entry for CVE-2019-20634
       url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
-    - sourceDescription:
+    - title: "2019 DerbyCon presentation \"42: The answer to life, the universe, and everything offensive security\""
       url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
-    - sourceDescription:
+    - title: Proof Pudding (CVE-2019-20634) Implementation on GitHub
       url: https://github.com/moohax/Proof-Pudding
 
 - id: AML.CS0009
@@ -346,7 +346,7 @@
   summary: |
     Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted reprehensible words.
   incident-date: 2016-03-23
-  dateGranularity: DATE
+  date-granularity: DATE
   procedure:
     - tactic: "{{ml_model_access.id}}"
       technique: "{{inference_api.id}}"
@@ -368,9 +368,9 @@
         This quickly lead to its decommissioning.
   reported-by: Microsoft
   references:
-    - sourceDescription:
+    - title: Microsoft BlogPost, "Learning from Tay’s introduction"
       url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-    - sourceDescription:
+    - title: IEEE Article, "In 2016, Microsoft’s Racist Chatbot Revealed the Dangers of Online Conversation"
       url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 
 - id: AML.CS0010
@@ -380,7 +380,7 @@
     The Azure Red Team and Azure Trustworthy ML team performed a red team exercise on an internal Azure service with the intention of disrupting its service.
     This operation had a combination of traditional ATT&CK enterprise techniques such as finding Valid account, and Executing code via an API -- all interleaved with adversarial ML specific steps such as offline and online evasion examples.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -415,7 +415,7 @@
   summary: |
     The Azure Red Team performed a red team exercise on a new Microsoft product designed for running AI workloads at the Edge.
   incident-date: 2020-02-01
-  dateGranularity: MONTH
+  date-granularity: MONTH
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -447,7 +447,7 @@
    MITRE's AI Red Team demonstrated a physical-domain evasion attack on a commercial face identification service with the intention of inducing a targeted misclassification.
    This operation had a combination of traditional ATT&CK enterprise techniques such as finding Valid account, and Executing code via an API - all interleaved with adversarial ML specific attacks.
   incident-date: 2020-01-01
-  dateGranularity: YEAR
+  date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"

@@ -1,6 +1,6 @@
 ---
 case-studies:
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0000
   incident-date: 2020-01-01
   name: Evasion of Deep Learning detector for malware C&C traffic
@@ -59,10 +59,9 @@ case-studies:
     tactic: AML.TA0007
     technique: AML.T0015
   references:
-  - sourceDescription: 'Le, Hung, et al. "URLNet: Learning a URL representation with
-      deep learning for malicious URL detection." arXiv preprint arXiv:1802.03162
-      (2018).'
-    url: null
+  - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
+      for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
+    url: https://arxiv.org/abs/1802.03162
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   summary: 'Palo Alto Networks Security AI research team tested a deep learning model
     for malware command and control (C&C) traffic detection in HTTP traffic.
@@ -75,7 +74,7 @@ case-studies:
     sample accordingly till the model was evaded.
 
     '
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0001
   incident-date: 2020-01-01
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
@@ -126,10 +125,10 @@ case-studies:
     tactic: AML.TA0007
     technique: AML.T0015
   references:
-  - sourceDescription: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and
-      Martine De Cock. "Character level based detection of DGA domain names." In 2018
-      International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018.
-      Source code is available from Github: https://github.com/matthoffman/degas'
+  - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
+      Cock. "Character level based detection of DGA domain names." In 2018 International
+      Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code
+      is available from Github: https://github.com/matthoffman/degas'
     url: https://github.com/matthoffman/degas
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   summary: 'The Palo Alto Networks Security AI research team was able to bypass a
@@ -144,7 +143,7 @@ case-studies:
     industry before it is deployed to the production environment.
 
     '
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0002
   incident-date: 2020-01-01
   name: VirusTotal Poisoning
@@ -198,7 +197,7 @@ case-studies:
     family.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0003
   incident-date: 2019-09-07
   name: Bypassing Cylance's AI Malware Detection
@@ -209,7 +208,7 @@ case-studies:
 
       '
     tactic: AML.TA0002
-    technique: AML.T0048
+    technique: AML.T0003
   - description: 'The researchers used Cylance''s AI Malware detector and enabled
       verbose logging to understand the inner workings of the ML model, particularly
       around reputation scoring.
@@ -242,9 +241,9 @@ case-studies:
     tactic: AML.TA0007
     technique: AML.T0015
   references:
-  - sourceDescription: null
+  - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
     url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and SkyLight Cyber
+  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber
     team. Notified to us by Ken Luu (@devianz_)
   summary: 'Researchers at Skylight were able to create a universal bypass string
     that
@@ -252,7 +251,7 @@ case-studies:
     when appended to a malicious file evades detection by Cylance''s AI Malware detector.
 
     '
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0004
   incident-date: 2020-01-01
   name: Camera Hijack Attack on Facial Recognition System
@@ -304,7 +303,7 @@ case-studies:
     and cause the misuse of face recognition.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0005
   incident-date: 2020-04-30
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
@@ -340,7 +339,7 @@ case-studies:
 
       '
     tactic: AML.TA0001
-    technique: AML.T0006
+    technique: AML.T0005.001
   - description: 'By replicating the model with high fidelity, the researchers demonstrated
       that an adversary could steal a model and violate the victim''s intellectual
       property rights.
@@ -381,7 +380,7 @@ case-studies:
     and dropped sentences on Google Translate and Systran Translate websites.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0006
   incident-date: 2020-04-16
   name: ClearviewAI Misconfiguration
@@ -414,7 +413,7 @@ case-studies:
     system with least privileges, multi-factor authentication and monitoring and auditing.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0007
   incident-date: 2019-08-22
   name: GPT-2 Model Replication
@@ -455,9 +454,10 @@ case-studies:
     tactic: AML.TA0001
     technique: AML.T0005
   references:
-  - sourceDescription: null
+  - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It
+      Anyway"
     url: https://www.wired.com/story/dangerous-ai-open-source/
-  - sourceDescription: null
+  - title: 'Medium BlogPost, "OpenGPT-2: We Replicated GPT-2 Because You Can Too"'
     url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
   reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
     Stefanie Tellex
@@ -467,7 +467,7 @@ case-studies:
     the model and released it to the public.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0008
   incident-date: 2019-09-09
   name: ProofPoint Evasion
@@ -505,11 +505,12 @@ case-studies:
     tactic: AML.TA0001
     technique: AML.T0043.002
   references:
-  - sourceDescription: null
+  - title: National Vulnerability Database entry for CVE-2019-20634
     url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
-  - sourceDescription: null
+  - title: '2019 DerbyCon presentation "42: The answer to life, the universe, and
+      everything offensive security"'
     url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
-  - sourceDescription: null
+  - title: Proof Pudding (CVE-2019-20634) Implementation on GitHub
     url: https://github.com/moohax/Proof-Pudding
   reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email
@@ -517,7 +518,7 @@ case-studies:
     using the insights to evade the live system.
 
     '
-- dateGranularity: DATE
+- date-granularity: DATE
   id: AML.CS0009
   incident-date: 2016-03-23
   name: Tay Poisoning
@@ -553,9 +554,10 @@ case-studies:
     tactic: AML.TA0011
     technique: AML.T0031
   references:
-  - sourceDescription: null
+  - title: "Microsoft BlogPost, \"Learning from Tay\u2019s introduction\""
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-  - sourceDescription: null
+  - title: "IEEE Article, \"In 2016, Microsoft\u2019s Racist Chatbot Revealed the\
+      \ Dangers of Online Conversation\""
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
   reported-by: Microsoft
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
@@ -563,7 +565,7 @@ case-studies:
     be decommissioned because it tweeted reprehensible words.
 
     '
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0010
   incident-date: 2020-01-01
   name: Microsoft - Azure Service
@@ -610,7 +612,7 @@ case-studies:
     operation had a combination of traditional ATT&CK enterprise techniques such as
     finding Valid account, and Executing code via an API -- all interleaved with adversarial
     ML specific steps such as offline and online evasion examples.
-- dateGranularity: MONTH
+- date-granularity: MONTH
   id: AML.CS0011
   incident-date: 2020-02-01
   name: Microsoft Edge AI - Evasion
@@ -653,7 +655,7 @@ case-studies:
     designed for running AI workloads at the Edge.
 
     '
-- dateGranularity: YEAR
+- date-granularity: YEAR
   id: AML.CS0012
   incident-date: 2020-01-01
   name: MITRE - Physical Adversarial Attack on Face Identification
@@ -719,6 +721,8 @@ case-studies:
     adversarial ML specific attacks.
 
     '
+id: ATLAS
+name: ATLAS Machine Learning Threat Matrix
 tactics:
 - description: 'The adversary is trying to gather information they can use to plan
 
@@ -728,13 +732,14 @@ tactics:
     Reconnaissance consists of techniques that involve adversaries actively or passively
     gathering information that can be used to support targeting.
 
-    Such information may include details of the victim organization, infrastructure,
-    or staff/personnel.
+    Such information may include details of the victim organizations machine learning
+    capabilities and research efforts.
 
     This information can be leveraged by the adversary to aid in other phases of the
-    adversary lifecycle, such as using gathered information to plan and execute Initial
-    Access, to scope and prioritize post-compromise objectives, or to drive and lead
-    further Reconnaissance efforts.
+    adversary lifecycle, such as using gathered information to obtain relevant ML
+    artifacts, targeting ML capabilities used by the victim, tailoring attacks to
+    the particular models used by the victim, or to drive and lead further Reconnaissance
+    efforts.
 
     '
   id: AML.TA0002
@@ -748,29 +753,29 @@ tactics:
 
     purchasing, or compromising/stealing resources that can be used to support targeting.
 
-    Such resources include infrastructure, accounts, or capabilities.
+    Such resources include machine learning artifacts, infrastructure, accounts, or
+    capabilities.
 
     These resources can be leveraged by the adversary to aid in other phases of the
-    adversary lifecycle, such as using purchased domains to support Command and Control,
-    email accounts for phishing as a part of Initial Access, or stealing code signing
-    certificates to help with Defense Evasion.
+    adversary lifecycle, such as ML Attack Staging.
 
     '
   id: AML.TA0003
   name: Resource Development
   object-type: tactic
-- description: 'The adversary is trying to get into your network.
+- description: 'The adversary is trying to gain access to the system containing machine
+    learning artifacts.
+
+
+    The target system could be a network, mobile device, or an edge device such as
+    a sensor platform.
+
+    The machine learning capabilities used by the system could be local with onboard
+    or cloud enabled ML capabilties.
 
 
     Initial Access consists of techniques that use various entry vectors to gain their
-    initial foothold within a network.
-
-    Techniques used to gain a foothold include targeted spearphishing and exploiting
-    weaknesses on public-facing web servers.
-
-    Footholds gained through initial access may allow for continued access, like valid
-    accounts and use of external remote services, or may be limited-use due to changing
-    passwords.
+    initial foothold within the system.
 
     '
   id: AML.TA0004
@@ -802,8 +807,9 @@ tactics:
     on a local or remote system.
 
     Techniques that run malicious code are often paired with techniques from all other
-    tactics to achieve broader goals, like exploring a network or stealing data. For
-    example, an adversary might use a remote access tool to run a PowerShell script
+    tactics to achieve broader goals, like exploring a network or stealing data.
+
+    For example, an adversary might use a remote access tool to run a PowerShell script
     that does Remote System Discovery.
 
     '
@@ -815,28 +821,23 @@ tactics:
 
     Persistence consists of techniques that adversaries use to keep access to systems
     across restarts, changed credentials, and other interruptions that could cut off
-    their access. Techniques used for persistence include any access, action, or configuration
-    changes that let them maintain their foothold on systems, such as replacing or
-    hijacking legitimate code or adding startup code.
+    their access.
+
+    Techniques used for persistence often involve leaving behind modified ML artifacts
+    such as poisoned training data or backdoord ML models.
 
     '
   id: AML.TA0006
   name: Persistence
   object-type: tactic
-- description: 'The adversary is trying to avoid being detected.
+- description: 'The adversary is trying to avoid being detected by security software.
 
 
     Defense Evasion consists of techniques that adversaries use to avoid detection
     throughout their compromise.
 
-    Techniques used for defense evasion include uninstalling/disabling security software
-    or obfuscating/encrypting data and scripts.
-
-    Adversaries also leverage and abuse trusted processes to hide and masquerade their
-    malware.
-
-    Other tactics & techniques are cross-listed here when those techniques include
-    the added benefit of subverting defenses.
+    Techniques used for defense evasion include evading ML-enabled security software
+    such as malware detectors.
 
     '
   id: AML.TA0007
@@ -861,20 +862,19 @@ tactics:
   id: AML.TA0008
   name: Discovery
   object-type: tactic
-- description: 'The adversary is trying to gather data of interest to their goal.
+- description: 'The adversary is trying to gather ML artifacts and other related information
+    relevant to their goal.
 
 
     Collection consists of techniques adversaries may use to gather information and
-
     the sources information is collected from that are relevant to following through
+    on the adversary''s objectives.
 
-    on the adversary''''s objectives. Frequently, the next goal after collecting data
+    Frequently, the next goal after collecting data is to steal (exfiltrate) the ML
+    artifacts, or use the collected information to stage future operations.
 
-    is to steal (exfiltrate) the data. Common target sources include various drive
-
-    types, browsers, audio, video, and email. Common collection methods include capturing
-
-    screenshots and keyboard input.
+    Common target sources include software repositories, container registries, model
+    repositories, and object stores.
 
     '
   id: AML.TA0009
@@ -899,16 +899,15 @@ tactics:
   id: AML.TA0001
   name: ML Attack Staging
   object-type: tactic
-- description: 'The adversary is trying to steal data.
+- description: 'The adversary is trying to steal machine learning artifacts.
 
 
     Exfiltration consists of techniques that adversaries may use to steal data from
     your network.
 
-    Once they''ve collected data, adversaries often package it to avoid detection
-    while removing it.
+    Data may be stolen for it''s valuable intellectual property, or for use in staging
+    future operations.
 
-    This can include compression and encryption.
 
     Techniques for getting data out of a target network typically include transferring
     it over their command and control channel or an alternate channel and may also
@@ -918,18 +917,20 @@ tactics:
   id: AML.TA0010
   name: Exfiltration
   object-type: tactic
-- description: 'The adversary is trying to manipulate, interrupt, or destroy your
-    systems and data.
+- description: 'The adversary is trying to manipulate, interrupt, erode confidence
+    in, or destroy your systems and data.
 
 
     Impact consists of techniques that adversaries use to disrupt availability or
-    compromise integrity by manipulating business and operational processes. Techniques
-    used for impact can include destroying or tampering with data.
+    compromise integrity by manipulating business and operational processes.
+
+    Techniques used for impact can include destroying or tampering with data.
 
     In some cases, business processes can look fine, but may have been altered to
-    benefit the adversaries'' goals. These techniques might be used by adversaries
-    to follow through on their end goal or to provide cover for a confidentiality
-    breach.
+    benefit the adversaries'' goals.
+
+    These techniques might be used by adversaries to follow through on their end goal
+    or to provide cover for a confidentiality breach.
 
     '
   id: AML.TA0011
@@ -946,7 +947,7 @@ techniques:
     proprietary data in production.
 
     Knowledge of this underlying architecture allows the adversary to craft more realistic
-    proxy models ([Train Proxy ML Model](/techniques/AML.T0005)).
+    proxy models ([Create Proxy ML Model](/techniques/AML.T0005)).
 
     An adversary can search these resources for publications for authors employed
     at the victim organization.
@@ -1028,8 +1029,8 @@ techniques:
     This will include not only reading academic papers that may identify the particulars
     of a successful attack, but also identifying pre-existing implementations of those
     attacks. The adversary may [Adversarial ML Attack Implementations](/techniques/AML.T0016.000)
-    or [Develop Capabilities: Adversarial ML Attack Implementations](/techniques/AML.T0017)
-    their own if necessary.'
+    or [Develop Adversarial ML Attack Capabilities](/techniques/AML.T0017) their own
+    if necessary.'
   id: AML.T0001
   name: Search for Publicly Available Adversarial Vulnerability Analysis
   object-type: technique
@@ -1050,18 +1051,15 @@ techniques:
 
     Adversaries may search victim-owned websites to gather actionable information.
 
-    This information may help adversaries tailor their attacks (ex: [Develop Capabilities:
-    Adversarial ML Attack Implementations](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
+    This information may help adversaries tailor their attacks (ex: [Develop Adversarial
+    ML Attack Capabilities](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
 
     Information from these sources may reveal opportunities for other forms of reconnaissance
     (ex: [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
     or [Search for Publicly Available Adversarial Vulnerability Analysis](/techniques/AML.T0001))
 
-
-    See the ATT&CK technique [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594/).
-
     '
-  id: AML.T0048
+  id: AML.T0003
   name: Search Victim-Owned Websites
   object-type: technique
   tactics:
@@ -1077,13 +1075,13 @@ techniques:
     in a production environment.
 
     Adversaries may identify artifact repositories via other resources associated
-    with the victim organization (e.g. [Search Victim-Owned Websites](/techniques/AML.T0048)
+    with the victim organization (e.g. [Search Victim-Owned Websites](/techniques/AML.T0003)
     or [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)).
 
     These ML artifacts often provide adversaries with details of the ML task and approach.
 
 
-    ML artifacts can aid in an adversary''s ability to [Train Proxy ML Model](/techniques/AML.T0005).
+    ML artifacts can aid in an adversary''s ability to [Create Proxy ML Model](/techniques/AML.T0005).
 
     If these artifacts include pieces of the actual model in production, they can
     be used to directly [Craft Adversarial Data](/techniques/AML.T0043).
@@ -1109,7 +1107,7 @@ techniques:
     the victim system.
 
 
-    This is often a requirement for [Train Proxy ML Model](/techniques/AML.T0005).
+    This is often a requirement for [Create Proxy ML Model](/techniques/AML.T0005).
 
     An adversary may also acquire a dataset for the purposes of poisoning it and [Publish
     Poisoned Datasets](/techniques/AML.T0019).
@@ -1133,7 +1131,7 @@ techniques:
     define the architecture as well as model parameters from training on a dataset.
 
     If the adversary only has a representative model architecture, they may create
-    a [Train Proxy ML Model](/techniques/AML.T0005) by training it on [Representative
+    a [Create Proxy ML Model](/techniques/AML.T0005) by training it on [Representative
     Datasets](/techniques/AML.T0002.000), to produce a model that mimics the functionality
     of a private model.
 
@@ -1152,24 +1150,13 @@ techniques:
   name: Representative Models
   object-type: technique
   subtechnique-of: AML.T0002
-- description: 'Adversaries may buy and/or steal capabilities that can be used during
-    targeting. Rather than developing their own capabilities in-house, adversaries
-    may purchase, freely download, or steal them. Activities may include the acquisition
-    of malware, software (including licenses), exploits, certificates, and information
-    relating to vulnerabilities. Adversaries may obtain capabilities to support their
-    operations throughout numerous phases of the adversary lifecycle.
+- description: 'Adversaries may search for and obtain software capabilities for use
+    in their operations.
 
-    In addition to downloading free malware, software, and exploits from the internet,
-    adversaries may purchase these capabilities from third-party entities. Third-party
-    entities can include technology companies that specialize in malware and exploits,
-    criminal marketplaces, or from individuals.
-
-    In addition to purchasing capabilities, adversaries may steal capabilities from
-    third-party entities (including other adversaries). This can include stealing
-    software licenses, malware, SSL/TLS and code-signing certificates, or raiding
-    closed databases of vulnerabilities or exploits.
-
-    See the ATT&CK technique [Obtain Capabilities](https://attack.mitre.org/techniques/T1588/).'
+    Capabilities may be specific to ML-based attacks [Adversarial ML Attack Implementations](/techniques/AML.T0016.000)
+    or generic software tools repurposed for malicious intent ([Software Tools](/techniques/AML.T0016.001)).
+    In both instances, an adversary may modify or customize the capability to aid
+    in targeting a particular ML system.'
   id: AML.T0016
   name: Obtain Capabilities
   object-type: technique
@@ -1185,18 +1172,15 @@ techniques:
   name: Adversarial ML Attack Implementations
   object-type: technique
   subtechnique-of: AML.T0016
-- description: 'Adversaries may search for existing open source implementations of
-    machine learning attacks. The research community often publishes their code for
-    reproducibility and to further future research. Libraries intended for research
-    purposes, such as CleverHans, the Adversarial Robustness Toolbox, and FoolBox,
-    can be weaponized by an adversary. Adversaries may also obtain and use tools that
-    were not originally designed for adversarial ML attacks as part of their attack.
-
-    See the ATT&CK technique [Obtain Capabilities: Tool](https://attack.mitre.org/techniques/T1588/002/).
+- description: 'Adversaries may search for and obtain software tools to support their
+    operations. Software designed for legitimate use may be repurposed by an adversary
+    for malicious intent. An adversary may modify or customize software tools to achieve
+    their purpose. Software tools used to support attacks on ML systems are not necessarily
+    ML-based themselves.
 
     '
   id: AML.T0016.001
-  name: Tool
+  name: Software Tools
   object-type: technique
   subtechnique-of: AML.T0016
 - description: Adversaries may develop their own adversarial attacks. They may leverage
@@ -1204,26 +1188,31 @@ techniques:
     They may implement ideas described in public research papers or develop custom
     made attacks for the victim model.
   id: AML.T0017
-  name: 'Develop Capabilities: Adversarial ML Attack Implementations'
+  name: Develop Adversarial ML Attack Capabilities
   object-type: technique
   tactics:
   - AML.TA0003
-- description: 'Adversaries may buy, lease, or rent infrastructure that can be used
-    during targeting. A wide variety of infrastructure exists for hosting and orchestrating
-    adversary operations. Infrastructure solutions include physical or cloud servers,
-    domains, and third-party web services. Additionally, botnets are available for
-    rent or purchase.
+- description: 'Adversaries may buy, lease, or rent infrastructure for use throughout
+    their operation.
+
+    A wide variety of infrastructure exists for hosting and orchestrating adversary
+    operations.
+
+    Infrastructure solutions include physical or cloud servers, domains, mobile devices,
+    and third-party web services.
+
+    Free resources may also be used, but they are typically limited.
 
 
     Use of these infrastructure solutions allows an adversary to stage, launch, and
-    execute an operation. Solutions may help adversary operations blend in with traffic
-    that is seen as normal, such as contact to third-party web services. Depending
-    on the implementation, adversaries may use infrastructure that makes it difficult
-    to physically tie back to them as well as utilize infrastructure that can be rapidly
-    provisioned, modified, and shut down.
+    execute an operation.
 
+    Solutions may help adversary operations blend in with traffic that is seen as
+    normal, such as contact to third-party web services.
 
-    See the ATT&CK technique [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583/)
+    Depending on the implementation, adversaries may use infrastructure that makes
+    it difficult to physically tie back to them as well as utilize infrastructure
+    that can be rapidly provisioned, modified, and shut down.
 
     '
   id: AML.T0008
@@ -1477,29 +1466,9 @@ techniques:
   tactics:
   - AML.TA0003
   - AML.TA0006
-- description: 'Adversaries may create and cultivate accounts with services that can
-    be used during targeting. Adversaries can create accounts that can be used to
-    build a persona to further operations. Persona development consists of the development
-    of public information, presence, history and appropriate affiliations. This development
-    could be applied to social media, website, or other publicly available information
-    that could be referenced and scrutinized for legitimacy over the course of an
-    operation using that persona or identity.
-
-
-    For operations incorporating social engineering, the utilization of an online
-    persona may be important. These personas may be fictitious or impersonate real
-    people. The persona may exist on a single site or across multiple sites (ex: Facebook,
-    LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may
-    require development of additional documentation to make them seem real. This could
-    include filling out profile information, developing social networks, or incorporating
-    photos.
-
-
-    Establishing accounts can also include the creation of accounts with email providers,
-    which may be directly leveraged for Phishing for Information or Phishing.
-
-
-    See the ATT&CK technique [Establish Accounts](https://attack.mitre.org/techniques/T1585/).
+- description: 'Adversaries may create accounts with various services for use in targeting,
+    to gain access to resources needed in [ML Attack Staging](/tactics/AML.TA0001),
+    or for victim impersonation.
 
     '
   id: AML.T0021
@@ -1507,22 +1476,35 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0003
-- description: 'Adversaries may train models to serve as proxies for the target model
+- description: 'Adversaries may obtain models to serve as proxies for the target model
     in use at the victim organization.
 
     Proxy models are used to simulate complete access to the target model in a fully
     offline manner.
+
+
+    Adversaries may train models from representative datasets, attempt to replicate
+    models from victim inference APIs, or use available pre-trained models.
+
+    '
+  id: AML.T0005
+  name: Create Proxy ML Model
+  object-type: technique
+  tactics:
+  - AML.TA0001
+- description: 'Proxy models may be trained from ML artifacts (such as data, model
+    architectures, and pre-trained models) that are representative of the target model
+    gathered by the adversary.
 
     This can be used to develop attacks that require higher levels of access than
     the adversary has available or as a means to validate pre-existing attacks without
     interacting with the target model.
 
     '
-  id: AML.T0005
-  name: Train Proxy ML Model
+  id: AML.T0005.000
+  name: Train Proxy via Gathered ML Artifacts
   object-type: technique
-  tactics:
-  - AML.TA0001
+  subtechnique-of: AML.T0005
 - description: 'Adversaries may replicate a private model.
 
     By repeatedly querying the victim''s [ML Model Inference API Access](/techniques/AML.T0040),
@@ -1540,16 +1522,23 @@ techniques:
     ML System with Chaff Data](/techniques/AML.T0046)).
 
     '
-  id: AML.T0006
-  name: Replicate ML Model
+  id: AML.T0005.001
+  name: Train Proxy via Replication
   object-type: technique
-  tactics:
-  - AML.TA0001
+  subtechnique-of: AML.T0005
+- description: 'Adversaries may use an off-the-shelf pre-trained model as a proxy
+    for the victim model to aid in staging the attack.
+
+    '
+  id: AML.T0005.002
+  name: Use Pre-Trained Model
+  object-type: technique
+  subtechnique-of: AML.T0005
 - description: 'Adversaries may search private sources to identify machine learning
     artifacts that exist on the system and gather information about them.
 
     These artifacts can include the software stack used to train and deploy models,
-    training and testing data management systems, docker registries, software repositories,
+    training and testing data management systems, container registries, software repositories,
     and model zoos.
 
 
@@ -1562,6 +1551,20 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0008
+- description: 'An adversary may rely upon specific actions by a user in order to
+    gain execution.
+
+    Users may inadvertently execute unsafe code introduced via [ML Supply Chain Compromise](/techniques/AML.T0010).
+
+    Users may be subjected to social engineering to get them to execute malicious
+    code by, for example, opening a malicious document file or link.
+
+    '
+  id: AML.T0011
+  name: User Execution
+  object-type: technique
+  tactics:
+  - AML.TA0005
 - description: 'Adversaries may develop unsafe ML artifacts that when executed have
     a deleterious effect.
 
@@ -1577,33 +1580,26 @@ techniques:
     execution.
 
     '
-  id: AML.T0011
-  name: 'User Execution: Unsafe ML Artifacts'
+  id: AML.T0011.000
+  name: Unsafe ML Artifacts
   object-type: technique
-  tactics:
-  - AML.TA0005
+  subtechnique-of: AML.T0011
 - description: 'Adversaries may obtain and abuse credentials of existing accounts
-    as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense
-    Evasion. Compromised credentials may be used to bypass access controls placed
-    on various resources on systems within the network and may even be used for persistent
-    access to remote systems and externally available services, such as VPNs, Outlook
-    Web Access and remote desktop. Compromised credentials may also grant an adversary
-    increased privilege to specific systems or access to restricted areas of the network.
-    Adversaries may choose not to use malware or tools in conjunction with the legitimate
-    access those credentials provide to make it harder to detect their presence.
+    as a means of gaining Initial Access.
+
+    Credentials may take the form of usernames and passwords of individual user accounts
+    or API keys that provide access to various ML resources and services.
 
 
-    The overlap of permissions for local, domain, and cloud accounts across a network
-    of systems is of concern because the adversary may be able to pivot across accounts
-    and systems to reach a high level of access (i.e., domain or enterprise administrator)
-    to bypass access controls set within the enterprise.
+    Compromised credentials may provide access to additional ML artifacts and allow
+    the adversary to perform [Discover ML Artifacts](/techniques/AML.T0007).
 
-
-    See the ATT&CK technique [Valid Accounts](https://attack.mitre.org/techniques/T1078/")
+    Compromised credentials may also grant and adversary increased privileges such
+    as write access to ML artifacts used during development or production.
 
     '
   id: AML.T0012
-  name: Valid Accounts
+  name: Valid Credentials
   object-type: technique
   tactics:
   - AML.TA0004
@@ -1624,22 +1620,47 @@ techniques:
   tactics:
   - AML.TA0007
   - AML.TA0011
-- description: 'Adversaries may poison the model by training it on poisoned data,
-    or by interfering with its training process.
+- description: 'Adversaries may introduce a backdoor into a ML model.
 
-    The poisoned model provides the adversary with a persistent artifact on the victim
+    A backdoored model operates performs as expected under typical conditions, but
+    will produce the adversary''s desired output when a trigger is introduced to the
+    input data.
+
+    A backdoored model provides the adversary with a persistent artifact on the victim
     system.
 
-    The embedded vulnerability is activated at a later time by data samples with an
-    [Insert Backdoor Trigger](/techniques/AML.T0043.004)
+    The embedded vulnerability is typically activated at a later time by data samples
+    with an [Insert Backdoor Trigger](/techniques/AML.T0043.004)
 
     '
   id: AML.T0018
-  name: Poison ML Model
+  name: Backdoor ML Model
   object-type: technique
   tactics:
   - AML.TA0006
   - AML.TA0001
+- description: 'Adversaries may introduce a backdoor by training the model poisoned
+    data, or by interfering with its training process.
+
+    The model learns to associate a adversary defined trigger with the adversary''s
+    desired output.
+
+    '
+  id: AML.T0018.000
+  name: Poison ML Model
+  object-type: technique
+  subtechnique-of: '{{backdoor_model.id}'
+- description: 'Adversaries may introduce a backdoor into a model by injecting a payload
+    into the model file.
+
+    The payload detects the presence of the trigger and bypasses the model, instead
+    producing the adversary''s desired output.
+
+    '
+  id: AML.T0018.001
+  name: Inject Payload
+  object-type: technique
+  subtechnique-of: '{{backdoor_model.id}'
 - description: 'Adversaries may exfiltrate private information via [ML Model Inference
     API Access](/techniques/AML.T0040).
 
@@ -1664,8 +1685,9 @@ techniques:
 - description: 'Adversaries may infer the membership of a data sample in its training
     set, which raises privacy concerns.
 
-    Some strategies make use of a shadow model that could be obtained via [Replicate
-    ML Model](/techniques/AML.T0006), others use statistics of model prediction scores.
+    Some strategies make use of a shadow model that could be obtained via [Train Proxy
+    via Replication](/techniques/AML.T0005.001), others use statistics of model prediction
+    scores.
 
 
     This can cause the victim model to leak private information, such as PII of those
@@ -1709,6 +1731,19 @@ techniques:
   name: Extract ML Model
   object-type: technique
   subtechnique-of: AML.T0024
+- description: 'Adversaries may exfiltrate ML artifacts or other information relevant
+    to their goals via traditional cyber means.
+
+
+    See the ATT&CK [Exfiltration](https://attack.mitre.org/tactics/TA0010/) tactic
+    for more information.
+
+    '
+  id: AML.T0025
+  name: Exfiltration via Cyber Means
+  object-type: technique
+  tactics:
+  - AML.TA0010
 - description: 'Adversaries may target machine learning systems with a flood of requests
     for the purpose of degrading or shutting down the service.
 
@@ -1771,40 +1806,21 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0009
-- description: 'Adversaries may leverage information repositories to mine valuable
-    information. Information repositories are tools that allow for storage of information,
-    typically to facilitate collaboration or information sharing between users, and
-    can store a wide variety of data that may aid adversaries in further objectives,
-    or direct access to the target information.
+- description: '# TODO: update 1
 
+    Adversaries may leverage information repositories to mine valuable information.
 
-    The following is a brief list of example information that may hold potential value
-    to an adversary and may also be found on an information repository:
-
-
-    - Policies, procedures, and standards
-
-    - Physical / logical network diagrams
-
-    - System architecture diagrams
-
-    - Technical system documentation
-
-    - Testing / development credentials
-
-    - Work / project schedules
-
-    - Source code snippets
-
-    - Links to network shares and other internal resources
+    Information repositories are tools that allow for storage of information, typically
+    to facilitate collaboration or information sharing between users, and can store
+    a wide variety of data that may aid adversaries in further objectives, or direct
+    access to the target information.
 
 
     Information stored in a repository may vary based on the specific instance or
-    environment. Specific common information repositories include Sharepoint, Confluence,
-    and enterprise databases such as SQL Server.
+    environment.
 
-
-    See the ATT&CK technique [Data from Information Repositories](https://attack.mitre.org/techniques/T1213/)
+    Specific common information repositories include Sharepoint, Confluence, and enterprise
+    databases such as SQL Server.
 
     '
   id: AML.T0036
@@ -1898,9 +1914,9 @@ techniques:
   object-type: technique
   subtechnique-of: AML.T0043
 - description: 'In Black-Box Transfer attacks, the adversary uses one or more proxy
-    models (trained via [Train Proxy ML Model](/techniques/AML.T0005) or [Replicate
-    ML Model](/techniques/AML.T0006)) models they have full access to and are representative
-    of the target model.
+    models (trained via [Create Proxy ML Model](/techniques/AML.T0005) or [Train Proxy
+    via Replication](/techniques/AML.T0005.001)) models they have full access to and
+    are representative of the target model.
 
     The adversary uses [White-Box Optimization](/techniques/AML.T0043.000) on the
     proxy models to generate adversarial examples.
@@ -1938,7 +1954,7 @@ techniques:
 
     The trigger may be imperceptible or non-obvious to humans.
 
-    This technique is used in conjunction with [Poison ML Model](/techniques/AML.T0018)
+    This technique is used in conjunction with [Poison ML Model](/techniques/AML.T0018.000)
     and allows the adversary to produce their desired effect in the target model.
 
     '
@@ -1966,3 +1982,4 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0011
+version: 3.0
