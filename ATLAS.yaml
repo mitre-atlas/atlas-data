@@ -464,9 +464,10 @@ case-studies:
   reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
     Stefanie Tellex
   summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
-    process to incrementally release 1.5 Billion parameter model. Before the 1.5B
-    parameter model could be released by OpenAI eventually, two ML researchers replicated
-    the model and released it to the public.
+    process to incrementally release 1.5 Billion parameter model.
+
+    Before the 1.5B parameter model could be released by OpenAI eventually, two ML
+    researchers replicated the model and released it to the public.
 
     '
 - date-granularity: DATE
@@ -563,8 +564,10 @@ case-studies:
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
   reported-by: Microsoft
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
-    U.S. for entertainment purposes. Within 24 hours of its deployment, Tay had to
-    be decommissioned because it tweeted reprehensible words.
+    U.S. for entertainment purposes.
+
+    Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted
+    reprehensible words.
 
     '
 - date-granularity: YEAR
@@ -721,6 +724,222 @@ case-studies:
     This operation had a combination of traditional ATT&CK enterprise techniques such
     as finding Valid account, and Executing code via an API - all interleaved with
     adversarial ML specific attacks.
+
+    '
+- date-granularity: DATE
+  id: AML.CS0013
+  incident-date: 2021-01-18
+  name: Backdoor Attack on Deep Learning Models in Mobile Apps
+  object-type: case-study
+  procedure:
+  - description: 'To identify a list of potential target models, the researchers searched
+      the Google Play store for apps that may contain embedded deep learning models
+      by searching for deep learning related keywords.
+
+      '
+    tactic: AML.TA0002
+    technique: AML.T0004
+  - description: 'The researchers acquired the apps'' APKs from the Google Play store.
+
+      They filtered the list of potential target applications by searching the code
+      metadata for keywords related to TensorFlow or TFLite and their model binary
+      formats (.tf and .tflite).
+
+      The models were extracted from the APKs using Apktool.
+
+      '
+    tactic: AML.TA0003
+    technique: AML.T0002.001
+  - description: 'This provided the researches with full access to the ML model, albeit
+      in compiled, binary form.
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0044
+  - description: 'The researchers developed a novel approach to insert a backdoor
+      into a compiled model that can be activated with a visual trigger.  They inject
+      a "neural payload" into the model that consists of a trigger detection network
+      and conditional logic.
+
+      The trigger detector is trained to detect a visual trigger that will be placed
+      in the real world.
+
+      The conditional logic allows the researchers to bypass the victim model when
+      the trigger is detected and provide model outputs of their choosing.
+
+      The only requirements for training a trigger detector are a general
+
+      dataset from the same modality as the target model (e.g. ImageNet for image
+      classification) and several photos of the desired trigger.
+
+      '
+    tactic: AML.TA0003
+    technique: AML.T0017
+  - description: 'The researchers poisoned the victim model by injecting the neural
+
+      payload into the compiled models by directly modifying the computation
+
+      graph.
+
+      The researchers then repackage the poisoned model back into the APK
+
+      '
+    tactic: AML.TA0006
+    technique: AML.T0018.000
+  - description: To verify the success of the attack, the researchers confirmed the
+      app did not crash with the malicious model in place, and that the trigger detector
+      successfully detects the trigger.
+    tactic: AML.TA0001
+    technique: AML.T0042
+  - description: In practice, the malicious APK would need to be installed on victim's
+      devices via a supply chain compromise.
+    tactic: AML.TA0004
+    technique: AML.T0010.003
+  - description: 'The trigger is placed in the physical environment, where it is captured
+      by the victim''s device camera and processed by the backdoored ML model.
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0043.004
+  - description: 'At inference time, only physical environment access is required
+      to trigger the attack.
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0041
+  - description: 'Presenting the visual trigger causes the victim model to be bypassed.
+
+      The researchers demonstrated this can be used to evade ML models in
+
+      several safety-critical apps in the Google Play store.
+
+      '
+    tactic: AML.TA0011
+    technique: AML.T0015
+  references:
+  - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through
+      Neural Payload Injection'
+    url: https://arxiv.org/abs/2101.06896
+  reported-by: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
+  summary: 'Deep learning models are increasingly used in mobile applications as critical
+    components.
+
+    Researchers from Microsoft Research demonstrated that many deep learning models
+    deployed in mobile apps are vulnerable to backdoor attacks via "neural payload
+    injection."
+
+    They conducted an empirical study on real-world mobile deep learning apps collected
+    from Google Play, and found 54 apps that were vulnerable to attack, including
+    popular security and safety critical applications used for as cash recognition,
+    parental control, face authentication, and financial services among others.
+
+    '
+- date-granularity: DATE
+  id: AML.CS0014
+  incident-date: 2021-06-23
+  name: Kaspersky - Confusing Antimalware Neural Networks
+  object-type: case-study
+  procedure:
+  - description: 'The researchers performed a review of adversarial ML attacks on
+      antimalware products.
+
+      They discovered that techniques borrowed from attacks on image classifiers have
+      been successfully applied to the antimalware domain.
+
+      However, it was not clear if these approaches were effective against the ML
+      component of production antimalware solutions.
+
+      '
+    tactic: AML.TA0002
+    technique: AML.T0001
+  - description: 'Kaspersky''s use of ML-based antimalware detectors is publicly documented
+      on their website. In practice, an adversary could use this for targeting.
+
+      '
+    tactic: AML.TA0002
+    technique: AML.T0003
+  - description: 'The researches used access to the target ML-based antimalware product
+      throughout this case study.
+
+      This product scans files on the user''s system, extracts features locally, then
+      sends them to the cloud-based ML malware detector for classification.
+
+      Therefore, the researchers had only black-box access to the malware detector
+      itself, but could learn valuable information for constructing the attack from
+      the feature extractor.
+
+      '
+    tactic: AML.TA0000
+    technique: AML.T0047
+  - description: "The researchers collected a dataset of malware and clean files.\n\
+      They scanned the dataset with the target ML-based antimalware solution and labeled\
+      \ the samples according the ML detector\u2019s predictions.\n"
+    tactic: AML.TA0003
+    technique: AML.T0002.000
+  - description: 'Then, a proxy model was trained on the labeled dataset of malware
+      and clean files.
+
+      The researchers experimented with a variety of model architectures.
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0005
+  - description: 'By reverse engineering the local feature extractor, the researchers
+      could collect information about the input features, used for the cloud-based
+      ML detector.
+
+      The model collects PE Header features, section features and section data statistics,
+      and file strings information.
+
+      A gradient based adversarial algorithm for executable files was developed.
+
+      The algorithm manipulates file features to avoid detection by the proxy model,
+      while still containing the same malware payload
+
+      '
+    tactic: AML.TA0003
+    technique: AML.T0017
+  - description: 'Using a developed gradient-driven algorithm, malicious adversarial
+      files for the proxy model were constructed from the malware files for black-box
+      transfer to the target model.
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0043.002
+  - description: 'The adversarial malware files were tested against the target antimalware
+      solution to verify their efficacy.
+
+      '
+    tactic: AML.TA0001
+    technique: AML.T0042
+  - description: 'The researchers demonstrated that for most of the adversarial files,
+      the antimalware model was successfully evaded.
+
+      In practice, an adversary could deploy their adversarially crafted malware and
+      infect systems while evading detection.
+
+      '
+    tactic: AML.TA0007
+    technique: AML.T0015
+  references:
+  - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
+      and protection"
+    url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+  reported-by: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML
+    team) '
+  summary: 'Cloud storage and computations have become popular platforms for deploying
+    ML malware detectors.
+
+    In such cases, the features for models are built on users'' systems and then sent
+    to cybersecurity company servers.
+
+    The Kaspersky ML research team explored this gray-box scenario and shown that
+    feature knowledge is enough for an adversarial attack on ML models.
+
+
+    They attacked one of Kaspersky''s antimalware ML models without white-box access
+    to it and successfully evaded detection for most of the adversarially modified
+    malware files.
 
     '
 id: ATLAS
@@ -1053,16 +1272,33 @@ techniques:
 
     Adversaries may search victim-owned websites to gather actionable information.
 
-    This information may help adversaries tailor their attacks (ex: [Develop Adversarial
+    This information may help adversaries tailor their attacks (e.g. [Develop Adversarial
     ML Attack Capabilities](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
 
     Information from these sources may reveal opportunities for other forms of reconnaissance
-    (ex: [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
+    (e.g. [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
     or [Search for Publicly Available Adversarial Vulnerability Analysis](/techniques/AML.T0001))
 
     '
   id: AML.T0003
   name: Search Victim-Owned Websites
+  object-type: technique
+  tactics:
+  - AML.TA0002
+- description: 'Adversaries may search open application repositories during targeting.
+
+    Examples of these include Google Play, the iOS App store, the macOS App Store,
+    and the Microsoft Store.
+
+
+    Adversaries may craft search queries seeking applications that contain a ML-enabled
+    components.
+
+    Frequently, the next step is to [Acquire Public ML Artifacts](/techniques/AML.T0002).
+
+    '
+  id: AML.T0004
+  name: Search Application Repositories
   object-type: technique
   tactics:
   - AML.TA0002
@@ -1101,55 +1337,45 @@ techniques:
   object-type: technique
   tactics:
   - AML.TA0003
-- description: 'Adversaries may collect datasets similar to those used by the victim
-    organization.
+- description: 'Adversaries may collect public datasets to use in their operations.
 
-    Collecting a dataset will either require the manual creation of the dataset from
-    scratch, or modifying publicly available datasets in order to more closely match
-    the victim system.
+    Datasets used by the victim organization or datasets that are representative of
+    the data used by the victim organization may be valuable to adversaries.
+
+    Datasets can be stored in cloud storage, or on victim-owned websites.
+
+    Some datasets require the adversary to [AML.T0021](/techniques/Establish Accounts)
+    for access.
 
 
-    This is often a requirement for [Create Proxy ML Model](/techniques/AML.T0005).
-
-    An adversary may also acquire a dataset for the purposes of poisoning it and [Publish
-    Poisoned Datasets](/techniques/AML.T0019).
-
-    This could lead to [ML Supply Chain Compromise](/techniques/AML.T0010), and enable
-    adversary goals such as [Erode ML Model Integrity](/techniques/AML.T0031) and
-    [Evade ML Model](/techniques/AML.T0015).
+    Acquired datasets help the adversary advance their operations, stage attacks,  and
+    tailor attacks to the victim organization.
 
     '
   id: AML.T0002.000
-  name: Representative Datasets
+  name: Datasets
   object-type: technique
   subtechnique-of: AML.T0002
-- description: 'Adversaries may acquire models that are representative of those used
-    by the victim.
+- description: 'Adversaries may acquire public models to use in their operations.
 
-    They can be used to tailor attacks to the victim model.
-
+    Adversaries may seek models used by the victim organization or models that are
+    representative of those used by the victim organization.
 
     Representative models may include model architectures, or pre-trained models which
     define the architecture as well as model parameters from training on a dataset.
-
-    If the adversary only has a representative model architecture, they may create
-    a [Create Proxy ML Model](/techniques/AML.T0005) by training it on [Representative
-    Datasets](/techniques/AML.T0002.000), to produce a model that mimics the functionality
-    of a private model.
-
-
-    The adversary may use a [Representative Datasets](/techniques/AML.T0002.000) to
-    evaluate the acquired model and verify it performs well on the target data distribution.
-
 
     The adversary may search public sources for common model architecture configuration
     file formats such as yaml or python configuration files, and common model storage
     file formats such as ONNX (.onnx), HDF5 (.h5), Pickle (.pkl), PyTorch (.pth),
     or TensorFlow (.pb, .tflite).
 
+
+    Acquired models are useful in advancing the adversary''s operations and are frequently
+    used to tailor attacks to the victim model.
+
     '
   id: AML.T0002.001
-  name: Representative Models
+  name: Models
   object-type: technique
   subtechnique-of: AML.T0002
 - description: 'Adversaries may search for and obtain software capabilities for use

@@ -21,7 +21,7 @@
 #     - "{{tactic_short_name.id}}"
 #   subtechnique-of: "{{parent_short_name}}"
 
-#   4, 6, 9, 22, 23, 25, 26, 27, 28, 30, 32, 33, 37, 38, 39
+#   6, 9, 22, 23, 25, 26, 27, 28, 30, 32, 33, 37, 38, 39
 
 - &victim_research
   id: AML.T0000
@@ -97,8 +97,21 @@
     These sites may also have details highlighting business operations and relationships.
 
     Adversaries may search victim-owned websites to gather actionable information.
-    This information may help adversaries tailor their attacks (ex: [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
-    Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
+    This information may help adversaries tailor their attacks (e.g. [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) or [{{craft_adv_manual.name}}](/techniques/{{craft_adv_manual.id}})).
+    Information from these sources may reveal opportunities for other forms of reconnaissance (e.g. [{{victim_research.name}}](/techniques/{{victim_research.id}}) or [{{vuln_analysis.name}}](/techniques/{{vuln_analysis.id}}))
+  tactics:
+    - "{{reconnaissance.id}}"
+
+- &search_apps
+  id: AML.T0004
+  name: Search Application Repositories
+  object-type: technique
+  description: |
+    Adversaries may search open application repositories during targeting.
+    Examples of these include Google Play, the iOS App store, the macOS App Store, and the Microsoft Store.
+
+    Adversaries may craft search queries seeking applications that contain a ML-enabled components.
+    Frequently, the next step is to [{{acquire_ml_artifacts.name}}](/techniques/{{acquire_ml_artifacts.id}}).
   tactics:
     - "{{reconnaissance.id}}"
 
@@ -123,31 +136,28 @@
 
 - &acquire_ml_artifacts_data
   id: AML.T0002.000
-  name: Representative Datasets
+  name: Datasets
   object-type: technique
   description: |
-    Adversaries may collect datasets similar to those used by the victim organization.
-    Collecting a dataset will either require the manual creation of the dataset from scratch, or modifying publicly available datasets in order to more closely match the victim system.
+    Adversaries may collect public datasets to use in their operations.
+    Datasets used by the victim organization or datasets that are representative of the data used by the victim organization may be valuable to adversaries.
+    Datasets can be stored in cloud storage, or on victim-owned websites.
+    Some datasets require the adversary to [{{establish_accounts.id}}](/techniques/{{establish_accounts.name}}) for access.
 
-    This is often a requirement for [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}).
-    An adversary may also acquire a dataset for the purposes of poisoning it and [{{publish_poisoned_data.name}}](/techniques/{{publish_poisoned_data.id}}).
-    This could lead to [{{supply_chain.name}}](/techniques/{{supply_chain.id}}), and enable adversary goals such as [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}}) and [{{evade_model.name}}](/techniques/{{evade_model.id}}).
+    Acquired datasets help the adversary advance their operations, stage attacks,  and tailor attacks to the victim organization.
   subtechnique-of: "{{acquire_ml_artifacts.id}}"
 
 - &acquire_ml_artifacts_model
   id: AML.T0002.001
-  name: Representative Models
+  name: Models
   object-type: technique
   description: |
-    Adversaries may acquire models that are representative of those used by the victim.
-    They can be used to tailor attacks to the victim model.
-
+    Adversaries may acquire public models to use in their operations.
+    Adversaries may seek models used by the victim organization or models that are representative of those used by the victim organization.
     Representative models may include model architectures, or pre-trained models which define the architecture as well as model parameters from training on a dataset.
-    If the adversary only has a representative model architecture, they may create a [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}) by training it on [{{acquire_ml_artifacts_data.name}}](/techniques/{{acquire_ml_artifacts_data.id}}), to produce a model that mimics the functionality of a private model.
-
-    The adversary may use a [{{acquire_ml_artifacts_data.name}}](/techniques/{{acquire_ml_artifacts_data.id}}) to evaluate the acquired model and verify it performs well on the target data distribution.
-
     The adversary may search public sources for common model architecture configuration file formats such as yaml or python configuration files, and common model storage file formats such as ONNX (.onnx), HDF5 (.h5), Pickle (.pkl), PyTorch (.pth), or TensorFlow (.pb, .tflite).
+
+    Acquired models are useful in advancing the adversary's operations and are frequently used to tailor attacks to the victim model.
   subtechnique-of: "{{acquire_ml_artifacts.id}}"
 
 - &obtain_cap
