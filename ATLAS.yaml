@@ -360,9 +360,11 @@ case-studies:
     tactic: AML.TA0011
     technique: AML.T0015
   references:
-  - sourceDescription: null
+  - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine
+      Translation Systems" EMNLP 2020
     url: https://arxiv.org/abs/2004.15015
-  - sourceDescription: null
+  - title: Project Page, "Imitation Attacks and Defenses for Black-box Machine Translation
+      Systems"
     url: https://www.ericswallace.com/imitation
   reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
     Song (@helloksong)
@@ -393,9 +395,9 @@ case-studies:
     tactic: AML.TA0004
     technique: AML.T0012
   references:
-  - sourceDescription: null
+  - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
     url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-  - sourceDescription: null
+  - title: Gizmodo Article, "We Found Clearview AI's Shady Face Recognition App"
     url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
   reported-by: Mossab Hussein (@mossab_hussein)
   summary: 'Clearview AI''s source code repository, though password protected, was
@@ -1649,7 +1651,7 @@ techniques:
   id: AML.T0018.000
   name: Poison ML Model
   object-type: technique
-  subtechnique-of: '{{backdoor_model.id}'
+  subtechnique-of: AML.T0018
 - description: 'Adversaries may introduce a backdoor into a model by injecting a payload
     into the model file.
 
@@ -1660,7 +1662,7 @@ techniques:
   id: AML.T0018.001
   name: Inject Payload
   object-type: technique
-  subtechnique-of: '{{backdoor_model.id}'
+  subtechnique-of: AML.T0018
 - description: 'Adversaries may exfiltrate private information via [ML Model Inference
     API Access](/techniques/AML.T0040).
 

@@ -516,7 +516,7 @@
   description: |
     Adversaries may introduce a backdoor by training the model poisoned data, or by interfering with its training process.
     The model learns to associate a adversary defined trigger with the adversary's desired output.
-  subtechnique-of: "{{backdoor_model.id}"
+  subtechnique-of: "{{backdoor_model.id}}"
 
 - &inject_payload
   id: AML.T0018.001
@@ -525,7 +525,7 @@
   description: |
     Adversaries may introduce a backdoor into a model by injecting a payload into the model file.
     The payload detects the presence of the trigger and bypasses the model, instead producing the adversary's desired output.
-  subtechnique-of: "{{backdoor_model.id}"
+  subtechnique-of: "{{backdoor_model.id}}"
 
 - &exfiltrate_via_api
   id: AML.T0024

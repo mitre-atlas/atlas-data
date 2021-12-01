@@ -1,12 +1,12 @@
+import datetime
+import itertools
+import json
+import os
+import pprint
 import re
 import yaml
 from argparse import ArgumentParser
-import datetime
-import os
 from schema import Schema, Or, Optional
-import itertools
-import pprint
-import json
 
 
 def main():
@@ -49,13 +49,14 @@ def main():
     try:
         # replace all "super aliases" in strings in the document
         objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
+        tactics = walkmap(data["tactics"], lambda x: replace_anchors(x, anchors))
     except:
         print(end="")
 
     # organize objects into dicts by object-type
     # and make sure techniques are in the order defined in the matrix
     matrix = {
-        "tactics": data["tactics"],
+        "tactics": tactics,
         "techniques": [],
         "case-studies": [],
     }
@@ -71,12 +72,11 @@ def main():
                     else:
                         errormsg(object, file_name, "technique id error")
                 elif object["object-type"] == "tactic":
-                    pass
-                #     if object["id"].startswith("AML") or object["id"].startswith("T"):
-                #         idx = matrix["tactics"].index(object["id"])
-                #         matrix["tactics"][idx] = object
-                #     else:
-                #         errormsg(object, file_name, "tactic id error")
+                    if object["id"].startswith("AML") or object["id"].startswith("T"):
+                        idx = matrix["tactics"].index(object["id"])
+                        matrix["tactics"][idx] = object
+                    else:
+                        errormsg(object, file_name, "tactic id error")
                 elif object["object-type"] == "case-study":
                     if object["id"].startswith("AML") or object["id"].startswith("T1"):
                         matrix["case-studies"].append(object)
@@ -124,7 +124,7 @@ def main():
             "object-type": str,
             "summary": str,
             "incident-date": datetime.date,
-            "dateGranularity": str,
+            "date-granularity": str,
             "procedure": list,
             "reported-by": str,
             Optional("references"): Or(list, None),
@@ -176,7 +176,7 @@ def main():
     # validate references
     references_schema = Schema(
         {
-            "sourceDescription": Or(str, None),
+            "title": Or(str, None),
             "url": Or(str, None),
         }
     )

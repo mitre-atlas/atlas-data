@@ -239,9 +239,9 @@
         The adversarial examples were used to evade the machine translation services.
   reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny Song (@helloksong)
   references:
-    - sourceDescription:
+    - title: "Wallace, Eric, et al. \"Imitation Attacks and Defenses for Black-box Machine Translation Systems\" EMNLP 2020"
       url: https://arxiv.org/abs/2004.15015
-    - sourceDescription:
+    - title: Project Page, "Imitation Attacks and Defenses for Black-box Machine Translation Systems"
       url: https://www.ericswallace.com/imitation
 
 - id: AML.CS0006
@@ -261,9 +261,9 @@
         In this scenario, a security researcher gained initial access to via a valid account that was created through a misconfiguration.
   reported-by: Mossab Hussein (@mossab_hussein)
   references:
-    - sourceDescription:
+    - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
       url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
-    - sourceDescription:
+    - title: Gizmodo Article, "We Found Clearview AI's Shady Face Recognition App"
       url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
 
 - id: AML.CS0007
