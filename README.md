@@ -35,9 +35,9 @@ Run each script with `-h` to see full options.
 
 2. Set up a virtual environment and install dependencies.
 ```
-pip -m venv venv
+python -m venv venv
 pip install --upgrade pip
-pip install -r tools/requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Obtain a local copy of ATT&CK Enterprise data by running `python tools/get_attack.py`, which outputs the file `data/enterprise-attack-{version}.yaml`.
