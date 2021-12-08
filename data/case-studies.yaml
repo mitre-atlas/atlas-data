@@ -370,9 +370,9 @@
         This quickly lead to its decommissioning.
   reported-by: Microsoft
   references:
-    - title: Microsoft BlogPost, "Learning from Tay’s introduction"
+    - title: Microsoft BlogPost, "Learning from Tay's introduction"
       url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-    - title: IEEE Article, "In 2016, Microsoft’s Racist Chatbot Revealed the Dangers of Online Conversation"
+    - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers of Online Conversation"
       url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 
 - id: AML.CS0010

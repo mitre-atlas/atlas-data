@@ -557,10 +557,10 @@ case-studies:
     tactic: AML.TA0011
     technique: AML.T0031
   references:
-  - title: "Microsoft BlogPost, \"Learning from Tay\u2019s introduction\""
+  - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-  - title: "IEEE Article, \"In 2016, Microsoft\u2019s Racist Chatbot Revealed the\
-      \ Dangers of Online Conversation\""
+  - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers
+      of Online Conversation"
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
   reported-by: Microsoft
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
