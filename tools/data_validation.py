@@ -27,7 +27,7 @@ def main():
     args = parser.parse_args()
     file_name = args.file[0]
 
-    _, _, matrix = load_atlas_data(args.matrix)
+    matrix = load_atlas_data(args.matrix)
 
     """
     for object in objects:
