@@ -79,7 +79,7 @@
     - tactic: "{{defense_evasion.id}}"
       technique: "{{evade_model.id}}"
       description: |
-        The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control]() servers.
+        The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
     - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
@@ -186,7 +186,7 @@
     - tactic: "{{ml_model_access.id}}"
       technique: "{{ml_service.id}}"
       description: |
-        The attackers used the virtual camera app to present the generated video to the ML-based facial recongition product used for user verification.
+        The attackers used the virtual camera app to present the generated video to the ML-based facial recognition product used for user verification.
     - tactic: "{{impact.id}}"
       technique: "{{evade_model.id}}"
       description: |

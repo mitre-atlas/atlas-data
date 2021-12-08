@@ -55,7 +55,7 @@
     The adversary is trying to gain access to the system containing machine learning artifacts.
 
     The target system could be a network, mobile device, or an edge device such as a sensor platform.
-    The machine learning capabilities used by the system could be local with onboard or cloud enabled ML capabilties.
+    The machine learning capabilities used by the system could be local with onboard or cloud enabled ML capabilities.
 
     Initial Access consists of techniques that use various entry vectors to gain their initial foothold within the system.
 
@@ -78,7 +78,7 @@
     The adversary is trying to maintain their foothold.
 
     Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access.
-    Techniques used for persistence often involve leaving behind modified ML artifacts such as poisoned training data or backdoord ML models.
+    Techniques used for persistence often involve leaving behind modified ML artifacts such as poisoned training data or backdoored ML models.
 
 - &defense_evasion
   id: AML.TA0007
