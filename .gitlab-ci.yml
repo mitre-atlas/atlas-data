@@ -47,7 +47,7 @@ validate data:
 # Checks that a generated ATLAS.yaml matches the one in this root project.
 # Fails if they are different, only runs on merge requests or protected branches
 check ATLAS.yaml up-to-date:
-  stage: deploy
+  stage: test
   script:
     - python tools/create_matrix.py
     - git diff --exit-code ATLAS.yaml || exit_code=$?
