@@ -142,7 +142,7 @@
     Adversaries may collect public datasets to use in their operations.
     Datasets used by the victim organization or datasets that are representative of the data used by the victim organization may be valuable to adversaries.
     Datasets can be stored in cloud storage, or on victim-owned websites.
-    Some datasets require the adversary to [{{establish_accounts.id}}](/techniques/{{establish_accounts.name}}) for access.
+    Some datasets require the adversary to [{{establish_accounts.id}}](/techniques/{{establish_accounts.id}}) for access.
 
     Acquired datasets help the adversary advance their operations, stage attacks,  and tailor attacks to the victim organization.
   subtechnique-of: "{{acquire_ml_artifacts.id}}"
@@ -317,7 +317,7 @@
   object-type: technique
   description: |
     Adversaries may gain access to a model via legitimate access to the inference API.
-    Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_ontology.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for indroducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
+    Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_ontology.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for introducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
   tactics:
     - "{{ml_model_access.id}}"
 

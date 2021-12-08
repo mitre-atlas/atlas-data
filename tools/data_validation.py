@@ -1,13 +1,16 @@
+from argparse import ArgumentParser
 import datetime
 import itertools
 import json
-import os
 import pprint
 import re
-import yaml
-from argparse import ArgumentParser
-from schema import Schema, Or, Optional
+import os
+import sys
 
+from schema import Schema, Or, Optional
+import yaml
+
+from create_matrix import load_atlas_data
 
 def main():
     parser = ArgumentParser()
@@ -24,43 +27,9 @@ def main():
     args = parser.parse_args()
     file_name = args.file[0]
 
-    wd = os.getcwd()
-    os.chdir(os.path.dirname(args.matrix))
-    matrix_filename = os.path.basename(args.matrix)
+    matrix = load_atlas_data(args.matrix)
 
-    # load yaml with custom loader that supports !include and cross-doc anchors
-    master = yaml.SafeLoader("")
-    with open(matrix_filename, "rb") as f:
-        data = yaml_safe_load(f, master=master)
-
-    # load yaml with custom loader that supports !include and cross-doc anchors
-    master = yaml.SafeLoader("")
-    with open(matrix_filename, "rb") as f:
-        data = yaml_safe_load(f, master=master)
-
-    # construct anchors into dict store and for further parsing
-    const = yaml.constructor.SafeConstructor()
-    anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
-
-    # flatten the objects list of lists
-    objects = [object for objects in data["data"] for object in objects]
-
-    # handling for if name/id is misspelled
-    try:
-        # replace all "super aliases" in strings in the document
-        objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
-        tactics = walkmap(data["tactics"], lambda x: replace_anchors(x, anchors))
-    except:
-        print(end="")
-
-    # organize objects into dicts by object-type
-    # and make sure techniques are in the order defined in the matrix
-    matrix = {
-        "tactics": tactics,
-        "techniques": [],
-        "case-studies": [],
-    }
-
+    """
     for object in objects:
         # ensuring that object-type is spelled properly
         if "object-type" in object and "id" in object:
@@ -94,6 +63,8 @@ def main():
             errormsg(object, file_name, "error with object-type spelling")
         elif "id" not in object:
             errormsg(object, file_name, "error with id spelling")
+
+    """
 
     def check_structure(struct, conf):
         if isinstance(struct, dict) and isinstance(conf, dict):
@@ -219,8 +190,6 @@ def main():
             balanced_parentheses(casestudy["procedure"], file_name, errormsg)
         )
     print_results(list(itertools.chain(*procedure_validity)))
-
-    os.chdir(wd)
 
 
 def balanced_parentheses(matrix_section, file_name, errormsg):

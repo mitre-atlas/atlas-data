@@ -119,7 +119,7 @@ case-studies:
     technique: AML.T0042
   - description: 'The DGA generated domain names mutated with this technique successfully
       evade the target DGA Detection model, allowing an adversary to continue communication
-      with their [Command and Control]() servers.
+      with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
 
       '
     tactic: AML.TA0007
@@ -285,7 +285,7 @@ case-studies:
     tactic: AML.TA0003
     technique: AML.T0021
   - description: 'The attackers used the virtual camera app to present the generated
-      video to the ML-based facial recongition product used for user verification.
+      video to the ML-based facial recognition product used for user verification.
 
       '
     tactic: AML.TA0000
@@ -557,10 +557,10 @@ case-studies:
     tactic: AML.TA0011
     technique: AML.T0031
   references:
-  - title: "Microsoft BlogPost, \"Learning from Tay\u2019s introduction\""
+  - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-  - title: "IEEE Article, \"In 2016, Microsoft\u2019s Racist Chatbot Revealed the\
-      \ Dangers of Online Conversation\""
+  - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers
+      of Online Conversation"
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
   reported-by: Microsoft
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
@@ -992,7 +992,7 @@ tactics:
     a sensor platform.
 
     The machine learning capabilities used by the system could be local with onboard
-    or cloud enabled ML capabilties.
+    or cloud enabled ML capabilities.
 
 
     Initial Access consists of techniques that use various entry vectors to gain their
@@ -1045,7 +1045,7 @@ tactics:
     their access.
 
     Techniques used for persistence often involve leaving behind modified ML artifacts
-    such as poisoned training data or backdoord ML models.
+    such as poisoned training data or backdoored ML models.
 
     '
   id: AML.TA0006
@@ -1344,8 +1344,8 @@ techniques:
 
     Datasets can be stored in cloud storage, or on victim-owned websites.
 
-    Some datasets require the adversary to [AML.T0021](/techniques/Establish Accounts)
-    for access.
+    Some datasets require the adversary to [AML.T0021](/techniques/AML.T0021) for
+    access.
 
 
     Acquired datasets help the adversary advance their operations, stage attacks,  and
@@ -1581,7 +1581,7 @@ techniques:
     Inference API access can be a source of information to the adversary ([Discover
     ML Model Ontology](/techniques/AML.T0013), [Discover ML Model Family](/techniques/AML.T0013)),
     a means of staging the attack ([Verify Attack](/techniques/AML.T0042), [Craft
-    Adversarial Data](/techniques/AML.T0043)), or for indroducing data to the target
+    Adversarial Data](/techniques/AML.T0043)), or for introducing data to the target
     system for Impact ([Evade ML Model](/techniques/AML.T0015), [Erode ML Model Integrity](/techniques/AML.T0031)).
 
     '

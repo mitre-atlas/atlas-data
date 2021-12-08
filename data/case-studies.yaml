@@ -79,7 +79,7 @@
     - tactic: "{{defense_evasion.id}}"
       technique: "{{evade_model.id}}"
       description: |
-        The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control]() servers.
+        The DGA generated domain names mutated with this technique successfully evade the target DGA Detection model, allowing an adversary to continue communication with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
   reported-by: Palo Alto Networks (Network Security AI Research Team)
   references:
     - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock. "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available from Github: https://github.com/matthoffman/degas'
@@ -186,7 +186,7 @@
     - tactic: "{{ml_model_access.id}}"
       technique: "{{ml_service.id}}"
       description: |
-        The attackers used the virtual camera app to present the generated video to the ML-based facial recongition product used for user verification.
+        The attackers used the virtual camera app to present the generated video to the ML-based facial recognition product used for user verification.
     - tactic: "{{impact.id}}"
       technique: "{{evade_model.id}}"
       description: |
@@ -370,9 +370,9 @@
         This quickly lead to its decommissioning.
   reported-by: Microsoft
   references:
-    - title: Microsoft BlogPost, "Learning from Tay’s introduction"
+    - title: Microsoft BlogPost, "Learning from Tay's introduction"
       url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
-    - title: IEEE Article, "In 2016, Microsoft’s Racist Chatbot Revealed the Dangers of Online Conversation"
+    - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers of Online Conversation"
       url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 
 - id: AML.CS0010
@@ -531,11 +531,11 @@
         The researchers then repackage the poisoned model back into the APK
     - tactic: "{{ml_attack_staging.id}}"
       technique: "{{verify_attack.id}}"
-      description: 
+      description:
         To verify the success of the attack, the researchers confirmed the app did not crash with the malicious model in place, and that the trigger detector successfully detects the trigger.
     - tactic: "{{initial_access.id}}"
       technique: "{{supply_chain_model.id}}"
-      description: 
+      description:
         In practice, the malicious APK would need to be installed on victim's devices via a supply chain compromise.
     - tactic: "{{ml_attack_staging.id}}"
       technique: "{{craft_adv_trigger.id}}"

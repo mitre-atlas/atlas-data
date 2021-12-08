@@ -17,15 +17,15 @@ def main():
 
     os.makedirs(args.output, exist_ok=True)
 
-    matrix = load_matrix_data(args.matrix)
+    matrix = load_atlas_data(args.matrix)
 
     # save composite document as a standard yaml file
     output = os.path.join(args.output, f"{matrix['id']}.yaml")
     with open(output, "w") as f:
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
 
-def load_matrix_data(matrix_yaml_filepath):
-    """Returns the matrix ID, version, and dictionary representing ATLAS data 
+def load_atlas_data(matrix_yaml_filepath):
+    """Returns the matrix ID, version, and dictionary representing ATLAS data
     as read from the provided YAML file.
     """
     wd = os.getcwd()
@@ -52,7 +52,7 @@ def load_matrix_data(matrix_yaml_filepath):
     matrix = {
         "id": data["id"],
         "name": data["name"],
-        "version": data["version"], 
+        "version": data["version"],
         "tactics": tactics,
         "techniques": [],
         "case-studies": []
