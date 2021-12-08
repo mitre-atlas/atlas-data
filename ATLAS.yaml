@@ -1344,8 +1344,8 @@ techniques:
 
     Datasets can be stored in cloud storage, or on victim-owned websites.
 
-    Some datasets require the adversary to [AML.T0021](/techniques/AML.T0021) for
-    access.
+    Some datasets require the adversary to [Establish Accounts](/techniques/AML.T0021)
+    for access.
 
 
     Acquired datasets help the adversary advance their operations, stage attacks,  and

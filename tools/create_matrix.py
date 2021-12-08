@@ -109,10 +109,10 @@ def replace_anchors(x, anchors):
     hacky: right now assumes the anchor is a dict and the alias is referencing a scalar value in that dict
     """
 
-    matches = re.findall("{{\s*(.*?)\s*}}", x, re.DOTALL)
+    matches = re.findall(r"{{\s*(.*?)\s*}}", x, re.DOTALL)
     for match in matches:
         val = objget(anchors, match)
-        x = re.sub(f"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
+        x = re.sub(rf"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
     return x
 
 
