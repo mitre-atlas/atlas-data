@@ -531,11 +531,11 @@
         The researchers then repackage the poisoned model back into the APK
     - tactic: "{{ml_attack_staging.id}}"
       technique: "{{verify_attack.id}}"
-      description: 
+      description:
         To verify the success of the attack, the researchers confirmed the app did not crash with the malicious model in place, and that the trigger detector successfully detects the trigger.
     - tactic: "{{initial_access.id}}"
       technique: "{{supply_chain_model.id}}"
-      description: 
+      description:
         In practice, the malicious APK would need to be installed on victim's devices via a supply chain compromise.
     - tactic: "{{ml_attack_staging.id}}"
       technique: "{{craft_adv_trigger.id}}"
