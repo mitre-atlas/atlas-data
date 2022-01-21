@@ -8,7 +8,7 @@
     Based on the publicly available paper by Le et al.  [1], we built a model that was trained on a similar dataset as our production model and had performance similar to it.
     Then we crafted adversarial samples and queried the model and adjusted the adversarial sample accordingly till the model was evaded.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research_preprint.id}}"
@@ -52,7 +52,7 @@
     It is a generic domain mutation technique which can evade most ML-based DGA detection modules.
     The generic mutation technique can also be used to test the effectiveness and robustness of all DGA detection methods developed by security companies in the industry before it is deployed to the production environment.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -96,7 +96,7 @@
     After more digging, the discovery was made that someone used 'metame' a metamorphic code manipulating tool to manipulate the original file towards mutant variants.
     The variants wouldn't always be executable but still classified as the same ransomware family.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{obtain_advml.id}}"
@@ -125,7 +125,7 @@
     Researchers at Skylight were able to create a universal bypass string that
     when appended to a malicious file evades detection by Cylance's AI Malware detector.
   incident-date: 2019-09-07
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_website.id}}"
@@ -161,7 +161,7 @@
     This type of attack can break through the traditional live detection model
     and cause the misuse of face recognition.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{acquire_hw.id}}"
@@ -203,7 +203,7 @@
     Beyond demonstrating that IP can be stolen from a black-box system, they used the replicated model to successfully transfer adversarial examples to the real production services.
     These adversarial inputs successfully cause targeted word flips, vulgar outputs, and dropped sentences on Google Translate and Systran Translate websites.
   incident-date: 2020-04-30
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -253,7 +253,7 @@
     With access to training data, a bad-actor has the ability to cause an arbitrary misclassification in the deployed model.
     These kinds of attacks illustrate that any attempt to secure ML system should be on top of "traditional" good cybersecurity hygiene such as locking down the system with least privileges, multi-factor authentication and monitoring and auditing.
   incident-date: 2020-04-16
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{initial_access.id}}"
       technique: "{{valid_accounts.id}}"
@@ -273,7 +273,7 @@
     OpenAI built GPT-2, a powerful natural language model and adopted a staged-release process to incrementally release 1.5 Billion parameter model.
     Before the 1.5B parameter model could be released by OpenAI eventually, two ML researchers replicated the model and released it to the public.
   incident-date: 2019-08-22
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -310,7 +310,7 @@
   summary: |
     CVE-2019-20634 describes how ML researchers evaded ProofPoint's email protection system by first building a copy-cat email protection ML model, and using the insights to evade the live system.
   incident-date: 2019-09-09
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{resource_development.id}}"
       technique: "{{acquire_ml_artifacts.id}}"
@@ -348,7 +348,7 @@
     Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S. for entertainment purposes.
     Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted reprehensible words.
   incident-date: 2016-03-23
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{ml_model_access.id}}"
       technique: "{{inference_api.id}}"
@@ -382,7 +382,7 @@
     The Azure Red Team and Azure Trustworthy ML team performed a red team exercise on an internal Azure service with the intention of disrupting its service.
     This operation had a combination of traditional ATT&CK enterprise techniques such as finding Valid account, and Executing code via an API -- all interleaved with adversarial ML specific steps such as offline and online evasion examples.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -417,7 +417,7 @@
   summary: |
     The Azure Red Team performed a red team exercise on a new Microsoft product designed for running AI workloads at the Edge.
   incident-date: 2020-02-01
-  date-granularity: MONTH
+  incident-date-granularity: MONTH
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -449,7 +449,7 @@
    MITRE's AI Red Team demonstrated a physical-domain evasion attack on a commercial face identification service with the intention of inducing a targeted misclassification.
    This operation had a combination of traditional ATT&CK enterprise techniques such as finding Valid account, and Executing code via an API - all interleaved with adversarial ML specific attacks.
   incident-date: 2020-01-01
-  date-granularity: YEAR
+  incident-date-granularity: YEAR
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{victim_research.id}}"
@@ -498,7 +498,7 @@
     Researchers from Microsoft Research demonstrated that many deep learning models deployed in mobile apps are vulnerable to backdoor attacks via "neural payload injection."
     They conducted an empirical study on real-world mobile deep learning apps collected from Google Play, and found 54 apps that were vulnerable to attack, including popular security and safety critical applications used for as cash recognition, parental control, face authentication, and financial services among others.
   incident-date: 2021-01-18
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{search_apps.id}}"
@@ -566,7 +566,7 @@
 
     They attacked one of Kaspersky's antimalware ML models without white-box access to it and successfully evaded detection for most of the adversarially modified malware files.
   incident-date: 2021-06-23
-  date-granularity: DATE
+  incident-date-granularity: DATE
   procedure:
     - tactic: "{{reconnaissance.id}}"
       technique: "{{vuln_analysis.id}}"

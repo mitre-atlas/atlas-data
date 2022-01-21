@@ -1,8 +1,8 @@
 ---
 case-studies:
-- date-granularity: YEAR
-  id: AML.CS0000
+- id: AML.CS0000
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: Evasion of Deep Learning detector for malware C&C traffic
   object-type: case-study
   procedure:
@@ -74,9 +74,9 @@ case-studies:
     sample accordingly till the model was evaded.
 
     '
-- date-granularity: YEAR
-  id: AML.CS0001
+- id: AML.CS0001
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
   object-type: case-study
   procedure:
@@ -143,9 +143,9 @@ case-studies:
     industry before it is deployed to the production environment.
 
     '
-- date-granularity: YEAR
-  id: AML.CS0002
+- id: AML.CS0002
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: VirusTotal Poisoning
   object-type: case-study
   procedure:
@@ -197,9 +197,9 @@ case-studies:
     family.
 
     '
-- date-granularity: DATE
-  id: AML.CS0003
+- id: AML.CS0003
   incident-date: 2019-09-07
+  incident-date-granularity: DATE
   name: Bypassing Cylance's AI Malware Detection
   object-type: case-study
   procedure:
@@ -251,9 +251,9 @@ case-studies:
     when appended to a malicious file evades detection by Cylance''s AI Malware detector.
 
     '
-- date-granularity: YEAR
-  id: AML.CS0004
+- id: AML.CS0004
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: Camera Hijack Attack on Facial Recognition System
   object-type: case-study
   procedure:
@@ -303,9 +303,9 @@ case-studies:
     and cause the misuse of face recognition.
 
     '
-- date-granularity: DATE
-  id: AML.CS0005
+- id: AML.CS0005
   incident-date: 2020-04-30
+  incident-date-granularity: DATE
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
     and Systran Translate
   object-type: case-study
@@ -382,9 +382,9 @@ case-studies:
     and dropped sentences on Google Translate and Systran Translate websites.
 
     '
-- date-granularity: DATE
-  id: AML.CS0006
+- id: AML.CS0006
   incident-date: 2020-04-16
+  incident-date-granularity: DATE
   name: ClearviewAI Misconfiguration
   object-type: case-study
   procedure:
@@ -415,9 +415,9 @@ case-studies:
     system with least privileges, multi-factor authentication and monitoring and auditing.
 
     '
-- date-granularity: DATE
-  id: AML.CS0007
+- id: AML.CS0007
   incident-date: 2019-08-22
+  incident-date-granularity: DATE
   name: GPT-2 Model Replication
   object-type: case-study
   procedure:
@@ -470,9 +470,9 @@ case-studies:
     researchers replicated the model and released it to the public.
 
     '
-- date-granularity: DATE
-  id: AML.CS0008
+- id: AML.CS0008
   incident-date: 2019-09-09
+  incident-date-granularity: DATE
   name: ProofPoint Evasion
   object-type: case-study
   procedure:
@@ -521,9 +521,9 @@ case-studies:
     using the insights to evade the live system.
 
     '
-- date-granularity: DATE
-  id: AML.CS0009
+- id: AML.CS0009
   incident-date: 2016-03-23
+  incident-date-granularity: DATE
   name: Tay Poisoning
   object-type: case-study
   procedure:
@@ -570,9 +570,9 @@ case-studies:
     reprehensible words.
 
     '
-- date-granularity: YEAR
-  id: AML.CS0010
+- id: AML.CS0010
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: Microsoft - Azure Service
   object-type: case-study
   procedure:
@@ -617,9 +617,9 @@ case-studies:
     operation had a combination of traditional ATT&CK enterprise techniques such as
     finding Valid account, and Executing code via an API -- all interleaved with adversarial
     ML specific steps such as offline and online evasion examples.
-- date-granularity: MONTH
-  id: AML.CS0011
+- id: AML.CS0011
   incident-date: 2020-02-01
+  incident-date-granularity: MONTH
   name: Microsoft Edge AI - Evasion
   object-type: case-study
   procedure:
@@ -660,9 +660,9 @@ case-studies:
     designed for running AI workloads at the Edge.
 
     '
-- date-granularity: YEAR
-  id: AML.CS0012
+- id: AML.CS0012
   incident-date: 2020-01-01
+  incident-date-granularity: YEAR
   name: MITRE - Physical Adversarial Attack on Face Identification
   object-type: case-study
   procedure:
@@ -726,9 +726,9 @@ case-studies:
     adversarial ML specific attacks.
 
     '
-- date-granularity: DATE
-  id: AML.CS0013
+- id: AML.CS0013
   incident-date: 2021-01-18
+  incident-date-granularity: DATE
   name: Backdoor Attack on Deep Learning Models in Mobile Apps
   object-type: case-study
   procedure:
@@ -834,9 +834,9 @@ case-studies:
     parental control, face authentication, and financial services among others.
 
     '
-- date-granularity: DATE
-  id: AML.CS0014
+- id: AML.CS0014
   incident-date: 2021-06-23
+  incident-date-granularity: DATE
   name: Kaspersky - Confusing Antimalware Neural Networks
   object-type: case-study
   procedure:

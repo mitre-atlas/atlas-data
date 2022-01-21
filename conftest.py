@@ -164,7 +164,7 @@ def case_study_schema():
             "name": str,
             "summary": str,
             "incident-date": datetime.date,
-            "date-granularity": Or('YEAR', 'MONTH', 'DATE'),
+            "incident-date-granularity": Or('YEAR', 'MONTH', 'DATE'),
             "procedure": [
                 {
                     "tactic": TACTIC_ID_REGEX,
