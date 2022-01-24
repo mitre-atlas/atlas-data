@@ -17,17 +17,15 @@ def main():
 
     os.makedirs(args.output, exist_ok=True)
 
-    matrix_id, matrix_ver, matrix = load_atlas_data(args.matrix)
+    matrix = load_atlas_data(args.matrix)
 
     # save composite document as a standard yaml file
-    output_filename = f"{matrix_id}-{matrix_ver}.yaml"
-    output_filepath = os.path.join(args.output, output_filename)
-
-    with open(output_filepath, "w") as f:
+    output = os.path.join(args.output, f"{matrix['id']}.yaml")
+    with open(output, "w") as f:
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
 
 def load_atlas_data(matrix_yaml_filepath):
-    """Returns the matrix ID, version, and dictionary representing ATLAS data 
+    """Returns the matrix ID, version, and dictionary representing ATLAS data
     as read from the provided YAML file.
     """
     wd = os.getcwd()
@@ -47,11 +45,15 @@ def load_atlas_data(matrix_yaml_filepath):
 
     # replace all "super aliases" in strings in the document
     objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
+    tactics = walkmap(data["tactics"], lambda x: replace_anchors(x, anchors))
 
     # organize objects into dicts by object-type
     # and make sure techniques are in the order defined in the matrix
     matrix = {
-        "tactics": data["tactics"],
+        "id": data["id"],
+        "name": data["name"],
+        "version": data["version"],
+        "tactics": tactics,
         "techniques": [],
         "case-studies": []
     }
@@ -67,7 +69,7 @@ def load_atlas_data(matrix_yaml_filepath):
 
     os.chdir(wd)
 
-    return data["id"], data["version"], matrix
+    return matrix
 
 def objget(x, path, sep="."):
     """
@@ -107,10 +109,10 @@ def replace_anchors(x, anchors):
     hacky: right now assumes the anchor is a dict and the alias is referencing a scalar value in that dict
     """
 
-    matches = re.findall("{{\s*(.*?)\s*}}", x, re.DOTALL)
+    matches = re.findall(r"{{\s*(.*?)\s*}}", x, re.DOTALL)
     for match in matches:
         val = objget(anchors, match)
-        x = re.sub(f"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
+        x = re.sub(rf"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
     return x
 
 
