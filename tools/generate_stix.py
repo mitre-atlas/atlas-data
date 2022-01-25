@@ -121,46 +121,47 @@ class AttackDataParser():
         return matching_items[0]
 
 
-class AdvML:
-    """Converts from AdvML YAML data to STIX."""
+class ATLAS:
+    """Converts from ATLAS YAML data to STIX."""
     # An lowercase, hyphened identifier for this data
     SOURCE_NAME = 'mitre-atlas'
 
-    def __init__(self, data_dir_path, use_advml_relevant_only=True):
-        """Initialize an AdvML object.  Defaults provided via arguments in main.
+    def __init__(self, data_dir_path, use_atlas_relevant_only=True):
+        """Initialize an ATLAS object.  Defaults provided via arguments in main.
 
         Args:
             data_dir_path (str): Path to the data directory
-            use_advml_relevant_only (bool): Whether to use AdvML and only relevant ATT&CK entries (True),
-                or AdvML and all of ATT&CK Enterprise
+            use_atlas_relevant_only (bool): Whether to use ATLAS and only relevant ATT&CK entries (True),
+                or ATLAS and all of ATT&CK Enterprise
         """
         self.attack_data_parser = AttackDataParser()
         self.parse_data_files(data_dir_path)
         # Track referenced ATT&CK tactics by short ID
         self.referenced_attack_tactics = {}
-        # Track AdvML (and later combine with ATT&CK) tactics by short ID
+        # Track ATLAS (and later combine with ATT&CK) tactics by short ID
         # for matrix ordering lookup
         self.tactic_mapping = {}
-        self.use_advml_relevant_only = use_advml_relevant_only
+        self.use_atlas_relevant_only = use_atlas_relevant_only
 
     def parse_data_files(self, data_dir_path):
         """Parses the YAML data and sets attributes."""
         matrix_filepath = Path(data_dir_path) / 'matrix.yaml'
-        self.matrix_name, _, matrix = load_atlas_data(matrix_filepath)
+        self.matrix_name = 'ATLAS'
+        matrix = load_atlas_data(matrix_filepath)
 
         self.tactics = matrix["tactics"]
         self.techniques = matrix["techniques"]
         self.studies = matrix["case-studies"]
 
-    def to_stix_json(self, stix_output_filepath, advml_url):
-        """Saves a STIX JSON file of the AdvML tactics and techniques info,
+    def to_stix_json(self, stix_output_filepath, atlas_url):
+        """Saves a STIX JSON file of the ATLAS tactics and techniques info,
         populated from ATT&CK Enterprise where needed.
 
         STIX Bundle specs
         https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_nuwp4rox8c7r
         """
 
-        # Convert AdvML techniques first to populate the referenced ATT&CK tactics
+        # Convert ATLAS techniques first to populate the referenced ATT&CK tactics
         # Only for parent techniques, as subtechniques do not have tactics references
         # TODO Is it an invariant that subtechniques always follow their parent techniques?
         # TODO No, broken with Tainting Data from Acquisition - Label Corruption referencing T0019 but following T0018 - manually changing
@@ -171,26 +172,26 @@ class AdvML:
             if 'subtechnique-of' in t:
                 pass
                 # Create subtechnique and relationship
-                subtechnique, relationship = self.subtechnique_to_attack_pattern(t, parent_technique, advml_url)
+                subtechnique, relationship = self.subtechnique_to_attack_pattern(t, parent_technique, atlas_url)
                 # Add to trackers
                 stix_techniques.append(subtechnique)
                 relationships.append(relationship)
             else:
                 # Create and add this technique
-                technique = self.technique_to_attack_pattern(t, advml_url)
+                technique = self.technique_to_attack_pattern(t, atlas_url)
                 stix_techniques.append(technique)
                 # Save off reference to this technique for use by its subtechniques, should there be any following
                 parent_technique = technique
 
-        # stix_techniques = [self.technique_to_attack_pattern(t, advml_url) for t in self.techniques if 'subtechnique-of' not in t]
-        print(f'Converted {len(stix_techniques)} AdvML techniques to STIX objects.')
+        # stix_techniques = [self.technique_to_attack_pattern(t, atlas_url) for t in self.techniques if 'subtechnique-of' not in t]
+        print(f'Converted {len(stix_techniques)} ATLAS techniques to STIX objects.')
         print(f'\t{len(relationships)} subtechnique relationships.')
 
-        # Convert AdvML tactics to x-mitre-tactics
-        stix_tactics = [self.tactic_to_mitre_attack_tactic(t, advml_url) for t in self.tactics]
-        print(f'Converted {len(stix_tactics)} AdvML tactics to STIX objects.')
+        # Convert ATLAS tactics to x-mitre-tactics
+        stix_tactics = [self.tactic_to_mitre_attack_tactic(t, atlas_url) for t in self.tactics]
+        print(f'Converted {len(stix_tactics)} ATLAS tactics to STIX objects.')
         # Add any referenced ATT&CK tactics, otherwise they'll already exist in the full ATT&CK
-        if self.use_advml_relevant_only:
+        if self.use_atlas_relevant_only:
             stix_tactics.extend(self.referenced_attack_tactics.values())
 
         # Build x-mitre-matrix
@@ -201,27 +202,27 @@ class AdvML:
         # Controls location of "View tactic/technique" on Navigator item right-click
         external_references = [
             ExternalReference(
-                source_name = AdvML.SOURCE_NAME,
-                url=advml_url
+                source_name = ATLAS.SOURCE_NAME,
+                url=atlas_url
             )
         ]
 
         # Build ordered list of tactics
         tactic_refs = []
-        if self.use_advml_relevant_only:
+        if self.use_atlas_relevant_only:
             # Combine short ID-to-STIX tactic dictionaries to populate the matrix tactics in order
             self.tactic_mapping.update(self.referenced_attack_tactics)
             # Order of tactics in matrix, by STIX ID reference
             # tactic_refs = [self.tactic_mapping[tactic_id]['id'] for tactic_id in self.matrix_tactic_id_order]
         else:
-            # Find the AdvML tactics and their preceding ATT&CK IDs
+            # Find the ATLAS tactics and their preceding ATT&CK IDs
             # Insert the custom tactics
 
             # Find the existing x-mitre-matrix object from ATT&CK Enterprise
             attack_matrix = self.attack_data_parser.get_matrix()
             attack_tactic_refs = attack_matrix['tactic_refs']
 
-            # TODO Check if this works
+            # TODO self.matrix_tactic_id_order is not defined, use with --all
             prev_tactic_short_id = None
             for tactic_short_id in self.matrix_tactic_id_order:
 
@@ -230,9 +231,9 @@ class AdvML:
                     prev_tactic_stix, _ = self.attack_data_parser.get_tactic(prev_tactic_short_id)
                     # Find the index of this ATT&CK tactic
                     prev_tactic_stix_index = attack_tactic_refs.index(prev_tactic_stix['id'])
-                    # Look up the STIX ID of this AdvML tactic
+                    # Look up the STIX ID of this ATLAS tactic
                     tactic_stix_id = self.tactic_mapping[tactic_short_id]['id']
-                    # Insert the AdvML STIX tactic right after the ATT&CK one
+                    # Insert the ATLAS STIX tactic right after the ATT&CK one
                     attack_tactic_refs.insert(prev_tactic_stix_index + 1, tactic_stix_id)
 
                 # Continue tracking the previous short ID
@@ -241,7 +242,7 @@ class AdvML:
             # Update the tactic refs
             tactic_refs = attack_tactic_refs
 
-        print(f'Generated {len(tactic_refs)} tactic references for the AdvML matrix object.')
+        print(f'Generated {len(tactic_refs)} tactic references for the ATLAS matrix object.')
 
         stix_matrix_obj = AttackMatrix(
             name=self.matrix_name,
@@ -253,7 +254,7 @@ class AdvML:
         # JSON
         stix_json = None
 
-        if self.use_advml_relevant_only:
+        if self.use_atlas_relevant_only:
             print('Bundling and serializing ATLAS data to JSON file...')
             bundle = Bundle(
                 objects=stix_tactics + stix_techniques + relationships + [stix_matrix_obj],
@@ -263,10 +264,10 @@ class AdvML:
 
         else:
             """
-            print('Adding AdvML-specific STIX objects to the ATT&CK memory store...')
-            # Add AdvML tactics
+            print('Adding ATLAS-specific STIX objects to the ATT&CK memory store...')
+            # Add ATLAS tactics
             self.attack_data_parser.attack_memory_store.add(stix_tactics)
-            # Add AdvML techniques
+            # Add ATLAS techniques
             self.attack_data_parser.attack_memory_store.add(stix_techniques)
             # Add subtechnique relationships
             self.attack_data_parser.attack_memory_store.add(relationships)
@@ -304,16 +305,16 @@ class AdvML:
         kill_chain_phases = []
 
         for tactic_id in tactic_ids:
-            # Default properies, if not recognized as AdvML or ATT&CK
+            # Default properies, if not recognized as ATLAS or ATT&CK
             # TODO Model Poisoning & Tainting Data from Acquisition - Label Corruption had this as a 2nd tactic - why? Manually replacing
             kill_chain_name= '?'
             phase_name = '?'
 
             if tactic_id.startswith('AML.TA'):
-                # AdvML
-                kill_chain_name = AdvML.SOURCE_NAME # Using this as an identifier
+                # ATLAS
+                kill_chain_name = ATLAS.SOURCE_NAME # Using this as an identifier
 
-                # Look up AdvML tactic name
+                # Look up ATLAS tactic name
                 tactic = next((tactic for tactic in self.tactics if tactic['id'] == tactic_id), None)
                 # Ensure this is found
                 assert(tactic is not None)
@@ -340,27 +341,27 @@ class AdvML:
 
         return kill_chain_phases
 
-    def build_advml_external_references(self, t, advml_url, route='techniques'):
-        """Returns a STIX External Reference for AdvML data."""
+    def build_atlas_external_references(self, t, atlas_url, route='techniques'):
+        """Returns a STIX External Reference for ATLAS data."""
 
         # Construct the full URL to the resource
-        url = advml_url + '/' + route + '/' + t['id']
+        url = atlas_url + '/' + route + '/' + t['id']
 
         # External references is a list
         return [
             ExternalReference(
-                source_name=AdvML.SOURCE_NAME, # The only required property
+                source_name=ATLAS.SOURCE_NAME, # The only required property
                 url=url,
                 external_id=t['id']
             )
         ]
 
-    def tactic_to_mitre_attack_tactic(self, t, advml_url):
+    def tactic_to_mitre_attack_tactic(self, t, atlas_url):
         """Returns a STIX x-mitre-tactic representing this tactic."""
         at = AttackTactic(
             name=t['name'],
             description=t['description'],
-            external_references=self.build_advml_external_references(t, advml_url, 'tactics'),
+            external_references=self.build_atlas_external_references(t, atlas_url, 'tactics'),
             x_mitre_shortname=t['name'].lower().replace(' ','-'),
             created_by_ref=self.attack_data_parser.identity['id'],
             object_marking_refs=self.attack_data_parser.object_marking_refs
@@ -371,19 +372,19 @@ class AdvML:
 
         return at
 
-    def technique_to_attack_pattern(self, t, advml_url):
+    def technique_to_attack_pattern(self, t, atlas_url):
         """Returns a STIX AttackPattern representing this technique."""
         return AttackPattern(
             name=t['name'],
             description=t['description'],
             kill_chain_phases=self.referenced_tactics_to_kill_chain_phases(t['tactics']),
-            external_references=self.build_advml_external_references(t, advml_url),
+            external_references=self.build_atlas_external_references(t, atlas_url),
             # Needed by Navigator else TypeError technique.platforms is not iterable
             allow_custom=True,
             x_mitre_platforms=['ATLAS']
         )
 
-    def subtechnique_to_attack_pattern(self, t, parent, advml_url):
+    def subtechnique_to_attack_pattern(self, t, parent, atlas_url):
         """Returns a STIX AttackPattern representing this subtechnique and a STIX Relationship
         between this subtechnique and its parent.
 
@@ -393,7 +394,7 @@ class AdvML:
             name=t['name'],
             description=t['description'],
             kill_chain_phases=parent.kill_chain_phases,
-            external_references=self.build_advml_external_references(t, advml_url),
+            external_references=self.build_atlas_external_references(t, atlas_url),
             # Needed by Navigator else TypeError technique.platforms is not iterable
             allow_custom=True,
             x_mitre_platforms=['ATLAS'],
@@ -432,9 +433,9 @@ if __name__ == '__main__':
     )
     parser.add_argument("--url",
         type=str,
-        dest="advml_url",
+        dest="atlas_url",
         default="https://atlas.mitre.org",
-        help="URL to AdvML website for Navigator item linking"
+        help="URL to ATLAS website for Navigator item linking"
     )
     parser.add_argument("--stix_out",
         type=str,
@@ -449,13 +450,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    advml = AdvML(
+    atlas = ATLAS(
         data_dir_path=args.dir,
-        use_advml_relevant_only=not args.all
+        use_atlas_relevant_only=not args.all
     )
 
     # Convert to and save STIX
-    advml.to_stix_json(args.stix_output_filepath, args.advml_url)
+    atlas.to_stix_json(args.stix_output_filepath, args.atlas_url)
 
     """
     Layer displaying ATLAS

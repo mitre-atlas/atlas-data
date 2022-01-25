@@ -25,7 +25,7 @@ def main():
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
 
 def load_atlas_data(matrix_yaml_filepath):
-    """Returns the matrix ID, version, and dictionary representing ATLAS data
+    """Returns a dictionary representing ATLAS data
     as read from the provided YAML file.
     """
     wd = os.getcwd()
