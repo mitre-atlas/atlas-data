@@ -70,16 +70,28 @@ class AttackDataParser():
         """Returns a STIX Filter for the specified ID, usually as the first item in a tactic's references."""
         return Filter('external_references.external_id', '=', tactic_id)
 
-    def get_tactic(self, tactic_id):
+    def build_tactic_name_filter(self, tactic_name):
+        """Returns a STIX Filter for the specified name."""
+        return Filter('name', '=', tactic_name)
+
+    def get_tactic(self, tactic_id, is_name=False):
         """Returns the lowercase name of the specified tactic, for use by Kill Chain Phase."""
+
+        tactic_filter = self.build_tactic_id_filter(tactic_id)
+        if is_name:
+            tactic_filter = self.build_tactic_name_filter(tactic_id)
+
         # Find tactics with this ID
         matching_tactics = self.attack_memory_store.query([
             AttackDataParser.TACTIC_FILTER,
-            self.build_tactic_id_filter(tactic_id)
+            tactic_filter
         ])
 
-        # There should only be one
-        assert(len(matching_tactics) == 1)
+        # There should be 0 (this is an ATLAS tactic, or one (the ATTACK tactic)
+        assert(len(matching_tactics) <= 1)
+
+        if len(matching_tactics) == 0:
+            raise ValueError(f'No matching ATT&CK tactic found for {tactic_id}')
 
         # Use lowercase version of tactic name, to fit Kill Chain Phase specs
         tactic = matching_tactics[0]
@@ -146,9 +158,10 @@ class ATLAS:
     def parse_data_files(self, data_dir_path):
         """Parses the YAML data and sets attributes."""
         matrix_filepath = Path(data_dir_path) / 'matrix.yaml'
-        self.matrix_name = 'ATLAS'
+
         matrix = load_atlas_data(matrix_filepath)
 
+        self.matrix_name = matrix["name"]
         self.tactics = matrix["tactics"]
         self.techniques = matrix["techniques"]
         self.studies = matrix["case-studies"]
@@ -203,7 +216,8 @@ class ATLAS:
         external_references = [
             ExternalReference(
                 source_name = ATLAS.SOURCE_NAME,
-                url=atlas_url
+                url=atlas_url,
+                external_id = ATLAS.SOURCE_NAME # https://github.com/mitre-attack/attack-navigator/issues/362
             )
         ]
 
@@ -223,21 +237,27 @@ class ATLAS:
             attack_tactic_refs = attack_matrix['tactic_refs']
 
             # TODO self.matrix_tactic_id_order is not defined, use with --all
-            prev_tactic_short_id = None
-            for tactic_short_id in self.matrix_tactic_id_order:
+            prev_tactic_name = None
 
-                if tactic_short_id.startswith('AML.TA'):
-                    # Retrieve the ATT&CK tactic by short ID
-                    prev_tactic_stix, _ = self.attack_data_parser.get_tactic(prev_tactic_short_id)
-                    # Find the index of this ATT&CK tactic
-                    prev_tactic_stix_index = attack_tactic_refs.index(prev_tactic_stix['id'])
-                    # Look up the STIX ID of this ATLAS tactic
-                    tactic_stix_id = self.tactic_mapping[tactic_short_id]['id']
-                    # Insert the ATLAS STIX tactic right after the ATT&CK one
-                    attack_tactic_refs.insert(prev_tactic_stix_index + 1, tactic_stix_id)
+            for tactic in self.tactics:
+                print(prev_tactic_name)
+                tactic_id = tactic['id']
+
+                if tactic_id.startswith('AML.TA') and prev_tactic_name is not None:
+                    # Retrieve the ATT&CK tactic by name, if exists
+                    try:
+                        prev_tactic_stix, _ = self.attack_data_parser.get_tactic(prev_tactic_name, is_name=True)
+                        # Find the index of this ATT&CK tactic
+                        prev_tactic_stix_index = attack_tactic_refs.index(prev_tactic_stix['id'])
+                        # Look up the STIX ID of this ATLAS tactic
+                        tactic_stix_id = self.tactic_mapping[tactic_id]['id']
+                        # Insert the ATLAS STIX tactic right after the ATT&CK one
+                        attack_tactic_refs.insert(prev_tactic_stix_index + 1, tactic_stix_id)
+                    except ValueError as e:
+                        print(e)
 
                 # Continue tracking the previous short ID
-                prev_tactic_short_id = tactic_short_id
+                prev_tactic_name = tactic['name']
 
             # Update the tactic refs
             tactic_refs = attack_tactic_refs
