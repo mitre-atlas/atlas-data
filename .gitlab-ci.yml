@@ -29,6 +29,16 @@ before_script:
   - source venv/bin/activate
   - pip install -r requirements.txt
 
+lint yaml:
+  stage: test
+  script:
+    - pip install -r tests/requirements.txt
+    - yamllint .
+  rules:
+    - changes:
+        - *.yaml
+        - *.yml
+
 validate data:
   stage: test
   script:
