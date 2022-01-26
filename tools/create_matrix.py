@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 
 
 """
-Creates the Adversarial Threat Matrix from
+Creates the combined ATLAS YAML file from source data.
 """
 
 
@@ -22,11 +22,11 @@ def main():
     # save composite document as a standard yaml file
     output = os.path.join(args.output, f"{matrix['id']}.yaml")
     with open(output, "w") as f:
-        yaml.dump(matrix, f, default_flow_style=False, explicit_start=True)
+        yaml.dump(matrix, f, default_flow_style=False, explicit_start=True, sort_keys=False)
 
 def load_atlas_data(matrix_yaml_filepath):
     """Returns a dictionary representing ATLAS data
-    as read from the provided YAML file.
+    as read from the provided YAML files.
     """
     wd = os.getcwd()
     os.chdir(os.path.dirname(matrix_yaml_filepath))
