@@ -17,11 +17,7 @@ Custom MITRE ATT&CK STIX object to be able to use the Navigator.
     ('description', properties.StringProperty()),
     # https://github.com/oasis-open/cti-python-stix2/blob/master/stix2/properties.py#L197
     ('external_references', properties.ListProperty(ExternalReference)),
-    # Custom tactic not showing up in Navigator - adding these properties for completeness
-    # but they have no effect - might be v2.1 vs. 2.0
     ('x_mitre_shortname', properties.StringProperty()),
-    ('created_by_ref', properties.StringProperty()),
-    ('object_marking_refs', properties.ListProperty(properties.StringProperty))
 ])
 class AttackTactic():
     """Custom MITRE ATT&CK tactic STIX object."""
@@ -53,10 +49,7 @@ class ATLAS:
             data_dir_path (str): Path to the data directory
         """
         self.parse_data_files(data_dir_path)
-        # Track referenced ATT&CK tactics by short ID
-        self.referenced_attack_tactics = {}
-        # Track ATLAS (and later combine with ATT&CK) tactics by short ID
-        # for matrix ordering lookup
+        # Track ATLAS tactics by short ID for matrix ordering lookup
         self.tactic_mapping = {}
 
     def parse_data_files(self, data_dir_path):
@@ -100,7 +93,6 @@ class ATLAS:
                 # Save off reference to this technique for use by its subtechniques, should there be any following
                 parent_technique = technique
 
-        # stix_techniques = [self.technique_to_attack_pattern(t, atlas_url) for t in self.techniques if 'subtechnique-of' not in t]
         print(f'Converted {len(stix_techniques)} ATLAS techniques to STIX objects.')
         print(f'\t{len(relationships)} subtechnique relationships.')
 
@@ -108,8 +100,6 @@ class ATLAS:
         stix_tactics = [self.tactic_to_mitre_attack_tactic(t, atlas_url) for t in self.tactics]
         print(f'Converted {len(stix_tactics)} ATLAS tactics to STIX objects.')
 
-        # Add any referenced ATT&CK tactics, otherwise they'll already exist in the full ATT&CK
-        stix_tactics.extend(self.referenced_attack_tactics.values())
 
         # Build x-mitre-matrix
 
@@ -125,8 +115,6 @@ class ATLAS:
         # Build ordered list of tactics
         tactic_refs = []
 
-        # Combine short ID-to-STIX tactic dictionaries to populate the matrix tactics in order
-        self.tactic_mapping.update(self.referenced_attack_tactics)
         # Order of tactics in matrix, by STIX ID reference
         tactic_refs = [self.tactic_mapping[tactic['id']]['id'] for tactic in self.tactics]
 
