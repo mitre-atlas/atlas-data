@@ -161,7 +161,10 @@ class ATLAS:
 
         matrix = load_atlas_data(matrix_filepath)
 
+        self.matrix_id = matrix["id"]
         self.matrix_name = matrix["name"]
+        self.matrix_version = matrix["version"]
+
         self.tactics = matrix["tactics"]
         self.techniques = matrix["techniques"]
         self.studies = matrix["case-studies"]
@@ -209,9 +212,6 @@ class ATLAS:
 
         # Build x-mitre-matrix
 
-        # TODO - should this be part of matrix.yaml?
-        matrix_description = ''
-
         # Controls location of "View tactic/technique" on Navigator item right-click
         external_references = [
             ExternalReference(
@@ -227,7 +227,7 @@ class ATLAS:
             # Combine short ID-to-STIX tactic dictionaries to populate the matrix tactics in order
             self.tactic_mapping.update(self.referenced_attack_tactics)
             # Order of tactics in matrix, by STIX ID reference
-            # tactic_refs = [self.tactic_mapping[tactic_id]['id'] for tactic_id in self.matrix_tactic_id_order]
+            tactic_refs = [self.tactic_mapping[tactic['id']]['id'] for tactic in self.tactics]
         else:
             # Find the ATLAS tactics and their preceding ATT&CK IDs
             # Insert the custom tactics
@@ -265,8 +265,8 @@ class ATLAS:
         print(f'Generated {len(tactic_refs)} tactic references for the ATLAS matrix object.')
 
         stix_matrix_obj = AttackMatrix(
-            name=self.matrix_name,
-            description=matrix_description,
+            name=f'{self.matrix_id} {self.matrix_version}',
+            description=f'{self.matrix_name}: atlas.mitre.org',
             external_references=external_references,
             tactic_refs=tactic_refs
         )
@@ -463,6 +463,7 @@ if __name__ == '__main__':
         default="atlas-stix.json",
         help="Output filepath for STIX JSON"
     )
+    # Warning: unused as of 3.0
     parser.add_argument("--all",
         action="store_true",
         help="Includes all from ATT&CK Enterprise"
