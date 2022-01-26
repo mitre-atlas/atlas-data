@@ -36,8 +36,8 @@ lint yaml:
     - yamllint .
   rules:
     - changes:
-        - *.yaml
-        - *.yml
+        - "*.yaml"
+        - "*.yml"
 
 validate data:
   stage: test
