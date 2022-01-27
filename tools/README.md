@@ -22,4 +22,3 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-3. (Optional) To be able to run tests, `pip install -r tests/requirements.txt`
