@@ -1,3 +1,4 @@
+---
 # This file is a template, and might need editing before it works on your project.
 # To contribute improvements to CI/CD templates, please follow the Development guide at:
 # https://docs.gitlab.com/ee/development/cicd/templates.html
@@ -28,21 +29,32 @@ before_script:
   - source venv/bin/activate
   - pip install -r requirements.txt
 
+lint yaml:
+  stage: test
+  script:
+    - pip install -r tests/requirements.txt
+    - yamllint .
+  rules:
+    - changes:
+        - "*.yaml"
+        - "*.yml"
+
 validate data:
   stage: test
   script:
     - pip install -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and fail on warnings
     - pytest --tb=line --junitxml=report.xml -W error::UserWarning
+    - yamllint .
   artifacts:
     when: always
     reports:
       junit: report.xml
   rules:
     - changes:
-      - data/*.yaml # Source data was updated
-      - tests/*.py  # Any tests changed
-      - conftest.py # Any test fixtures changed
+        - data/*.yaml   # Source data was updated
+        - tests/*.py    # Any tests changed
+        - conftest.py   # Any test fixtures changed
 
 # Checks that a generated ATLAS.yaml matches the one in this root project.
 # Fails if they are different, only runs on merge requests or protected branches
