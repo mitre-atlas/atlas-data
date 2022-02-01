@@ -360,6 +360,16 @@ techniques:
     '
   tactics:
   - AML.TA0002
+- id: AML.T0006
+  name: Active Scanning
+  object-type: technique
+  description: 'An adversary may probe or scan the victim system to gather information
+    for targeting.
+
+    This is distinct from other reconnaissance techniques that do not involve direct
+    interaction with the victim system.
+
+    '
 - id: AML.T0002
   name: Acquire Public ML Artifacts
   object-type: technique
@@ -871,7 +881,7 @@ techniques:
     '
   subtechnique-of: AML.T0011
 - id: AML.T0012
-  name: Valid Credentials
+  name: Valid Accounts
   object-type: technique
   description: 'Adversaries may obtain and abuse credentials of existing accounts
     as a means of gaining Initial Access.
@@ -1085,9 +1095,11 @@ techniques:
 - id: AML.T0035
   name: ML Artifact Collection
   object-type: technique
-  description: 'After identifying machine learning artifacts existing on the network,
-    adversaries may collect them for [Exfiltration](/tactics/AML.TA0010) or for use
-    in [ML Attack Staging](/tactics/AML.TA0001).
+  description: 'Adversaries may collect ML artifacts for [Exfiltration](/tactics/AML.TA0010)
+    or for use in [ML Attack Staging](/tactics/AML.TA0001).
+
+    ML artifacts include models and datasets as well as other telemetry data produced
+    when interacting with a model.
 
     '
   tactics:
@@ -2210,3 +2222,145 @@ case-studies:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
     url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+- id: AML.CS0015
+  name: "Kaspersky \u2013 DeepQuarantine Poisoning"
+  object-type: case-study
+  incident-date: 2021-01-01
+  incident-date-granularity: YEAR
+  summary: 'Kaspersky''s ML team demonstrated a data poisoning attack on its own anti-spam
+    system.
+
+    The aim of the attack is to force the DeepQuarantine model, which is a deep learning
+    model and part of the anti-spam system, to detain legitimate emails, thereby disrupting
+    the business process of a particular company that is a user of Kaspersky''s anti-spam
+    system.
+
+    It is important to note that such an attack does not require access to the system.
+
+    The adversaries only need to find out if the target company is using the anti-spam
+    system. They can do this by sending an email to the targeted company and soliciting
+    a response.
+
+    The adversaries will receive the necessary information from the response email,
+    since the RFC headers of the email will contain the email headers set by this
+    anti-spam system.
+
+    Once identified as a user of the anti-spam system, the attacker then sends malicious
+    emails to the victim or another company that is a user of the same system.
+
+    These messages should have email headers similar to the email headers provided
+    by the Mail User Agent of the targeted company.
+
+    Since these messages are malicious (for example, they contain phishing URLs or
+    malicious files) the anti-spam system will block these messages and they would
+    get into the training dataset with a spam label.
+
+    After training on the poisoned dataset, the model will impede communications of
+    the targeted company.
+
+    '
+  procedure:
+  - tactic: AML.TA0002
+    technique: AML.T0006
+    description: 'Adversaries perform targeting by soliciting an email response from
+      the victim organization.
+
+
+      The RFC headers in an email from an organization using Kaspersky''s anti-spam
+      system are identifiable.
+
+      '
+  - tactic: AML.TA0002
+    technique: '{''id'': ''AML.T0000.001'', ''name'': ''Pre-Print Repositories'',
+      ''object-type'': ''technique'', ''description'': "Pre-Print repositories, such
+      as arXiv, contain the latest academic research papers that haven''t been peer
+      reviewed.
+
+      They may contain research notes, or technical reports that aren''t typically
+      published in journals or conference proceedings.
+
+      Pre-print repositories also serve as a central location to share papers that
+      have been accepted to journals.
+
+      Searching pre-print repositories  provide adversaries with a relatively up-to-date
+      view of what researchers in the victim organization are working on.
+
+      ", ''subtechnique-of'': ''{{victim_research.id}}''}'
+    description: 'Adversaries can learn more about the DeepQuarantine model from the
+      research paper published in a public pre-print repository [2].
+
+
+      This provides adversaries with more detailed information about the architecture
+      of the model and how it handles email as well as information about the way the
+      training dataset is constructed.
+
+      '
+  - tactic: AML.TA0000
+    technique: AML.T0047
+    description: 'Adversaries are able to interact with the anti-spam system and the
+      underlying DeepQuarantine model by sending emails to the victim organization.
+
+
+      This access to the ML-enabled system can be used by adversaries to carry out
+      the rest of their operation.
+
+      '
+  - tactic: AML.TA0009
+    technique: AML.T0035
+    description: 'Adversaries can collect valid email headers from the victim organization
+      by soliciting email responses.
+
+      '
+  - tactic: AML.TA0006
+    technique: AML.T0020
+    description: 'Adversaries generated spam messages with headers similar to those
+      of the victim organization designed to poison the DeepQuarantine model''s training
+      data.
+
+      '
+  - tactic: AML.TA0004
+    technique: '{''id'': ''AML.T0010.002'', ''name'': ''Data'', ''object-type'': ''technique'',
+      ''description'': ''Data is a key vector of supply chain compromise for adversaries.
+
+      Every machine learning project will require some form of data.
+
+      Many rely on large open source datasets that are publicly available.
+
+      An adversary could rely on compromising these sources of data.
+
+      The malicious data could be a result of [{{poison_data.name}}](/techniques/{{poison_data.id}})
+      or include traditional malware.
+
+
+      An adversary can also target private datasets in the labeling phase.
+
+      The creation of private datasets will often require the hiring of outside labeling
+      services.
+
+      An adversary can poison a dataset by modifying the labels being generated by
+      the labeling service.
+
+      '', ''subtechnique-of'': ''{{supply_chain.id}}''}'
+    description: 'The spam messages are sent to the victim organization where they
+      will be blocked by the anti-spam system and incorporated into the DeepQuarantine
+      model training data.
+
+      '
+  - tactic: AML.TA0011
+    technique: AML.T0031
+    description: 'After the model has been trained on the poisoned data and released
+      to production, it starts to delay legitimate emails from the victim company.
+
+
+      This leads to the disruption of the business processes of this company.
+
+      '
+  reported-by: Alan Savushkin, Nikita Benkovich, Daniil Kovalchuk (ML researchers,
+    Kaspersky ML team)
+  references:
+  - title: How and why do we attack our own Anti-Spam?
+    url: https://securelist.com/attack-on-anti-spam-machine-learning-model-deepquarantine/105358/
+  - title: DeepQuarantine for Suspicious Mail
+    url: https://arxiv.org/abs/2001.04168
+  - title: System and method for identifying spam email
+    url: https://patents.google.com/patent/US20210021553A1/en
