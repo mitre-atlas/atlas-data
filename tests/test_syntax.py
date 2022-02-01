@@ -101,7 +101,7 @@ def test_spelling(text_to_be_spellchecked):
     possible_mispelled = SPELL_CHECKER.unknown(text_tokens)
     if possible_mispelled:
         # Emit warnings
-        msg = 'Not recognized by spellcheck - fix or exclude in tests/spellcheck.py: '
+        msg = 'Not recognized by spellcheck - fix or exclude in tests/custom_words.txt: '
         warnings.warn(msg + str(possible_mispelled))
 
 def test_ascii(text_to_be_spellchecked):
