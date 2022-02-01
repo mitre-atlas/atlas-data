@@ -491,7 +491,7 @@
 
 - &valid_accounts
   id: AML.T0012
-  name: Valid Credentials
+  name: Valid Accounts
   object-type: technique
   description: |
     Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access.
