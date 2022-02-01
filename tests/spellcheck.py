@@ -27,6 +27,7 @@ CUSTOM_WORDS = [
   "sharepoint", "urlnet", "cylance", "cylance's", "proofpoint", "proofpoint's", "imagenet",
   "apktool", "kaspersky", "kaspersky's", "tay's", "c&c", "gpt", "2's", "metame",
   "virustotal", "powershell", "systran", "clearviewai", "clearview", "openai",
+  "deepquarantine",
 
   # Other words unrecognized by default
   "i.e.", "e.g.",
