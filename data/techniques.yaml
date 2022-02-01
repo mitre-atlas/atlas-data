@@ -650,7 +650,8 @@
   name: ML Artifact Collection
   object-type: technique
   description: |
-    After identifying machine learning artifacts existing on the network, adversaries may collect them for [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or for use in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
+    Adversaries may collect ML artifacts for [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or for use in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
+    ML artifacts include models and datasets as well as other telemetry data produced when interacting with a model.
   tactics:
     - "{{collection.id}}"
 
