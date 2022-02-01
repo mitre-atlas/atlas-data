@@ -14,7 +14,7 @@ CUSTOM_WORDS = [
   "http", "sql", "dga", "botnets", "cnn", "roms",
   "datasets", "implementations", "executables", "hyperparameters",
   "antimalware", "pii", "blogposts", "chatbot",
-  "r&d", "model(s)", "endpoints", "uis",
+  "r&d", "model(s)", "endpoints", "uis", "urls", "rfc"
 
   # File extensions
   "pkl", "hdf5", "h5", "pth", "onnx", "tf", "tflite", "yaml", "pb",
