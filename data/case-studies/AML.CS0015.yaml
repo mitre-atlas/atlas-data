@@ -1,0 +1,108 @@
+---
+id: AML.CS0015
+name: Kaspersky - DeepQuarantine Poisoning
+object-type: case-study
+incident-date: 2021-01-01
+incident-date-granularity: YEAR
+summary: 'Kaspersky''s ML team demonstrated a data poisoning attack on its own anti-spam
+  system.
+
+  The aim of the attack is to force the DeepQuarantine model, which is a deep learning
+  model and part of the anti-spam system, to detain legitimate emails, thereby disrupting
+  the business process of a particular company that is a user of Kaspersky''s anti-spam
+  system.
+
+  It is important to note that such an attack does not require access to the system.
+
+  The adversaries only need to find out if the target company is using the anti-spam
+  system. They can do this by sending an email to the targeted company and soliciting
+  a response.
+
+  The adversaries will receive the necessary information from the response email,
+  since the RFC headers of the email will contain the email headers set by this anti-spam
+  system.
+
+  Once identified as a user of the anti-spam system, the attacker then sends malicious
+  emails to the victim or another company that is a user of the same system.
+
+  These messages should have email headers similar to the email headers provided by
+  the Mail User Agent of the targeted company.
+
+  Since these messages are malicious (for example, they contain phishing URLs or malicious
+  files) the anti-spam system will block these messages and they would get into the
+  training dataset with a spam label.
+
+  After training on the poisoned dataset, the model will impede communications of
+  the targeted company.
+
+  '
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{active_scanning.id}}'
+  description: 'Adversaries perform targeting by soliciting an email response from
+    the victim organization.
+
+
+    The RFC headers in an email from an organization using Kaspersky''s anti-spam
+    system are identifiable.
+
+    '
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_research_preprint}}'
+  description: 'Adversaries can learn more about the DeepQuarantine model from the
+    research paper published in a public pre-print repository [2].
+
+
+    This provides adversaries with more detailed information about the architecture
+    of the model and how it handles email as well as information about the way the
+    training dataset is constructed.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: 'Adversaries are able to interact with the anti-spam system and the
+    underlying DeepQuarantine model by sending emails to the victim organization.
+
+
+    This access to the ML-enabled system can be used by adversaries to carry out the
+    rest of their operation.
+
+    '
+- tactic: '{{collection.id}}'
+  technique: '{{ml_artifact_collection.id}}'
+  description: 'Adversaries can collect valid email headers from the victim organization
+    by soliciting email responses.
+
+    '
+- tactic: '{{persistence.id}}'
+  technique: '{{poison_data.id}}'
+  description: 'Adversaries generated spam messages with headers similar to those
+    of the victim organization designed to poison the DeepQuarantine model''s training
+    data.
+
+    '
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_data}}'
+  description: 'The spam messages are sent to the victim organization where they will
+    be blocked by the anti-spam system and incorporated into the DeepQuarantine model
+    training data.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{erode_integrity.id}}'
+  description: 'After the model has been trained on the poisoned data and released
+    to production, it starts to delay legitimate emails from the victim company.
+
+
+    This leads to the disruption of the business processes of this company.
+
+    '
+reported-by: Alan Savushkin, Nikita Benkovich, Daniil Kovalchuk (ML researchers, Kaspersky
+  ML team)
+references:
+- title: How and why do we attack our own Anti-Spam?
+  url: https://securelist.com/attack-on-anti-spam-machine-learning-model-deepquarantine/105358/
+- title: DeepQuarantine for Suspicious Mail
+  url: https://arxiv.org/abs/2001.04168
+- title: System and method for identifying spam email
+  url: https://patents.google.com/patent/US20210021553A1/en

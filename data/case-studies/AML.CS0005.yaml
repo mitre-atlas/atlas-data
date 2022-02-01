@@ -1,0 +1,80 @@
+---
+id: AML.CS0005
+name: Attack on Machine Translation Service - Google Translate, Bing Translator, and
+  Systran Translate
+object-type: case-study
+summary: 'Machine translation services (such as Google Translate, Bing Translator,
+  and Systran Translate) provide public-facing UIs and APIs.
+
+  A research group at UC Berkeley utilized these public endpoints to create an replicated
+  model with near-production, state-of-the-art translation quality.
+
+  Beyond demonstrating that IP can be stolen from a black-box system, they used the
+  replicated model to successfully transfer adversarial examples to the real production
+  services.
+
+  These adversarial inputs successfully cause targeted word flips, vulgar outputs,
+  and dropped sentences on Google Translate and Systran Translate websites.
+
+  '
+incident-date: 2020-04-30
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_research.id}}'
+  description: 'The researchers used published research papers to identify the datasets
+    and model architectures used by the target translation services.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_data.id}}'
+  description: 'The researchers gathered similar datasets that the target translation
+    services used.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_model.id}}'
+  description: 'The researchers gathered similar model architectures that the target
+    translation services used.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: 'They abuse a public facing application to query the model and produce
+    machine translated sentence pairs as training data.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{replicate_model.id}}'
+  description: 'Using these translated sentence pairs, the researchers trained a model
+    that replicates the behavior of the target model.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{ip_theft.id}}'
+  description: 'By replicating the model with high fidelity, the researchers demonstrated
+    that an adversary could steal a model and violate the victim''s intellectual property
+    rights.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_transfer.id}}'
+  description: 'The replicated models were used to generate adversarial examples that
+    successfully transferred to the black-box translation services.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: 'The adversarial examples were used to evade the machine translation
+    services.
+
+    '
+reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
+  Song (@helloksong)
+references:
+- title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine
+    Translation Systems" EMNLP 2020
+  url: https://arxiv.org/abs/2004.15015
+- title: Project Page, "Imitation Attacks and Defenses for Black-box Machine Translation
+    Systems"
+  url: https://www.ericswallace.com/imitation

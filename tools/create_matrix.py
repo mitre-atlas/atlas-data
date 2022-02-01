@@ -1,8 +1,8 @@
+from argparse import ArgumentParser
 import os
+from pathlib import Path
 import re
 import yaml
-from argparse import ArgumentParser
-
 
 """
 Creates the combined ATLAS YAML file from source data.
@@ -133,8 +133,45 @@ yaml.SafeLoader.compose_document = compose_document
 # add !include constructor
 # adapted from http://code.activestate.com/recipes/577613-yaml-include-support/
 def yaml_include(loader, node):
-    with open(node.value) as inputfile:
-        return yaml_safe_load(inputfile, master=loader)
+    # Process input argument
+    # node.value is assumed to be a relative filepath that may include wildcards
+    has_wildcard = '*' in node.value
+    include_path = Path(node.value)
+    # Split path into its parts
+    include_path_parts = include_path.parts
+    # Number includes directories and the file/pattern itself
+    has_directory = len(include_path_parts) > 1
+
+    # Validate inputs
+    if include_path.suffix not in ['.yaml', '.yml']:
+        # Check file extension
+        raise ValueError(f'Expected !include path to end in .yaml or .yml, got "{node.value}" ending in "{include_path.suffix}"')
+    if not has_wildcard and not include_path.exists():
+        # Specified file does not exist
+        raise FileNotFoundError(node.value)
+
+    # Construct outputs
+    # Note that both approaches, returning a self-constructed list for wildcards
+    # and returning a document of lists results in the same 2x nested list format
+    # which is why nested lists are flattened in load_atlas_data
+
+    if has_wildcard:
+        # Collect documents into a single array
+        results = []
+        # Get all matching files from the current working directory
+        filepaths = Path.cwd().glob(node.value)
+        # Read in each file and append to results
+        for filepath in filepaths:
+            with open(filepath) as inputfile:
+                result = yaml_safe_load(inputfile, master=loader)
+                results.append(result)
+
+        return results
+
+    else:
+        # Return specified document
+        with open(node.value) as inputfile:
+            return yaml_safe_load(inputfile, master=loader)
 
 
 yaml.add_constructor("!include", yaml_include, Loader=yaml.SafeLoader)

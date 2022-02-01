@@ -1,0 +1,55 @@
+---
+id: AML.CS0007
+name: GPT-2 Model Replication
+object-type: case-study
+summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
+  process to incrementally release 1.5 Billion parameter model.
+
+  Before the 1.5B parameter model could be released by OpenAI eventually, two ML researchers
+  replicated the model and released it to the public.
+
+  '
+incident-date: 2019-08-22
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_research.id}}'
+  description: 'Using the public documentation about GPT-2, ML researchers gathered
+    information about the dataset, model architecture, and training hyper-parameters.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_model.id}}'
+  description: 'The researchers obtained a reference implementation of a similar publicly
+    available model called Grover.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_data.id}}'
+  description: 'The researchers were able to manually recreate the dataset used in
+    the original GPT-2 paper using the gathered documentation.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_workspaces.id}}'
+  description: 'The researchers were able to use TensorFlow Research Cloud via their
+    academic credentials.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{train_proxy_model.id}}'
+  description: 'The researchers modified Grover''s objective function to reflect GPT-2''s
+    objective function and then trained on the dataset they curated.
+
+    They used Grover''s initial hyperparameters for training.
+
+    This resulted in their replicated model.
+
+    '
+reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
+  Stefanie Tellex
+references:
+- title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It Anyway"
+  url: https://www.wired.com/story/dangerous-ai-open-source/
+- title: 'Medium BlogPost, "OpenGPT-2: We Replicated GPT-2 Because You Can Too"'
+  url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
