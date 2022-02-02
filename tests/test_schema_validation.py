@@ -21,9 +21,11 @@ def test_validate_techniques(technique_schema, subtechnique_schema, techniques):
     try:
         # Check if dictionary is a top-level technique
         technique_schema.validate(techniques)
-    except SchemaWrongKeyError as wke:
+    except (SchemaWrongKeyError, SchemaError) as e:
         # Could be a subtechnique
-        if wke.code.startswith("Wrong key 'subtechnique-of'"):
+        #   SchemaWrongKeyError: flagging on presence of 'subtechnique-of'
+        #   SchemaError: flagging on ID having extra numbers at end
+        if e.code.startswith("Wrong key 'subtechnique-of'") or "does not match" in e.code:
             try:
                 # Validate the subtechnique
                 subtechnique_schema.validate(techniques)
@@ -32,10 +34,7 @@ def test_validate_techniques(technique_schema, subtechnique_schema, techniques):
                 pytest.fail(se.code)
         else:
             # Otherwise is another key error
-            pytest.fail(wke.code)
-    except SchemaError as e:
-        # Fail with any other technique errors
-        pytest.fail(e.code)
+            pytest.fail(e.code)
 
 def test_validate_case_studies(case_study_schema, case_studies):
     """Validates each case study dictionary.

@@ -112,13 +112,18 @@ TACTIC_ID_REGEX         = Regex(r'(AML\.)?TA\d{4}')         # AML.TA0000
 TECHNIQUE_ID_REGEX      = Regex(r'(AML\.)?T\d{4}')          # AML.T0000
 SUBTECHNIQUE_ID_REGEX   = Regex(r'(AML\.)?T\d{4}\.\d{3}')   # AML.T0000.000
 CASE_STUDY_ID_REGEX     = Regex(r'AML\.CS\d{4}')            # AML.CS0000
+# Exact match patterns for the above
+TACTIC_ID_REGEX_EXACT       = Regex(f'^{TACTIC_ID_REGEX.pattern_str}$')
+TECHNIQUE_ID_REGEX_EXACT    = Regex(f'^{TECHNIQUE_ID_REGEX.pattern_str}$')
+SUBTECHNIQUE_ID_REGEX_EXACT = Regex(f'^{SUBTECHNIQUE_ID_REGEX.pattern_str}$')
+CASE_STUDY_ID_REGEX_EXACT   = Regex(f'^{CASE_STUDY_ID_REGEX.pattern_str}$')
 
 @pytest.fixture(scope='session')
 def tactic_schema():
     """Defines the schema and validation for the tactic object."""
     return Schema(
         {
-            "id": TACTIC_ID_REGEX,
+            "id": TACTIC_ID_REGEX_EXACT,
             "object-type": 'tactic',
             "description": str,
             "name": str,
@@ -130,12 +135,12 @@ def technique_schema():
     """Defines the schema and validation for a top-level technique object."""
     return Schema(
         {
-            "id": TECHNIQUE_ID_REGEX,
+            "id": TECHNIQUE_ID_REGEX_EXACT,
             "object-type": "technique",
             "name": str,
             "description": str,
             Optional("tactics"): [
-                TACTIC_ID_REGEX # List of tactic IDs
+                TACTIC_ID_REGEX_EXACT # List of tactic IDs
             ]
         }
     )
@@ -145,11 +150,11 @@ def subtechnique_schema():
     """Defines the schema and validation for a subtechnique object."""
     return Schema(
         {
-            "id": SUBTECHNIQUE_ID_REGEX,
+            "id": SUBTECHNIQUE_ID_REGEX_EXACT,
             "object-type": "technique",
             "name": str,
             "description": str,
-            "subtechnique-of": TECHNIQUE_ID_REGEX # Top-level technique ID
+            "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT # Top-level technique ID
         }
     )
 
@@ -159,7 +164,7 @@ def case_study_schema():
 
     return Schema(
         {
-            "id": CASE_STUDY_ID_REGEX,
+            "id": CASE_STUDY_ID_REGEX_EXACT,
             "object-type": "case-study",
             "name": str,
             "summary": str,
@@ -167,10 +172,10 @@ def case_study_schema():
             "incident-date-granularity": Or('YEAR', 'MONTH', 'DATE'),
             "procedure": [
                 {
-                    "tactic": TACTIC_ID_REGEX,
+                    "tactic": TACTIC_ID_REGEX_EXACT,
                     "technique": Or(
-                        TECHNIQUE_ID_REGEX,   # top-level techniquye
-                        SUBTECHNIQUE_ID_REGEX # subtechnique
+                        TECHNIQUE_ID_REGEX_EXACT,   # top-level techniquye
+                        SUBTECHNIQUE_ID_REGEX_EXACT # subtechnique
                     ),
                     "description": str
                 }

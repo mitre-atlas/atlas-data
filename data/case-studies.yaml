@@ -620,7 +620,7 @@
       url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
 
 - id: AML.CS0015
-  name: Kaspersky – DeepQuarantine Poisoning
+  name: Kaspersky - DeepQuarantine Poisoning
   object-type: case-study
   incident-date: 2021-01-01
   incident-date-granularity: YEAR
@@ -642,7 +642,7 @@
 
         The RFC headers in an email from an organization using Kaspersky's anti-spam system are identifiable.
     - tactic: "{{reconnaissance.id}}"
-      technique: "{{victim_research_preprint}}"
+      technique: "{{victim_research_preprint.id}}"
       description: |
         Adversaries can learn more about the DeepQuarantine model from the research paper published in a public pre-print repository [2].
 
@@ -662,7 +662,7 @@
       description: |
         Adversaries generated spam messages with headers similar to those of the victim organization designed to poison the DeepQuarantine model's training data.
     - tactic: "{{initial_access.id}}"
-      technique: "{{supply_chain_data}}"
+      technique: "{{supply_chain_data.id}}"
       description: |
         The spam messages are sent to the victim organization where they will be blocked by the anti-spam system and incorporated into the DeepQuarantine model training data.
     - tactic: "{{impact.id}}"
