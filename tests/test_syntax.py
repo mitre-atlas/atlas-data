@@ -88,7 +88,7 @@ REGEX_WORDS = re.compile(
 def test_spelling(text_to_be_spellchecked):
     """Warns for potentially mispelled words from names and descriptions.
     Only checks text outside of Markdown links.
-    See spellcheck.py for exclusion words.
+    See tests/custom_words.txt for exclusion words.
     """
     # Text is second element in tuple of (text identifier, text)
     text = text_to_be_spellchecked[1]
@@ -103,3 +103,21 @@ def test_spelling(text_to_be_spellchecked):
         # Emit warnings
         msg = 'Not recognized by spellcheck - fix or exclude in tests/spellcheck.py: '
         warnings.warn(msg + str(possible_mispelled))
+
+def test_ascii(text_to_be_spellchecked):
+    """Warns for text containing non-ascii characters, likely from copy and pastes,
+    which will cause YAML output to be a literal YAML string and reduce readability.
+
+    Example:
+        ’, the unicode right single quotation mark is rendered as \u2019 in a literal string,
+        along with explicit newline characters \n.
+        Replacing with ' produces a regular YAML string.
+    """
+    # Text is second element in tuple of (text identifier, text)
+    text = text_to_be_spellchecked[1]
+
+    # Warn on non-ascii for YAML output
+    if not text.isascii():
+        # Potentially an unicode quote or similar
+        msg = f'Contains non-ascii, consider fixing. YAML output will be the literal string: {ascii(text)}'
+        warnings.warn(msg)
