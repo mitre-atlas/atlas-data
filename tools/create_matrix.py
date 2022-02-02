@@ -160,8 +160,8 @@ def yaml_include(loader, node):
         results = []
         # Get all matching files from the current working directory
         filepaths = Path.cwd().glob(node.value)
-        # Read in each file and append to results
-        for filepath in filepaths:
+        # Read in each file in name-order and append to results
+        for filepath in sorted(filepaths):
             with open(filepath) as inputfile:
                 result = yaml_safe_load(inputfile, master=loader)
                 results.append(result)
