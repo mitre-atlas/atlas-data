@@ -3,7 +3,7 @@
 This test suite uses `pytest` to validate ATLAS data in `ATLAS.yaml`, as constructed from `data/matrix.yaml` via `tools/create_matrix.py`.
 
 Current tests include schema validation, Markdown link syntax, and warnings for spelling.  To add words to the spellcheck,
-edit `spellcheck.py` in this directory.
+edit `custom_words.txt` in this directory.
 
 ## Run
 
