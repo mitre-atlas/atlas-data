@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
 import os
 from pathlib import Path
-import re
+
+from jinja2.nativetypes import NativeEnvironment
 import yaml
 
 """
@@ -40,20 +41,34 @@ def load_atlas_data(matrix_yaml_filepath):
     const = yaml.constructor.SafeConstructor()
     anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
 
-    # flatten the objects list of lists
+    ## Jinja template evaluation
+
+    # Use YAML default style of literal string "" wrappers to handle apostophes/single quotes in the text
+    data_str = yaml.dump(data, default_flow_style=False, sort_keys=False, default_style='"')
+    # Set up data as Jinja template
+    env = NativeEnvironment()
+    template = env.from_string(data_str)
+    # Validate template - throws a TemplateSyntaxError if invalid
+    env.parse(template)
+
+    # Replace all "super aliases" in strings in the document
+    populated_data_str = template.render(anchors)
+    # Convert populated data string back to a dictionary
+    data = yaml.safe_load(populated_data_str)
+
+    ## Construct output format
+
+    # Objects are lists of lists under 'data' as !includes are list items
+    # Flatten the objects
     objects = [object for objects in data["data"] for object in objects]
 
-    # replace all "super aliases" in strings in the document
-    objects = walkmap(objects, lambda x: replace_anchors(x, anchors))
-    tactics = walkmap(data["tactics"], lambda x: replace_anchors(x, anchors))
-
     # organize objects into dicts by object-type
-    # and make sure techniques are in the order defined in the matrix
+    # and make sure tactics are in the order defined in the matrix
     matrix = {
         "id": data["id"],
         "name": data["name"],
         "version": data["version"],
-        "tactics": tactics,
+        "tactics": data["tactics"],
         "techniques": [],
         "case-studies": []
     }
@@ -71,50 +86,7 @@ def load_atlas_data(matrix_yaml_filepath):
 
     return matrix
 
-def objget(x, path, sep="."):
-    """
-    traverses object 'x' (nested indexible objects) according to path
-    converts indices to ints if they are digits
-    """
-
-    if sep in path:
-        path, rest = path.split(sep, 1)
-        path = int(path) if path.isdigit() else path
-        return objget(x[path], rest)
-    elif len(path) > 0:
-        path = int(path) if path.isdigit() else path
-        return x[path]
-    else:
-        return x
-
-
-def walkmap(x, f, types=str):
-    """
-    recursively walks an an an object 'x' of nested dicts/lists/tuples
-    and applies function 'f' to all objects of types 'types'
-    """
-
-    if isinstance(x, dict):
-        x = {k: walkmap(v, f, types) for k, v in x.items()}
-    elif isinstance(x, list) or isinstance(x, tuple):
-        x = [walkmap(v, f, types) for v in x]
-    elif isinstance(x, types):
-        x = f(x)
-    return x
-
-
-def replace_anchors(x, anchors):
-    """
-    replaces aliases (denoted by '{{ }}') in 'x' with its anchor in 'anchors'
-    hacky: right now assumes the anchor is a dict and the alias is referencing a scalar value in that dict
-    """
-
-    matches = re.findall(r"{{\s*(.*?)\s*}}", x, re.DOTALL)
-    for match in matches:
-        val = objget(anchors, match)
-        x = re.sub(rf"{{{{\s*{match}\s*}}}}", f"{val}", x, re.DOTALL)
-    return x
-
+#region Support !include in YAML
 
 # taken from
 # https://stackoverflow.com/questions/44910886/pyyaml-include-file-and-yaml-aliases-anchors-references
@@ -186,6 +158,7 @@ def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None):
     finally:
         loader.dispose()
 
+#endregion
 
 if __name__ == "__main__":
     main()
