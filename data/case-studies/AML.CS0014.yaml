@@ -53,9 +53,12 @@ procedure:
     '
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
-  description: "The researchers collected a dataset of malware and clean files.\n\
-    They scanned the dataset with the target ML-based antimalware solution and labeled\
-    \ the samples according the ML detector\u2019s predictions.\n"
+  description: 'The researchers collected a dataset of malware and clean files.
+
+    They scanned the dataset with the target ML-based antimalware solution and labeled
+    the samples according the ML detector''s predictions.
+
+    '
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
   description: 'Then, a proxy model was trained on the labeled dataset of malware

@@ -48,7 +48,7 @@ procedure:
 
     '
 - tactic: '{{reconnaissance.id}}'
-  technique: '{{victim_research_preprint}}'
+  technique: '{{victim_research_preprint.id}}'
   description: 'Adversaries can learn more about the DeepQuarantine model from the
     research paper published in a public pre-print repository [2].
 
@@ -82,7 +82,7 @@ procedure:
 
     '
 - tactic: '{{initial_access.id}}'
-  technique: '{{supply_chain_data}}'
+  technique: '{{supply_chain_data.id}}'
   description: 'The spam messages are sent to the victim organization where they will
     be blocked by the anti-spam system and incorporated into the DeepQuarantine model
     training data.
