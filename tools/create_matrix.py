@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 import os
 from pathlib import Path
 
-from jinja2.nativetypes import NativeEnvironment
+from jinja2 import Environment
 import yaml
 
 """
@@ -46,7 +46,7 @@ def load_atlas_data(matrix_yaml_filepath):
     # Use YAML default style of literal string "" wrappers to handle apostophes/single quotes in the text
     data_str = yaml.dump(data, default_flow_style=False, sort_keys=False, default_style='"')
     # Set up data as Jinja template
-    env = NativeEnvironment()
+    env = Environment()
     template = env.from_string(data_str)
     # Validate template - throws a TemplateSyntaxError if invalid
     env.parse(template)
