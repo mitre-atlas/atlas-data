@@ -101,7 +101,7 @@ def test_spelling(text_to_be_spellchecked):
     possible_mispelled = SPELL_CHECKER.unknown(text_tokens)
     if possible_mispelled:
         # Emit warnings
-        msg = 'Not recognized by spellcheck - fix or exclude in tests/spellcheck.py: '
+        msg = 'Not recognized by spellcheck - fix or exclude in tests/custom_words.txt: '
         warnings.warn(msg + str(possible_mispelled))
 
 def test_ascii(text_to_be_spellchecked):
@@ -115,9 +115,20 @@ def test_ascii(text_to_be_spellchecked):
     """
     # Text is second element in tuple of (text identifier, text)
     text = text_to_be_spellchecked[1]
+    do_warn = False
+    try:
+        # Check for non-ascii text in Python 3.7+
+        if not text.isascii():
+            do_warn = True
+    except AttributeError:
+        # Fallback for older versions of Python
+        try:
+            text.encode('ascii')
+        except UnicodeEncodeError:
+            do_warn = True
 
     # Warn on non-ascii for YAML output
-    if not text.isascii():
+    if do_warn:
         # Potentially an unicode quote or similar
         msg = f'Contains non-ascii, consider fixing. YAML output will be the literal string: {ascii(text)}'
         warnings.warn(msg)

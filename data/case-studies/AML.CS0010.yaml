@@ -1,0 +1,48 @@
+---
+id: AML.CS0010
+name: Microsoft - Azure Service
+object-type: case-study
+summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
+  on an internal Azure service with the intention of disrupting its service. This
+  operation had a combination of traditional ATT&CK enterprise techniques such as
+  finding Valid account, and Executing code via an API -- all interleaved with adversarial
+  ML specific steps such as offline and online evasion examples.
+incident-date: 2020-01-01
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_research.id}}'
+  description: 'The team first performed reconnaissance to gather information about
+    the target ML model.
+
+    '
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: 'The team used a valid account to gain access to the network.
+
+    '
+- tactic: '{{collection.id}}'
+  technique: '{{ml_artifact_collection.id}}'
+  description: 'The team found the model file of the target ML model and the necessary
+    training data.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_whitebox.id}}'
+  description: 'Using the target model and data, the red team crafted evasive adversarial
+    data.
+
+    '
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: 'The team used an exposed API to access the target model.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: 'The team performed an online evasion attack by replaying the adversarial
+    examples, which helped achieve this goal.
+
+    '
+reported-by: Microsoft (Azure Trustworthy Machine Learning)
+references: null

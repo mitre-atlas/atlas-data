@@ -1,0 +1,52 @@
+---
+id: AML.CS0008
+name: ProofPoint Evasion
+object-type: case-study
+summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email protection
+  system by first building a copy-cat email protection ML model, and using the insights
+  to evade the live system.
+
+  '
+incident-date: 2019-09-09
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts.id}}'
+  description: 'The researchers first gathered the scores from the Proofpoint''s ML
+    system used in email headers by sending a large number of emails through the system
+    and scraping the model scores exposed in the logs.
+
+    '
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_data.id}}'
+  description: 'The researchers converted the collected scores into a dataset.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{train_proxy_model.id}}'
+  description: 'Using these scores, the researchers replicated the ML mode by building
+    a "shadow" aka copy-cat ML model.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_whitebox.id}}'
+  description: 'Next, the ML researchers algorithmically found samples that this "offline"
+    copy cat model.
+
+    '
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_transfer.id}}'
+  description: 'Finally, these insights from the offline model allowed the researchers
+    to create malicious emails that received preferable scores from the real ProofPoint
+    email protection system, hence bypassing it.
+
+    '
+reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+references:
+- title: National Vulnerability Database entry for CVE-2019-20634
+  url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
+- title: '2019 DerbyCon presentation "42: The answer to life, the universe, and everything
+    offensive security"'
+  url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
+- title: Proof Pudding (CVE-2019-20634) Implementation on GitHub
+  url: https://github.com/moohax/Proof-Pudding

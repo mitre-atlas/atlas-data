@@ -1,0 +1,50 @@
+---
+id: AML.CS0009
+name: Tay Poisoning
+object-type: case-study
+summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S.
+  for entertainment purposes.
+
+  Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted
+  reprehensible words.
+
+  '
+incident-date: 2016-03-23
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: 'Adversaries were able to interact with Tay via a few different publicly
+    available methods.
+
+    '
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_data.id}}'
+  description: 'Tay bot used the interactions with its twitter users as training data
+    to improve its conversations.
+
+    Adversaries were able to coordinate with the intent of defacing Tay bot by exploiting
+    this feedback loop.
+
+    '
+- tactic: '{{persistence.id}}'
+  technique: '{{poison_data.id}}'
+  description: 'By repeatedly interacting with Tay using racist and offensive language,
+    they were able to bias Tay''s dataset towards that language as well.
+
+    '
+- tactic: '{{impact.id}}'
+  technique: '{{erode_integrity.id}}'
+  description: 'As a result of this coordinated attack, Tay''s conversation algorithms
+    began to learn to generate reprehensible material.
+
+    This quickly lead to its decommissioning.
+
+    '
+reported-by: Microsoft
+references:
+- title: Microsoft BlogPost, "Learning from Tay's introduction"
+  url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
+- title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers of
+    Online Conversation"
+  url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
