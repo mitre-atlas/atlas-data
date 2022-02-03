@@ -120,6 +120,8 @@
   description: |
     An adversary may probe or scan the victim system to gather information for targeting.
     This is distinct from other reconnaissance techniques that do not involve direct interaction with the victim system.
+  tactics:
+    - "{{reconnaissance.id}}"
 
 - &acquire_ml_artifacts
   id: AML.T0002

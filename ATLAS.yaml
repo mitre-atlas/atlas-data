@@ -370,6 +370,8 @@ techniques:
     interaction with the victim system.
 
     '
+  tactics:
+  - AML.TA0002
 - id: AML.T0002
   name: Acquire Public ML Artifacts
   object-type: technique

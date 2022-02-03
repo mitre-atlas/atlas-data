@@ -139,7 +139,7 @@ def technique_schema():
             "object-type": "technique",
             "name": str,
             "description": str,
-            Optional("tactics"): [
+            "tactics": [
                 TACTIC_ID_REGEX_EXACT # List of tactic IDs
             ]
         }
