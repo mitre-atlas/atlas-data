@@ -1,5 +1,4 @@
 from argparse import ArgumentParser
-import os
 from pathlib import Path
 
 from jinja2 import Environment
@@ -16,28 +15,26 @@ def main():
     parser.add_argument("--output", "-o", type=str, default=".", help="Output directory")
     args = parser.parse_args()
 
-    os.makedirs(args.output, exist_ok=True)
+    # Create output directories as needed
+    output_dir = Path(args.output)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
+    # Load and transform data
     matrix = load_atlas_data(args.matrix)
 
-    # save composite document as a standard yaml file
-    output = os.path.join(args.output, f"{matrix['id']}.yaml")
-    with open(output, "w") as f:
+    # Save composite document as a standard yaml file
+    output_filepath = output_dir / f"{matrix['id']}.yaml"
+    with open(output_filepath, "w") as f:
         yaml.dump(matrix, f, default_flow_style=False, explicit_start=True, sort_keys=False)
 
 def load_atlas_data(matrix_yaml_filepath):
-    """Returns a dictionary representing ATLAS data
-    as read from the provided YAML files.
-    """
-    wd = os.getcwd()
-    os.chdir(os.path.dirname(matrix_yaml_filepath))
-
-    # load yaml with custom loader that supports !include and cross-doc anchors
+    """Returns a dictionary representing ATLAS data as read from the provided YAML files."""
+    # Load yaml with custom loader that supports !include and cross-doc anchors
     master = yaml.SafeLoader("")
-    with open(os.path.basename(matrix_yaml_filepath), "rb") as f:
+    with open(matrix_yaml_filepath, "rb") as f:
         data = yaml_safe_load(f, master=master)
 
-    # construct anchors into dict store and for further parsing
+    # Construct anchors into dict store and for further parsing
     const = yaml.constructor.SafeConstructor()
     anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
 
@@ -62,7 +59,7 @@ def load_atlas_data(matrix_yaml_filepath):
     # Flatten the objects
     objects = [object for objects in data["data"] for object in objects]
 
-    # organize objects into dicts by object-type
+    # Organize objects into dicts by object-type
     # and make sure tactics are in the order defined in the matrix
     matrix = {
         "id": data["id"],
@@ -82,37 +79,32 @@ def load_atlas_data(matrix_yaml_filepath):
         elif object["object-type"] == "case-study":
             matrix["case-studies"].append(object)
 
-    os.chdir(wd)
-
     return matrix
 
 #region Support !include in YAML
 
-# taken from
-# https://stackoverflow.com/questions/44910886/pyyaml-include-file-and-yaml-aliases-anchors-references
+# Adapted from https://stackoverflow.com/a/44913652
 
-# allow for cross-document anchors
 def compose_document(self):
+    """Allows for cross-document anchors."""
     self.get_event()
     node = self.compose_node(None, None)
     self.get_event()
     # self.anchors = {}    # <<<< commented out
     return node
 
-
+# Add functionality to SafeLoader
 yaml.SafeLoader.compose_document = compose_document
 
-# add !include constructor
-# adapted from http://code.activestate.com/recipes/577613-yaml-include-support/
+# Add !include constructor
+# Adapted from http://code.activestate.com/recipes/577613-yaml-include-support/
 def yaml_include(loader, node):
+    """Returns a document or list of documents specified by a filepath which can contain wildcards."""
     # Process input argument
     # node.value is assumed to be a relative filepath that may include wildcards
     has_wildcard = '*' in node.value
-    include_path = Path(node.value)
-    # Split path into its parts
-    include_path_parts = include_path.parts
-    # Number includes directories and the file/pattern itself
-    has_directory = len(include_path_parts) > 1
+    # Construct path relative to current working dir
+    include_path = loader.input_dir_path / node.value
 
     # Validate inputs
     if include_path.suffix not in ['.yaml', '.yml']:
@@ -130,8 +122,8 @@ def yaml_include(loader, node):
     if has_wildcard:
         # Collect documents into a single array
         results = []
-        # Get all matching files from the current working directory
-        filepaths = Path.cwd().glob(node.value)
+        # Get all matching files relative to the directory the input matrix.yaml lives in
+        filepaths = loader.input_dir_path.glob(node.value)
         # Read in each file in name-order and append to results
         for filepath in sorted(filepaths):
             with open(filepath) as inputfile:
@@ -142,15 +134,20 @@ def yaml_include(loader, node):
 
     else:
         # Return specified document
-        with open(node.value) as inputfile:
+        with open(include_path) as inputfile:
             return yaml_safe_load(inputfile, master=loader)
 
-
+# Add custom !include constructor
 yaml.add_constructor("!include", yaml_include, Loader=yaml.SafeLoader)
 
-
 def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None):
+    """Loads the specified file stream while preserving anchors for later use."""
     loader = Loader(stream)
+    # Store the input file directory for later joining with !include paths
+    #   ex. stream.name is 'data/matrix.yaml', input_dir_path is Path('data')
+    #   ex. stream.name is 'matrix.yaml', input_dir_path is Path('.')
+    loader.input_dir_path = Path(stream.name).parent
+
     if master is not None:
         loader.anchors = master.anchors
     try:
