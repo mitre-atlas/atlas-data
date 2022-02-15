@@ -30,13 +30,7 @@ def main():
 def load_atlas_data(matrix_yaml_filepath):
     """Returns a dictionary representing ATLAS data as read from the provided YAML files."""
     # Load yaml with custom loader that supports !include and cross-doc anchors
-    master = yaml.SafeLoader("")
-    with open(matrix_yaml_filepath, "rb") as f:
-        data = yaml_safe_load(f, master=master)
-
-    # Construct anchors into dict store and for further parsing
-    const = yaml.constructor.SafeConstructor()
-    anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
+    data, anchors = load_atlas_yaml(matrix_yaml_filepath)
 
     ## Jinja template evaluation
 
@@ -80,6 +74,23 @@ def load_atlas_data(matrix_yaml_filepath):
             matrix["case-studies"].append(object)
 
     return matrix
+
+def load_atlas_yaml(matrix_yaml_filepath):
+    """Returns two dictionaries representing templated ATLAS data as read from the provided YAML files.
+
+    Returns: data, anchors
+        data
+    """
+    # Load yaml with custom loader that supports !include and cross-doc anchors
+    master = yaml.SafeLoader("")
+    with open(matrix_yaml_filepath, "rb") as f:
+        data = yaml_safe_load(f, master=master)
+
+    # Construct anchors into dict store and for further parsing
+    const = yaml.constructor.SafeConstructor()
+    anchors = {k: const.construct_document(v) for k, v in master.anchors.items()}
+
+    return data, anchors
 
 #region Support !include in YAML
 
