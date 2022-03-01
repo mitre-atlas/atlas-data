@@ -4,10 +4,6 @@ The ATLAS data is stored in YAML files designed to be easy to read and edit, as 
 
 `create_matrix.py` compiles the threat matrix data sources into a single standard YAML file.
 
-`generate_stix.py` creates the ATLAS STIX JSON file.
-
-`generate_navigator_layer.py` creates ATLAS Navigator layer files, including the ATLAS Matrix, case study frequency, and individual case study layers.
-
 `import_case_study_file.py` imports case study files from the ATLAS website into ATLAS data as newly-IDed files.
 
 Run each script with `-h` to see full options.
