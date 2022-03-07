@@ -56,7 +56,7 @@ validate data:
         - tests/*.py    # Any tests changed
         - conftest.py   # Any test fixtures changed
 
-# Checks that a generated ATLAS.yaml matches the one in this root project.
+# Checks that a generated ATLAS.yaml matches the one commited to this project.
 # Fails if they are different, only runs on merge requests or protected branches
 check ATLAS.yaml up-to-date:
   stage: test
