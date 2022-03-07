@@ -62,8 +62,8 @@ check ATLAS.yaml up-to-date:
   stage: test
   script:
     - python tools/create_matrix.py
-    - git diff --exit-code ATLAS.yaml || exit_code=$?
-    - if [[ $exit_code -ne 0 ]]; then echo 'Runner-generated ATLAS.yaml is different from remote repository version - run tools/create_matrix.py to update and commit the result.'; exit 123; fi;
+    - git diff --exit-code dist/ATLAS.yaml || exit_code=$?
+    - if [[ $exit_code -ne 0 ]]; then echo 'Runner-generated dist/ATLAS.yaml is different from remote repository version - run tools/create_matrix.py to update and commit the result.'; exit 123; fi;
   rules:
     # Default branch, main, tags, and all types of merge request pipelines.
     - if: $CI_MERGE_REQUEST_IID
