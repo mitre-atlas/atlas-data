@@ -12,7 +12,7 @@ Creates the combined ATLAS YAML file from source data.
 def main():
     parser = ArgumentParser()
     parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml", help="Path to matrix.yaml")
-    parser.add_argument("--output", "-o", type=str, default=".", help="Output directory")
+    parser.add_argument("--output", "-o", type=str, default="dist", help="Output directory")
     args = parser.parse_args()
 
     # Create output directories as needed
