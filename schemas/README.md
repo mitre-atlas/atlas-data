@@ -12,7 +12,7 @@ The schemas in this directory are used as test fixures in `conftest.py`. `tests/
 
 Additionally, JSON Schema files for `ATLAS.yaml` and case study files are available at `dist/schemas/` for other tools to use.  For example, the ATLAS website validates uploaded case study files against the case study schema file.
 
-### Generate outputs
+### Output generation
 
 To re-generate JSON Schema files after modifying the schemas in this directory, run this from the project root:
 ```
