@@ -5,6 +5,15 @@ from schema import SchemaError, SchemaWrongKeyError
 Validates ATLAS data objects against schemas defined in conftest.py.
 """
 
+def test_validate_matrix(matrix_schema, matrix):
+    """Validates the ATLAS matrix dictionary.
+    Explicitly fails with message to capture more in pytest short test info.
+    """
+    try:
+        matrix_schema.validate(matrix)
+    except SchemaError as e:
+        pytest.fail(e.code)
+
 def test_validate_tactics(tactic_schema, tactics):
     """Validates each tactic dictionary.
     Explicitly fails with message to capture more in pytest short test info.

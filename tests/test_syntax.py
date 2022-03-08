@@ -3,7 +3,7 @@ import warnings
 
 import pytest
 
-from conftest import TACTIC_ID_REGEX, TECHNIQUE_ID_REGEX, SUBTECHNIQUE_ID_REGEX
+from schemas.atlas_id import TACTIC_ID_PATTERN, TECHNIQUE_ID_PATTERN, SUBTECHNIQUE_ID_PATTERN
 from spellcheck import SPELL_CHECKER
 
 """
@@ -21,11 +21,11 @@ REGEX_URL = re.compile(r'^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[
 # Internal Markdown links, assumed to be only to /tactics/ and /techniques/
 # Note that the regex objects here are from conftest.py and are the schema library's objects, hence the pattern_str property
 REGEX_INTERNAL_URL = re.compile(
-    rf'^/tactics/{TACTIC_ID_REGEX.pattern_str}'
+    rf'^/tactics/{TACTIC_ID_PATTERN}'
     r'|'
-    rf'/techniques/{SUBTECHNIQUE_ID_REGEX.pattern_str}' # Match subtechnique pattern first because top-level technique also matches this
+    rf'/techniques/{SUBTECHNIQUE_ID_PATTERN}' # Match subtechnique pattern first because top-level technique also matches this
     r'|'
-    rf'/techniques/{TECHNIQUE_ID_REGEX.pattern_str}$'
+    rf'/techniques/{TECHNIQUE_ID_PATTERN}$'
     )
 
 def test_markdown_link(text_with_possible_markdown_syntax):
