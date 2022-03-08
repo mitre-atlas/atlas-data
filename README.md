@@ -83,7 +83,7 @@ if (validatorResult.valid) {
 
 ## Development
 
-This repository also contains the source data and scripts to customize and expand the ATLAS framework.  See the READMEs in each directory linked below for installation and usage.
+This repository also contains the source data and scripts to customize and expand the ATLAS framework.  See [setup instructions](tools/README.md#development-setup) and the READMEs in each directory linked below for usage.
 
 - [Data](data/README.md) holds templated data for ATLAS tactics, techniques, and case studies, from which `ATLAS.yaml` is generated.
 - [Schemas](schemas/README.md) defines each ATLAS object type and ID.

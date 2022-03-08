@@ -30,18 +30,27 @@ This data may be introduced to a victim system via [{{supply_chain.name}}](/tech
 When using `tools/create_matrix.py` to generate the fully-populated `ATLAS.yaml` data file, these source files are evaluated as templates.  The output of the evaluating the example above:
 
 ```md
-This data may be introduced to a victim system via [ML Supply Chain Compromise](https://atlas.mitre.org/techniques/AML.T0010)
+This data may be introduced to a victim system via [ML Supply Chain Compromise](/techniques/AML.T0010)
 ```
 
 ## Updating the data
 
-### ATLAS data
+### Tactics and techniques
 
 Modify `tactics.yaml` and `techniques.yaml` for changes to the ATLAS framework itself.
 
-New case studies can be added via the `tools/import_case_study_file.py` script.  See `tools/README.md` for more details.
+Ensure that object IDs are unique and follow the patterns defined in the schema.  See definitions in `schemas` for ID patterns and object schemas.
 
-Ensure that object IDs are unique and follow the patterns defined in the schema.  See definitions in `dist/schemas/atlas_matrix_schema.json` for ID patterns and object schemas.
+### Case studies
+
+Case study files, such as those downloaded from the ATLAS website, can be added manually or via the `tools/import_case_study_file.py` script.
+
+To import one or more case study files , run this from the project root:
+```
+python tools/import_case_study_file.py <path to file 1> <path to file 2>
+```
+
+Each imported file has hardcoded tactic and technique IDs replaced with anchors, is assigned a case study ID, and is output `data/case-studies/<ID>.yaml`.
 
 ### Custom data
 
@@ -57,9 +66,11 @@ data:
 
 Objects added via the `!include` syntax can be found in re-generated `ATLAS.yaml` in the corresponding `tactics`/`techniques`/`case-studies` depending on the object's `object-type`.
 
-### Generate output
+### Output generation
 
-Re-generate ATLAS.yaml after modifying these source files, run
+To re-generate `dist/ATLAS.yaml` after modifying these source files, run this from the project root:
 ```
 python tools/create_matrix.py
 ```
+
+Use the argument `-o <other_directory>` to output `ATLAS.yaml` into another directory.
