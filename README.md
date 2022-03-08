@@ -60,7 +60,11 @@ fs.readFile(atlas_data_filepath, 'utf-8', (_, contents) => {
 })
 ```
 
-#### Schema validation
+### JSON Schema validation example
+
+JSON Schema files are generated from this project's internal [schemas](schemas/README.md) for other tools to use. For example, the ATLAS website validates uploaded case study files against the case study schema file with the following:
+
+#### NodeJS
 
 ```js
 // npm install jsonschema
@@ -96,4 +100,4 @@ This project uses `pytest` for data validation. See [tests](tests/README.md) for
 
 ATLAS is modeled after the [MITRE ATT&CK® framework](https://attack.mitre.org). ATLAS tactics and techniques can be complementary to those in ATT&CK.
 
-ATLAS data is also available in [STIX and ATT&CK Navigator layer formats](https://github.mitre.org/mitre-atlas/atlas-navigator-data) for use with the [ATLAS Navigator](https://mitre-atlas.github.io/attack-navigator/)
+ATLAS data is also available in [STIX and ATT&CK Navigator layer formats](https://github.mitre.org/mitre-atlas/atlas-navigator-data) for use with the [ATLAS Navigator](https://mitre-atlas.github.io/attack-navigator/).
