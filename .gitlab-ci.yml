@@ -27,13 +27,13 @@ before_script:
   - python -V
   - python -m venv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
+  - pip install -r tools/requirements.txt
 
 lint yaml:
   stage: test
   script:
     - pip install -r tests/requirements.txt
-    - yamllint .
+    - yamllint -c tests/.yamllint .
   rules:
     - changes:
         - "*.yaml"
@@ -45,7 +45,7 @@ validate data:
     - pip install -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and fail on warnings
     - pytest --tb=line --junitxml=report.xml -W error::UserWarning
-    - yamllint .
+    - yamllint -c tests/.yamllint .
   artifacts:
     when: always
     reports:

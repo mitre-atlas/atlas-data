@@ -1,11 +1,21 @@
 # Tests
 
-This project uses `pytest` to validate ATLAS data in `ATLAS.yaml`, as constructed from `data/matrix.yaml` via `tools/create_matrix.py`.
+This project uses [pytest](https://docs.pytest.org/) to validate ATLAS data.
 
-Test fixtures are defined in `conftest.py` in the project root, for access to tools and schemas.
+- `conftest.py`
+    + Test fixtures are defined in `conftest.py` in the project root, for access to tools and schemas.
+    + Loads ATLAS data as constructed from `data/matrix.yaml` via `tools/create_matrix.py`.
+- `tests/test_*.py`
+    + Current tests include schema validation, Markdown link syntax, and warnings for spelling.
+    + To add words to the spellcheck, edit `custom_words.txt` in this directory.
+- `tests/.yamllint` holds custom [YAML lint configuration](https://yamllint.readthedocs.io/en/stable/index.html) rules.
 
-Current tests include schema validation, Markdown link syntax, and warnings for spelling.  To add words to the spellcheck, edit `custom_words.txt` in this directory.
+## Installation
+
+Install dependencies using `pip install -r tests/requirements.txt`.
 
 ## Usage
 
-Install dependencies using `pip install -r tests/requirements.txt`, then run the test suite from the root of this project using `pytest`.
+From the root of this project, run `pytest`.
+
+Additional YAML linting can be performed with `yamllint -c tests/.yamllint .`
