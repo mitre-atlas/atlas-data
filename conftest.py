@@ -2,6 +2,8 @@ import datetime
 
 import pytest
 from schema import Or, Optional, Regex, Schema
+
+from schemas import atlas_obj
 from tools.create_matrix import load_atlas_data
 
 """
@@ -121,75 +123,20 @@ CASE_STUDY_ID_REGEX_EXACT   = Regex(f'^{CASE_STUDY_ID_REGEX.pattern_str}$')
 @pytest.fixture(scope='session')
 def tactic_schema():
     """Defines the schema and validation for the tactic object."""
-    return Schema(
-        {
-            "id": TACTIC_ID_REGEX_EXACT,
-            "object-type": 'tactic',
-            "description": str,
-            "name": str,
-        }
-    )
+    return atlas_obj.tactic_schema
 
 @pytest.fixture(scope='session')
 def technique_schema():
     """Defines the schema and validation for a top-level technique object."""
-    return Schema(
-        {
-            "id": TECHNIQUE_ID_REGEX_EXACT,
-            "object-type": "technique",
-            "name": str,
-            "description": str,
-            "tactics": [
-                TACTIC_ID_REGEX_EXACT # List of tactic IDs
-            ]
-        }
-    )
+    return atlas_obj.technique_schema
 
 @pytest.fixture(scope='session')
 def subtechnique_schema():
     """Defines the schema and validation for a subtechnique object."""
-    return Schema(
-        {
-            "id": SUBTECHNIQUE_ID_REGEX_EXACT,
-            "object-type": "technique",
-            "name": str,
-            "description": str,
-            "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT # Top-level technique ID
-        }
-    )
+    return atlas_obj.subtechnique_schema
 
 @pytest.fixture(scope='session')
 def case_study_schema():
     """Defines the schema and validation for a case study object."""
-
-    return Schema(
-        {
-            "id": CASE_STUDY_ID_REGEX_EXACT,
-            "object-type": "case-study",
-            "name": str,
-            "summary": str,
-            "incident-date": datetime.date,
-            "incident-date-granularity": Or('YEAR', 'MONTH', 'DATE'),
-            "procedure": [
-                {
-                    "tactic": TACTIC_ID_REGEX_EXACT,
-                    "technique": Or(
-                        TECHNIQUE_ID_REGEX_EXACT,   # top-level techniquye
-                        SUBTECHNIQUE_ID_REGEX_EXACT # subtechnique
-                    ),
-                    "description": str
-                }
-            ],
-            "reported-by": str,
-            Optional("references"): Or(
-                [
-                    {
-                        "title": Or(str, None),
-                        "url": Or(str, None)
-                    }
-                ]
-                , None
-            )
-        }
-    )
+    return atlas_obj.case_study_schema
 #endregion
