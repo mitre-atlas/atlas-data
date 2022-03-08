@@ -27,6 +27,6 @@ atlas_matrix_schema = Schema(
             case_study_schema
         ]
     },
-    name='ATLAS Matrix (ATLAS.yaml) Schema',
+    name='ATLAS Matrix Schema',
     description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 )
