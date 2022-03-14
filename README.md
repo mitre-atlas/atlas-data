@@ -93,7 +93,7 @@ This repository also contains the source data and scripts to customize and expan
 - [Schemas](schemas/README.md) defines each ATLAS object type and ID.
 - [Tools](tools/README.md) contains scripts to generate the distributed files and import data files.
 
-Testing
+**Testing**
 This project uses `pytest` for data validation. See [tests](tests/README.md) for more information.
 
 
