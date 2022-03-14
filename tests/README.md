@@ -12,7 +12,9 @@ This project uses [pytest](https://docs.pytest.org/) to validate ATLAS data.
 
 ## Installation
 
-Install dependencies using `pip install -r tests/requirements.txt`.
+Install dependencies using: 
+`pip install -r tests/requirements.txt`
+`pip install -r tools/requirements.txt`
 
 ## Usage
 
