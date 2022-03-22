@@ -1,6 +1,6 @@
 ---
 id: AML.CS0010
-name: Microsoft - Azure Service
+name: Microsoft Azure Service Disruption
 object-type: case-study
 summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
   on an internal Azure service with the intention of disrupting its service. This

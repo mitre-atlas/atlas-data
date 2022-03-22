@@ -1,6 +1,6 @@
 ---
 id: AML.CS0012
-name: MITRE - Physical Adversarial Attack on Face Identification
+name: Face Identification System Evasion via Physical Countermeasures
 object-type: case-study
 summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on a
   commercial face identification service with the intention of inducing a targeted
