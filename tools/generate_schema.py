@@ -36,7 +36,8 @@ if __name__ == '__main__':
 
     # ATLAS website case study
 
-    # Remove the `id` required field as case study files from the ATLAS website don't yet have IDs
+    # Set the `id` field as optional as case study files from the ATLAS website may not yet have IDs
+    case_study_schema._schema[Optional('id')] = case_study_schema._schema['id']
     del case_study_schema._schema['id']
 
     # Generate JSON schema from pre-defined schema

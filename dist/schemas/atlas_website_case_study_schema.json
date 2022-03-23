@@ -97,6 +97,9 @@
                             "const": null
                         }
                     ]
+                },
+                "id": {
+                    "$ref": "#/definitions/id_case_study"
                 }
             },
             "required": [
@@ -136,6 +139,10 @@
         "id_subtechnique": {
             "type": "string",
             "pattern": "^AML\\.T\\d{4}\\.\\d{3}$"
+        },
+        "id_case_study": {
+            "type": "string",
+            "pattern": "^AML\\.CS\\d{4}$"
         }
     }
 }
