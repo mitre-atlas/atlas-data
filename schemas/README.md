@@ -10,7 +10,7 @@ The project uses the [schema library](https://github.com/keleshev/schema) to def
 
 The schemas in this directory are used as test fixures in `conftest.py`. `tests/schema_validation.py` validates each ATLAS data object.
 
-Additionally, JSON Schema files for `ATLAS.yaml` and case study files are available at `dist/schemas/` for other tools to use.  For example, the ATLAS website validates uploaded case study files against the case study schema file.
+Additionally, JSON Schema files for `ATLAS.yaml` and website case study files are available at `dist/schemas/` for other tools to use.  For example, the ATLAS website validates uploaded case study files against the case study schema file.
 
 ### Output generation
 

@@ -1,0 +1,147 @@
+{
+    "description": "Generated on 2022-03-23",
+    "type": "object",
+    "properties": {
+        "study": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "summary": {
+                    "type": "string"
+                },
+                "incident-date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "incident-date-granularity": {
+                    "enum": [
+                        "YEAR",
+                        "MONTH",
+                        "DATE"
+                    ]
+                },
+                "procedure": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tactic": {
+                                "$ref": "#/definitions/id_tactic"
+                            },
+                            "technique": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/id_technique"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/id_subtechnique"
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tactic",
+                            "technique",
+                            "description"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "reported-by": {
+                    "type": "string"
+                },
+                "references": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    },
+                                    "url": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "url"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        {
+                            "const": null
+                        }
+                    ]
+                },
+                "id": {
+                    "$ref": "#/definitions/id_case_study"
+                },
+                "object-type": {
+                    "const": "case-study"
+                }
+            },
+            "required": [
+                "name",
+                "summary",
+                "incident-date",
+                "incident-date-granularity",
+                "procedure",
+                "reported-by"
+            ],
+            "additionalProperties": false
+        },
+        "meta": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": true
+        }
+    },
+    "required": [
+        "study"
+    ],
+    "additionalProperties": false,
+    "$id": "atlas_website_case_study_schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ATLAS Website Case Study Schema",
+    "definitions": {
+        "id_tactic": {
+            "type": "string",
+            "pattern": "^AML\\.TA\\d{4}$"
+        },
+        "id_technique": {
+            "type": "string",
+            "pattern": "^AML\\.T\\d{4}$"
+        },
+        "id_subtechnique": {
+            "type": "string",
+            "pattern": "^AML\\.T\\d{4}\\.\\d{3}$"
+        },
+        "id_case_study": {
+            "type": "string",
+            "pattern": "^AML\\.CS\\d{4}$"
+        }
+    }
+}
