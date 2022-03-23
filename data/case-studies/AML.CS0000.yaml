@@ -1,6 +1,6 @@
 ---
 id: AML.CS0000
-name: Evasion of Deep Learning detector for malware C&C traffic
+name: Evasion of Deep Learning Detector for Malware C&C Traffic
 object-type: case-study
 summary: 'Palo Alto Networks Security AI research team tested a deep learning model
   for malware command and control (C&C) traffic detection in HTTP traffic.
