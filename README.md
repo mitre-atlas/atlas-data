@@ -26,6 +26,29 @@ Located the `dist` directory:
     + `atlas_website_case_study_schema.json`
         * Describes the case study file format
 
+### Getting the files
+
+Clone this repository to get access to the distributed files, or alternatively directly access via raw GitHub link.
+
+#### As a Git submodule
+
+The [ATLAS Website](https://github.com/mitre-atlas/atlas-website) uses this data repository as a Git submodule for access to the distributed files.
+
+To add this repository as a submodule to your own repository, run the following which clones into the directory `atlas-data`.
+
+```bash
+git submodule add -b main <atlas-data-repository>
+```
+
+Once the submodule is available, run the following once to sparse checkout only the necessary files in the `dist` directory.  Assumes that the submodule is available at the path `atlas-data`.
+```bash
+git -C atlas-data config core.sparseCheckout true
+echo 'dist/*' >> .git/modules/atlas-data/info/sparse-checkout
+git submodule update --force --checkout atlas-data
+```
+
+To update `atlas-data`, run `git submodule update --remote` to get the latest from its main branch, then commit the result.
+
 ### Example usage
 
 The following code blocks show examples of parsing ATLAS data.  Assume `atlas_data_filepath` holds the path to the `ATLAS.yaml` file.
@@ -93,7 +116,8 @@ This repository also contains the source data and scripts to customize and expan
 - [Schemas](schemas/README.md) defines each ATLAS object type and ID.
 - [Tools](tools/README.md) contains scripts to generate the distributed files and import data files.
 
-**Testing**
+**Tests**
+
 This project uses `pytest` for data validation. See [tests](tests/README.md) for more information.
 
 
