@@ -23,7 +23,7 @@ Located the `dist` directory:
     + Optional JSON Schema files for validation use
     + `atlas_matrix_schema.json`
         * Describes the `ATLAS.yaml` format
-    + `atlas_case_study_schema.json`
+    + `atlas_website_case_study_schema.json`
         * Describes the case study file format
 
 ### Example usage
@@ -71,7 +71,7 @@ JSON Schema files are generated from this project's internal [schemas](schemas/R
 import { validate } from 'jsonschema'
 import caseStudySchema from '<path_to_case_study_schema_file>'
 
-// Assume this is a populated case study object
+// Assume this is a populated website case study object
 const caseStudyObj = {...}
 
 // Validate case study object against schema and emit errors that may occur from nested `anyOf` validations
