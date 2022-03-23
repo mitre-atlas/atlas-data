@@ -1,8 +1,15 @@
 # ATLAS Data Changelog
 
-## [3.0.0]() (2022-??-??)
+## [3.0.0]() (2022-03-23)
 
-Move to new GitHub repository
+Move to new GitHub repository under the `mitre-atlas` group
+
+#### Distributed files
+- Renamed case study JSON schema file and updated to include `study` key expected by the ATLAS website
+- Added README.md with usage
+
+#### Case studies
+- Minor title updates
 
 ## [2.4.0]() (2022-03-10)
 
@@ -25,23 +32,7 @@ Repository re-org and cleanup, added READMEs to all directories
 #### Tools
 - ATLAS YAML generation script uses Jinja template evaluation and handles relative `!include` filepaths
 
-## [2.3.0]() (2022-01-21)
-
-#### Case studies
-- Added new case study
-    1. AML.CS0015
-- Added key `incident-date-granularity` with values `DATE`, `MONTH`, or `YEAR` indicating the specificity of the `incident-date`
-
-## [2.2.1]() (2021-12-08)
-
-Fixes to all data
-
-#### Tests
-- Added pytest suite for data validation and syntax checks
-
-## [2.2.0]() (2021-10-29)
-
-Standalone data
+## [2.3.0]() (2022-01-24)
 
 #### Tactics and techniques
 - Adapted referenced ATT&CK tactics into the ATLAS framework
@@ -51,6 +42,18 @@ Standalone data
     + Data from Information Repositories
     + Establish Accounts
     + Valid Accounts
+
+#### Case studies
+- Added key `incident-date-granularity` to case study files with values `DATE`, `MONTH`, or `YEAR` indicating the specificity of the `incident-date`
+
+## [2.2.1]() (2021-12-08)
+
+Fixes to all data
+
+#### Tests
+- Added pytest suite for data validation and syntax checks
+
+## [2.2.0]() (2021-10-29)
 
 #### Case studies
 - Added new case studies
