@@ -18,6 +18,14 @@ Reads from the schemas directory in this repository.
 Run this script with `python -m tools.generate_schema` to allow for local imports.
 """
 
+def set_optional_keys(schema_obj, keys):
+    """Sets the specified keys on the Schema object to Optional."""
+    for key in keys:
+        # Set the key to be optional
+        schema_obj._schema[Optional(key)] = schema_obj._schema[key]
+        # Remove existing required key
+        del schema_obj._schema[key]
+
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("--output", "-o", type=str, default="dist/schemas", help="Output directory")
@@ -36,9 +44,9 @@ if __name__ == '__main__':
 
     # ATLAS website case study
 
-    # Set the `id` field as optional as case study files from the ATLAS website may not yet have IDs
-    case_study_schema._schema[Optional('id')] = case_study_schema._schema['id']
-    del case_study_schema._schema['id']
+    # Set the `id` and `object-type `fields as optional
+    # Case study builder files may not yet have them, but downloaded existing case studies do
+    set_optional_keys(case_study_schema, ['id', 'object-type'])
 
     # Generate JSON schema from pre-defined schema
 

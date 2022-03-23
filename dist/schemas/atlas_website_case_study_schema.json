@@ -5,9 +5,6 @@
         "study": {
             "type": "object",
             "properties": {
-                "object-type": {
-                    "const": "case-study"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -100,10 +97,12 @@
                 },
                 "id": {
                     "$ref": "#/definitions/id_case_study"
+                },
+                "object-type": {
+                    "const": "case-study"
                 }
             },
             "required": [
-                "object-type",
                 "name",
                 "summary",
                 "incident-date",
