@@ -1853,7 +1853,7 @@ case-studies:
       of Online Conversation"
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 - id: AML.CS0010
-  name: Microsoft - Azure Service
+  name: Microsoft Azure Service Disruption
   object-type: case-study
   summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
     on an internal Azure service with the intention of disrupting its service. This
@@ -1900,7 +1900,7 @@ case-studies:
   reported-by: Microsoft (Azure Trustworthy Machine Learning)
   references: null
 - id: AML.CS0011
-  name: Microsoft Edge AI - Evasion
+  name: Microsoft Edge AI Evasion
   object-type: case-study
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
     designed for running AI workloads at the Edge.
@@ -1943,7 +1943,7 @@ case-studies:
   reported-by: Microsoft
   references: null
 - id: AML.CS0012
-  name: MITRE - Physical Adversarial Attack on Face Identification
+  name: Face Identification System Evasion via Physical Countermeasures
   object-type: case-study
   summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on
     a commercial face identification service with the intention of inducing a targeted
@@ -2117,7 +2117,7 @@ case-studies:
       Neural Payload Injection'
     url: https://arxiv.org/abs/2101.06896
 - id: AML.CS0014
-  name: Kaspersky - Confusing Antimalware Neural Networks
+  name: Confusing Antimalware Neural Networks
   object-type: case-study
   summary: 'Cloud storage and computations have become popular platforms for deploying
     ML malware detectors.

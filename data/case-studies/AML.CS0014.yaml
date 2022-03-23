@@ -1,6 +1,6 @@
 ---
 id: AML.CS0014
-name: Kaspersky - Confusing Antimalware Neural Networks
+name: Confusing Antimalware Neural Networks
 object-type: case-study
 summary: 'Cloud storage and computations have become popular platforms for deploying
   ML malware detectors.
