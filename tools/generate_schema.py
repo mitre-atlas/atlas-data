@@ -50,7 +50,10 @@ if __name__ == '__main__':
     standalone_case_study_schema = Schema(
         {
             "study": case_study_schema.schema,
-            Optional("meta"): {}
+            Optional("meta"): {
+                # Handle any keys and values
+                str: object
+            }
         },
         name=name,
         description=description)
