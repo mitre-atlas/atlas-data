@@ -125,4 +125,4 @@ This project uses `pytest` for data validation. See [tests](tests/README.md) for
 
 ATLAS is modeled after the [MITRE ATT&CK® framework](https://attack.mitre.org). ATLAS tactics and techniques can be complementary to those in ATT&CK.
 
-ATLAS data is also available in [STIX and ATT&CK Navigator layer formats](https://github.mitre.org/mitre-atlas/atlas-navigator-data) for use with the [ATLAS Navigator](https://mitre-atlas.github.io/attack-navigator/).
+ATLAS data is also available in [STIX and ATT&CK Navigator layer formats](https://github.mitre.org/mitre-atlas/atlas-navigator-data) for use with the [ATLAS Navigator](https://mitre-atlas.github.io/atlas-navigator/).
