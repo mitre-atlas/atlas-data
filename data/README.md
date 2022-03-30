@@ -74,3 +74,5 @@ python tools/create_matrix.py
 ```
 
 Use the argument `-o <other_directory>` to output `ATLAS.yaml` into another directory.
+
+### Github-Slack Integration
