@@ -56,7 +56,7 @@ fs.readFile(atlas_data_filepath, 'utf-8', (_, contents) => {
 
 ### JSON Schema validation example
 
-JSON Schema files are generated from this project's internal [schemas](schemas/README.md) for other tools to use. For example, the ATLAS website validates uploaded case study files against the case study schema file with the following:
+JSON Schema files are generated from this project's internal [schemas](../schemas/README.md) for other tools to use. For example, the ATLAS website validates uploaded case study files against the case study schema file with the following:
 
 #### NodeJS
 
