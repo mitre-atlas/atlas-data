@@ -20,13 +20,12 @@ body:
       label: Article Link
       description: Link us where you found the article
       placeholder: ex. google.com
-      value: ""
     validations:
       required: true
   - type: textarea
     id: summary
     attributes:
-      label: Summary of case study
+      label: Summary of Case Study
       description: Tell us what the case study is about! Please include technologies used, time/date when reported, and etc!
     validations:
       required: true
