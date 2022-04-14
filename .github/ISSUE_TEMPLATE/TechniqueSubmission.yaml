@@ -23,9 +23,7 @@ body:
       description: |
         If this is an existing technique, please include the link to the existing technique.
         If this is a new technique, please write the name of the technique.
-      placeholder: |
-        ex. https://atlas.mitre.org/techniques/AML.T0000
-        ex. [Insert technique name here]
+      placeholder: [Insert technique name or link here]
     validations:
       required: true
   - type: textarea
