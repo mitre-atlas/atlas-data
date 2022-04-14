@@ -7,15 +7,15 @@ body:
     attributes:
       value: "Thanks for taking the time to fill out this form!"
   - type: dropdown
-  id: techniqueType
-  attributes:
-    label: Type of Technique
-    description: Which type of technique are you refering to?
-    options:
-      - Existing Technique Link
-      - New Technique
-  validations:
-    required: true
+    id: techniqueType
+    attributes:
+      label: Type of Technique
+      description: Which type of technique are you refering to?
+      options:
+        - Existing Technique Link
+        - New Technique
+    validations:
+      required: true
   - type: input
     id: existTechnique
     attributes:
