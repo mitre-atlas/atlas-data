@@ -6,22 +6,28 @@ body:
   - type: markdown
     attributes:
       value: "Thanks for taking the time to fill out this form!"
+  - type: dropdown
+  id: techniqueType
+  attributes:
+    label: Type of Technique
+    description: Which type of technique are you refering to?
+    options:
+      - Existing Technique Link
+      - New Technique
+  validations:
+    required: true
   - type: input
     id: existTechnique
     attributes:
-      label: Existing Technique Link
-      description: If this is an existing technique. Please include the link to the existing technique.
-      placeholder: ex. https://atlas.mitre.org/techniques/AML.T0000
-    validations:
-      required: false
-  - type: input
-    id: newTechnique
-    attributes:
-      label: New Technique
+      label: Technique Name
       description: |
-        If proposing a new technique, name it here.
+        If this is an existing technique, please include the link to the existing technique.
+        If this is a new technique, please write the name of the technique.
+      placeholder: |
+        ex. https://atlas.mitre.org/techniques/AML.T0000
+        ex. [Insert technique name here]
     validations:
-      required: false
+      required: true
   - type: textarea
     id: techniquePropsal
     attributes:
