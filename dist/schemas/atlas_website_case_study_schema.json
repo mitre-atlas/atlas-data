@@ -110,7 +110,7 @@
                 "procedure",
                 "reported-by"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "meta": {
             "type": "object",
