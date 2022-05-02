@@ -63,6 +63,7 @@ if __name__ == '__main__':
                 str: object
             }
         },
+        ignore_extra_keys=True,
         name=name,
         description=description)
 

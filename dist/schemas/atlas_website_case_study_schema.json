@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-03-23",
+    "description": "Generated on 2022-04-28",
     "type": "object",
     "properties": {
         "study": {
@@ -49,7 +49,7 @@
                             "technique",
                             "description"
                         ],
-                        "additionalProperties": false
+                        "additionalProperties": true
                     }
                 },
                 "reported-by": {
@@ -87,7 +87,7 @@
                                     "title",
                                     "url"
                                 ],
-                                "additionalProperties": false
+                                "additionalProperties": true
                             }
                         },
                         {
@@ -110,7 +110,7 @@
                 "procedure",
                 "reported-by"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "meta": {
             "type": "object",
@@ -122,7 +122,7 @@
     "required": [
         "study"
     ],
-    "additionalProperties": false,
+    "additionalProperties": true,
     "$id": "atlas_website_case_study_schema",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "ATLAS Website Case Study Schema",
