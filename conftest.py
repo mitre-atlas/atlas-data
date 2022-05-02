@@ -86,9 +86,8 @@ def pytest_generate_tests(metafunc):
     # These are the top-level keys of that dictionary
     # and also the names of the fixtures we'd like to generate.
     # Note the underscore instead of the dash
-
-    # keys = ['tactics', 'techniques', 'case_studies']
     fixture_names = []
+
     for key in data.keys():
         if key not in ['id', 'name', 'version']:
             key = key.replace('-','_')
