@@ -33,7 +33,18 @@ def techniques(request):
 @pytest.fixture(scope='session')
 def case_studies(request):
     """Represents each case study dictionary."""
-    return request.param
+    if hasattr(request, "param"):
+        return request.param
+    else:
+        return pytest.skip("")
+
+@pytest.fixture(scope='session')
+def mitigations(request):
+    """Represents each mitigation dictionary."""
+    if hasattr(request, "param"):
+        return request.param
+    else:
+        return pytest.skip()
 
 @pytest.fixture(scope='session')
 def text_with_possible_markdown_syntax(request):
@@ -75,15 +86,22 @@ def pytest_generate_tests(metafunc):
     # These are the top-level keys of that dictionary
     # and also the names of the fixtures we'd like to generate.
     # Note the underscore instead of the dash
-    keys = ['tactics', 'techniques', 'case_studies']
 
-    for key in keys:
+    # keys = ['tactics', 'techniques', 'case_studies']
+    fixture_names = []
+    for key in data.keys():
+        if key not in ['id', 'name', 'version']:
+            key = key.replace('-','_')
+            fixture_names.append(key)
+    
+    for fixture_name in fixture_names:
         # Parametrize when called for via test signature
-        if key in metafunc.fixturenames:
+        if fixture_name in metafunc.fixturenames:
             # Handle the key 'case_studies' really being 'case-studies' in the input
-            values = data[key.replace('_','-')]
+            key = fixture_name.replace('_','-')
+            values = data[key]
             # Parametrize each object, using the ID as identifier
-            metafunc.parametrize(key, values, ids=lambda x: x['id'], indirect=True, scope='session')
+            metafunc.parametrize(fixture_name, values, ids=lambda x: x['id'], indirect=True, scope='session')
 
     ## Create parameterized fixtures for Markdown link syntax verification - technique descriptions and case study procedure steps
 
@@ -142,4 +160,9 @@ def subtechnique_schema():
 def case_study_schema():
     """Defines the schema and validation for a case study object."""
     return atlas_obj.case_study_schema
+
+@pytest.fixture(scope='session')
+def mitigation_schema():
+    """Defines the schema and validation for a mitigation object."""
+    return atlas_obj.mitigation_schema
 #endregion

@@ -2227,3 +2227,19 @@ case-studies:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
     url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+mitigations:
+- id: AML.M0000
+  name: ML Model Access
+  object-type: mitigation
+  description: '
+
+    Research materials may exist as academic papers published in [ML Model Access](/mitigations/AML.M0002)
+
+    '
+  techniques:
+  - AML.T0000
+  - AML.T0000.001
+- id: AML.M0002
+  name: ML Model Access
+  object-type: mitigation
+  description: test mitigation
