@@ -4,6 +4,8 @@ from pathlib import Path
 from jinja2 import Environment
 import yaml
 
+import inflect
+
 """
 Creates the combined ATLAS YAML file from source data.
 """
@@ -59,19 +61,30 @@ def load_atlas_data(matrix_yaml_filepath):
         "id": data["id"],
         "name": data["name"],
         "version": data["version"],
-        "tactics": data["tactics"],
-        "techniques": [],
-        "case-studies": []
+        "tactics": data["tactics"]
     }
+
+    # List used to keep track of additional keys
+    arbitrary_keys = []
+
+    # Setting up for pluralization library
+    # This library is used in order to get the plural form of arbitrary object-type names
+    p = inflect.engine()
+
+    # Creates new lists within matrix object for arbitary keys
     for object in objects:
-        if object["object-type"] == "technique":
-            matrix["techniques"].append(object)
-        elif object["object-type"] == "tactic":
+        if object["object-type"] not in ['id', 'name', 'version', 'tactic'] and object["object-type"] not in arbitrary_keys:
+            arbitrary_keys.append(object["object-type"])
+            matrix[p.plural(object["object-type"])] = []
+
+    # Populates object lists within matrix object based on object-type
+    for object in objects:
+        if object["object-type"] == "tactic":
             if object["id"] in matrix["tactics"]:
                 idx = matrix["tactics"].index(object["id"])
                 matrix["tactics"][idx] = object
-        elif object["object-type"] == "case-study":
-            matrix["case-studies"].append(object)
+        elif object["object-type"] in arbitrary_keys:
+            matrix[p.plural(object["object-type"])].append(object)
 
     return matrix
 

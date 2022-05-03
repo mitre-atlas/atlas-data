@@ -53,3 +53,12 @@ def test_validate_case_studies(case_study_schema, case_studies):
         case_study_schema.validate(case_studies)
     except SchemaError as e:
         pytest.fail(e.code)
+
+def test_validate_mitigations(mitigation_schema, mitigations):
+    """Validates each mitigations dictionary.
+    Explicitly fails with message to capture more in pytest short test info.
+    """
+    try:
+        mitigation_schema.validate(mitigations)
+    except SchemaError as e:
+        pytest.fail(e.code)
