@@ -62,36 +62,46 @@ def format_output(data):
     # Flatten the objects
     objects = [object for objects in data["data"] for object in objects]
 
-    # Organize objects into dicts by object-type
-    # and make sure tactics are in the order defined in the matrix
-    matrix = {
-        "id": data["id"],
-        "name": data["name"],
-        "version": data["version"],
-        "tactics": data["tactics"]
-    }
-
-    # List used to keep track of additional keys
-    arbitrary_keys = []
+    # Initialize matrix dictionary to all keys except for the literal data key
+    # The literal data key contains include filepaths that will be resolved as part of YAML loading
+    matrix = {k: data[k] for k in data if k != 'data'}
 
     # Setting up for pluralization library
     # This library is used in order to get the plural form of arbitrary object-type names
     p = inflect.engine()
 
-    # Creates new lists within matrix object for arbitrary keys
-    for object in objects:
-        if object["object-type"] not in ['id', 'name', 'version', 'tactic'] and object["object-type"] not in arbitrary_keys:
-            arbitrary_keys.append(object["object-type"])
-            matrix[p.plural(object["object-type"])] = []
+    # Get list of unique object types
+    # Exclude 'tactic', as it will be separately handled
+    dataObjectTypes = list(set([obj['object-type'] for obj in objects if obj['object-type'] != 'tactic']))
+
+    # Keep track of object types to their plural forms for dictionary key use
+    objectTypeToPlural = {dot: p.plural(dot) for dot in dataObjectTypes}
 
     # Populates object lists within matrix object based on object-type
-    for object in objects:
-        if object["object-type"] == "tactic":
-            if object["id"] in matrix["tactics"]:
-                idx = matrix["tactics"].index(object["id"])
-                matrix["tactics"][idx] = object
-        elif object["object-type"] in arbitrary_keys:
-            matrix[p.plural(object["object-type"])].append(object)
+    # Ensures tactic objects are in the order defined in the matrix
+    for obj in objects:
+        objectType = obj['object-type']
+
+        if objectType == 'tactic':
+            # Tactics as defined in matrix.yaml are IDs
+            # Replace them with the full tactic object
+            obj_id = obj['id']
+            if obj_id in matrix["tactics"]:
+                idx = matrix["tactics"].index(obj_id)
+                matrix['tactics'][idx] = obj
+
+        elif objectType in dataObjectTypes:
+            # This is a non-tactic object type defined in the data
+
+            # Retrieve the plural form of the type
+            objectTypePlural = objectTypeToPlural[objectType]
+
+            # Initialize list as needed
+            if objectTypePlural not in matrix:
+                matrix[objectTypePlural] = []
+
+            # Add the object to the corresponding data list
+            matrix[objectTypePlural].append(obj)
 
     return matrix
 
