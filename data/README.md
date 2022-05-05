@@ -43,7 +43,7 @@ This data may be introduced to a victim system via [ML Supply Chain Compromise](
 
 ### Tactics and techniques
 
-Modify `tactics.yaml` and `techniques.yaml` for changes to the ATLAS framework itself.
+Modify `tactics.yaml` and `techniques.yaml` for changes to the main ATLAS framework itself.
 
 Ensure that object IDs are unique and follow the patterns defined in the schema.  See definitions in `schemas` for ID patterns and object schemas.
 
@@ -60,7 +60,7 @@ Each imported file has hardcoded tactic and technique IDs replaced with anchors,
 
 ### Custom data
 
-Custom ATLAS objects can also be added as new YAML files in `data/matrix.yaml`:
+Custom ATLAS objects can also be added as new YAML files in `matrix.yaml` files:
 
 ```yaml
 data:
@@ -71,6 +71,37 @@ data:
 ```
 
 Objects added via the `!include` syntax can be found in re-generated `ATLAS.yaml` in the corresponding `tactics`/`techniques`/`case-studies` depending on the object's `object-type`.
+
+### Additional matrices
+
+To add a new matrix, create a new directory inside `data` containing a `matrix.yaml`.
+
+In this example, we've created a new directory called `my-matrix` with the `matrix.yaml` below  This new matrix has its own tactics and techniques files, but no case studies.
+
+  ```yaml
+  ---
+
+  id: custom-matrix
+  name: Custom Matrix
+  version: 1.0.0
+
+  tactics:
+  - "{{hello.id}}"
+
+  data:
+  - !include my-tactics.yaml
+  - !include my-techniques.yaml
+
+  case-studies: []
+  ```
+
+Lastly, update `data.yaml` to include the relative path to the new matrix directory.
+
+  ```yaml
+  matrices:
+    - !include .
+    - !include my-matrix
+  ```
 
 ### Output generation
 
