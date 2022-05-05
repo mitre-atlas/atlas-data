@@ -6,7 +6,7 @@ from pathlib import Path
 from schema import Optional, Schema
 
 # Local directory
-from schemas.atlas_matrix import atlas_matrix_schema
+from schemas.atlas_matrix import atlas_output_schema
 from schemas.atlas_obj import case_study_schema
 
 """
@@ -36,8 +36,8 @@ if __name__ == '__main__':
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Overall ATLAS YAML
-    atlas_json_schema = atlas_matrix_schema.json_schema('atlas_matrix_schema')
-    output_filepath = output_dir / 'atlas_matrix_schema.json'
+    atlas_json_schema = atlas_output_schema.json_schema('atlas_output_schema')
+    output_filepath = output_dir / 'atlas_output_schema.json'
     with open(output_filepath, 'w') as f:
         json.dump(atlas_json_schema, f, indent=4)
         print(f'Wrote ATLAS.yaml schema to {output_filepath}')

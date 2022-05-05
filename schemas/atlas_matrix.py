@@ -10,7 +10,7 @@ from .atlas_obj import (
     case_study_schema
 )
 
-"""Describes the ATLAS.yaml schema, which corresponds to data/matrix.yaml."""
+"""Describes the matrix.yaml matrix schema and the ATLAS.yaml output schema."""
 
 atlas_matrix_schema = Schema(
     {
@@ -32,7 +32,7 @@ atlas_matrix_schema = Schema(
     description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 )
 
-atlas_data_schema = Schema(
+atlas_output_schema = Schema(
     {
         "id": str,
         "name": str,
@@ -41,7 +41,7 @@ atlas_data_schema = Schema(
             atlas_matrix_schema
         ]
     },
-    name='ATLAS Data Schema',
+    name='ATLAS Output Schema',
     ignore_extra_keys=True,
     description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 )

@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-04-28",
+    "description": "Generated on 2022-05-05",
     "type": "object",
     "properties": {
         "id": {
@@ -21,29 +21,66 @@
                 }
             ]
         },
-        "tactics": {
+        "matrices": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/tactic"
-            }
-        },
-        "techniques": {
-            "type": "array",
-            "items": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/technique"
+                "description": "Generated on 2022-05-05",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
                     },
-                    {
-                        "$ref": "#/definitions/subtechnique"
+                    "name": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "number"
+                            }
+                        ]
+                    },
+                    "tactics": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/tactic"
+                        }
+                    },
+                    "techniques": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/technique"
+                                },
+                                {
+                                    "$ref": "#/definitions/subtechnique"
+                                }
+                            ]
+                        }
+                    },
+                    "case-studies": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/case_study"
+                        }
                     }
-                ]
-            }
-        },
-        "case-studies": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/case_study"
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "version",
+                    "tactics",
+                    "techniques",
+                    "case-studies"
+                ],
+                "additionalProperties": true
             }
         }
     },
@@ -51,14 +88,12 @@
         "id",
         "name",
         "version",
-        "tactics",
-        "techniques",
-        "case-studies"
+        "matrices"
     ],
-    "additionalProperties": false,
-    "$id": "atlas_matrix_schema",
+    "additionalProperties": true,
+    "$id": "atlas_output_schema",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "ATLAS Matrix Schema",
+    "title": "ATLAS Output Schema",
     "definitions": {
         "tactic": {
             "type": "object",

@@ -159,9 +159,9 @@ def pytest_generate_tests(metafunc):
 
 #region Schemas
 @pytest.fixture(scope='session')
-def output_data_schema():
+def output_schema():
     """Defines the schema and validation for the ATLAS YAML output data."""
-    return atlas_matrix.atlas_data_schema
+    return atlas_matrix.atlas_output_schema
 
 @pytest.fixture(scope='session')
 def matrix_schema():
