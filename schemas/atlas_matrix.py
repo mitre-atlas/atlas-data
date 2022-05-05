@@ -31,3 +31,17 @@ atlas_matrix_schema = Schema(
     ignore_extra_keys=True,
     description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 )
+
+atlas_data_schema = Schema(
+    {
+        "id": str,
+        "name": str,
+        "version": Or(str, int, float),
+        "matrices": [
+            atlas_matrix_schema
+        ]
+    },
+    name='ATLAS Data Schema',
+    ignore_extra_keys=True,
+    description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+)

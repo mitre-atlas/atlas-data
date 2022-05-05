@@ -2,6 +2,12 @@
 
 ATLAS data is stored in YAML files designed to be easy to read and edit, as well as to load, parse, and validate.
 
+`data.yaml` is the entry point, describing the ID, which will become the name of the output YAML file, as well as listing relative paths to matrix directories.
+
+## Matrices
+
+A matrix directory contains the following files:
+
 - `matrix.yaml` contains metadata, tactics in matrix order, and includes the other data files.
 
 - `tactics.yaml` contains ATLAS tactics, which represent adversary goals.

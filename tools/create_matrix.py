@@ -13,7 +13,7 @@ Creates the combined ATLAS YAML file from source data.
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("--matrix", "-m", type=str, default="data/matrix.yaml", help="Path to matrix.yaml")
+    parser.add_argument("--data", "-d", type=str, default="data/data.yaml", help="Path to data.yaml")
     parser.add_argument("--output", "-o", type=str, default="dist", help="Output directory")
     args = parser.parse_args()
 
@@ -22,12 +22,13 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Load and transform data
-    matrix = load_atlas_data(args.matrix)
+    data = load_atlas_data(args.data)
 
     # Save composite document as a standard yaml file
-    output_filepath = output_dir / f"{matrix['id']}.yaml"
+    # Output file name is the ID in data.yaml
+    output_filepath = output_dir / f"{data['id']}.yaml"
     with open(output_filepath, "w") as f:
-        yaml.dump(matrix, f, default_flow_style=False, explicit_start=True, sort_keys=False)
+        yaml.dump(data, f, default_flow_style=False, explicit_start=True, sort_keys=False)
 
 def load_atlas_data(matrix_yaml_filepath):
     """Returns a dictionary representing ATLAS data as read from the provided YAML files."""
@@ -49,7 +50,13 @@ def load_atlas_data(matrix_yaml_filepath):
     # Convert populated data string back to a dictionary
     data = yaml.safe_load(populated_data_str)
 
-    ## Construct output format
+    # Flatten object data and populate tactic list
+    data['matrices'] = [format_output(matrix_data) for matrix_data in data['matrices']]
+
+    return data
+
+def format_output(data):
+    """Constructs the ATLAS.yaml output format by populating listed tactic IDs and flattening lists of other objects."""
 
     # Objects are lists of lists under 'data' as !includes are list items
     # Flatten the objects
@@ -71,7 +78,7 @@ def load_atlas_data(matrix_yaml_filepath):
     # This library is used in order to get the plural form of arbitrary object-type names
     p = inflect.engine()
 
-    # Creates new lists within matrix object for arbitary keys
+    # Creates new lists within matrix object for arbitrary keys
     for object in objects:
         if object["object-type"] not in ['id', 'name', 'version', 'tactic'] and object["object-type"] not in arbitrary_keys:
             arbitrary_keys.append(object["object-type"])
@@ -131,9 +138,9 @@ def yaml_include(loader, node):
     include_path = loader.input_dir_path / node.value
 
     # Validate inputs
-    if include_path.suffix not in ['.yaml', '.yml']:
-        # Check file extension
-        raise ValueError(f'Expected !include path to end in .yaml or .yml, got "{node.value}" ending in "{include_path.suffix}"')
+    # if include_path.suffix not in ['.yaml', '.yml']:
+    #     # Check file extension
+    #     raise ValueError(f'Expected !include path to end in .yaml or .yml, got "{node.value}" ending in "{include_path.suffix}"')
     if not has_wildcard and not include_path.exists():
         # Specified file does not exist
         raise FileNotFoundError(node.value)
@@ -155,6 +162,13 @@ def yaml_include(loader, node):
                 results.append(result)
 
         return results
+
+    elif include_path.is_dir():
+        # This is a directory containing data files, representing a matrix
+        matrix_filepath = include_path / 'matrix.yaml'
+        with open(matrix_filepath) as matrix_f:
+            result = yaml_safe_load(matrix_f, master=loader)
+            return result
 
     else:
         # Return specified document
