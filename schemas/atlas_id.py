@@ -7,6 +7,7 @@ TACTIC_ID_PATTERN       = r'\w{1,}|\d{1,}(\.\w{1,}|\d{1,})?\.TA\d{4}'         # 
 TECHNIQUE_ID_PATTERN    = r'\w{1,}|\d{1,}(\.\w{1,}|\d{1,})?\.T\d{4}'          # AML.T0000 || AML.ABC123.T0000 || AML123.T0000
 SUBTECHNIQUE_ID_PATTERN = r'\w{1,}|\d{1,}(\.\w{1,}|\d{1,})?\.T\d{4}\.\d{3}'   # AML.T0000.000 || AML.ABC123.T0000.00 || AML123.T0000.00
 CASE_STUDY_ID_PATTERN   = r'\w{1,}|\d{1,}(\.\w{1,}|\d{1,})?\.CS\d{4}'         # AML.CS0000 || AML.ABC123.CS0000 || AML123.CS0000
+MITIGATION_ID_PATTERN   = r'\w{1,}|\d{1,}(\.\w{1,}|\d{1,})?\.M\d{4}'          # AML.M0000 || AML.ABC123.M0000 || AML123.M0000
 
 # Exact match patterns for the above, in Schema form
 TACTIC_ID_REGEX_EXACT = Schema(
@@ -27,5 +28,10 @@ SUBTECHNIQUE_ID_REGEX_EXACT = Schema(
 CASE_STUDY_ID_REGEX_EXACT = Schema(
     Regex(f'^{CASE_STUDY_ID_PATTERN}$'),
     name="id_case_study",
+    as_reference=True
+)
+MITIGATION_ID_REGEX_EXACT = Schema(
+    Regex(f'^{MITIGATION_ID_PATTERN}$'),
+    name="id_mitigation",
     as_reference=True
 )
