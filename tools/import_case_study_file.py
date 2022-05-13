@@ -92,7 +92,7 @@ def main():
 
             print(f'{import_filepath} <- {file}')
 
-        print(f'\nImported {len(args.files)} file(s) - review, run pytest for spellcheck exclusions, then run tools/create_matrix.py for ATLAS.yaml.')
+    print(f'\nImported {len(args.files)} file(s) - review, run pytest for spellcheck exclusions, then run tools/create_matrix.py for ATLAS.yaml.')
 
 def is_existing_filepath(imported_case_study_id):
     """Returns a Path to an existing case study YAML file with matching ATLAS ID to the soon to be imported study."""
