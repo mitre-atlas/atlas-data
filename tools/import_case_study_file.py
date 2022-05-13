@@ -101,7 +101,6 @@ def is_existing_filepath(imported_case_study_id):
     # Create a new path using the ID of the imported case study to compare with existing paths
     imported_case_study_path = Path('data/case-studies/')
     imported_case_study_path = imported_case_study_path / imported_case_study_id
-    print("imp", imported_case_study_path)
     # Retrieve all YAML files and get the last file in alphabetical order
     filepaths = sorted(case_study_dir.glob('*.yaml'))
     for filepath in filepaths:
