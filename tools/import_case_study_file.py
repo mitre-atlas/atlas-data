@@ -72,6 +72,9 @@ def main():
             for step in case_study['procedure']:
                 step['description'] = step['description'].strip()
 
+            # Checks ID of imported case study file to check whether or not this study already exists and should be overwritten
+            is_existing_study, existing_file_path = is_existing_filepath(case_study['id'])
+
             # Add new ID and case study object type at beginning of dict
             new_case_study = {
                 'id': new_id,
@@ -79,13 +82,34 @@ def main():
             }
             new_case_study.update(case_study)
 
-            # Write out new individual case study file
-            with open(new_filepath, 'w') as o:
-                yaml.dump(new_case_study, o, default_flow_style=False, explicit_start=True, sort_keys=False)
+            if is_existing_study:
+            # Overwrite existing case study file
+                with open(existing_file_path, 'w') as o:
+                    yaml.dump(new_case_study, o, default_flow_style=False, explicit_start=True, sort_keys=False)
 
-            print(f'{new_filepath} <- {file}')
+                print(f'{existing_file_path} <- {file}')
+            else:
+            # Write out new individual case study file
+                with open(new_filepath, 'w') as o:
+                    yaml.dump(new_case_study, o, default_flow_style=False, explicit_start=True, sort_keys=False)
+
+                print(f'{new_filepath} <- {file}')
 
         print(f'\nImported {len(args.files)} file(s) - review, run pytest for spellcheck exclusions, then run tools/create_matrix.py for ATLAS.yaml.')
+
+def is_existing_filepath(imported_case_study_id):
+    """Returns a Path to an existing case study YAML file with matching ATLAS ID to the soon to be imported study."""
+    # Open output directory, assumed to be from root project dir
+    case_study_dir = Path('data/case-studies')
+    # Create a new path using the ID of the imported case study to compare with existing paths
+    imported_case_study_path = Path('data/case-studies/' + imported_case_study_id + '.yaml')
+    # Retrieve all YAML files and get the last file in alphabetical order
+    filepaths = sorted(case_study_dir.glob('*.yaml'))
+    for filepath in filepaths:
+        if filepath == imported_case_study_path:
+            # Returns true and existing path to case study file which will be overwritten
+            return True, imported_case_study_path
+    return False, ''
 
 def find_next_filepath():
     """Returns a Path to a case study YAML file with next available ATLAS ID."""
