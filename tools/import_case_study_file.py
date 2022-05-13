@@ -73,7 +73,7 @@ def main():
                 step['description'] = step['description'].strip()
 
             # Checks ID of imported case study file to check whether or not this study already exists and should be overwritten
-            is_existing_study, existing_file_path = is_existing_filepath(case_study['id'] + '.yaml')
+            is_existing_study, existing_file_path = is_existing_filepath(case_study['id'])
 
             # Add new ID and case study object type at beginning of dict
             new_case_study = {
@@ -99,14 +99,11 @@ def is_existing_filepath(imported_case_study_id):
     # Open output directory, assumed to be from root project dir
     case_study_dir = Path('data/case-studies')
     # Create a new path using the ID of the imported case study to compare with existing paths
-    imported_case_study_path = Path('data/case-studies/')
-    imported_case_study_path = imported_case_study_path / imported_case_study_id
-    # Retrieve all YAML files and get the last file in alphabetical order
-    filepaths = sorted(case_study_dir.glob('*.yaml'))
-    for filepath in filepaths:
-        if filepath == imported_case_study_path:
-            # Returns true and existing path to case study file which will be overwritten
-            return True, imported_case_study_path
+    imported_case_study_path = case_study_dir / f'{imported_case_study_id}.yaml'
+
+    # Return filepath if exists and is a file
+    if imported_case_study_path.is_file():
+        return True, imported_case_study_path
     return False, ''
 
 def find_next_filepath():
