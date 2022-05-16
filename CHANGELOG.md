@@ -1,5 +1,25 @@
 # ATLAS Data Changelog
 
+## [3.1.0]() (2022-05-16)
+
+Users can define custom data object types
+
+#### Distributed files
+- Case study JSON schema accepts extra top-level keys
+
+#### Schemas
+- Relaxed ID prefix patterns
+  + Must start with a prefix of capital letter(s), optionally followed by numbers, then a "." (ex. AML.)
+  + Optionally can repeat the above pattern (ex. AML.VER123. )
+  + Ending in the expected pattern for the data object (ex. AML.VER123.T1234 )
+- Introduced a mitigation object schema for testing `object-type: "mitigation"` data, if exists
+- Optional case study references, if exists, expected to be a list
+
+#### Tools
+- Updated output YAML generation script to accept arbitrary object types and output them as top-level keys.
+  + Ex. `object-type: "mitigation"` produces the top-level key `mitigations:` in `ATLAS.yaml`
+- Case study import script can replace existing case studies when provided files with an existing ID
+
 ## [3.0.0]() (2022-03-23)
 
 Move to new GitHub repository under the `mitre-atlas` group
