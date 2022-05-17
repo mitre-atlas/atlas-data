@@ -71,9 +71,22 @@ def main():
             # Strip newlines on procedure descriptions
             for step in case_study['procedure']:
                 step['description'] = step['description'].strip()
-
+            
+            # Add ID and object-type fields to case-study if keys are not found
+            if 'id' not in case_study:
+                case_study['id'] = new_id
+                case_study['object-type'] = 'case-study'
+            
             # Checks ID of imported case study file to check whether or not this study already exists and should be overwritten
             is_existing_study, existing_file_path = is_existing_filepath(case_study['id'])
+
+            # Checks if user inputted custom ID name to be used as file name
+            if not is_existing_study and case_study['id'] != new_id:
+                # Change new id
+                case_study['id'] = new_id
+                # Change path to match user custom ID
+                case_study_dir = Path('data/case-studies')
+                import_filepath = case_study_dir / f'{new_id}.yaml'
 
             # Add new ID and case study object type at beginning of dict
             new_case_study = {
