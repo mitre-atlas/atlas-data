@@ -83,7 +83,7 @@ def main():
             # Checks if user inputted custom ID name to be used as file name
             if not is_existing_study and case_study['id'] != new_id:
                 # Change new id
-                case_study['id'] = new_id
+                new_id = case_study['id']
                 # Change path to match user custom ID
                 case_study_dir = Path('data/case-studies')
                 import_filepath = case_study_dir / f'{new_id}.yaml'
