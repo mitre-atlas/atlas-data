@@ -43,7 +43,8 @@ def test_validate_techniques(technique_schema, subtechnique_schema, techniques):
         # Could be a subtechnique
         #   SchemaWrongKeyError: flagging on presence of 'subtechnique-of'
         #   SchemaError: flagging on ID having extra numbers at end
-        if e.code.startswith("Wrong key 'subtechnique-of'") or "does not match" in e.code:
+        #   Failed: 'technique' Missing key: 'tactics'
+        if e.code.startswith("Wrong key 'subtechnique-of'") or "does not match" in e.code or 'Missing key: \'tactics\'' in e.code:
             try:
                 # Validate the subtechnique
                 subtechnique_schema.validate(techniques)

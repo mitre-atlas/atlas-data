@@ -79,7 +79,7 @@ case_study_schema = Schema(
                     "url": Or(str, None)
                 }
             ]
-            , None
+            , []
         )
     },
     name="case_study",
