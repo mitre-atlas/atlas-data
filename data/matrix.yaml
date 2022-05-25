@@ -2,7 +2,6 @@
 
 id: ATLAS
 name: ATLAS Machine Learning Threat Matrix
-version: 3.0.0
 
 tactics:
   - "{{reconnaissance.id}}"

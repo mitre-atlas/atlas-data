@@ -16,7 +16,6 @@ atlas_matrix_schema = Schema(
     {
         "id": str,
         "name": str,
-        "version": Or(str, int, float),
         "tactics": [
             tactic_schema
         ],

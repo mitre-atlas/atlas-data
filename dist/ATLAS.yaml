@@ -5,7 +5,6 @@ version: 3.1.0
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
-  version: 3.0.0
   tactics:
   - id: AML.TA0002
     name: Reconnaissance
@@ -1499,7 +1498,7 @@ matrices:
 
         '
     reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
-    references: null
+    references: []
   - id: AML.CS0003
     name: Bypassing Cylance's AI Malware Detection
     object-type: case-study
@@ -1608,7 +1607,7 @@ matrices:
 
         '
     reported-by: Henry Xuef, Ant Group AISEC Team
-    references: null
+    references: []
   - id: AML.CS0005
     name: Attack on Machine Translation Service - Google Translate, Bing Translator,
       and Systran Translate
@@ -1923,7 +1922,7 @@ matrices:
 
         '
     reported-by: Microsoft (Azure Trustworthy Machine Learning)
-    references: null
+    references: []
   - id: AML.CS0011
     name: Microsoft Edge AI Evasion
     object-type: case-study
@@ -1966,7 +1965,7 @@ matrices:
 
         '
     reported-by: Microsoft
-    references: null
+    references: []
   - id: AML.CS0012
     name: Face Identification System Evasion via Physical Countermeasures
     object-type: case-study
@@ -2032,7 +2031,7 @@ matrices:
 
         '
     reported-by: MITRE AI Red Team
-    references: null
+    references: []
   - id: AML.CS0013
     name: Backdoor Attack on Deep Learning Models in Mobile Apps
     object-type: case-study
