@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-05-05",
+    "description": "Generated on 2022-05-26",
     "type": "object",
     "properties": {
         "id": {
@@ -24,7 +24,7 @@
         "matrices": {
             "type": "array",
             "items": {
-                "description": "Generated on 2022-05-05",
+                "description": "Generated on 2022-05-26",
                 "type": "object",
                 "properties": {
                     "id": {
@@ -32,19 +32,6 @@
                     },
                     "name": {
                         "type": "string"
-                    },
-                    "version": {
-                        "anyOf": [
-                            {
-                                "type": "string"
-                            },
-                            {
-                                "type": "integer"
-                            },
-                            {
-                                "type": "number"
-                            }
-                        ]
                     },
                     "tactics": {
                         "type": "array",
@@ -64,23 +51,21 @@
                                 }
                             ]
                         }
-                    },
-                    "case-studies": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/case_study"
-                        }
                     }
                 },
                 "required": [
                     "id",
                     "name",
-                    "version",
                     "tactics",
-                    "techniques",
-                    "case-studies"
+                    "techniques"
                 ],
                 "additionalProperties": true
+            }
+        },
+        "case-studies": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/case_study"
             }
         }
     },
@@ -121,7 +106,7 @@
         },
         "id_tactic": {
             "type": "string",
-            "pattern": "^AML\\.TA\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
         },
         "technique": {
             "type": "object",
@@ -156,7 +141,7 @@
         },
         "id_technique": {
             "type": "string",
-            "pattern": "^AML\\.T\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}$"
         },
         "subtechnique": {
             "type": "object",
@@ -188,7 +173,7 @@
         },
         "id_subtechnique": {
             "type": "string",
-            "pattern": "^AML\\.T\\d{4}\\.\\d{3}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}\\.\\d{3}$"
         },
         "case_study": {
             "type": "object",
@@ -284,7 +269,7 @@
                             }
                         },
                         {
-                            "const": null
+                            "type": "array"
                         }
                     ]
                 }
@@ -303,7 +288,7 @@
         },
         "id_case_study": {
             "type": "string",
-            "pattern": "^AML\\.CS\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
     }
 }

@@ -20,4 +20,3 @@ tactics:
 data:
   - !include tactics.yaml
   - !include techniques.yaml
-  - !include case-studies/*.yaml

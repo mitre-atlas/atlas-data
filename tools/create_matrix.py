@@ -53,6 +53,9 @@ def load_atlas_data(matrix_yaml_filepath):
     # Flatten object data and populate tactic list
     data['matrices'] = [format_output(matrix_data) for matrix_data in data['matrices']]
 
+    # Flatten any included data elements in the top-level data.yaml such as case studies
+    data = format_output(data)
+
     return data
 
 def format_output(data):

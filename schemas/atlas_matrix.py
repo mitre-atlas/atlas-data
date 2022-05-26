@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-from schema import Literal, Or, Schema
+from schema import Optional, Or, Schema
 
 from .atlas_obj import (
     tactic_schema,
@@ -21,9 +21,6 @@ atlas_matrix_schema = Schema(
         ],
         "techniques": [
             Or(technique_schema, subtechnique_schema)
-        ],
-        "case-studies": [
-            case_study_schema
         ]
     },
     name='ATLAS Matrix Schema',
@@ -38,6 +35,9 @@ atlas_output_schema = Schema(
         "version": Or(str, int, float),
         "matrices": [
             atlas_matrix_schema
+        ],
+        Optional("case-studies"): [
+            case_study_schema
         ]
     },
     name='ATLAS Output Schema',
