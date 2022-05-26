@@ -4,7 +4,7 @@ The project uses the [schema library](https://github.com/keleshev/schema) to def
 
 - `atlas_id.py` defines ATLAS ID regular expression patterns.
 - `atlas_matrix.py` holds the schema for the `ATLAS.yaml` file.
-- `atlas_obj.py` holds schemas for tactic, technique, subtechnique, and case study objects.
+- `atlas_obj.py` holds schemas for tactic, technique, subtechnique, case study, and other data objects.
 
 ## Usage
 
