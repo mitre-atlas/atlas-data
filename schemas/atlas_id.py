@@ -18,6 +18,13 @@ ID_PREFIX_PATTERN = (
 ID_NUM_PATTERN_TOP_LEVEL = r'\d{4}' # i.e. T1234
 ID_NUM_PATTERN_SUB_LEVEL = r'\d{3}' # i.e. T0000.123
 
+FULL_ID_PATTERN = (
+        rf'{ID_PREFIX_PATTERN}'        # Prefix
+        r'[A-Z]+'                    # Some identifier, TA, T, CS, anything
+        rf'{ID_NUM_PATTERN_TOP_LEVEL}' # Followed by the numbers
+        rf'(?:\.{ID_NUM_PATTERN_SUB_LEVEL})?' # optionally followed by a .123
+)
+
 # Helper methods for ID formats
 def create_top_level_object_id(object_prefix):
     """Returns a full ID for a top-level data object.

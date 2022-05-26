@@ -5,7 +5,10 @@ import re
 
 import yaml
 
-from create_matrix import load_atlas_yaml
+from tools.create_matrix import load_atlas_yaml
+
+# Local directory
+from schemas.atlas_id import FULL_ID_PATTERN, ID_PREFIX_PATTERN
 
 """
 Imports case study files into ATLAS data as newly-IDed files.
@@ -16,13 +19,13 @@ ATLAS IDs are converted to expressions that use ATLAS YAML anchors.
 
 Run this script with `python -m tools.import_case_study_file <filepath>` to allow for local imports.
 """
-
 # Numeric portion of an ATLAS case study ID
-REGEX_CS_ID_NUM = re.compile(r'AML\.CS(\d+)')
+REGEX_CS_ID_NUM = re.compile(rf'{ID_PREFIX_PATTERN}CS(\d+)')
 # Match for any ATLAS tactic, technique, or subtechnique ID
-REGEX_ID = re.compile(r'AML\.TA?(?:\d+)(?:\.\d+)?')
+# REGEX_ID = re.compile(r'AML\.TA?(?:\d+)(?:\.\d+)?')
+REGEX_ID = re.compile(FULL_ID_PATTERN)
 # Markdown link to a tactics or techniques page - captures title and ID part of URL
-REGEX_INTERNAL_LINK = re.compile(r'\[([^\[]+)\]\(\/(?:techniques|tactics)\/(.*?)\)')
+REGEX_INTERNAL_LINK = re.compile(r'\[([^\[]+)\]\(\/(?:[a-z]+)\/(.*?)\)')
 # Captures string version of 'incident-date: YYYY-MM-DD', trimming off end of fully-formatted ISO
 # ex.  !!timestamp "2021-11-01T00:00:00.000Z", !!timestamp "2022-02-15 02:40:33+00:00"
 REGEX_INCIDENT_DATE = re.compile(r'!!timestamp "(\d{4}-\d{2}-\d{2})(?:[\d:\.+TZ ]+)?"')
@@ -155,7 +158,7 @@ def replace_timestamp(match):
 
         return f'!!timestamp "{date}"'
 
-    return match.group()
+    return None
 
 def replace_id(id2anchor, match):
     """Returns a string Jinja expression that accesses the id key of the anchor.
@@ -164,9 +167,12 @@ def replace_id(id2anchor, match):
     """
     if match:
         atlas_id = match.group()
-        return '{{' + id2anchor[atlas_id] + '.id}}'
-
-    return match.group()
+        if atlas_id in id2anchor:
+            return '{{' + id2anchor[atlas_id] + '.id}}'
+        # Return ID as is if not found in id2anchor
+        return atlas_id
+    
+    return None
 
 def replace_link(id2anchor, match):
     """Returns a string Jinja expression that creates an internal Markdown link for tactics and techniques.
