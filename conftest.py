@@ -90,19 +90,26 @@ def pytest_generate_tests(metafunc):
 
     ## Create parameterized fixtures for tactics, techniques, and case studies for schema validation
 
+    # Generated fixtures are for all data objects within matrices, or at the top-level of the data
+    fixture_names = []
+
     # There should always be at least one matrix defined
     matrices = data['matrices']
-    first_matrix = data['matrices'][0]
 
-    # These are the top-level keys of the matrix dictionary
-    # and also the names of the fixtures we'd like to generate.
+    # Keys in the data that are metadata and will never be considered keys for data objects
+    excluded_keys = ['id', 'name', 'version', 'matrices']
+
+    # Unique keys in each matrix, representing the plural name of the object type
     # Note the underscore instead of the dash
-    fixture_names = []
-    # Construct list of data keys
-    for key in first_matrix.keys():
-        if key not in ['id', 'name', 'version']:
-            key = key.replace('-','_')
-            fixture_names.append(key)
+    collect_fixture_names = lambda data: list({key.replace('-','_') for d in data for key in d.keys() if key not in excluded_keys})
+
+    # Construct list of data object keys in the top-level data
+    # Wrap this argument in a list to support iteration in lambda function
+    data_keys_set = collect_fixture_names([data])
+    # As well as unique keys from each matrix
+    matrix_keys_set = collect_fixture_names(matrices)
+    # Combine these two
+    fixture_names = data_keys_set + matrix_keys_set
 
     # Initialize collections
     text_with_possible_markdown_syntax = []
@@ -113,21 +120,16 @@ def pytest_generate_tests(metafunc):
 
         # Handle the key 'case_studies' really being 'case-studies' in the input
         key = fixture_name.replace('_','-')
+
         # Construct a list of objects across all matrices under the specified key
-        values = [obj for matrix in matrices for obj in matrix[key]]
+        values = [obj for matrix in matrices if key in matrix for obj in matrix[key]]
+        # Add top-level objects, if exists, ex. case-studies appended to an empty list from above
+        if key in data:
+            values.extend(data[key])
 
         # Build up text parameters
         # Parameter format is (test_identifier, text)
-        if key == 'tactics' or key == 'techniques':
-            for t in values:
-                t_id = t['id']
-                text_to_be_spellchecked.append((f"{t_id} Name", t['name']))
-
-                description_text = (f"{t_id} Description", t['description'])
-                text_to_be_spellchecked.append(description_text)
-                text_with_possible_markdown_syntax.append(description_text)
-
-        elif key == 'case-studies':
+        if key == 'case-studies':
             for cs in values:
                 cs_id = cs['id']
 
@@ -138,6 +140,15 @@ def pytest_generate_tests(metafunc):
                 procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
                 text_to_be_spellchecked.extend(procedure_step_texts)
                 text_with_possible_markdown_syntax.extend(procedure_step_texts)
+        else:
+            # This based off of a default ATLAS data object
+            for t in values:
+                t_id = t['id']
+                text_to_be_spellchecked.append((f"{t_id} Name", t['name']))
+
+                description_text = (f"{t_id} Description", t['description'])
+                text_to_be_spellchecked.append(description_text)
+                text_with_possible_markdown_syntax.append(description_text)
 
         # Parametrize when called for via test signature
         if fixture_name in metafunc.fixturenames:
