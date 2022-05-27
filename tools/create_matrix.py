@@ -75,7 +75,7 @@ def format_output(data):
 
     # Get list of unique object types
     # Exclude 'tactic', as it will be separately handled
-    dataObjectTypes = list(set([obj['object-type'] for obj in objects if obj['object-type'] != 'tactic']))
+    dataObjectTypes = list(set([obj['object-type'] for obj in objects if 'object-type' in obj and obj['object-type'] != 'tactic']))
 
     # Keep track of object types to their plural forms for dictionary key use
     objectTypeToPlural = {dot: p.plural(dot) for dot in dataObjectTypes}
@@ -83,6 +83,9 @@ def format_output(data):
     # Populates object lists within matrix object based on object-type
     # Ensures tactic objects are in the order defined in the matrix
     for obj in objects:
+        if 'object-type' not in obj: 
+            raise ValueError('Expected to find object-type in data object, got ', obj)
+
         objectType = obj['object-type']
 
         if objectType == 'tactic':
