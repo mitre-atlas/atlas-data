@@ -6,7 +6,8 @@ from .atlas_id import (
     TACTIC_ID_REGEX_EXACT,
     TECHNIQUE_ID_REGEX_EXACT,
     SUBTECHNIQUE_ID_REGEX_EXACT,
-    CASE_STUDY_ID_REGEX_EXACT
+    CASE_STUDY_ID_REGEX_EXACT,
+    MITIGATION_ID_REGEX_EXACT
 )
 
 """Describes ATLAS object schemas.
@@ -78,9 +79,26 @@ case_study_schema = Schema(
                     "url": Or(str, None)
                 }
             ]
-            , None
+            , []
         )
     },
     name="case_study",
+    as_reference=True
+)
+
+mitigation_schema = Schema(
+    {
+        "id": MITIGATION_ID_REGEX_EXACT,
+        "object-type": "mitigation",
+        "name": str,
+        "description": str,
+        Optional("techniques"): [
+            Or(
+                    TECHNIQUE_ID_REGEX_EXACT,   # top-level techniquye
+                    SUBTECHNIQUE_ID_REGEX_EXACT # subtechnique
+                ),
+        ]
+    },
+    name="mitigation",
     as_reference=True
 )

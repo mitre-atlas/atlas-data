@@ -1,5 +1,41 @@
 # ATLAS Data Changelog
 
+## [4.0.0]() (2022-05-27)
+
+Support for defining multiple matrices
+
+#### Distributed files
+- `ATLAS.yaml` has a new top-level key `matrices` containing a list of matrix names, tactics, techniques, and other associated data objects
+  + The `tactics` and `techniques` keys that was previously at the top-level of this file have been moved into an entry of this `matrices` key
+  + Note that case studies remains at the top-level, as they can contain techniques from multiple matrices
+- Updated schema files for the new format
+
+#### Data
+- New data definition file `data.yaml` containing top-level metadata, data objects, and paths to included matrix data
+
+#### Tools
+- Case study import script improvements and support for output format changes
+
+## [3.1.0]() (2022-05-16)
+
+Users can define custom data object types
+
+#### Distributed files
+- Case study JSON schema accepts extra top-level keys
+
+#### Schemas
+- Relaxed ID prefix patterns
+  + Must start with a prefix of capital letter(s), optionally followed by numbers, then a "." (ex. AML.)
+  + Optionally can repeat the above pattern (ex. AML.VER123. )
+  + Ending in the expected pattern for the data object (ex. AML.VER123.T1234 )
+- Introduced a mitigation object schema for testing `object-type: "mitigation"` data, if exists
+- Optional case study references, if exists, expected to be a list
+
+#### Tools
+- Updated output YAML generation script to accept arbitrary object types and output them as top-level keys.
+  + Ex. `object-type: "mitigation"` produces the top-level key `mitigations:` in `ATLAS.yaml`
+- Case study import script can replace existing case studies when provided files with an existing ID
+
 ## [3.0.0]() (2022-03-23)
 
 Move to new GitHub repository under the `mitre-atlas` group

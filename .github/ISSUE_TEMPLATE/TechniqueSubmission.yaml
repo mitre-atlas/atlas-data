@@ -1,0 +1,58 @@
+---
+name: Technique Feedback
+description: Send us technique(s) you would like to address
+title: "[Technique Feedback]: "
+labels: ["Technique Feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for taking the time to fill out this form!"
+  - type: dropdown
+    id: techniqueType
+    attributes:
+      label: Type of Technique
+      description: Which type of technique are you refering to?
+      options:
+        - Existing Technique Link
+        - New Technique
+    validations:
+      required: true
+  - type: input
+    id: existTechnique
+    attributes:
+      label: Technique Name
+      description: |
+        If this is an existing technique, please include the link to the existing technique.
+        If this is a new technique, please write the name of the technique.
+      placeholder: [Insert technique name or link here]
+    validations:
+      required: true
+  - type: textarea
+    id: techniquePropsal
+    attributes:
+      label: Technique Suggestion
+      description: |
+        Please describe why this technique needs changing.
+        Does the technique need additional information?
+
+      value: |
+        If this is a new technique, what tactic(s) does it fall under?
+
+        If it's a subtechnique, what is its parent?
+
+        ## Proposal
+
+        ## Other links/references
+
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers were you on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge

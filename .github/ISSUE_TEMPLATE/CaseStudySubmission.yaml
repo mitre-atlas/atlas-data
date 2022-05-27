@@ -1,0 +1,24 @@
+---
+name: Case Study Report
+description: Submit a case study
+title: "[Case Study]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out a new case study!
+  - type: input
+    id: case-study-article
+    attributes:
+      label: Article Link
+      description: Link us where you found the article
+      placeholder: ex. google.com
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary of Case Study
+      description: Tell us what the case study is about! Please include technologies used, time/date when reported, and etc!
+    validations:
+      required: true

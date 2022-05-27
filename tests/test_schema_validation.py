@@ -5,6 +5,15 @@ from schema import SchemaError, SchemaWrongKeyError
 Validates ATLAS data objects against schemas defined in conftest.py.
 """
 
+def test_validate_output_data(output_schema, output_data):
+    """Validates the ATLAS data output dictionary.
+    Explicitly fails with message to capture more in pytest short test info.
+    """
+    try:
+        output_schema.validate(output_data)
+    except SchemaError as e:
+        pytest.fail(e.code)
+
 def test_validate_matrix(matrix_schema, matrix):
     """Validates the ATLAS matrix dictionary.
     Explicitly fails with message to capture more in pytest short test info.
@@ -34,7 +43,8 @@ def test_validate_techniques(technique_schema, subtechnique_schema, techniques):
         # Could be a subtechnique
         #   SchemaWrongKeyError: flagging on presence of 'subtechnique-of'
         #   SchemaError: flagging on ID having extra numbers at end
-        if e.code.startswith("Wrong key 'subtechnique-of'") or "does not match" in e.code:
+        #   Failed: 'technique' Missing key: 'tactics'
+        if e.code.startswith("Wrong key 'subtechnique-of'") or "does not match" in e.code or 'Missing key: \'tactics\'' in e.code:
             try:
                 # Validate the subtechnique
                 subtechnique_schema.validate(techniques)
@@ -51,5 +61,14 @@ def test_validate_case_studies(case_study_schema, case_studies):
     """
     try:
         case_study_schema.validate(case_studies)
+    except SchemaError as e:
+        pytest.fail(e.code)
+
+def test_validate_mitigations(mitigation_schema, mitigations):
+    """Validates each mitigations dictionary.
+    Explicitly fails with message to capture more in pytest short test info.
+    """
+    try:
+        mitigation_schema.validate(mitigations)
     except SchemaError as e:
         pytest.fail(e.code)

@@ -1,0 +1,294 @@
+{
+    "description": "Generated on 2022-05-26",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "version": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "integer"
+                },
+                {
+                    "type": "number"
+                }
+            ]
+        },
+        "matrices": {
+            "type": "array",
+            "items": {
+                "description": "Generated on 2022-05-26",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tactics": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/tactic"
+                        }
+                    },
+                    "techniques": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/technique"
+                                },
+                                {
+                                    "$ref": "#/definitions/subtechnique"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "tactics",
+                    "techniques"
+                ],
+                "additionalProperties": true
+            }
+        },
+        "case-studies": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/case_study"
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "version",
+        "matrices"
+    ],
+    "additionalProperties": true,
+    "$id": "atlas_output_schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ATLAS Output Schema",
+    "definitions": {
+        "tactic": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_tactic"
+                },
+                "object-type": {
+                    "const": "tactic"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "object-type",
+                "description",
+                "name"
+            ],
+            "additionalProperties": false
+        },
+        "id_tactic": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
+        },
+        "technique": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_technique"
+                },
+                "object-type": {
+                    "const": "technique"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tactics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/id_tactic"
+                    }
+                }
+            },
+            "required": [
+                "id",
+                "object-type",
+                "name",
+                "description",
+                "tactics"
+            ],
+            "additionalProperties": false
+        },
+        "id_technique": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}$"
+        },
+        "subtechnique": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_subtechnique"
+                },
+                "object-type": {
+                    "const": "technique"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "subtechnique-of": {
+                    "$ref": "#/definitions/id_technique"
+                }
+            },
+            "required": [
+                "id",
+                "object-type",
+                "name",
+                "description",
+                "subtechnique-of"
+            ],
+            "additionalProperties": false
+        },
+        "id_subtechnique": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}\\.\\d{3}$"
+        },
+        "case_study": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_case_study"
+                },
+                "object-type": {
+                    "const": "case-study"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "summary": {
+                    "type": "string"
+                },
+                "incident-date": {
+                    "type": "string"
+                },
+                "incident-date-granularity": {
+                    "enum": [
+                        "YEAR",
+                        "MONTH",
+                        "DATE"
+                    ]
+                },
+                "procedure": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tactic": {
+                                "$ref": "#/definitions/id_tactic"
+                            },
+                            "technique": {
+                                "anyOf": [
+                                    {
+                                        "$ref": "#/definitions/id_technique"
+                                    },
+                                    {
+                                        "$ref": "#/definitions/id_subtechnique"
+                                    }
+                                ]
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tactic",
+                            "technique",
+                            "description"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "reported-by": {
+                    "type": "string"
+                },
+                "references": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    },
+                                    "url": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "url"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "object-type",
+                "name",
+                "summary",
+                "incident-date",
+                "incident-date-granularity",
+                "procedure",
+                "reported-by"
+            ],
+            "additionalProperties": false
+        },
+        "id_case_study": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
+        }
+    }
+}

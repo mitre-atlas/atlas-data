@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-from schema import Literal, Or, Schema
+from schema import Optional, Or, Schema
 
 from .atlas_obj import (
     tactic_schema,
@@ -10,23 +10,37 @@ from .atlas_obj import (
     case_study_schema
 )
 
-"""Describes the ATLAS.yaml schema, which corresponds to data/matrix.yaml."""
+"""Describes the matrix.yaml matrix schema and the ATLAS.yaml output schema."""
 
 atlas_matrix_schema = Schema(
     {
         "id": str,
         "name": str,
-        "version": Or(str, int, float),
         "tactics": [
             tactic_schema
         ],
         "techniques": [
             Or(technique_schema, subtechnique_schema)
-        ],
-        "case-studies": [
-            case_study_schema
         ]
     },
     name='ATLAS Matrix Schema',
+    ignore_extra_keys=True,
+    description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+)
+
+atlas_output_schema = Schema(
+    {
+        "id": str,
+        "name": str,
+        "version": Or(str, int, float),
+        "matrices": [
+            atlas_matrix_schema
+        ],
+        Optional("case-studies"): [
+            case_study_schema
+        ]
+    },
+    name='ATLAS Output Schema',
+    ignore_extra_keys=True,
     description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 )
