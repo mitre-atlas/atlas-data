@@ -1,3 +1,4 @@
+---
 name: Technique Feedback
 description: Send us technique(s) you would like to address
 title: "[Technique Feedback]: "
@@ -31,15 +32,15 @@ body:
     attributes:
       label: Technique Suggestion
       description: |
-        Please describe why this technique needs changing. 
+        Please describe why this technique needs changing.
         Does the technique need additional information?
-        
+
       value: |
         If this is a new technique, what tactic(s) does it fall under?
 
         If it's a subtechnique, what is its parent?
-        
-        ## Proposal 
+
+        ## Proposal
 
         ## Other links/references
 
