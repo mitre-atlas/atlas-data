@@ -16,8 +16,13 @@ https://docs.pytest.org/en/6.2.x/fixture.html#conftest-py-sharing-fixtures-acros
 
 #region Parameterized fixtures
 @pytest.fixture(scope='session')
+def output_data(request):
+    """Represents the ATLAS output data (ATLAS.yaml) dictionary."""
+    return request.param
+
+@pytest.fixture(scope='session')
 def matrix(request):
-    """Represents the ATLAS matrix (ATLAS.yaml) dictionary."""
+    """Represents the ATLAS matrix dictionary."""
     return request.param
 
 @pytest.fixture(scope='session')
@@ -73,61 +78,90 @@ def pytest_generate_tests(metafunc):
     https://docs.pytest.org/en/stable/parametrize.html#basic-pytest-generate-tests-example
     """
     # Read the YAML files in this repository and create the nested dictionary
-    path_to_matrix_file = 'data/matrix.yaml'
-    data = load_atlas_data(path_to_matrix_file)
+    path_to_data_file = 'data/data.yaml'
+    data = load_atlas_data(path_to_data_file)
 
     # Parametrize when called for via test signature
-    if 'matrix' in metafunc.fixturenames:
+    if 'output_data' in metafunc.fixturenames:
         # Only one arg, wrap in list
-        metafunc.parametrize('matrix', [data], indirect=True, scope='session')
+        metafunc.parametrize('output_data', [data], indirect=True, scope='session')
+    if 'matrix' in metafunc.fixturenames:
+        metafunc.parametrize('matrix', data['matrices'], indirect=True, scope='session')
 
     ## Create parameterized fixtures for tactics, techniques, and case studies for schema validation
 
-    # These are the top-level keys of that dictionary
-    # and also the names of the fixtures we'd like to generate.
-    # Note the underscore instead of the dash
+    # Generated fixtures are for all data objects within matrices, or at the top-level of the data
     fixture_names = []
 
-    for key in data.keys():
-        if key not in ['id', 'name', 'version']:
-            key = key.replace('-','_')
-            fixture_names.append(key)
-    
+    # There should always be at least one matrix defined
+    matrices = data['matrices']
+
+    # Keys in the data that are metadata and will never be considered keys for data objects
+    excluded_keys = ['id', 'name', 'version', 'matrices']
+
+    # Unique keys in each matrix, representing the plural name of the object type
+    # Note the underscore instead of the dash
+    collect_fixture_names = lambda data: list({key.replace('-','_') for d in data for key in d.keys() if key not in excluded_keys})
+
+    # Construct list of data object keys in the top-level data
+    # Wrap this argument in a list to support iteration in lambda function
+    data_keys_set = collect_fixture_names([data])
+    # As well as unique keys from each matrix
+    matrix_keys_set = collect_fixture_names(matrices)
+    # Combine these two
+    fixture_names = data_keys_set + matrix_keys_set
+
+    # Initialize collections
+    text_with_possible_markdown_syntax = []
+    text_to_be_spellchecked = []
+
+    # Parameterize based on data objects
     for fixture_name in fixture_names:
+
+        # Handle the key 'case_studies' really being 'case-studies' in the input
+        key = fixture_name.replace('_','-')
+
+        # Construct a list of objects across all matrices under the specified key
+        values = [obj for matrix in matrices if key in matrix for obj in matrix[key]]
+        # Add top-level objects, if exists, ex. case-studies appended to an empty list from above
+        if key in data:
+            values.extend(data[key])
+
+        # Build up text parameters
+        # Parameter format is (test_identifier, text)
+        if key == 'case-studies':
+            for cs in values:
+                cs_id = cs['id']
+
+                text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
+                text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
+
+                # AML.CS0000 Procedure #3, <procedure step description>
+                procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
+                text_to_be_spellchecked.extend(procedure_step_texts)
+                text_with_possible_markdown_syntax.extend(procedure_step_texts)
+        else:
+            # This based off of a default ATLAS data object
+            for t in values:
+                t_id = t['id']
+                text_to_be_spellchecked.append((f"{t_id} Name", t['name']))
+
+                description_text = (f"{t_id} Description", t['description'])
+                text_to_be_spellchecked.append(description_text)
+                text_with_possible_markdown_syntax.append(description_text)
+
         # Parametrize when called for via test signature
         if fixture_name in metafunc.fixturenames:
-            # Handle the key 'case_studies' really being 'case-studies' in the input
-            key = fixture_name.replace('_','-')
-            values = data[key]
             # Parametrize each object, using the ID as identifier
             metafunc.parametrize(fixture_name, values, ids=lambda x: x['id'], indirect=True, scope='session')
 
     ## Create parameterized fixtures for Markdown link syntax verification - technique descriptions and case study procedure steps
 
-    # Parameter format is (test_identifier, text)
-    text_with_possible_markdown_syntax = [(f"{t['id']} Description", t['description']) for t in data['techniques']]
-    for cs in data['case-studies']:
-        # Identify in test with case study ID + P#{1-based index of procedure step}
-        text_with_possible_markdown_syntax.extend([(f"{cs['id']} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])])
     # Parametrize when called for via test signature
     if 'text_with_possible_markdown_syntax' in metafunc.fixturenames:
         metafunc.parametrize('text_with_possible_markdown_syntax', text_with_possible_markdown_syntax, ids=lambda x: x[0], indirect=True, scope='session')
 
     ## Create parameterized fixtures for text to be spell-checked - names, descriptions, summary
-    # Parameter format is (text_identifier, text)
-
-    # Start with existing descriptions from technique descriptions and case study procedure steps
-    text_to_be_spellchecked = text_with_possible_markdown_syntax
-    # Tactic text
-    for t in data['tactics']:
-        text_to_be_spellchecked.append((f"{t['id']} Name", t['name']))
-        text_to_be_spellchecked.append((f"{t['id']} Description", t['description']))
-    # Already contains technique descriptions, add names
-    text_to_be_spellchecked.extend([(f"{t['id']} Name", t['name']) for t in data['techniques']])
-    # Case study text
-    for cs in data['case-studies']:
-        text_to_be_spellchecked.append((f"{cs['id']} Name", cs['name']))
-        text_to_be_spellchecked.append((f"{cs['id']} Summary", cs['summary']))
 
     # Parametrize when called for via test signature
     if 'text_to_be_spellchecked' in metafunc.fixturenames:
@@ -135,6 +169,11 @@ def pytest_generate_tests(metafunc):
 
 
 #region Schemas
+@pytest.fixture(scope='session')
+def output_schema():
+    """Defines the schema and validation for the ATLAS YAML output data."""
+    return atlas_matrix.atlas_output_schema
+
 @pytest.fixture(scope='session')
 def matrix_schema():
     """Defines the schema and validation for the ATLAS matrix."""

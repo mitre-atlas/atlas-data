@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-04-28",
+    "description": "Generated on 2022-05-26",
     "type": "object",
     "properties": {
         "study": {
@@ -91,7 +91,7 @@
                             }
                         },
                         {
-                            "const": null
+                            "type": "array"
                         }
                     ]
                 },
@@ -129,19 +129,19 @@
     "definitions": {
         "id_tactic": {
             "type": "string",
-            "pattern": "^AML\\.TA\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
         },
         "id_technique": {
             "type": "string",
-            "pattern": "^AML\\.T\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}$"
         },
         "id_subtechnique": {
             "type": "string",
-            "pattern": "^AML\\.T\\d{4}\\.\\d{3}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}\\.\\d{3}$"
         },
         "id_case_study": {
             "type": "string",
-            "pattern": "^AML\\.CS\\d{4}$"
+            "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
     }
 }

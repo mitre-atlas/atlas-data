@@ -16,6 +16,8 @@ Imports case study files into ATLAS data as newly-IDed files.
 Case study files are those that have been downloaded from the ATLAS website's /studies/create page.
 
 ATLAS IDs are converted to expressions that use ATLAS YAML anchors.
+
+Run this script with `python -m tools.import_case_study_file <filepath>` to allow for local imports.
 """
 # Numeric portion of an ATLAS case study ID
 REGEX_CS_ID_NUM = re.compile(rf'{ID_PREFIX_PATTERN}CS(\d+)')
@@ -74,12 +76,12 @@ def main():
             # Strip newlines on procedure descriptions
             for step in case_study['procedure']:
                 step['description'] = step['description'].strip()
-            
+
             # Add ID and object-type fields to case-study if keys are not found
             if 'id' not in case_study:
                 case_study['id'] = new_id
                 case_study['object-type'] = 'case-study'
-            
+
             # Checks ID of imported case study file to check whether or not this study already exists and should be overwritten
             is_existing_study, existing_file_path = is_existing_filepath(case_study['id'])
 

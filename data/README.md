@@ -2,6 +2,12 @@
 
 ATLAS data is stored in YAML files designed to be easy to read and edit, as well as to load, parse, and validate.
 
+`data.yaml` is the entry point, describing the ID, which will become the name of the output YAML file, as well as listing relative paths to matrix directories.
+
+## Matrices
+
+A matrix directory contains the following files:
+
 - `matrix.yaml` contains metadata, tactics in matrix order, and includes the other data files.
 
 - `tactics.yaml` contains ATLAS tactics, which represent adversary goals.
@@ -12,7 +18,7 @@ ATLAS data is stored in YAML files designed to be easy to read and edit, as well
 
 ## Anchors and templates
 
-Each tactic and technique object has a YAML anchor, which is prefaced with `&`.
+Each referenceable data object has a YAML anchor, which is prefaced with `&`.
 
 ```yaml
 - &supply_chain
@@ -37,7 +43,7 @@ This data may be introduced to a victim system via [ML Supply Chain Compromise](
 
 ### Tactics and techniques
 
-Modify `tactics.yaml` and `techniques.yaml` for changes to the ATLAS framework itself.
+Modify `tactics.yaml` and `techniques.yaml` for changes to the main ATLAS framework itself.
 
 Ensure that object IDs are unique and follow the patterns defined in the schema.  See definitions in `schemas` for ID patterns and object schemas.
 
@@ -54,7 +60,7 @@ Each imported file has hardcoded tactic and technique IDs replaced with anchors,
 
 ### Custom data
 
-Custom ATLAS objects can also be added as new YAML files in `data/matrix.yaml`:
+Custom ATLAS objects can also be added as new YAML files in `matrix.yaml` files:
 
 ```yaml
 data:
@@ -65,6 +71,34 @@ data:
 ```
 
 Objects added via the `!include` syntax can be found in re-generated `ATLAS.yaml` in the corresponding `tactics`/`techniques`/`case-studies` depending on the object's `object-type`.
+
+### Additional matrices
+
+To add a new matrix, create a new directory inside `data` containing a `matrix.yaml`.
+
+In this example, we've created a new directory called `my-matrix` with the `matrix.yaml` below  This new matrix has its own tactics and techniques files.
+
+  ```yaml
+  ---
+
+  id: custom-matrix
+  name: Custom Matrix
+
+  tactics:
+  - "{{hello.id}}"
+
+  data:
+  - !include my-tactics.yaml
+  - !include my-techniques.yaml
+  ```
+
+Lastly, update `data.yaml` to include the relative path to the new matrix directory.
+
+  ```yaml
+  matrices:
+    - !include .
+    - !include my-matrix
+  ```
 
 ### Output generation
 
