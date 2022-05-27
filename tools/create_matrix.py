@@ -84,7 +84,7 @@ def format_output(data):
     # Ensures tactic objects are in the order defined in the matrix
     for obj in objects:
         if 'object-type' not in obj: 
-            raise ValueError('Expected to find object-type in data object, got', obj)
+            raise ValueError('Expected to find object-type in data object, got ', obj)
 
         objectType = obj['object-type']
 
