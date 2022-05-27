@@ -18,7 +18,7 @@ A matrix directory contains the following files:
 
 ## Anchors and templates
 
-Each tactic and technique object has a YAML anchor, which is prefaced with `&`.
+Each referenceable data object has a YAML anchor, which is prefaced with `&`.
 
 ```yaml
 - &supply_chain
@@ -76,14 +76,13 @@ Objects added via the `!include` syntax can be found in re-generated `ATLAS.yaml
 
 To add a new matrix, create a new directory inside `data` containing a `matrix.yaml`.
 
-In this example, we've created a new directory called `my-matrix` with the `matrix.yaml` below  This new matrix has its own tactics and techniques files, but no case studies.
+In this example, we've created a new directory called `my-matrix` with the `matrix.yaml` below  This new matrix has its own tactics and techniques files.
 
   ```yaml
   ---
 
   id: custom-matrix
   name: Custom Matrix
-  version: 1.0.0
 
   tactics:
   - "{{hello.id}}"
@@ -91,8 +90,6 @@ In this example, we've created a new directory called `my-matrix` with the `matr
   data:
   - !include my-tactics.yaml
   - !include my-techniques.yaml
-
-  case-studies: []
   ```
 
 Lastly, update `data.yaml` to include the relative path to the new matrix directory.

@@ -1,5 +1,21 @@
 # ATLAS Data Changelog
 
+## [4.0.0]() (2022-05-27)
+
+Support for defining multiple matrices
+
+#### Distributed files
+- `ATLAS.yaml` has a new top-level key `matrices` containing a list of matrix names, tactics, techniques, and other associated data objects
+  + The `tactics` and `techniques` keys that was previously at the top-level of this file have been moved into an entry of this `matrices` key
+  + Note that case studies remains at the top-level, as they can contain techniques from multiple matrices
+- Updated schema files for the new format
+
+#### Data
+- New data definition file `data.yaml` containing top-level metadata, data objects, and paths to included matrix data
+
+#### Tools
+- Case study import script improvements and support for output format changes
+
 ## [3.1.0]() (2022-05-16)
 
 Users can define custom data object types

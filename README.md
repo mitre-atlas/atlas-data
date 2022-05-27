@@ -2,7 +2,7 @@
 
 ATLAS enables researchers to navigate the landscape of threats to artificial intelligence and machine learning systems.  Visit https://atlas.mitre.org for more information.
 
-This repository contains the tactics, techniques, and case studies data used by the ATLAS website and associated tools.
+This repository contains tactics, techniques, case studies, and other data used by the ATLAS website and associated tools.
 
 ## Distributed files
 
