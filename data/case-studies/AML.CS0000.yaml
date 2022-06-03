@@ -68,7 +68,7 @@ procedure:
     techniques, by crafting samples that are misclassified by an ML model.
 
     '
-reported-by: Palo Alto Networks (Network Security AI Research Team)
+reporter: Palo Alto Networks (Network Security AI Research Team)
 references:
 - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
     for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'

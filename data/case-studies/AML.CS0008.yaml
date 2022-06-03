@@ -41,7 +41,7 @@ procedure:
     email protection system, hence bypassing it.
 
     '
-reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
 references:
 - title: National Vulnerability Database entry for CVE-2019-20634
   url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634

@@ -101,7 +101,7 @@ procedure:
     several safety-critical apps in the Google Play store.
 
     '
-reported-by: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
+reporter: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
 references:
 - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through Neural
     Payload Injection'

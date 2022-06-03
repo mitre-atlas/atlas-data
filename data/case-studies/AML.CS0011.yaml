@@ -39,5 +39,5 @@ procedure:
     model by causing misclassifications.
 
     '
-reported-by: Microsoft
+reporter: Microsoft
 references: []
