@@ -71,7 +71,10 @@ case_study_schema = Schema(
                 "description": str
             }
         ],
-        Optional("reported-by"): str,
+        Optional("reporter"): str,
+        Optional("target"): str,
+        Optional("actor"): str,
+        Optional("case-study-type"): Or('incident', 'exercise'),
         Optional("references"): Or(
             [
                 {
