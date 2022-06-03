@@ -1368,7 +1368,7 @@ case-studies:
       detection techniques, by crafting samples that are misclassified by an ML model.
 
       '
-  reported-by: Palo Alto Networks (Network Security AI Research Team)
+  reporter: Palo Alto Networks (Network Security AI Research Team)
   references:
   - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
       for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
@@ -1435,7 +1435,7 @@ case-studies:
       with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
 
       '
-  reported-by: Palo Alto Networks (Network Security AI Research Team)
+  reporter: Palo Alto Networks (Network Security AI Research Team)
   references:
   - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
       Cock. "Character level based detection of DGA domain names." In 2018 International
@@ -1494,7 +1494,7 @@ case-studies:
       classify this ransomware family.
 
       '
-  reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  reporter: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
   references: []
 - id: AML.CS0003
   name: Bypassing Cylance's AI Malware Detection
@@ -1545,8 +1545,8 @@ case-studies:
       were effectively able to bypass the ML model.
 
       '
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber
-    team. Notified to us by Ken Luu (@devianz_)
+  reporter: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
+    Notified to us by Ken Luu (@devianz_)
   references:
   - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
     url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
@@ -1600,7 +1600,7 @@ case-studies:
       impersonated the victim.
 
       '
-  reported-by: Henry Xuef, Ant Group AISEC Team
+  reporter: Henry Xuef, Ant Group AISEC Team
   references: []
 - id: AML.CS0005
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
@@ -1672,7 +1672,7 @@ case-studies:
       services.
 
       '
-  reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
+  reporter: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
     Song (@helloksong)
   references:
   - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine
@@ -1708,7 +1708,7 @@ case-studies:
       via a valid account that was created through a misconfiguration.
 
       '
-  reported-by: Mossab Hussein (@mossab_hussein)
+  reporter: Mossab Hussein (@mossab_hussein)
   references:
   - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
     url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
@@ -1761,8 +1761,8 @@ case-studies:
       This resulted in their replicated model.
 
       '
-  reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
-    Stefanie Tellex
+  reporter: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick, Stefanie
+    Tellex
   references:
   - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It
       Anyway"
@@ -1811,7 +1811,7 @@ case-studies:
       email protection system, hence bypassing it.
 
       '
-  reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+  reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   references:
   - title: National Vulnerability Database entry for CVE-2019-20634
     url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
@@ -1862,7 +1862,7 @@ case-studies:
       This quickly lead to its decommissioning.
 
       '
-  reported-by: Microsoft
+  reporter: Microsoft
   references:
   - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
@@ -1914,7 +1914,7 @@ case-studies:
       examples, which helped achieve this goal.
 
       '
-  reported-by: Microsoft (Azure Trustworthy Machine Learning)
+  reporter: Microsoft (Azure Trustworthy Machine Learning)
   references: []
 - id: AML.CS0011
   name: Microsoft Edge AI Evasion
@@ -1957,7 +1957,7 @@ case-studies:
       ML model by causing misclassifications.
 
       '
-  reported-by: Microsoft
+  reporter: Microsoft
   references: []
 - id: AML.CS0012
   name: Face Identification System Evasion via Physical Countermeasures
@@ -2023,7 +2023,7 @@ case-studies:
       and causing targeted misclassifications.
 
       '
-  reported-by: MITRE AI Red Team
+  reporter: MITRE AI Red Team
   references: []
 - id: AML.CS0013
   name: Backdoor Attack on Deep Learning Models in Mobile Apps
@@ -2128,7 +2128,7 @@ case-studies:
       several safety-critical apps in the Google Play store.
 
       '
-  reported-by: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
+  reporter: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
   references:
   - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through
       Neural Payload Injection'
@@ -2238,8 +2238,7 @@ case-studies:
       infect systems while evading detection.
 
       '
-  reported-by: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML
-    team) '
+  reporter: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML team) '
   references:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
