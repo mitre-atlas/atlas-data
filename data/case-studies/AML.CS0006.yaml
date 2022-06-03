@@ -26,7 +26,7 @@ procedure:
     a valid account that was created through a misconfiguration.
 
     '
-reported-by: Mossab Hussein (@mossab_hussein)
+reporter: Mossab Hussein (@mossab_hussein)
 references:
 - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
   url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/

@@ -104,7 +104,7 @@ procedure:
     infect systems while evading detection.
 
     '
-reported-by: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML team) '
+reporter: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML team) '
 references:
 - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
     and protection"

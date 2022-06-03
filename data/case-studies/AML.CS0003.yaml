@@ -47,7 +47,7 @@ procedure:
     were effectively able to bypass the ML model.
 
     '
-reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
+reporter: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
   Notified to us by Ken Luu (@devianz_)
 references:
 - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"

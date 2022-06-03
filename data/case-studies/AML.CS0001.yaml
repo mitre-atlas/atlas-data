@@ -61,7 +61,7 @@ procedure:
     with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
 
     '
-reported-by: Palo Alto Networks (Network Security AI Research Team)
+reporter: Palo Alto Networks (Network Security AI Research Team)
 references:
 - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock.
     "Character level based detection of DGA domain names." In 2018 International Joint
