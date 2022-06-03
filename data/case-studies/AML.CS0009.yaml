@@ -41,7 +41,7 @@ procedure:
     This quickly lead to its decommissioning.
 
     '
-reported-by: Microsoft
+reporter: Microsoft
 references:
 - title: Microsoft BlogPost, "Learning from Tay's introduction"
   url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
