@@ -1,47 +1,54 @@
 ---
 id: AML.CS0008
-name: ProofPoint Evasion
 object-type: case-study
-summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email protection
-  system by first building a copy-cat email protection ML model, and using the insights
-  to evade the live system.
-
-  '
+name: ProofPoint Evasion
+summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how ML
+  researchers evaded ProofPoint's email protection system by first building a copy-cat
+  email protection ML model, and using the insights to bypass the live system. More
+  specifically, the insights allowed researchers to craft malicious emails that received
+  preferable scores, going undetected by the system. Each word in an email is scored
+  numerically based on multiple variables and if the overall score of the email is
+  too low, ProofPoint will output an error, labeling it as SPAM.
 incident-date: 2019-09-09
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts.id}}'
-  description: 'The researchers first gathered the scores from the Proofpoint''s ML
+  description: The researchers first gathered the scores from the Proofpoint's ML
     system used in email headers by sending a large number of emails through the system
     and scraping the model scores exposed in the logs.
-
-    '
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
-  description: 'The researchers converted the collected scores into a dataset.
-
-    '
+  description: The researchers converted the collected scores into a dataset. Basic
+    correlation was used to decide which score variable speaks generally about the
+    security of an email. The "mlxlogscore" was selected in this case due to its relationship
+    with spam, phish, and core mlx.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
-  description: 'Using these scores, the researchers replicated the ML mode by building
-    a "shadow" aka copy-cat ML model.
-
-    '
+  description: Using these scores, the researchers replicated the ML model by building
+    a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
+    Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
+    Training was performed using an Artificial Neural Network (ANN) + Bag of Words
+    tokenizing.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_whitebox.id}}'
-  description: 'Next, the ML researchers algorithmically found samples that this "offline"
-    copy cat model.
+  description: 'Next, the ML researchers algorithmically found samples from this "offline"
+    copy-cat model that helped give desired insight into its behavior and influential
+    variables.
 
-    '
+
+    Examples of good scoring samples include "calculation", "asset", and "tyson".
+
+    Examples of bad scoring samples include "software", "99", and "unsub".'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_transfer.id}}'
-  description: 'Finally, these insights from the offline model allowed the researchers
-    to create malicious emails that received preferable scores from the real ProofPoint
-    email protection system, hence bypassing it.
-
-    '
+  description: Finally, these insights from the "offline" copy-cat model allowed the
+    researchers to create malicious emails that received preferable scores from the
+    real ProofPoint email protection system, hence bypassing it.
 reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+target: Proofpoint Email Protection System
+actor: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+case-study-type: exercise
 references:
 - title: National Vulnerability Database entry for CVE-2019-20634
   url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
@@ -50,3 +57,6 @@ references:
   url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
 - title: Proof Pudding (CVE-2019-20634) Implementation on GitHub
   url: https://github.com/moohax/Proof-Pudding
+- title: '2019 DerbyCon video presentation "42: The answer to life, the universe,
+    and everything offensive security"'
+  url: https://www.youtube.com/watch?v=CsvkYoxtexQ&ab_channel=AdrianCrenshaw
