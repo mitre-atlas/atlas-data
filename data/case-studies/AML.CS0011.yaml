@@ -3,9 +3,7 @@ id: AML.CS0011
 name: Microsoft Edge AI Evasion
 object-type: case-study
 summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
-    designed for running AI workloads at the Edge. This exercise was meant to
-    use a automated system to continuously manipulate a target image to cause
-    the ML model to produce misclassifications.
+  designed for running AI workloads at the Edge.
 
   '
 incident-date: 2020-02-01
@@ -19,13 +17,12 @@ procedure:
     '
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts.id}}'
-  description: 'The team identified and obtained the publicly available base model to
-    use against the target ML model.
+  description: 'The team identified and obtained the publicly available base model.
 
     '
 - tactic: '{{ml_model_access.id}}'
   technique: '{{inference_api.id}}'
-  description: 'Using the publicly available version of the ML model, the team started
+  description: 'Then using the publicly available version of the ML model, started
     sending queries and analyzing the responses (inferences) from the ML model.
 
     '
