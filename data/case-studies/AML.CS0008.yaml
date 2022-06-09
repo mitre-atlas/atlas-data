@@ -46,7 +46,7 @@ procedure:
     researchers to create malicious emails that received preferable scores from the
     real ProofPoint email protection system, hence bypassing it.
 reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
-target: Proofpoint Email Protection System
+target: ProofPoint Email Protection System
 actor: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
 case-study-type: exercise
 references:
