@@ -1368,7 +1368,7 @@ case-studies:
       detection techniques, by crafting samples that are misclassified by an ML model.
 
       '
-  reported-by: Palo Alto Networks (Network Security AI Research Team)
+  reporter: Palo Alto Networks (Network Security AI Research Team)
   references:
   - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
       for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
@@ -1435,7 +1435,7 @@ case-studies:
       with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
 
       '
-  reported-by: Palo Alto Networks (Network Security AI Research Team)
+  reporter: Palo Alto Networks (Network Security AI Research Team)
   references:
   - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
       Cock. "Character level based detection of DGA domain names." In 2018 International
@@ -1494,33 +1494,26 @@ case-studies:
       classify this ransomware family.
 
       '
-  reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  reporter: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
   references: []
 - id: AML.CS0003
-  name: Bypassing Cylance's AI Malware Detection
   object-type: case-study
-  summary: 'Researchers at Skylight were able to create a universal bypass string
-    that
-
-    when appended to a malicious file evades detection by Cylance''s AI Malware detector.
-
-    '
+  name: Bypassing Cylance's AI Malware Detection
+  summary: Researchers at Skylight were able to create a universal bypass string that
+    when appended to a malicious file evades detection by Cylance's AI Malware detector.
   incident-date: 2019-09-07
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0002
-    technique: AML.T0003
-    description: 'The researchers read publicly available information about Cylance''s
-      AI Malware detector.
-
-      '
+    technique: AML.T0000
+    description: The researchers read publicly available information about Cylance's
+      AI Malware detector. They gathered this information from various sources such
+      as public talks as well as patent submissions by Cylance.
   - tactic: AML.TA0000
     technique: AML.T0047
-    description: 'The researchers used Cylance''s AI Malware detector and enabled
-      verbose logging to understand the inner workings of the ML model, particularly
-      around reputation scoring.
-
-      '
+    description: The researchers used Cylance's AI Malware detector and enabled verbose
+      logging to understand the inner workings of the ML model, particularly around
+      reputation scoring and model ensembling.
   - tactic: AML.TA0003
     technique: AML.T0017
     description: 'The researchers used the reputation scoring information to reverse
@@ -1530,26 +1523,24 @@ case-studies:
       first model.
 
       Positive assessments from the second model overrode the decision of the core
-      ML model.
-
-      '
+      ML model.'
   - tactic: AML.TA0001
     technique: AML.T0043.003
-    description: 'Using this knowledge, the researchers fused attributes of known
-      good files with malware to manually create adversarial malware.
-
-      '
+    description: Using this knowledge, the researchers fused attributes of known good
+      files with malware to manually create adversarial malware.
   - tactic: AML.TA0007
     technique: AML.T0015
-    description: 'Due to the secondary model overriding the primary, the researchers
+    description: Due to the secondary model overriding the primary, the researchers
       were effectively able to bypass the ML model.
-
-      '
-  reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber
-    team. Notified to us by Ken Luu (@devianz_)
+  reporter: Ken Luu (@devianz_)
+  actor: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
+  target: Cylance
+  case-study-type: exercise
   references:
   - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
     url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
+  - title: Statement's from Skylight Cyber CEO
+    url: https://www.security7.net/news/the-new-cylance-vulnerability-what-you-need-to-know
 - id: AML.CS0004
   name: Camera Hijack Attack on Facial Recognition System
   object-type: case-study
@@ -1600,16 +1591,16 @@ case-studies:
       impersonated the victim.
 
       '
-  reported-by: Henry Xuef, Ant Group AISEC Team
+  reporter: Henry Xuef, Ant Group AISEC Team
   references: []
 - id: AML.CS0005
+  object-type: case-study
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
     and Systran Translate
-  object-type: case-study
   summary: 'Machine translation services (such as Google Translate, Bing Translator,
     and Systran Translate) provide public-facing UIs and APIs.
 
-    A research group at UC Berkeley utilized these public endpoints to create an replicated
+    A research group at UC Berkeley utilized these public endpoints to create a replicated
     model with near-production, state-of-the-art translation quality.
 
     Beyond demonstrating that IP can be stolen from a black-box system, they used
@@ -1617,63 +1608,53 @@ case-studies:
     production services.
 
     These adversarial inputs successfully cause targeted word flips, vulgar outputs,
-    and dropped sentences on Google Translate and Systran Translate websites.
-
-    '
+    and dropped sentences on Google Translate and Systran Translate websites.'
   incident-date: 2020-04-30
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0002
     technique: AML.T0000
-    description: 'The researchers used published research papers to identify the datasets
+    description: The researchers used published research papers to identify the datasets
       and model architectures used by the target translation services.
-
-      '
   - tactic: AML.TA0003
     technique: AML.T0002.000
-    description: 'The researchers gathered similar datasets that the target translation
+    description: The researchers gathered similar datasets that the target translation
       services used.
-
-      '
   - tactic: AML.TA0003
     technique: AML.T0002.001
-    description: 'The researchers gathered similar model architectures that the target
+    description: The researchers gathered similar model architectures that the target
       translation services used.
-
-      '
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: 'They abuse a public facing application to query the model and produce
+    description: They abuse a public facing application to query the model and produce
       machine translated sentence pairs as training data.
-
-      '
   - tactic: AML.TA0001
     technique: AML.T0005.001
-    description: 'Using these translated sentence pairs, the researchers trained a
+    description: Using these translated sentence pairs, the researchers trained a
       model that replicates the behavior of the target model.
-
-      '
   - tactic: AML.TA0011
     technique: AML.T0045
-    description: 'By replicating the model with high fidelity, the researchers demonstrated
-      that an adversary could steal a model and violate the victim''s intellectual
+    description: By replicating the model with high fidelity, the researchers demonstrated
+      that an adversary could steal a model and violate the victim's intellectual
       property rights.
-
-      '
   - tactic: AML.TA0001
     technique: AML.T0043.002
-    description: 'The replicated models were used to generate adversarial examples
+    description: The replicated models were used to generate adversarial examples
       that successfully transferred to the black-box translation services.
-
-      '
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: 'The adversarial examples were used to evade the machine translation
-      services.
-
-      '
-  reported-by: Work by Eric Wallace, Mitchell Stern, Dawn Song and reported by Kenny
-    Song (@helloksong)
+    description: The adversarial examples were used to evade the machine translation
+      services by a variety of means. This included targeted word flips, vulgar outputs,
+      and dropped sentences.
+  - tactic: AML.TA0011
+    technique: AML.T0031
+    description: Adversarial attacks can cause errors that cause reputational damage
+      to the company of the translation service.
+  reporter: Kenny Song (@helloksong)
+  actor: Work by Eric Wallace, Mitchell Stern, Dawn Song, Berkeley Artificial Intelligence
+    Research
+  target: Google, Bing, Systran
+  case-study-type: exercise
   references:
   - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine
       Translation Systems" EMNLP 2020
@@ -1681,6 +1662,8 @@ case-studies:
   - title: Project Page, "Imitation Attacks and Defenses for Black-box Machine Translation
       Systems"
     url: https://www.ericswallace.com/imitation
+  - title: Google under fire for mistranslating Chinese amid Hong Kong protests
+    url: https://thehill.com/policy/international/asia-pacific/449164-google-under-fire-for-mistranslating-chinese-amid-hong-kong/
 - id: AML.CS0006
   name: ClearviewAI Misconfiguration
   object-type: case-study
@@ -1708,7 +1691,7 @@ case-studies:
       via a valid account that was created through a misconfiguration.
 
       '
-  reported-by: Mossab Hussein (@mossab_hussein)
+  reporter: Mossab Hussein (@mossab_hussein)
   references:
   - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
     url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
@@ -1761,8 +1744,8 @@ case-studies:
       This resulted in their replicated model.
 
       '
-  reported-by: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
-    Stefanie Tellex
+  reporter: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick, Stefanie
+    Tellex
   references:
   - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It
       Anyway"
@@ -1811,7 +1794,7 @@ case-studies:
       email protection system, hence bypassing it.
 
       '
-  reported-by: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+  reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   references:
   - title: National Vulnerability Database entry for CVE-2019-20634
     url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
@@ -1862,7 +1845,7 @@ case-studies:
       This quickly lead to its decommissioning.
 
       '
-  reported-by: Microsoft
+  reporter: Microsoft
   references:
   - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
@@ -1914,7 +1897,7 @@ case-studies:
       examples, which helped achieve this goal.
 
       '
-  reported-by: Microsoft (Azure Trustworthy Machine Learning)
+  reporter: Microsoft (Azure Trustworthy Machine Learning)
   references: []
 - id: AML.CS0011
   name: Microsoft Edge AI Evasion
@@ -1957,7 +1940,7 @@ case-studies:
       ML model by causing misclassifications.
 
       '
-  reported-by: Microsoft
+  reporter: Microsoft
   references: []
 - id: AML.CS0012
   name: Face Identification System Evasion via Physical Countermeasures
@@ -2023,7 +2006,7 @@ case-studies:
       and causing targeted misclassifications.
 
       '
-  reported-by: MITRE AI Red Team
+  reporter: MITRE AI Red Team
   references: []
 - id: AML.CS0013
   name: Backdoor Attack on Deep Learning Models in Mobile Apps
@@ -2128,7 +2111,7 @@ case-studies:
       several safety-critical apps in the Google Play store.
 
       '
-  reported-by: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
+  reporter: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
   references:
   - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through
       Neural Payload Injection'
@@ -2238,8 +2221,7 @@ case-studies:
       infect systems while evading detection.
 
       '
-  reported-by: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML
-    team) '
+  reporter: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML team) '
   references:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
