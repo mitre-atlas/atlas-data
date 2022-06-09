@@ -1300,19 +1300,17 @@ matrices:
     - AML.TA0011
 case-studies:
 - id: AML.CS0000
-  name: Evasion of Deep Learning Detector for Malware C&C Traffic
   object-type: case-study
+  name: Evasion of Deep Learning Detector for Malware C&C Traffic
   summary: 'Palo Alto Networks Security AI research team tested a deep learning model
     for malware command and control (C&C) traffic detection in HTTP traffic.
 
-    Based on the publicly available paper by Le et al.  [1], we built a model that
+    Based on the publicly available paper by Le et al. [1], we built a model that
     was trained on a similar dataset as our production model and had performance similar
     to it.
 
     Then we crafted adversarial samples and queried the model and adjusted the adversarial
-    sample accordingly till the model was evaded.
-
-    '
+    sample accordingly till the model was evaded.'
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
@@ -1321,14 +1319,10 @@ case-studies:
     description: 'We identified a machine learning based approach to malicious URL
       detection as a representative approach and potential target from the paper "URLNet:
       Learning a URL representation with deep learning for malicious URL detection"
-      [1], which was found on arXiv (a pre-print repository).
-
-      '
+      [1], which was found on arXiv (a pre-print repository).'
   - tactic: AML.TA0003
     technique: AML.T0002.000
-    description: 'We acquired a similar dataset to the target production model.
-
-      '
+    description: We acquired a similar dataset to the target production model.
   - tactic: AML.TA0001
     technique: AML.T0005
     description: 'We built a model that was trained on a similar dataset as the production
@@ -1341,22 +1335,12 @@ case-studies:
       on average.
 
       Testing the model with a HTTP packet header from known malware command and control
-      traffic samples was detected as malicious with high confidence (> 99%).
-
-      '
+      traffic samples was detected as malicious with high confidence (> 99%).'
   - tactic: AML.TA0001
     technique: AML.T0043.003
-    description: 'We crafted evasion samples by removing fields from packet header
+    description: We crafted evasion samples by removing fields from packet header
       which are typically not used for C&C communication (e.g. cache-control, connection,
       etc.)
-
-      '
-  - tactic: AML.TA0001
-    technique: AML.T0042
-    description: 'We queried the model with our adversarial examples and adjusted
-      them until the model was evaded.
-
-      '
   - tactic: AML.TA0007
     technique: AML.T0015
     description: 'With the crafted samples we performed online evasion of the ML-based
@@ -1365,10 +1349,15 @@ case-studies:
       The crafted packets were identified as benign with >80% confidence.
 
       This evaluation demonstrates that adversaries are able to bypass advanced ML
-      detection techniques, by crafting samples that are misclassified by an ML model.
-
-      '
+      detection techniques, by crafting samples that are misclassified by an ML model.'
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: We queried the model with our adversarial examples and adjusted them
+      until the model was evaded.
   reporter: Palo Alto Networks (Network Security AI Research Team)
+  actor: Palo Alto Networks
+  target: Unknown malware detection system
+  case-study-type: exercise
   references:
   - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
       for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
@@ -1443,13 +1432,13 @@ case-studies:
       is available from Github: https://github.com/matthoffman/degas'
     url: https://github.com/matthoffman/degas
 - id: AML.CS0002
-  name: VirusTotal Poisoning
   object-type: case-study
+  name: VirusTotal Poisoning
   summary: 'An increase in reports of a certain ransomware family that was out of
     the ordinary was noticed.
 
     In investigating the case, it was observed that many samples of that particular
-    ransomware family were submitted through a popular Virus-Sharing platform within
+    ransomware family were submitted through a popular virus-sharing platform within
     a short amount of time.
 
     Further investigation revealed that based on string similarity, the samples were
@@ -1462,39 +1451,32 @@ case-studies:
     code manipulating tool to manipulate the original file towards mutant variants.
 
     The variants wouldn''t always be executable but still classified as the same ransomware
-    family.
-
-    '
+    family.'
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0016.000
-    description: 'The actor obtained [metame](https://github.com/a0rtega/metame),
-      a simple metamorphic code engine for arbitrary executables.
-
-      '
+    description: The actor obtained [metame](https://github.com/a0rtega/metame), a
+      simple metamorphic code engine for arbitrary executables.
   - tactic: AML.TA0001
     technique: AML.T0043
-    description: 'The actor used a malware sample from a prevalent ransomware family
-      as a start to create ''mutant'' variants.
-
-      '
+    description: The actor used a malware sample from a prevalent ransomware family
+      as a start to create "mutant" variants.
   - tactic: AML.TA0004
     technique: AML.T0010.002
-    description: 'The actor uploaded "mutant" samples to the platform.
-
-      '
+    description: The actor uploaded "mutant" samples to the platform.
   - tactic: AML.TA0006
     technique: AML.T0020
     description: 'Several vendors started to classify the files as the ransomware
       family even though most of them won''t run.
 
       The "mutant" samples poisoned the dataset the ML model(s) use to identify and
-      classify this ransomware family.
-
-      '
+      classify this ransomware family.'
   reporter: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+  actor: McAfee Advanced Threat Research
+  target: VirusTotal
+  case-study-type: exercise
   references: []
 - id: AML.CS0003
   name: Bypassing Cylance's AI Malware Detection
@@ -1682,10 +1664,15 @@ case-studies:
       Systems"
     url: https://www.ericswallace.com/imitation
 - id: AML.CS0006
-  name: ClearviewAI Misconfiguration
   object-type: case-study
-  summary: 'Clearview AI''s source code repository, though password protected, was
-    misconfigured to allow an arbitrary user to register an account.
+  name: ClearviewAI Misconfiguration
+  summary: 'Clearview AI makes a facial recognition tool that searches publicly available
+    photos for matches.  This tool has been used for investigative purposes by law
+    enforcement agencies and other parties.
+
+
+    Clearview AI''s source code repository, though password protected, was misconfigured
+    to allow an arbitrary user to register an account.
 
     This allowed an external researcher to gain access to a private code repository
     that contained Clearview AI production credentials, keys to cloud storage buckets
@@ -1696,24 +1683,49 @@ case-studies:
 
     These kinds of attacks illustrate that any attempt to secure ML system should
     be on top of "traditional" good cybersecurity hygiene such as locking down the
-    system with least privileges, multi-factor authentication and monitoring and auditing.
-
-    '
+    system with least privileges, multi-factor authentication and monitoring and auditing.'
   incident-date: 2020-04-16
-  incident-date-granularity: DATE
+  incident-date-granularity: MONTH
   procedure:
   - tactic: AML.TA0004
     technique: AML.T0012
-    description: 'In this scenario, a security researcher gained initial access to
-      via a valid account that was created through a misconfiguration.
+    description: A security researcher gained initial access to Clearview AI's private
+      code repository via a misconfigured server setting that allowed an arbitrary
+      user to register a valid account.
+  - tactic: AML.TA0009
+    technique: AML.T0036
+    description: 'The private code repository contained credentials which were used
+      to access AWS S3 cloud storage buckets, leading to the discovery of assets for
+      the facial recognition tool, including:
 
-      '
+      - Released desktop and mobile applications
+
+      - Pre-release applications featuring new capabilities
+
+      - Slack access tokens
+
+      - Raw videos and other data'
+  - tactic: AML.TA0003
+    technique: AML.T0002
+    description: Adversaries could have downloaded training data and gleaned details
+      about software, models, and capabilities from the source code and decompiled
+      application binaries.
+  - tactic: AML.TA0011
+    technique: AML.T0031
+    description: As a result, future application releases could have been compromised,
+      causing degraded or malicious facial recognition capabilities.
   reporter: Mossab Hussein (@mossab_hussein)
+  actor: Mossab Hussein, security researcher
+  target: Clearview AI facial recognition tool
+  case-study-type: incident
   references:
   - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
-    url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
+    url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/
   - title: Gizmodo Article, "We Found Clearview AI's Shady Face Recognition App"
     url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
+  - title: New York Times Article, "The Secretive Company That Might End Privacy as
+      We Know It"
+    url: https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html
 - id: AML.CS0007
   name: GPT-2 Model Replication
   object-type: case-study
@@ -1770,48 +1782,56 @@ case-studies:
   - title: 'Medium BlogPost, "OpenGPT-2: We Replicated GPT-2 Because You Can Too"'
     url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
 - id: AML.CS0008
-  name: ProofPoint Evasion
   object-type: case-study
-  summary: 'CVE-2019-20634 describes how ML researchers evaded ProofPoint''s email
-    protection system by first building a copy-cat email protection ML model, and
-    using the insights to evade the live system.
-
-    '
+  name: ProofPoint Evasion
+  summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how
+    ML researchers evaded ProofPoint's email protection system by first building a
+    copy-cat email protection ML model, and using the insights to bypass the live
+    system. More specifically, the insights allowed researchers to craft malicious
+    emails that received preferable scores, going undetected by the system. Each word
+    in an email is scored numerically based on multiple variables and if the overall
+    score of the email is too low, ProofPoint will output an error, labeling it as
+    SPAM.
   incident-date: 2019-09-09
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0002
-    description: 'The researchers first gathered the scores from the Proofpoint''s
-      ML system used in email headers by sending a large number of emails through
-      the system and scraping the model scores exposed in the logs.
-
-      '
+    description: The researchers first gathered the scores from the Proofpoint's ML
+      system used in email headers by sending a large number of emails through the
+      system and scraping the model scores exposed in the logs.
   - tactic: AML.TA0003
     technique: AML.T0002.000
-    description: 'The researchers converted the collected scores into a dataset.
-
-      '
+    description: The researchers converted the collected scores into a dataset. Basic
+      correlation was used to decide which score variable speaks generally about the
+      security of an email. The "mlxlogscore" was selected in this case due to its
+      relationship with spam, phish, and core mlx.
   - tactic: AML.TA0001
     technique: AML.T0005
-    description: 'Using these scores, the researchers replicated the ML mode by building
-      a "shadow" aka copy-cat ML model.
-
-      '
+    description: Using these scores, the researchers replicated the ML model by building
+      a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
+      Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
+      Training was performed using an Artificial Neural Network (ANN) + Bag of Words
+      tokenizing.
   - tactic: AML.TA0001
     technique: AML.T0043.000
-    description: 'Next, the ML researchers algorithmically found samples that this
-      "offline" copy cat model.
+    description: 'Next, the ML researchers algorithmically found samples from this
+      "offline" copy-cat model that helped give desired insight into its behavior
+      and influential variables.
 
-      '
+
+      Examples of good scoring samples include "calculation", "asset", and "tyson".
+
+      Examples of bad scoring samples include "software", "99", and "unsub".'
   - tactic: AML.TA0001
     technique: AML.T0043.002
-    description: 'Finally, these insights from the offline model allowed the researchers
-      to create malicious emails that received preferable scores from the real ProofPoint
-      email protection system, hence bypassing it.
-
-      '
+    description: Finally, these insights from the "offline" copy-cat model allowed
+      the researchers to create malicious emails that received preferable scores from
+      the real ProofPoint email protection system, hence bypassing it.
   reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+  target: Proofpoint Email Protection System
+  actor: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+  case-study-type: exercise
   references:
   - title: National Vulnerability Database entry for CVE-2019-20634
     url: https://nvd.nist.gov/vuln/detail/CVE-2019-20634
@@ -1820,49 +1840,54 @@ case-studies:
     url: https://github.com/moohax/Talks/blob/master/slides/DerbyCon19.pdf
   - title: Proof Pudding (CVE-2019-20634) Implementation on GitHub
     url: https://github.com/moohax/Proof-Pudding
+  - title: '2019 DerbyCon video presentation "42: The answer to life, the universe,
+      and everything offensive security"'
+    url: https://www.youtube.com/watch?v=CsvkYoxtexQ&ab_channel=AdrianCrenshaw
 - id: AML.CS0009
-  name: Tay Poisoning
   object-type: case-study
-  summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
-    U.S. for entertainment purposes.
-
-    Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted
-    reprehensible words.
-
-    '
+  name: Tay Poisoning
+  summary: Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
+    U.S. for entertainment purposes. While previous chatbots used pre-programmed scripts
+    to conduct conversation, Tay's machine learning capabilities allowed it to able
+    to converse about any topic. Within 24 hours of its deployment, however, Tay had
+    to be decommissioned because it tweeted reprehensible words.
   incident-date: 2016-03-23
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: 'Adversaries were able to interact with Tay via a few different publicly
-      available methods.
-
-      '
+    description: Adversaries were able to interact with Tay via a few different publicly
+      available methods. This coordinated attack was instigated by a post on 4chan,
+      an anonymous English-language image board website, that encouraged users to
+      spam Tay with racist, misogynistic, and anti-semitic language. This post provided
+      a link to Tay's Twitter account.
   - tactic: AML.TA0004
     technique: AML.T0010.002
     description: 'Tay bot used the interactions with its twitter users as training
       data to improve its conversations.
 
       Adversaries were able to coordinate with the intent of defacing Tay bot by exploiting
-      this feedback loop.
-
-      '
+      this feedback loop.'
   - tactic: AML.TA0006
     technique: AML.T0020
-    description: 'By repeatedly interacting with Tay using racist and offensive language,
-      they were able to bias Tay''s dataset towards that language as well.
-
-      '
+    description: By repeatedly interacting with Tay using racist and offensive language,
+      they were able to bias Tay's dataset towards that language as well. This was
+      done by adversaries using the "repeat after me" function, a command that forced
+      Tay to repeat anything said to it.
   - tactic: AML.TA0011
     technique: AML.T0031
-    description: 'As a result of this coordinated attack, Tay''s conversation algorithms
-      began to learn to generate reprehensible material.
-
-      This quickly lead to its decommissioning.
-
-      '
+    description: "As a result of this coordinated attack, Tay's conversation algorithms\
+      \ began to learn to generate reprehensible material. Tay's internalization of\
+      \ this detestable language caused it to be unpromptedly repeated during interactions\
+      \ with innocent users. \n\nFor example, when asked whether Ricky Gervais was\
+      \ an atheist, Tay responded: 'Ricky Gervais learned totalitarianism from Adolf\
+      \ Hitler, the inventor of atheism.'\n\nThis behavior quickly led to its decommissioning.\
+      \ Microsoft issued a public apology  explaining what went wrong and the lessons\
+      \ they learned from the bot's failure."
   reporter: Microsoft
+  target: Twitter
+  actor: 4chan Users
+  case-study-type: incident
   references:
   - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
@@ -1920,7 +1945,9 @@ case-studies:
   name: Microsoft Edge AI Evasion
   object-type: case-study
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
-    designed for running AI workloads at the Edge.
+    designed for running AI workloads at the Edge. This exercise was meant to use
+    a automated system to continuously manipulate a target image to cause the ML model
+    to produce misclassifications.
 
     '
   incident-date: 2020-02-01
@@ -1934,12 +1961,13 @@ case-studies:
       '
   - tactic: AML.TA0003
     technique: AML.T0002
-    description: 'The team identified and obtained the publicly available base model.
+    description: 'The team identified and obtained the publicly available base model
+      to use against the target ML model.
 
       '
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: 'Then using the publicly available version of the ML model, started
+    description: 'Using the publicly available version of the ML model, the team started
       sending queries and analyzing the responses (inferences) from the ML model.
 
       '
@@ -1958,6 +1986,9 @@ case-studies:
 
       '
   reporter: Microsoft
+  target: New Microsoft AI Workload product
+  actor: Azure Red Team
+  case-study-type: exercise
   references: []
 - id: AML.CS0012
   name: Face Identification System Evasion via Physical Countermeasures
@@ -1982,7 +2013,8 @@ case-studies:
       '
   - tactic: AML.TA0004
     technique: AML.T0012
-    description: 'The team gained access via a valid account.
+    description: 'The team gained access to said service via a valid account to gain
+      access and knowledge to api.
 
       '
   - tactic: AML.TA0000
@@ -2008,13 +2040,15 @@ case-studies:
       '
   - tactic: AML.TA0001
     technique: AML.T0043.000
-    description: 'Using the proxy model, the red team optimized a physical domain
-      patch-based attack using expectation over transformation.
+    description: 'Using the proxy model, the red team optimized adversarial visual
+      pattern as a physical domain patch-based attack using expectation over transformation.
 
       '
   - tactic: AML.TA0000
     technique: AML.T0041
-    description: 'The team placed the physical countermeasure in the physical environment.
+    description: 'The team placed the physical countermeasure from the previous step
+      and placed it in the physical environment to cause issues in the face identification
+      system.
 
       '
   - tactic: AML.TA0011
@@ -2024,6 +2058,9 @@ case-studies:
 
       '
   reporter: MITRE AI Red Team
+  target: Commercial Face Identification Service
+  actor: MITRE AI Red Team
+  case-study-type: exercise
   references: []
 - id: AML.CS0013
   name: Backdoor Attack on Deep Learning Models in Mobile Apps
