@@ -17,9 +17,9 @@ procedure:
 - tactic: '{{reconnaissance.id}}'
   technique: '{{victim_research_preprint.id}}'
   description: 'We identified a machine learning based approach to malicious URL detection
-    as a representative approach and potential target from the paper "URLNet: Learning
-    a URL representation with deep learning for malicious URL detection" [1], which
-    was found on arXiv (a pre-print repository).'
+    as a representative approach and potential target from the paper [URLNet: Learning
+    a URL representation with deep learning for malicious URL detection](https://arxiv.org/abs/1802.03162),
+    which was found on arXiv (a pre-print repository).'
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
   description: We acquired a similar dataset to the target production model.
@@ -41,19 +41,19 @@ procedure:
   description: We crafted evasion samples by removing fields from packet header which
     are typically not used for C&C communication (e.g. cache-control, connection,
     etc.)
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{verify_attack.id}}'
+  description: We queried the model with our adversarial examples and adjusted them
+    until the model was evaded.
 - tactic: '{{defense_evasion.id}}'
   technique: '{{evade_model.id}}'
   description: 'With the crafted samples we performed online evasion of the ML-based
     spyware detection model.
 
-    The crafted packets were identified as benign with >80% confidence.
+    The crafted packets were identified as benign with > 80% confidence.
 
     This evaluation demonstrates that adversaries are able to bypass advanced ML detection
     techniques, by crafting samples that are misclassified by an ML model.'
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{verify_attack.id}}'
-  description: We queried the model with our adversarial examples and adjusted them
-    until the model was evaded.
 reporter: Palo Alto Networks (Network Security AI Research Team)
 actor: Palo Alto Networks
 target: Unknown malware detection system
