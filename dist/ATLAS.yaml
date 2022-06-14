@@ -1542,57 +1542,47 @@ case-studies:
   - title: Statement's from Skylight Cyber CEO
     url: https://www.security7.net/news/the-new-cylance-vulnerability-what-you-need-to-know
 - id: AML.CS0004
-  name: Camera Hijack Attack on Facial Recognition System
   object-type: case-study
-  summary: 'This type of attack can break through the traditional live detection model
-
-    and cause the misuse of face recognition.
-
-    '
+  name: Camera Hijack Attack on Facial Recognition System
+  summary: This type of attack can break through the traditional live detection model
+    and cause the misuse of face recognition. Attackers in China used this attack
+    to bypass a government facial recognition and steal $77 million.
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0008.001
-    description: 'The attackers bought customized low-end mobile phones.
-
-      '
+    description: The attackers bought customized low-end mobile phones.
   - tactic: AML.TA0003
     technique: AML.T0016.001
-    description: 'The attackers obtained customized android ROMs and a virtual camera
+    description: The attackers obtained customized android ROMs and a virtual camera
       application.
-
-      '
   - tactic: AML.TA0003
     technique: AML.T0016.000
-    description: 'The attackers obtained software that turns static photos into videos,
+    description: The attackers obtained software that turns static photos into videos,
       adding realistic effects such as blinking eyes.
-
-      '
   - tactic: AML.TA0009
     technique: AML.T0036
-    description: 'The attackers collected user identity information and face photos.
-
-      '
+    description: The attackers collected user identity information and high definition
+      face photos from an online black market .
   - tactic: AML.TA0003
     technique: AML.T0021
-    description: 'The attackers registered accounts with the victims'' identity information.
-
-      '
+    description: The attackers registered accounts with the victims' identity information.
   - tactic: AML.TA0000
     technique: AML.T0047
-    description: 'The attackers used the virtual camera app to present the generated
+    description: The attackers used the virtual camera app to present the generated
       video to the ML-based facial recognition product used for user verification.
-
-      '
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: 'The attackers successfully evaded the face recognition system and
+    description: The attackers successfully evaded the face recognition system and
       impersonated the victim.
-
-      '
   reporter: Henry Xuef, Ant Group AISEC Team
-  references: []
+  actor: Two individuals indicted as Wu and Zhou
+  target: Local Chinese government tax office's facial recogntion service
+  case-study-type: incident
+  references:
+  - title: Faces are the next target for fraudsters
+    url: https://www.wsj.com/articles/faces-are-the-next-target-for-fraudsters-11625662828
 - id: AML.CS0005
   object-type: case-study
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
