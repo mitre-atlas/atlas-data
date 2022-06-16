@@ -1,22 +1,20 @@
 ---
 id: AML.CS0014
-name: Confusing Antimalware Neural Networks
 object-type: case-study
+name: Confusing Antimalware Neural Networks
 summary: 'Cloud storage and computations have become popular platforms for deploying
   ML malware detectors.
 
   In such cases, the features for models are built on users'' systems and then sent
   to cybersecurity company servers.
 
-  The Kaspersky ML research team explored this gray-box scenario and shown that feature
+  The Kaspersky ML research team explored this gray-box scenario and showed that feature
   knowledge is enough for an adversarial attack on ML models.
 
 
   They attacked one of Kaspersky''s antimalware ML models without white-box access
   to it and successfully evaded detection for most of the adversarially modified malware
-  files.
-
-  '
+  files.'
 incident-date: 2021-06-23
 incident-date-granularity: DATE
 procedure:
@@ -29,15 +27,11 @@ procedure:
     been successfully applied to the antimalware domain.
 
     However, it was not clear if these approaches were effective against the ML component
-    of production antimalware solutions.
-
-    '
+    of production antimalware solutions.'
 - tactic: '{{reconnaissance.id}}'
   technique: '{{victim_website.id}}'
-  description: 'Kaspersky''s use of ML-based antimalware detectors is publicly documented
+  description: Kaspersky's use of ML-based antimalware detectors is publicly documented
     on their website. In practice, an adversary could use this for targeting.
-
-    '
 - tactic: '{{ml_model_access.id}}'
   technique: '{{ml_service.id}}'
   description: 'The researches used access to the target ML-based antimalware product
@@ -48,25 +42,19 @@ procedure:
 
     Therefore, the researchers had only black-box access to the malware detector itself,
     but could learn valuable information for constructing the attack from the feature
-    extractor.
-
-    '
+    extractor.'
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
   description: 'The researchers collected a dataset of malware and clean files.
 
     They scanned the dataset with the target ML-based antimalware solution and labeled
-    the samples according the ML detector''s predictions.
-
-    '
+    the samples according the ML detector''s predictions.'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
-  description: 'Then, a proxy model was trained on the labeled dataset of malware
-    and clean files.
+  description: 'A proxy model was trained on the labeled dataset of malware and clean
+    files.
 
-    The researchers experimented with a variety of model architectures.
-
-    '
+    The researchers experimented with a variety of model architectures.'
 - tactic: '{{resource_development.id}}'
   technique: '{{develop_advml.id}}'
   description: 'By reverse engineering the local feature extractor, the researchers
@@ -79,32 +67,27 @@ procedure:
     A gradient based adversarial algorithm for executable files was developed.
 
     The algorithm manipulates file features to avoid detection by the proxy model,
-    while still containing the same malware payload
-
-    '
+    while still containing the same malware payload'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_transfer.id}}'
-  description: 'Using a developed gradient-driven algorithm, malicious adversarial
+  description: Using a developed gradient-driven algorithm, malicious adversarial
     files for the proxy model were constructed from the malware files for black-box
     transfer to the target model.
-
-    '
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{verify_attack.id}}'
-  description: 'The adversarial malware files were tested against the target antimalware
+  description: The adversarial malware files were tested against the target antimalware
     solution to verify their efficacy.
-
-    '
 - tactic: '{{defense_evasion.id}}'
   technique: '{{evade_model.id}}'
   description: 'The researchers demonstrated that for most of the adversarial files,
     the antimalware model was successfully evaded.
 
     In practice, an adversary could deploy their adversarially crafted malware and
-    infect systems while evading detection.
-
-    '
-reporter: 'Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML team) '
+    infect systems while evading detection.'
+reporter: Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML Team)
+target: Antimalware Neural Networks
+actor: Alexey Antonov and Alexey Kogtenkov
+case-study-type: exercise
 references:
 - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
     and protection"
