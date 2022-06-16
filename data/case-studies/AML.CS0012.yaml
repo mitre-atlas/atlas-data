@@ -22,7 +22,8 @@ procedure:
     '
 - tactic: '{{initial_access.id}}'
   technique: '{{valid_accounts.id}}'
-  description: 'The team gained access via a valid account.
+  description: 'The team gained access to said service via a valid account to gain 
+    access and knowledge to api.
 
     '
 - tactic: '{{ml_model_access.id}}'
@@ -48,13 +49,14 @@ procedure:
     '
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_whitebox.id}}'
-  description: 'Using the proxy model, the red team optimized a physical domain patch-based
-    attack using expectation over transformation.
+  description: 'Using the proxy model, the red team optimized adversarial visual pattern
+    as a physical domain patch-based attack using expectation over transformation.
 
     '
 - tactic: '{{ml_model_access.id}}'
   technique: '{{physical_env.id}}'
-  description: 'The team placed the physical countermeasure in the physical environment.
+  description: 'The team placed the physical countermeasure from the previous step and
+    placed it in the physical environment to cause issues in the face identification system.
 
     '
 - tactic: '{{impact.id}}'
@@ -64,4 +66,7 @@ procedure:
 
     '
 reporter: MITRE AI Red Team
+target: Commercial Face Identification Service
+actor: MITRE AI Red Team
+case-study-type: exercise
 references: []
