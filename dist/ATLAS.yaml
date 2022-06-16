@@ -1317,9 +1317,9 @@ case-studies:
   - tactic: AML.TA0002
     technique: AML.T0000.001
     description: 'We identified a machine learning based approach to malicious URL
-      detection as a representative approach and potential target from the paper "URLNet:
-      Learning a URL representation with deep learning for malicious URL detection"
-      [1], which was found on arXiv (a pre-print repository).'
+      detection as a representative approach and potential target from the paper [URLNet:
+      Learning a URL representation with deep learning for malicious URL detection](https://arxiv.org/abs/1802.03162),
+      which was found on arXiv (a pre-print repository).'
   - tactic: AML.TA0003
     technique: AML.T0002.000
     description: We acquired a similar dataset to the target production model.
@@ -1341,19 +1341,19 @@ case-studies:
     description: We crafted evasion samples by removing fields from packet header
       which are typically not used for C&C communication (e.g. cache-control, connection,
       etc.)
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: We queried the model with our adversarial examples and adjusted them
+      until the model was evaded.
   - tactic: AML.TA0007
     technique: AML.T0015
     description: 'With the crafted samples we performed online evasion of the ML-based
       spyware detection model.
 
-      The crafted packets were identified as benign with >80% confidence.
+      The crafted packets were identified as benign with > 80% confidence.
 
       This evaluation demonstrates that adversaries are able to bypass advanced ML
       detection techniques, by crafting samples that are misclassified by an ML model.'
-  - tactic: AML.TA0001
-    technique: AML.T0042
-    description: We queried the model with our adversarial examples and adjusted them
-      until the model was evaded.
   reporter: Palo Alto Networks (Network Security AI Research Team)
   actor: Palo Alto Networks
   target: Unknown malware detection system
