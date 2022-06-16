@@ -57,9 +57,8 @@ procedure:
   description: Adversarial attacks can cause errors that cause reputational damage
     to the company of the translation service.
 reporter: Kenny Song (@helloksong)
-actor: Work by Eric Wallace, Mitchell Stern, Dawn Song, Berkeley Artificial Intelligence
-  Research
-target: Google, Bing, Systran
+actor: Berkeley Artificial Intelligence Research
+target: Google Translate, Bing Translator, Systran Translate
 case-study-type: exercise
 references:
 - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine

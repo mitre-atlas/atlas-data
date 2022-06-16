@@ -36,7 +36,7 @@ procedure:
     the victim.
 reporter: Henry Xuef, Ant Group AISEC Team
 actor: Two individuals indicted as Wu and Zhou
-target: Local Chinese government tax office's facial recogntion service
+target: Local Chinese government tax office's facial recognition service
 case-study-type: incident
 references:
 - title: Faces are the next target for fraudsters

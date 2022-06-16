@@ -36,8 +36,8 @@ procedure:
   description: Due to the secondary model overriding the primary, the researchers
     were effectively able to bypass the ML model.
 reporter: Ken Luu (@devianz_)
-actor: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
-target: Cylance
+actor: Skylight Cyber
+target: CylancePROTECT, Cylance Smart Antivirus
 case-study-type: exercise
 references:
 - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"

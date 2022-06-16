@@ -1515,8 +1515,8 @@ case-studies:
     description: Due to the secondary model overriding the primary, the researchers
       were effectively able to bypass the ML model.
   reporter: Ken Luu (@devianz_)
-  actor: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
-  target: Cylance
+  actor: Skylight Cyber
+  target: CylancePROTECT, Cylance Smart Antivirus
   case-study-type: exercise
   references:
   - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
@@ -1560,7 +1560,7 @@ case-studies:
       impersonated the victim.
   reporter: Henry Xuef, Ant Group AISEC Team
   actor: Two individuals indicted as Wu and Zhou
-  target: Local Chinese government tax office's facial recogntion service
+  target: Local Chinese government tax office's facial recognition service
   case-study-type: incident
   references:
   - title: Faces are the next target for fraudsters
@@ -1623,9 +1623,8 @@ case-studies:
     description: Adversarial attacks can cause errors that cause reputational damage
       to the company of the translation service.
   reporter: Kenny Song (@helloksong)
-  actor: Work by Eric Wallace, Mitchell Stern, Dawn Song, Berkeley Artificial Intelligence
-    Research
-  target: Google, Bing, Systran
+  actor: Berkeley Artificial Intelligence Research
+  target: Google Translate, Bing Translator, Systran Translate
   case-study-type: exercise
   references:
   - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine
