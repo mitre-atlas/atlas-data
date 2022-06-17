@@ -39,6 +39,22 @@ lint yaml:
         - "*.yaml"
         - "*.yml"
 
+check spelling and syntax:
+  stage: test
+  script:
+    - pip install -r tests/requirements.txt
+    # Run tests with minimal console output, produce report, and error on warnings
+    - pytest tests/test_syntax.py --tb=line --junitxml=report.xml -W error::UserWarning
+  allow_failure:
+    exit_codes:
+      - 1 # Tests were collected and run but some tests failed https://docs.pytest.org/en/latest/reference/exit-codes.html
+  rules:
+    - changes:
+        - data/*.yaml   # Source data was updated
+        - tests/*.py    # Any tests changed
+        - tests/custom_words.txt # Exclusion words updated
+        - conftest.py   # Any test fixtures changed
+
 validate data:
   stage: test
   script:

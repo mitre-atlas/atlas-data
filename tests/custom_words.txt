@@ -1,6 +1,7 @@
 2's
 4chan
 adversarially
+aisec
 algorithmically
 antimalware
 apis
@@ -23,6 +24,7 @@ colaboratory
 cve
 cylance
 cylance's
+cylanceprotect
 datasets
 deepquarantine
 dga
@@ -45,6 +47,7 @@ interleaved
 internalization
 kaspersky
 kaspersky's
+mcafee
 metame
 misclassification
 misclassifications
