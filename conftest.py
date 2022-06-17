@@ -67,6 +67,19 @@ def text_to_be_spellchecked(request):
     return request.param
 #endregion
 
+def add_label_entries(collection, obj, keys):
+    """
+    Adds a tuple of (label, value) to the specified list,
+    which identifies key-values of the object.
+    """
+    for key in keys:
+        if key in obj:
+            # Ex. "AML.CS0000 Name"
+            label = f"{obj['id']} {key.capitalize()}"
+            value = obj[key]
+            entry = (label, value)
+            collection.append(entry)
+
 def pytest_generate_tests(metafunc):
     """Enables test functions that use the above fixtures to operate on a
     single dictionary, where each test function is automatically run once
@@ -127,24 +140,25 @@ def pytest_generate_tests(metafunc):
         if key in data:
             values.extend(data[key])
 
+        # Keys expected to be text strings in case study objects
+        # Used for spellcheck purposes
+        text_cs_keys = [
+            'name',
+            'summary',
+            'reporter',
+            'actor',
+            'target'
+        ]
+
         # Build up text parameters
         # Parameter format is (test_identifier, text)
         if key == 'case-studies':
             for cs in values:
-                cs_id = cs['id']
-
-                text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
-                text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
-                if 'reporter' in cs:
-                    text_to_be_spellchecked.append((f"{cs_id} Reporter", cs['reporter']))
-                if 'actor' in cs:
-                    text_to_be_spellchecked.append((f"{cs_id} Actor", cs['actor']))
-                if 'target' in cs:
-                    text_to_be_spellchecked.append((f"{cs_id} Target", cs['target']))
-
+                # Add each of the specified keys defined above to spellcheck list
+                add_label_entries(text_to_be_spellchecked, cs, text_cs_keys)
 
                 # AML.CS0000 Procedure #3, <procedure step description>
-                procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
+                procedure_step_texts = [(f"{cs['id']} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
                 text_to_be_spellchecked.extend(procedure_step_texts)
                 text_with_possible_markdown_syntax.extend(procedure_step_texts)
         else:
