@@ -22,7 +22,7 @@ procedure:
     '
 - tactic: '{{initial_access.id}}'
   technique: '{{valid_accounts.id}}'
-  description: 'The team gained access to said service via a valid account to gain 
+  description: 'The team gained access to said service via a valid account to gain
     access and knowledge to api.
 
     '

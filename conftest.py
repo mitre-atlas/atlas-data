@@ -135,6 +135,13 @@ def pytest_generate_tests(metafunc):
 
                 text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
                 text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
+                if 'reporter' in cs:
+                    text_to_be_spellchecked.append((f"{cs_id} Reporter", cs['reporter']))
+                if 'actor' in cs:
+                    text_to_be_spellchecked.append((f"{cs_id} Actor", cs['actor']))
+                if 'target' in cs:
+                    text_to_be_spellchecked.append((f"{cs_id} Target", cs['target']))
+
 
                 # AML.CS0000 Procedure #3, <procedure step description>
                 procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]

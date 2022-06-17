@@ -43,8 +43,8 @@ validate data:
   stage: test
   script:
     - pip install -r tests/requirements.txt
-    # Run tests with minimal console output, produce report, and fail on warnings
-    - pytest --tb=line --junitxml=report.xml -W error::UserWarning
+    # Run tests with minimal console output, produce report, and output warnings
+    - pytest --tb=line --junitxml=report.xml -W default::UserWarning
     - yamllint -c tests/.yamllint .
   artifacts:
     when: always
