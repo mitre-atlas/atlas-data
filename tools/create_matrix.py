@@ -83,7 +83,7 @@ def format_output(data):
     # Populates object lists within matrix object based on object-type
     # Ensures tactic objects are in the order defined in the matrix
     for obj in objects:
-        if 'object-type' not in obj: 
+        if 'object-type' not in obj:
             raise ValueError('Expected to find object-type in data object, got ', obj)
 
         objectType = obj['object-type']
@@ -189,12 +189,12 @@ def yaml_include(loader, node):
     else:
         # Return specified document
         with open(include_path) as inputfile:
-            return yaml_safe_load(inputfile, master=loader)
+            return yaml_safe_load(inputfile, master=loader, expect_list=True)
 
 # Add custom !include constructor
 yaml.add_constructor("!include", yaml_include, Loader=yaml.SafeLoader)
 
-def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None):
+def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None, expect_list=False):
     """Loads the specified file stream while preserving anchors for later use."""
     loader = Loader(stream)
     # Store the input file directory for later joining with !include paths
@@ -205,7 +205,16 @@ def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None):
     if master is not None:
         loader.anchors = master.anchors
     try:
-        return loader.get_single_data()
+        doc = loader.get_single_data()
+        # Validate format of YAML file
+        if expect_list and not isinstance(doc, list):
+            # Specified .yaml files are expected to contain a list of items
+            raise ValueError(f'Expected file "{stream.name}" to contain a list of data objects, got {type(doc)}')
+        elif not expect_list and isinstance(doc, list):
+            # Specified .yaml files are expected to contain a list of items
+            raise ValueError(f'Expected file "{stream.name}" to contain a single data object, got a list')
+
+        return doc
     finally:
         loader.dispose()
 
