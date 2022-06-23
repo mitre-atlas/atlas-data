@@ -34,7 +34,7 @@ procedure:
   technique: '{{evade_model.id}}'
   description: The attackers successfully evaded the face recognition system and impersonated
     the victim.
-reporter: Henry Xuef, Ant Group AISEC Team
+reporter: Ant Group AISEC Team
 actor: Two individuals indicted as Wu and Zhou
 target: Local Chinese government tax office's facial recognition service
 case-study-type: incident

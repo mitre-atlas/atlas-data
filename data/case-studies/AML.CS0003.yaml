@@ -35,7 +35,6 @@ procedure:
   technique: '{{evade_model.id}}'
   description: Due to the secondary model overriding the primary, the researchers
     were effectively able to bypass the ML model.
-reporter: Ken Luu (@devianz_)
 actor: Skylight Cyber
 target: CylancePROTECT, Cylance Smart Antivirus
 case-study-type: exercise

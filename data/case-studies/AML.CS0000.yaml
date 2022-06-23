@@ -54,9 +54,8 @@ procedure:
 
     This evaluation demonstrates that adversaries are able to bypass advanced ML detection
     techniques, by crafting samples that are misclassified by an ML model.'
-reporter: Palo Alto Networks (Network Security AI Research Team)
-actor: Palo Alto Networks
-target: Unknown malware detection system
+actor: Palo Alto Networks AI Research Team
+target: Palo Alto Networks malware detection system
 case-study-type: exercise
 references:
 - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning

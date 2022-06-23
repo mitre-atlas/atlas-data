@@ -84,9 +84,8 @@ procedure:
 
     In practice, an adversary could deploy their adversarially crafted malware and
     infect systems while evading detection.'
-reporter: Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML Team)
 target: Antimalware Neural Networks
-actor: Alexey Antonov and Alexey Kogtenkov
+actor: Kaspersky ML Research Team
 case-study-type: exercise
 references:
 - title: Article, "How to confuse antimalware neural networks. Adversarial attacks

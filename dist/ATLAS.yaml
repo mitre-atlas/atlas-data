@@ -1354,9 +1354,8 @@ case-studies:
 
       This evaluation demonstrates that adversaries are able to bypass advanced ML
       detection techniques, by crafting samples that are misclassified by an ML model.'
-  reporter: Palo Alto Networks (Network Security AI Research Team)
-  actor: Palo Alto Networks
-  target: Unknown malware detection system
+  actor: Palo Alto Networks AI Research Team
+  target: Palo Alto Networks malware detection system
   case-study-type: exercise
   references:
   - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
@@ -1473,7 +1472,6 @@ case-studies:
 
       The "mutant" samples poisoned the dataset the ML model(s) use to identify and
       classify this ransomware family.'
-  reporter: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
   actor: McAfee Advanced Threat Research
   target: VirusTotal
   case-study-type: exercise
@@ -1514,7 +1512,6 @@ case-studies:
     technique: AML.T0015
     description: Due to the secondary model overriding the primary, the researchers
       were effectively able to bypass the ML model.
-  reporter: Ken Luu (@devianz_)
   actor: Skylight Cyber
   target: CylancePROTECT, Cylance Smart Antivirus
   case-study-type: exercise
@@ -1558,7 +1555,7 @@ case-studies:
     technique: AML.T0015
     description: The attackers successfully evaded the face recognition system and
       impersonated the victim.
-  reporter: Henry Xuef, Ant Group AISEC Team
+  reporter: Ant Group AISEC Team
   actor: Two individuals indicted as Wu and Zhou
   target: Local Chinese government tax office's facial recognition service
   case-study-type: incident
@@ -1622,7 +1619,6 @@ case-studies:
     technique: AML.T0031
     description: Adversarial attacks can cause errors that cause reputational damage
       to the company of the translation service.
-  reporter: Kenny Song (@helloksong)
   actor: Berkeley Artificial Intelligence Research
   target: Google Translate, Bing Translator, Systran Translate
   case-study-type: exercise
@@ -1686,8 +1682,7 @@ case-studies:
     technique: AML.T0031
     description: As a result, future application releases could have been compromised,
       causing degraded or malicious facial recognition capabilities.
-  reporter: Mossab Hussein (@mossab_hussein)
-  actor: Mossab Hussein, security researcher
+  actor: Researchers at spiderSilk
   target: Clearview AI facial recognition tool
   case-study-type: incident
   references:
@@ -1800,9 +1795,8 @@ case-studies:
     description: Finally, these insights from the "offline" copy-cat model allowed
       the researchers to create malicious emails that received preferable scores from
       the real ProofPoint email protection system, hence bypassing it.
-  reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
   target: ProofPoint Email Protection System
-  actor: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+  actor: Researchers at Silent Break Security
   case-study-type: exercise
   references:
   - title: National Vulnerability Database entry for CVE-2019-20634
@@ -1857,7 +1851,7 @@ case-studies:
       \ Microsoft issued a public apology  explaining what went wrong and the lessons\
       \ they learned from the bot's failure."
   reporter: Microsoft
-  target: Twitter
+  target: Microsoft's Tay AI Chatbot
   actor: 4chan Users
   case-study-type: incident
   references:
@@ -1957,7 +1951,6 @@ case-studies:
       ML model by causing misclassifications.
 
       '
-  reporter: Microsoft
   target: New Microsoft AI Workload product
   actor: Azure Red Team
   case-study-type: exercise
@@ -2029,7 +2022,6 @@ case-studies:
       and causing targeted misclassifications.
 
       '
-  reporter: MITRE AI Red Team
   target: Commercial Face Identification Service
   actor: MITRE AI Red Team
   case-study-type: exercise
@@ -2119,7 +2111,6 @@ case-studies:
       The researchers demonstrated this can be used to evade ML models in
 
       several safety-critical apps in the Google Play store.'
-  reporter: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
   actor: Yuanchun Li, Jiayi Hua, Haoyu Wang, Chunyang Chen, Yunxin Liu
   target: Google Mobile Applications
   case-study-type: exercise
@@ -2212,9 +2203,8 @@ case-studies:
 
       In practice, an adversary could deploy their adversarially crafted malware and
       infect systems while evading detection.'
-  reporter: Alexey Antonov and Alexey Kogtenkov (ML researchers, Kaspersky ML Team)
   target: Antimalware Neural Networks
-  actor: Alexey Antonov and Alexey Kogtenkov
+  actor: Kaspersky ML Research Team
   case-study-type: exercise
   references:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks

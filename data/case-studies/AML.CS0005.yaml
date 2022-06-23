@@ -56,7 +56,6 @@ procedure:
   technique: '{{erode_integrity.id}}'
   description: Adversarial attacks can cause errors that cause reputational damage
     to the company of the translation service.
-reporter: Kenny Song (@helloksong)
 actor: Berkeley Artificial Intelligence Research
 target: Google Translate, Bing Translator, Systran Translate
 case-study-type: exercise

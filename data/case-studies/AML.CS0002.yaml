@@ -41,7 +41,6 @@ procedure:
 
     The "mutant" samples poisoned the dataset the ML model(s) use to identify and
     classify this ransomware family.'
-reporter: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
 actor: McAfee Advanced Threat Research
 target: VirusTotal
 case-study-type: exercise

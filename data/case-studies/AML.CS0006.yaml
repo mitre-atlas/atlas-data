@@ -50,8 +50,7 @@ procedure:
   technique: '{{erode_integrity.id}}'
   description: As a result, future application releases could have been compromised,
     causing degraded or malicious facial recognition capabilities.
-reporter: Mossab Hussein (@mossab_hussein)
-actor: Mossab Hussein, security researcher
+actor: Researchers at spiderSilk
 target: Clearview AI facial recognition tool
 case-study-type: incident
 references:

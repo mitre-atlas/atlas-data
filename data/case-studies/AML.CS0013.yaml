@@ -83,7 +83,6 @@ procedure:
     The researchers demonstrated this can be used to evade ML models in
 
     several safety-critical apps in the Google Play store.'
-reporter: Neil Yale / YingZonghao (University of Chinese Academy of Sciences)
 actor: Yuanchun Li, Jiayi Hua, Haoyu Wang, Chunyang Chen, Yunxin Liu
 target: Google Mobile Applications
 case-study-type: exercise

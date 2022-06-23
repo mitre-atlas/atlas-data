@@ -42,7 +42,6 @@ procedure:
     model by causing misclassifications.
 
     '
-reporter: Microsoft
 target: New Microsoft AI Workload product
 actor: Azure Red Team
 case-study-type: exercise

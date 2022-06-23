@@ -65,7 +65,6 @@ procedure:
     and causing targeted misclassifications.
 
     '
-reporter: MITRE AI Red Team
 target: Commercial Face Identification Service
 actor: MITRE AI Red Team
 case-study-type: exercise
