@@ -45,9 +45,8 @@ procedure:
   description: Finally, these insights from the "offline" copy-cat model allowed the
     researchers to create malicious emails that received preferable scores from the
     real ProofPoint email protection system, hence bypassing it.
-reporter: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
 target: ProofPoint Email Protection System
-actor: Will Pearce (@moo_hax), Nick Landers (@monoxgas)
+actor: Researchers at Silent Break Security
 case-study-type: exercise
 references:
 - title: National Vulnerability Database entry for CVE-2019-20634

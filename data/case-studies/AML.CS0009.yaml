@@ -41,7 +41,7 @@ procedure:
     \ Microsoft issued a public apology  explaining what went wrong and the lessons\
     \ they learned from the bot's failure."
 reporter: Microsoft
-target: Twitter
+target: Microsoft's Tay AI Chatbot
 actor: 4chan Users
 case-study-type: incident
 references:
