@@ -84,7 +84,7 @@ procedure:
 
     In practice, an adversary could deploy their adversarially crafted malware and
     infect systems while evading detection.'
-target: Antimalware Neural Networks
+target: Kaspersky's Antimalware ML Model
 actor: Kaspersky ML Research Team
 case-study-type: exercise
 references:

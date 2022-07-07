@@ -2,6 +2,9 @@
 id: AML.CS0001
 name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
 object-type: case-study
+case-study-type: exercise
+actor: Palo Alto Networks AI Research Team
+target: Palo Alto Networks ML-based DGA detection module
 summary: 'The Palo Alto Networks Security AI research team was able to bypass a Convolutional
   Neural Network (CNN)-based botnet Domain Generation Algorithm (DGA) detection [1]
   by domain name mutations.
@@ -61,7 +64,6 @@ procedure:
     with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
 
     '
-reporter: Palo Alto Networks (Network Security AI Research Team)
 references:
 - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock.
     "Character level based detection of DGA domain names." In 2018 International Joint

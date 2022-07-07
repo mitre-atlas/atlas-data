@@ -2,6 +2,9 @@
 id: AML.CS0010
 name: Microsoft Azure Service Disruption
 object-type: case-study
+case-study-type: exercise
+actor: Azure Red Team and Azure Trustworthy ML Team
+target: Internal Microsoft Azure service
 summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
   on an internal Azure service with the intention of disrupting its service. This
   operation had a combination of traditional ATT&CK enterprise techniques such as
@@ -44,5 +47,4 @@ procedure:
     examples, which helped achieve this goal.
 
     '
-reporter: Microsoft (Azure Trustworthy Machine Learning)
 references: []
