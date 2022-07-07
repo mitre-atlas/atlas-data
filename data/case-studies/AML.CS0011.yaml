@@ -42,7 +42,7 @@ procedure:
     model by causing misclassifications.
 
     '
-target: New Microsoft AI product
+target: New Microsoft AI Product
 actor: Azure Red Team
 case-study-type: exercise
 references: []

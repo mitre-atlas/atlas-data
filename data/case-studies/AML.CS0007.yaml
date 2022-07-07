@@ -3,7 +3,7 @@ id: AML.CS0007
 name: GPT-2 Model Replication
 object-type: case-study
 case-study-type: exercise
-actor: Brown University researchers
+actor: Researchers at Brown University
 target: OpenAI GPT-2
 summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
   process to incrementally release 1.5 Billion parameter model.

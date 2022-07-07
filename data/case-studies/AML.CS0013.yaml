@@ -84,7 +84,7 @@ procedure:
 
     several safety-critical apps in the Google Play store.'
 actor: Yuanchun Li, Jiayi Hua, Haoyu Wang, Chunyang Chen, Yunxin Liu
-target: ML-based Android apps
+target: ML-based Android Apps
 case-study-type: exercise
 references:
 - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through Neural
