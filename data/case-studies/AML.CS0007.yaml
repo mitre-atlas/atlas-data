@@ -2,6 +2,9 @@
 id: AML.CS0007
 name: GPT-2 Model Replication
 object-type: case-study
+case-study-type: exercise
+actor: Brown University researchers
+target: OpenAI GPT-2
 summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
   process to incrementally release 1.5 Billion parameter model.
 
@@ -46,8 +49,6 @@ procedure:
     This resulted in their replicated model.
 
     '
-reporter: Vanya Cohen (@VanyaCohen), Aaron Gokaslan (@SkyLi0n), Ellie Pavlick,
-  Stefanie Tellex
 references:
 - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It Anyway"
   url: https://www.wired.com/story/dangerous-ai-open-source/
