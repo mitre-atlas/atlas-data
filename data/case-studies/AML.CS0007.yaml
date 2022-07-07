@@ -37,7 +37,7 @@ procedure:
 
     '
 - tactic: '{{ml_attack_staging.id}}'
-  technique: '{{train_proxy_model.id}}'
+  technique: '{{proxy_via_artifacts.id}}'
   description: 'The researchers modified Grover''s objective function to reflect GPT-2''s
     objective function and then trained on the dataset they curated.
 
