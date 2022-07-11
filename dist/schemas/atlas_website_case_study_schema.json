@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-05-26",
+    "description": "Generated on 2022-07-08",
     "type": "object",
     "properties": {
         "study": {
@@ -12,8 +12,16 @@
                     "type": "string"
                 },
                 "incident-date": {
-                    "type": "string",
-                    "format": "date"
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    ]
                 },
                 "incident-date-granularity": {
                     "enum": [
