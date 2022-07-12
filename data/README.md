@@ -53,7 +53,7 @@ Case study files, such as those downloaded from the ATLAS website, can be added 
 
 To import one or more case study files , run this from the project root:
 ```
-python tools/import_case_study_file.py <path to file 1> <path to file 2>
+python -m tools.import_case_study_file <path to file 1> <path to file 2>
 ```
 
 Each imported file has hardcoded tactic and technique IDs replaced with anchors, is assigned a case study ID, and is output `data/case-studies/<ID>.yaml`.
