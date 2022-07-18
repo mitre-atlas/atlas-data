@@ -18,7 +18,7 @@ This directory holds generated data files for direct use.
         ```
 - `schemas/`
     + Optional JSON Schema files for validation use
-    + `atlas_matrix_schema.json`
+    + `atlas_output_schema.json`
         * Describes the `ATLAS.yaml` format
     + `atlas_website_case_study_schema.json`
         * Describes the case study file format
