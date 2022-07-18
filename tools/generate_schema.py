@@ -73,7 +73,20 @@ if __name__ == '__main__':
     # Manipulate JSON to ensure incident date is a date of format YYYY-MM-DD
     # Currently schema library does not output a string format
     # https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times
-    atlas_case_study_json_schema['properties']['study']['properties']['incident-date']['format'] = 'date'
+    atlas_case_study_json_schema['properties']['study']['properties']['incident-date'] = {
+        "anyOf": [
+            {
+                # Preferred format
+                "type": "string",
+                "format": "date"
+            },
+            {
+                # Continue accepting old format, which will be converted to preferred upon re-download
+                "type": "string",
+                "format": "date-time"
+            }
+        ]
+    }
 
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'

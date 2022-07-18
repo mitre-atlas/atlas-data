@@ -132,3 +132,32 @@ def test_ascii(text_to_be_spellchecked):
         # Potentially an unicode quote or similar
         msg = f'Contains non-ascii, consider fixing. YAML output will be the literal string: {ascii(text)}'
         warnings.warn(msg)
+
+def test_check_unique_ids(all_data_objects):
+    """ Warns for duplicate IDs in tactics, techniques, case studies, etc. """
+    # Creates a list of IDs from all_data_objects, which may contain duplicates
+    all_ids = [ids[0] for ids in all_data_objects]
+
+    # Creates a list of 3-element tuples that hold the duplicate IDs, name, and object type
+    # Sorted is needed to print the IDs in order
+    list_of_duplicate_objects = sorted([(ids[0], ids[1]['name'], ids[1]['object-type']) for ids in all_data_objects if all_ids.count(ids[0]) > 1])
+    list_of_duplicate_ids = sorted(set([id[0] for id in list_of_duplicate_objects]))
+    
+    if len(list_of_duplicate_objects) > 0:
+
+        # Variables needed to turn number of duplicates into string to use in error msg
+        num_of_duplicates_as_str = str(len(list_of_duplicate_ids))
+        total_num_of_duplicates_as_str = str(len(list_of_duplicate_objects))
+
+        # Main error message
+        error_msg = F"Duplicate ID(s) detected: {num_of_duplicates_as_str} ID(s) found for {total_num_of_duplicates_as_str} data objects."
+        
+        # Adds duplicate ID info (ID, name, object type)
+        for dup_id in range(len(list_of_duplicate_ids)):
+            tactic_name = [obj[2] for obj in list_of_duplicate_objects if obj[0] == list_of_duplicate_ids[dup_id]]
+            error_msg += F"\n\t  {list_of_duplicate_ids[dup_id]}: {tactic_name[0].capitalize()}"
+            for dup_object in list_of_duplicate_objects:
+                if dup_object[0] == list_of_duplicate_ids[dup_id]:
+                    error_msg += F"\n\t\t {dup_object[1]}"
+        
+        pytest.fail(error_msg)
