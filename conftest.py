@@ -65,6 +65,12 @@ def text_to_be_spellchecked(request):
         - case study names and summaries, procedure step descriptions
     """
     return request.param
+
+@pytest.fixture(scope='session')
+def all_data_objects(request):
+    """Represents IDs in data objects, such as tactics, techniques, and case studies. """
+    return request.param
+
 #endregion
 
 def pytest_generate_tests(metafunc):
@@ -114,7 +120,24 @@ def pytest_generate_tests(metafunc):
     # Initialize collections
     text_with_possible_markdown_syntax = []
     text_to_be_spellchecked = []
+    all_values = []
 
+    for fixture_name in fixture_names:
+        # Handle the key 'case_studies' really being 'case-studies' in the input
+        key = fixture_name.replace('_','-')
+        # List of tuples that hold the ID and the corresponding object
+        values = [(obj['id'], obj) for matrix in matrices if key in matrix for obj in matrix[key]]
+        # Creates a list of tuples across all fixture names
+        all_values.extend(values)
+        if key in data:
+            id_to_obj = [(obj['id'], obj) for obj in data[key]]
+            all_values.extend(id_to_obj)
+
+    # Parametrize when called for via test signature
+    if 'all_data_objects' in metafunc.fixturenames:
+        metafunc.parametrize('all_data_objects', [all_values], indirect=True, scope='session')
+
+    
     # Parameterize based on data objects
     for fixture_name in fixture_names:
 
@@ -166,7 +189,6 @@ def pytest_generate_tests(metafunc):
     # Parametrize when called for via test signature
     if 'text_to_be_spellchecked' in metafunc.fixturenames:
         metafunc.parametrize('text_to_be_spellchecked', text_to_be_spellchecked, ids=lambda x: x[0], indirect=True, scope='session')
-
 
 #region Schemas
 @pytest.fixture(scope='session')

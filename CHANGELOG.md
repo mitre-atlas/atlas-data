@@ -1,5 +1,13 @@
 # ATLAS Data Changelog
 
+## [4.0.1]() (2022-07-12)
+
+#### Tools
+- Output script checks for valid YAML file formats
+
+#### Tests
+- Added test for duplicate data object IDs
+
 ## [4.0.0]() (2022-05-27)
 
 Support for defining multiple matrices
