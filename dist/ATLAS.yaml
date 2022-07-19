@@ -2215,3 +2215,78 @@ case-studies:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
     url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+- id: AML.CS0015
+  object-type: case-study
+  name: Tesla Auto Wiper and Enhanced Autopilot Attack
+  summary: Tesla Auto Wipers and Enhanced Autopilot driving mode both make use of
+    computer vision machine learning models to determine the vehicle's corresponding
+    functions. These functions can be exploited by physical adversarial machine learning
+    attacks that affect the operation and the safety of the vehicle. While exploits
+    to gain root access to the Tesla firmware had since been patched, the vulnerabilities
+    to the underlying machine learning systems discovered by this research were still
+    exploitable.
+  incident-date: 2019-03-01
+  incident-date-granularity: MONTH
+  procedure:
+  - tactic: AML.TA0004
+    technique: AML.T0012
+    description: "By having physical access to their Tesla, the researchers executed\
+      \ a root attack chain to uncover internal processes of data-flow (camera(s),\
+      \ pre-processing, algorithm(s), post-processing,\_hardware, etc.)."
+  - tactic: AML.TA0008
+    technique: AML.T0013
+    description: "Researchers discovered the neural network architecture of the \u201C\
+      rain classifier\u201D and the corresponding outputs that predict the probability\
+      \ of moisture on the windshield."
+  - tactic: AML.TA0000
+    technique: AML.T0047
+    description: Researchers found that the fish-eye camera is used to capture images
+      of the windshield and is the main input to the ML model used to control the
+      wipers.
+  - tactic: AML.TA0000
+    technique: AML.T0040
+    description: "Images are fed into a neural network after\_pre-processing and output\
+      \ is a float\_between [0, 1] for probability of moisture.\n\nThe neural network\
+      \ is outlined in `fisheye.prototxt` which was uncovered from remote root attack\
+      \ chain."
+  - tactic: AML.TA0001
+    technique: AML.T0043.001
+    description: Experimented with generating digital adversarial examples based on
+      some optimization with the vehicle in the training loop.
+  - tactic: AML.TA0000
+    technique: AML.T0041
+    description: A television display with adversarial images can be placed anywhere
+      that the fisheye sensor can capture images.
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: Experimented with Salt and Pepper noise (gray and RGB) and Worley
+      noise for procedural textures to create effective physical adversarial patches
+      that are streamed onto the television display.
+  - tactic: AML.TA0011
+    technique: AML.T0015
+    description: Using most of the same techniques as above, researchers were able
+      to get the Tesla autopilot to drive into the opposite lane by hallucinating
+      a fake lane. Details in the research report are sparse.
+  - tactic: AML.TA0001
+    technique: AML.T0043.001
+    description: Using most of the same techniques as above to gain access to the
+      Tesla, researchers generated additional digital adversarial examples to cause
+      the Tesla Enhanced Autopilot system to hallucinate fake lanes.
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: Researchers verified the effectiveness of the adversarial attacks
+      by placing small white squares as triggers in the road to cause the Tesla to
+      hallucinate lanes. Details in the research report are sparse on this specific
+      attack.
+  - tactic: AML.TA0011
+    technique: AML.T0015
+    description: Researchers were able to get the Tesla autopilot to drive into the
+      opposite lane by hallucinating a fake lane.
+  actor: Tencent Keen Security Lab
+  target: Tesla Auto Wiper and Enhanced Autopilot
+  case-study-type: exercise
+  references:
+  - title: Experimental Security Research of Tesla Autopilot
+    url: https://keenlab.tencent.com/en/2019/03/29/Tencent-Keen-Security-Lab-Experimental-Security-Research-of-Tesla-Autopilot/
+  - title: Hackers Remotely Steer Tesla Model S Using Autopilot System
+    url: https://securityledger.com/2019/04/hackers-remotely-steer-tesla-model-s-using-autopilot-system/#:~:text=Tesla%E2%80%99s%20response%20In%20it%E2%80%99s%20blog%20post%2C%20Tencent%20Keen,thus%20shouldn%E2%80%99t%20be%20of%20real%20concern%20to%20drivers.
