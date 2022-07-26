@@ -7,9 +7,9 @@ summary: 'Machine translation services (such as Google Translate, Bing Translato
   and Systran Translate) provide public-facing UIs and APIs.
 
   A research group at UC Berkeley utilized these public endpoints to create a replicated
-  model with near-production, state-of-the-art translation quality.
+  model with near-production state-of-the-art translation quality.
 
-  Beyond demonstrating that IP can be stolen from a black-box system, they used the
+  Beyond demonstrating that IP can be functionally stolen from a black-box system, they used the
   replicated model to successfully transfer adversarial examples to the real production
   services.
 
@@ -32,7 +32,7 @@ procedure:
     translation services used.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{inference_api.id}}'
-  description: They abuse a public facing application to query the model and produce
+  description: They abused a public facing application to query the model and produced
     machine translated sentence pairs as training data.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{replicate_model.id}}'
@@ -55,7 +55,7 @@ procedure:
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
   description: Adversarial attacks can cause errors that cause reputational damage
-    to the company of the translation service.
+    to the company of the translation service and decrease user trust in AI-powered services.
 actor: Berkeley Artificial Intelligence Research
 target: Google Translate, Bing Translator, Systran Translate
 case-study-type: exercise

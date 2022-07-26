@@ -2,9 +2,10 @@
 id: AML.CS0004
 object-type: case-study
 name: Camera Hijack Attack on Facial Recognition System
-summary: This type of attack can break through the traditional live detection model
-  and cause the misuse of face recognition. Attackers in China used this attack to
-  bypass a government facial recognition and steal $77 million.
+summary: |
+    This type of camera hijack attack can evade the traditional live facial recognition authentication model and enable access to privileged systems and victim impersonation.
+
+    Two individuals in China used this attack to gain access to the local government's tax system. They created a fake shell company and sent invoices via tax system to supposed clients. The individuals started this scheme in 2018 and were able to fraudulently collect $77 million.
 incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
@@ -13,30 +14,25 @@ procedure:
   description: The attackers bought customized low-end mobile phones.
 - tactic: '{{resource_development.id}}'
   technique: '{{obtain_tool.id}}'
-  description: The attackers obtained customized android ROMs and a virtual camera
+  description: The attackers obtained customized Android ROMs and a virtual camera
     application.
 - tactic: '{{resource_development.id}}'
   technique: '{{obtain_advml.id}}'
   description: The attackers obtained software that turns static photos into videos,
     adding realistic effects such as blinking eyes.
-- tactic: '{{collection.id}}'
-  technique: '{{info_repos.id}}'
-  description: The attackers collected user identity information and high definition
-    face photos from an online black market .
 - tactic: '{{resource_development.id}}'
   technique: '{{establish_accounts.id}}'
-  description: The attackers registered accounts with the victims' identity information.
+  description: The attackers collected user identity information and high definition face photos from an online black market and used the victim's information to register accounts.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{ml_service.id}}'
   description: The attackers used the virtual camera app to present the generated
-    video to the ML-based facial recognition product used for user verification.
+    video to the ML-based facial recognition service used for user verification.
 - tactic: '{{impact.id}}'
   technique: '{{evade_model.id}}'
-  description: The attackers successfully evaded the face recognition system and impersonated
-    the victim.
+  description: The attackers successfully evaded the face recognition system. This allowed the attackers to impersonate the victim and verify their their identity in the tax system.
 reporter: Ant Group AISEC Team
-actor: Two individuals indicted as Wu and Zhou
-target: Local Chinese government tax office's facial recognition service
+actor: Two individuals
+target: Shanghai government tax office's facial recognition service
 case-study-type: incident
 references:
 - title: Faces are the next target for fraudsters

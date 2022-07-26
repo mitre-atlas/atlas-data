@@ -28,10 +28,10 @@ procedure:
   description: Using these scores, the researchers replicated the ML model by building
     a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
     Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
-    Training was performed using an Artificial Neural Network (ANN) + Bag of Words
+    Training was performed using an Artificial Neural Network (ANN) and Bag of Words
     tokenizing.
 - tactic: '{{ml_attack_staging.id}}'
-  technique: '{{craft_adv_whitebox.id}}'
+  technique: '{{craft_adv_transfer.id}}'
   description: 'Next, the ML researchers algorithmically found samples from this "offline"
     copy-cat model that helped give desired insight into its behavior and influential
     variables.
@@ -40,8 +40,8 @@ procedure:
     Examples of good scoring samples include "calculation", "asset", and "tyson".
 
     Examples of bad scoring samples include "software", "99", and "unsub".'
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{craft_adv_transfer.id}}'
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
   description: Finally, these insights from the "offline" copy-cat model allowed the
     researchers to create malicious emails that received preferable scores from the
     real ProofPoint email protection system, hence bypassing it.

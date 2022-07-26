@@ -7,16 +7,21 @@ summary: Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the 
   to conduct conversation, Tay's machine learning capabilities allowed it to able
   to converse about any topic. Within 24 hours of its deployment, however, Tay had
   to be decommissioned because it tweeted reprehensible words.
+
+  Hitler, the inventor of atheism.'\n\nThis behavior quickly led to its decommissioning.\
+  Microsoft issued a public apology  explaining what went wrong and the lessons\
+  they learned from the bot's failure."
+
+  This coordinated attack was instigated by a post on 4chan,
+  an anonymous English-language image board website, that encouraged users to spam
+  Tay with racist, misogynistic, and anti-semitic language. This post provided a
+  link to Tay's Twitter account.
 incident-date: 2016-03-23
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{ml_model_access.id}}'
-  technique: '{{inference_api.id}}'
-  description: Adversaries were able to interact with Tay via a few different publicly
-    available methods. This coordinated attack was instigated by a post on 4chan,
-    an anonymous English-language image board website, that encouraged users to spam
-    Tay with racist, misogynistic, and anti-semitic language. This post provided a
-    link to Tay's Twitter account.
+  technique: '{{ml_service.id}}'
+  description: Adversaries were able to interact with Tay via Twitter messages.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_data.id}}'
   description: 'Tay bot used the interactions with its twitter users as training data
@@ -32,14 +37,10 @@ procedure:
     to repeat anything said to it.
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
-  description: "As a result of this coordinated attack, Tay's conversation algorithms\
-    \ began to learn to generate reprehensible material. Tay's internalization of\
-    \ this detestable language caused it to be unpromptedly repeated during interactions\
-    \ with innocent users. \n\nFor example, when asked whether Ricky Gervais was an\
-    \ atheist, Tay responded: 'Ricky Gervais learned totalitarianism from Adolf\
-    \ Hitler, the inventor of atheism.'\n\nThis behavior quickly led to its decommissioning.\
-    \ Microsoft issued a public apology  explaining what went wrong and the lessons\
-    \ they learned from the bot's failure."
+  description: As a result of this coordinated attack, Tay's conversation algorithms
+    began to learn to generate reprehensible material. Tay's internalization of
+    this detestable language caused it to be unpromptedly repeated during interactions
+    with innocent users.
 reporter: Microsoft
 target: Microsoft's Tay AI Chatbot
 actor: 4chan Users

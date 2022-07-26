@@ -24,7 +24,7 @@ incident-date: 2020-04-16
 incident-date-granularity: MONTH
 procedure:
 - tactic: '{{initial_access.id}}'
-  technique: '{{valid_accounts.id}}'
+  technique: '{{establish_accounts.id}}'
   description: A security researcher gained initial access to Clearview AI's private
     code repository via a misconfigured server setting that allowed an arbitrary user
     to register a valid account.

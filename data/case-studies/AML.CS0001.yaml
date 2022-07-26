@@ -5,18 +5,14 @@ object-type: case-study
 case-study-type: exercise
 actor: Palo Alto Networks AI Research Team
 target: Palo Alto Networks ML-based DGA detection module
-summary: 'The Palo Alto Networks Security AI research team was able to bypass a Convolutional
-  Neural Network (CNN)-based botnet Domain Generation Algorithm (DGA) detection [1]
-  by domain name mutations.
+summary: 'The Palo Alto Networks Security AI research team was able to bypass a Convolutional Neural Network based botnet Domain Generation Algorithm (DGA) detector using a generic domain name mutation technique.
 
   It is a generic domain mutation technique which can evade most ML-based DGA detection
   modules.
 
-  The generic mutation technique can also be used to test the effectiveness and robustness
+  The generic mutation technique evades most ML-based DGA detection modules DGA and can be used to test the effectiveness and robustness
   of all DGA detection methods developed by security companies in the industry before
-  it is deployed to the production environment.
-
-  '
+  they is deployed to the production environment.'
 incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
@@ -25,48 +21,34 @@ procedure:
   description: 'DGA detection is a widely used technique to detect botnets in academia
     and industry.
 
-    The searched for research papers related to DGA detection.
-
-    '
+    The research team searched for research papers related to DGA detection.'
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts.id}}'
   description: 'The researchers acquired a publicly available CNN-based DGA detection
-    model [1] and tested against a well-known DGA generated domain name data sets,
+    model and tested it against a well-known DGA generated domain name data sets,
     which includes ~50 million domain names from 64 botnet DGA families.
 
     The CNN-based DGA detection model shows more than 70% detection accuracy on 16
-    (~25%) botnet DGA families.
-
-    '
+    (~25%) botnet DGA families.'
 - tactic: '{{resource_development.id}}'
   technique: '{{develop_advml.id}}'
   description: 'The researchers developed a generic mutation technique that requires
-    a minimal number of iterations.
-
-    '
+    a minimal number of iterations.'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_blackbox.id}}'
   description: 'The researchers used the mutation technique to generate evasive domain
-    names.
-
-    '
+    names.'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{verify_attack.id}}'
-  description: 'Experiment results show that, after only one string is inserted once
-    to the DGA generated domain names, the detection rate of all 16 botnet DGA families
-    can drop to less than 25% detection accuracy.
-
-    '
+  description: 'The experiment results show that the detection rate of all 16 botnet DGA familiies drop to less than 25% after only one string is inserted once
+    to the DGA generated domain names.'
 - tactic: '{{defense_evasion.id}}'
   technique: '{{evade_model.id}}'
   description: 'The DGA generated domain names mutated with this technique successfully
     evade the target DGA Detection model, allowing an adversary to continue communication
-    with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
-
-    '
+    with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.'
 references:
-- title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock.
-    "Character level based detection of DGA domain names." In 2018 International Joint
-    Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code is available
-    from Github: https://github.com/matthoffman/degas'
+- title: 'Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock.  "Character level based detection of DGA domain names." In 2018 International Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018.'
+  url: http://faculty.washington.edu/mdecock/papers/byu2018a.pdf
+- title: Degas source code
   url: https://github.com/matthoffman/degas

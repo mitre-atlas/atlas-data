@@ -2,8 +2,7 @@
 id: AML.CS0003
 object-type: case-study
 name: Bypassing Cylance's AI Malware Detection
-summary: Researchers at Skylight were able to create a universal bypass string that
-  when appended to a malicious file evades detection by Cylance's AI Malware detector.
+summary: Researchers at Skylight were able to create a universal bypass string that evades detection by Cylance’s AI Malware detector when appended to a malicious file.
 incident-date: 2019-09-07
 incident-date-granularity: DATE
 procedure:
