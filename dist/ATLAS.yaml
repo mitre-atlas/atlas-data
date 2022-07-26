@@ -1302,15 +1302,15 @@ case-studies:
 - id: AML.CS0000
   object-type: case-study
   name: Evasion of Deep Learning Detector for Malware C&C Traffic
-  summary: 'Palo Alto Networks Security AI research team tested a deep learning model
-    for malware command and control (C&C) traffic detection in HTTP traffic.
+  summary: 'The Palo Alto Networks Security AI research team tested a deep learning
+    model for malware command and control (C&C) traffic detection in HTTP traffic.
 
-    Based on the publicly available paper by Le et al. [1], we built a model that
-    was trained on a similar dataset as our production model and had performance similar
-    to it.
+    Based on the publicly available [paper by Le et al.](https://arxiv.org/abs/1802.03162),
+    we built a model that was trained on a similar dataset as our production model
+    and had similar performance.
 
-    Then we crafted adversarial samples and queried the model and adjusted the adversarial
-    sample accordingly till the model was evaded.'
+    Then we crafted adversarial samples, queried the model, and adjusted the adversarial
+    sample accordingly until the model was evaded.'
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
@@ -1322,17 +1322,15 @@ case-studies:
       which was found on arXiv (a pre-print repository).'
   - tactic: AML.TA0003
     technique: AML.T0002.000
-    description: We acquired a similar dataset to the target production model.
+    description: We acquired a command and control HTTP traffic  dataset consisting
+      of approximately 33 million benign and 27 million malicious HTTP packet headers.
   - tactic: AML.TA0001
     technique: AML.T0005
-    description: 'We built a model that was trained on a similar dataset as the production
-      model.
+    description: 'We trained a model on the HTTP traffic dataset to use as a proxy
+      for the target model.
 
-      We trained the model on ~ 33 million benign and ~ 27 million malicious HTTP
-      packet headers.
-
-      Evaluation showed a true positive rate of ~ 99% and false positive rate of ~0.01%,
-      on average.
+      Evaluation showed a true positive rate of ~ 99% and false positive rate of ~
+      0.01%, on average.
 
       Testing the model with a HTTP packet header from known malware command and control
       traffic samples was detected as malicious with high confidence (> 99%).'
@@ -1340,14 +1338,14 @@ case-studies:
     technique: AML.T0043.003
     description: We crafted evasion samples by removing fields from packet header
       which are typically not used for C&C communication (e.g. cache-control, connection,
-      etc.)
+      etc.).
   - tactic: AML.TA0001
     technique: AML.T0042
     description: We queried the model with our adversarial examples and adjusted them
       until the model was evaded.
   - tactic: AML.TA0007
     technique: AML.T0015
-    description: 'With the crafted samples we performed online evasion of the ML-based
+    description: 'With the crafted samples, we performed online evasion of the ML-based
       spyware detection model.
 
       The crafted packets were identified as benign with > 80% confidence.
@@ -1368,17 +1366,16 @@ case-studies:
   actor: Palo Alto Networks AI Research Team
   target: Palo Alto Networks ML-based DGA detection module
   summary: 'The Palo Alto Networks Security AI research team was able to bypass a
-    Convolutional Neural Network (CNN)-based botnet Domain Generation Algorithm (DGA)
-    detection [1] by domain name mutations.
+    Convolutional Neural Network based botnet Domain Generation Algorithm (DGA) detector
+    using a generic domain name mutation technique.
 
     It is a generic domain mutation technique which can evade most ML-based DGA detection
     modules.
 
-    The generic mutation technique can also be used to test the effectiveness and
-    robustness of all DGA detection methods developed by security companies in the
-    industry before it is deployed to the production environment.
-
-    '
+    The generic mutation technique evades most ML-based DGA detection modules DGA
+    and can be used to test the effectiveness and robustness of all DGA detection
+    methods developed by security companies in the industry before they is deployed
+    to the production environment.'
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
@@ -1387,72 +1384,53 @@ case-studies:
     description: 'DGA detection is a widely used technique to detect botnets in academia
       and industry.
 
-      The searched for research papers related to DGA detection.
-
-      '
+      The research team searched for research papers related to DGA detection.'
   - tactic: AML.TA0003
     technique: AML.T0002
     description: 'The researchers acquired a publicly available CNN-based DGA detection
-      model [1] and tested against a well-known DGA generated domain name data sets,
+      model and tested it against a well-known DGA generated domain name data sets,
       which includes ~50 million domain names from 64 botnet DGA families.
 
       The CNN-based DGA detection model shows more than 70% detection accuracy on
-      16 (~25%) botnet DGA families.
-
-      '
+      16 (~25%) botnet DGA families.'
   - tactic: AML.TA0003
     technique: AML.T0017
-    description: 'The researchers developed a generic mutation technique that requires
+    description: The researchers developed a generic mutation technique that requires
       a minimal number of iterations.
-
-      '
   - tactic: AML.TA0001
     technique: AML.T0043.001
-    description: 'The researchers used the mutation technique to generate evasive
-      domain names.
-
-      '
+    description: The researchers used the mutation technique to generate evasive domain
+      names.
   - tactic: AML.TA0001
     technique: AML.T0042
-    description: 'Experiment results show that, after only one string is inserted
-      once to the DGA generated domain names, the detection rate of all 16 botnet
-      DGA families can drop to less than 25% detection accuracy.
-
-      '
+    description: The experiment results show that the detection rate of all 16 botnet
+      DGA familiies drop to less than 25% after only one string is inserted once to
+      the DGA generated domain names.
   - tactic: AML.TA0007
     technique: AML.T0015
-    description: 'The DGA generated domain names mutated with this technique successfully
+    description: The DGA generated domain names mutated with this technique successfully
       evade the target DGA Detection model, allowing an adversary to continue communication
       with their [Command and Control](https://attack.mitre.org/tactics/TA0011/) servers.
-
-      '
   references:
-  - title: '[1] Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De
-      Cock. "Character level based detection of DGA domain names." In 2018 International
-      Joint Conference on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018. Source code
-      is available from Github: https://github.com/matthoffman/degas'
+  - title: Yu, Bin, Jie Pan, Jiaming Hu, Anderson Nascimento, and Martine De Cock.  "Character
+      level based detection of DGA domain names." In 2018 International Joint Conference
+      on Neural Networks (IJCNN), pp. 1-8. IEEE, 2018.
+    url: http://faculty.washington.edu/mdecock/papers/byu2018a.pdf
+  - title: Degas source code
     url: https://github.com/matthoffman/degas
 - id: AML.CS0002
   object-type: case-study
   name: VirusTotal Poisoning
-  summary: 'An increase in reports of a certain ransomware family that was out of
-    the ordinary was noticed.
-
-    In investigating the case, it was observed that many samples of that particular
-    ransomware family were submitted through a popular virus-sharing platform within
-    a short amount of time.
-
-    Further investigation revealed that based on string similarity, the samples were
-    all equivalent, and based on code similarity they were between 98 and 74 percent
-    similar.
-
-    Interestingly enough, the compile time was the same for all the samples.
-
-    After more digging, the discovery was made that someone used ''metame'' a metamorphic
-    code manipulating tool to manipulate the original file towards mutant variants.
-
-    The variants wouldn''t always be executable but still classified as the same ransomware
-    family.'
+  summary: McAfee Advanced Threat Research noticed an increase in reports of a certain
+    ransomware family that was out of the ordinary. Case investigation revealed that
+    many samples of that particular ransomware family were submitted through a popular
+    virus-sharing platform within a short amount of time. Further investigation revealed
+    that based on string similarity the samples were all equivalent, and based on
+    code similarity they were between 98 and 74 percent similar. Interestingly enough,
+    the compile time was the same for all the samples. After more digging, researchers
+    discovered that someone used 'metame' a metamorphic code manipulating tool to
+    manipulate the original file towards mutant variants. The variants would not always
+    be executable, but are still classified as the same ransomware family.
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
@@ -1474,15 +1452,17 @@ case-studies:
 
       The "mutant" samples poisoned the dataset the ML model(s) use to identify and
       classify this ransomware family.'
-  actor: McAfee Advanced Threat Research
+  actor: Unknown
   target: VirusTotal
-  case-study-type: exercise
+  reporter: McAfee Advanced Threat Research
+  case-study-type: incident
   references: []
 - id: AML.CS0003
   object-type: case-study
   name: Bypassing Cylance's AI Malware Detection
-  summary: Researchers at Skylight were able to create a universal bypass string that
-    when appended to a malicious file evades detection by Cylance's AI Malware detector.
+  summary: "Researchers at Skylight were able to create a universal bypass string\
+    \ that evades detection by Cylance\u2019s AI Malware detector when appended to\
+    \ a malicious file."
   incident-date: 2019-09-07
   incident-date-granularity: DATE
   procedure:
@@ -1525,9 +1505,17 @@ case-studies:
 - id: AML.CS0004
   object-type: case-study
   name: Camera Hijack Attack on Facial Recognition System
-  summary: This type of attack can break through the traditional live detection model
-    and cause the misuse of face recognition. Attackers in China used this attack
-    to bypass a government facial recognition and steal $77 million.
+  summary: 'This type of camera hijack attack can evade the traditional live facial
+    recognition authentication model and enable access to privileged systems and victim
+    impersonation.
+
+
+    Two individuals in China used this attack to gain access to the local government''s
+    tax system. They created a fake shell company and sent invoices via tax system
+    to supposed clients. The individuals started this scheme in 2018 and were able
+    to fraudulently collect $77 million.
+
+    '
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
@@ -1536,30 +1524,29 @@ case-studies:
     description: The attackers bought customized low-end mobile phones.
   - tactic: AML.TA0003
     technique: AML.T0016.001
-    description: The attackers obtained customized android ROMs and a virtual camera
+    description: The attackers obtained customized Android ROMs and a virtual camera
       application.
   - tactic: AML.TA0003
     technique: AML.T0016.000
     description: The attackers obtained software that turns static photos into videos,
       adding realistic effects such as blinking eyes.
-  - tactic: AML.TA0009
-    technique: AML.T0036
-    description: The attackers collected user identity information and high definition
-      face photos from an online black market .
   - tactic: AML.TA0003
     technique: AML.T0021
-    description: The attackers registered accounts with the victims' identity information.
+    description: The attackers collected user identity information and high definition
+      face photos from an online black market and used the victim's information to
+      register accounts.
   - tactic: AML.TA0000
     technique: AML.T0047
     description: The attackers used the virtual camera app to present the generated
-      video to the ML-based facial recognition product used for user verification.
+      video to the ML-based facial recognition service used for user verification.
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: The attackers successfully evaded the face recognition system and
-      impersonated the victim.
+    description: The attackers successfully evaded the face recognition system. This
+      allowed the attackers to impersonate the victim and verify their their identity
+      in the tax system.
   reporter: Ant Group AISEC Team
-  actor: Two individuals indicted as Wu and Zhou
-  target: Local Chinese government tax office's facial recognition service
+  actor: Two individuals
+  target: Shanghai government tax office's facial recognition service
   case-study-type: incident
   references:
   - title: Faces are the next target for fraudsters
@@ -1572,11 +1559,11 @@ case-studies:
     and Systran Translate) provide public-facing UIs and APIs.
 
     A research group at UC Berkeley utilized these public endpoints to create a replicated
-    model with near-production, state-of-the-art translation quality.
+    model with near-production state-of-the-art translation quality.
 
-    Beyond demonstrating that IP can be stolen from a black-box system, they used
-    the replicated model to successfully transfer adversarial examples to the real
-    production services.
+    Beyond demonstrating that IP can be functionally stolen from a black-box system,
+    they used the replicated model to successfully transfer adversarial examples to
+    the real production services.
 
     These adversarial inputs successfully cause targeted word flips, vulgar outputs,
     and dropped sentences on Google Translate and Systran Translate websites.'
@@ -1597,7 +1584,7 @@ case-studies:
       translation services used.
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: They abuse a public facing application to query the model and produce
+    description: They abused a public facing application to query the model and produced
       machine translated sentence pairs as training data.
   - tactic: AML.TA0001
     technique: AML.T0005.001
@@ -1620,7 +1607,8 @@ case-studies:
   - tactic: AML.TA0011
     technique: AML.T0031
     description: Adversarial attacks can cause errors that cause reputational damage
-      to the company of the translation service.
+      to the company of the translation service and decrease user trust in AI-powered
+      services.
   actor: Berkeley Artificial Intelligence Research
   target: Google Translate, Bing Translator, Systran Translate
   case-study-type: exercise
@@ -1658,7 +1646,7 @@ case-studies:
   incident-date-granularity: MONTH
   procedure:
   - tactic: AML.TA0004
-    technique: AML.T0012
+    technique: AML.T0021
     description: A security researcher gained initial access to Clearview AI's private
       code repository via a misconfigured server setting that allowed an arbitrary
       user to register a valid account.
@@ -1701,11 +1689,19 @@ case-studies:
   case-study-type: exercise
   actor: Researchers at Brown University
   target: OpenAI GPT-2
-  summary: 'OpenAI built GPT-2, a powerful natural language model and adopted a staged-release
-    process to incrementally release 1.5 Billion parameter model.
+  summary: 'OpenAI built GPT-2, a language model capable of generating high quality
+    text samples. Over concerns that GPT-2 could be used for malicious purposes such
+    as impersonating others, or generating misleading news articles, fake social media
+    content, or spam, OpenAI adopted a tiered release schedule. They initially released
+    a smaller, less powerful version of GPT-2 along with a technical description of
+    the approach, but held back the full trained model.
 
-    Before the 1.5B parameter model could be released by OpenAI eventually, two ML
-    researchers replicated the model and released it to the public.
+
+    Before the full model was released by OpenAI, researchers at Brown University
+    successfully replicated the model using information released by OpenAI and open
+    source ML artifacts. This demonstrates that a bad actor with sufficient technical
+    skill and compute resources could have replicated GPT-2 and used it for harmful
+    goals before the AI Security community is prepared.
 
     '
   incident-date: 2019-08-22
@@ -1713,38 +1709,29 @@ case-studies:
   procedure:
   - tactic: AML.TA0002
     technique: AML.T0000
-    description: 'Using the public documentation about GPT-2, ML researchers gathered
+    description: Using the public documentation about GPT-2, the researchers gathered
       information about the dataset, model architecture, and training hyper-parameters.
-
-      '
   - tactic: AML.TA0003
     technique: AML.T0002.001
-    description: 'The researchers obtained a reference implementation of a similar
+    description: The researchers obtained a reference implementation of a similar
       publicly available model called Grover.
-
-      '
   - tactic: AML.TA0003
     technique: AML.T0002.000
-    description: 'The researchers were able to manually recreate the dataset used
-      in the original GPT-2 paper using the gathered documentation.
-
-      '
+    description: The researchers were able to manually recreate the dataset used in
+      the original GPT-2 paper using the gathered documentation.
   - tactic: AML.TA0003
     technique: AML.T0008.000
-    description: 'The researchers were able to use TensorFlow Research Cloud via their
+    description: The researchers were able to use TensorFlow Research Cloud via their
       academic credentials.
-
-      '
   - tactic: AML.TA0001
     technique: AML.T0005.000
     description: 'The researchers modified Grover''s objective function to reflect
-      GPT-2''s objective function and then trained on the dataset they curated.
+      GPT-2''s objective function and then trained on the dataset they curated using
+      used Grover''s initial hyperparameters. The resulting model functionally replicates
+      GPT-2, obtaining similar performance on most datasets.
 
-      They used Grover''s initial hyperparameters for training.
-
-      This resulted in their replicated model.
-
-      '
+      A bad actor who followed the same procedure as the researchers could then use
+      the replicated GPT-2 model for malicious purposes.'
   references:
   - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It
       Anyway"
@@ -1781,10 +1768,10 @@ case-studies:
     description: Using these scores, the researchers replicated the ML model by building
       a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
       Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
-      Training was performed using an Artificial Neural Network (ANN) + Bag of Words
+      Training was performed using an Artificial Neural Network (ANN) and Bag of Words
       tokenizing.
   - tactic: AML.TA0001
-    technique: AML.T0043.000
+    technique: AML.T0043.002
     description: 'Next, the ML researchers algorithmically found samples from this
       "offline" copy-cat model that helped give desired insight into its behavior
       and influential variables.
@@ -1793,8 +1780,8 @@ case-studies:
       Examples of good scoring samples include "calculation", "asset", and "tyson".
 
       Examples of bad scoring samples include "software", "99", and "unsub".'
-  - tactic: AML.TA0001
-    technique: AML.T0043.002
+  - tactic: AML.TA0011
+    technique: AML.T0015
     description: Finally, these insights from the "offline" copy-cat model allowed
       the researchers to create malicious emails that received preferable scores from
       the real ProofPoint email protection system, hence bypassing it.
@@ -1815,21 +1802,25 @@ case-studies:
 - id: AML.CS0009
   object-type: case-study
   name: Tay Poisoning
-  summary: Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
+  summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
     U.S. for entertainment purposes. While previous chatbots used pre-programmed scripts
-    to conduct conversation, Tay's machine learning capabilities allowed it to able
+    to conduct conversation, Tay''s machine learning capabilities allowed it to able
     to converse about any topic. Within 24 hours of its deployment, however, Tay had
     to be decommissioned because it tweeted reprehensible words.
+
+    Hitler, the inventor of atheism.''\n\nThis behavior quickly led to its decommissioning.\
+    Microsoft issued a public apology  explaining what went wrong and the lessons\
+    they learned from the bot''s failure."
+
+    This coordinated attack was instigated by a post on 4chan, an anonymous English-language
+    image board website, that encouraged users to spam Tay with racist, misogynistic,
+    and anti-semitic language. This post provided a link to Tay''s Twitter account.'
   incident-date: 2016-03-23
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0000
-    technique: AML.T0040
-    description: Adversaries were able to interact with Tay via a few different publicly
-      available methods. This coordinated attack was instigated by a post on 4chan,
-      an anonymous English-language image board website, that encouraged users to
-      spam Tay with racist, misogynistic, and anti-semitic language. This post provided
-      a link to Tay's Twitter account.
+    technique: AML.T0047
+    description: Adversaries were able to interact with Tay via Twitter messages.
   - tactic: AML.TA0004
     technique: AML.T0010.002
     description: 'Tay bot used the interactions with its twitter users as training
@@ -1845,14 +1836,10 @@ case-studies:
       Tay to repeat anything said to it.
   - tactic: AML.TA0011
     technique: AML.T0031
-    description: "As a result of this coordinated attack, Tay's conversation algorithms\
-      \ began to learn to generate reprehensible material. Tay's internalization of\
-      \ this detestable language caused it to be unpromptedly repeated during interactions\
-      \ with innocent users. \n\nFor example, when asked whether Ricky Gervais was\
-      \ an atheist, Tay responded: 'Ricky Gervais learned totalitarianism from Adolf\
-      \ Hitler, the inventor of atheism.'\n\nThis behavior quickly led to its decommissioning.\
-      \ Microsoft issued a public apology  explaining what went wrong and the lessons\
-      \ they learned from the bot's failure."
+    description: As a result of this coordinated attack, Tay's conversation algorithms
+      began to learn to generate reprehensible material. Tay's internalization of
+      this detestable language caused it to be unpromptedly repeated during interactions
+      with innocent users.
   reporter: Microsoft
   target: Microsoft's Tay AI Chatbot
   actor: 4chan Users
@@ -1867,50 +1854,45 @@ case-studies:
   name: Microsoft Azure Service Disruption
   object-type: case-study
   case-study-type: exercise
-  actor: Azure Red Team and Azure Trustworthy ML Team
+  actor: Microsoft AI Red Team
   target: Internal Microsoft Azure Service
-  summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
-    on an internal Azure service with the intention of disrupting its service. This
-    operation had a combination of traditional ATT&CK enterprise techniques such as
-    finding Valid account, and Executing code via an API -- all interleaved with adversarial
-    ML specific steps such as offline and online evasion examples.
+  summary: The Microsoft AI Red Team performed a red team exercise on an internal
+    Azure service with the intention of disrupting its service. This operation had
+    a combination of traditional ATT&CK enterprise techniques such as finding valid
+    account, and exfiltrating data -- all interleaved with adversarial ML specific
+    steps such as offline and online evasion examples.
   incident-date: 2020-01-01
   incident-date-granularity: YEAR
   procedure:
   - tactic: AML.TA0002
     technique: AML.T0000
-    description: 'The team first performed reconnaissance to gather information about
+    description: The team first performed reconnaissance to gather information about
       the target ML model.
-
-      '
   - tactic: AML.TA0004
     technique: AML.T0012
-    description: 'The team used a valid account to gain access to the network.
-
-      '
+    description: The team used a valid account to gain access to the network.
   - tactic: AML.TA0009
     technique: AML.T0035
-    description: 'The team found the model file of the target ML model and the necessary
+    description: The team found the model file of the target ML model and the necessary
       training data.
-
-      '
+  - tactic: AML.TA0010
+    technique: AML.T0025
+    description: The team exfiltrated the model and data via traditional means.
   - tactic: AML.TA0001
     technique: AML.T0043.000
-    description: 'Using the target model and data, the red team crafted evasive adversarial
-      data.
-
-      '
+    description: Using the target model and data, the red team crafted evasive adversarial
+      data in an offline manor.
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: 'The team used an exposed API to access the target model.
-
-      '
+    description: The team used an exposed API to access the target model.
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: The team submitted the adversarial examples to the API to verify
+      their efficacy on the production system.
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: 'The team performed an online evasion attack by replaying the adversarial
-      examples, which helped achieve this goal.
-
-      '
+    description: The team performed an online evasion attack by replaying the adversarial
+      examples and accomplished their goals.
   references: []
 - id: AML.CS0011
   name: Microsoft Edge AI Evasion
