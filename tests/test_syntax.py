@@ -135,6 +135,7 @@ def test_ascii(text_to_be_spellchecked):
 
 def test_check_unique_ids(all_data_objects):
     """ Warns for duplicate IDs in tactics, techniques, case studies, etc. """
+    
     # Creates a list of IDs from all_data_objects, which may contain duplicates
     all_ids = [ids[0] for ids in all_data_objects]
 
@@ -161,15 +162,22 @@ def test_check_unique_ids(all_data_objects):
                     error_msg += F"\n\t\t {dup_object[1]}"
         
         pytest.fail(error_msg)
-
-def check_matching_tactic_subtechnique(all_data_objects):
-    # maps techniques to list of tactics
-    technique_to_tactic_dict = {technique_obj['id']: [technique_obj['tactics']] for technique_obj in all_data_objects['matrices']['techniques'] if all_data_objects['matrices']['techiques'].keys().contains('tactics')}
     
+def test_matching_tactic_subtechnique(all_data_objects):
+    # maps techniques to list of tactics
+    # technique_to_tactic_dict = {technique_obj['id']: [technique_obj['tactics']] for technique_obj in all_data_objects['matrices']['techniques'] if all_data_objects['matrices']['techiques'].keys().contains('tactics')}
+    technique_to_tactic_dict = {}
+
+    for obj in all_data_objects:
+        if obj[1]['object-type'] == 'technique' and 'tactics' in obj[1]:
+                technique_to_tactic_dict[obj[1]['id']] = obj[1]['tactics']
+
     unmatched_techniques = []
     # obj is a dictionary
     for obj in all_data_objects[1]:
+        # check tuple numbers
         if obj['object-type'] == 'case-study':
+            print(obj['object-type'])
             for step in obj['procedure']:
                 tactic_id = obj['procedure'][step]['tactic']
                 technique_id = obj['procedure'][step]['technique'][0:9]
