@@ -161,3 +161,35 @@ def test_check_unique_ids(all_data_objects):
                     error_msg += F"\n\t\t {dup_object[1]}"
         
         pytest.fail(error_msg)
+
+def check_matching_tactic_subtechnique(all_data_objects):
+    # maps techniques to list of tactics
+    technique_to_tactic_dict = {technique_obj['id']: [technique_obj['tactics']] for technique_obj in all_data_objects['matrices']['techniques'] if all_data_objects['matrices']['techiques'].keys().contains('tactics')}
+    
+    unmatched_techniques = []
+    # obj is a dictionary
+    for obj in all_data_objects[1]:
+        if obj['object-type'] == 'case-study':
+            for step in obj['procedure']:
+                tactic_id = obj['procedure'][step]['tactic']
+                technique_id = obj['procedure'][step]['technique'][0:9]
+                if not(technique_to_tactic_dict[technique_id].contains(tactic_id)):
+                    unmatched_techniques.append((obj['id'], technique_id, tactic_id))
+                                
+    if len(unmatched_techniques) > 0:
+
+        num_of_unmatched_techniques_as_str = str(len(unmatched_techniques))
+        # Main error message
+        error_msg = F"{num_of_unmatched_techniques_as_str} unmatched technique(s) in case studies detected."
+        for unmatched_obj in unmatched_techniques:
+            error_msg += F"\n\t\t The procedure of case study {unmatched_obj[0]} has an unmatched technique: technique {unmatched_obj[1]} is not associated with tactic {unmatched_obj[2]}"
+        
+        pytest.fail(error_msg)
+
+#                     for obj in all_data_objects[1]:
+#                         if obj['object-type'] == 'techniques':
+#                             obj[]
+
+# [(obj['case-study']['id'], obj['case-study']['procedure']['tactic'], obj['case-study']['procedure']['technique']) for obj in all_data_objects[1] if obj['object-type']=='case-study' for keys in obj['case-study'] if keys == 'procedure' for step in obj['case-study']['procedure'] if not(step.keys().contains('subtechnique-of'))]
+
+
