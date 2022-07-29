@@ -163,39 +163,41 @@ def test_check_unique_ids(all_data_objects):
         
         pytest.fail(error_msg)
     
-def test_matching_tactic_subtechnique(all_data_objects):
+def test_matching_tactic_subtechnique(unmatched_techniques):
+    print(unmatched_techniques)
 
-    # Maps techniques to list of tactics
-    technique_to_tactic_dict = {technique_obj[1]['id']: technique_obj[1]['tactics'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique' and 'tactics' in technique_obj[1]}
+    # # Maps techniques to list of tactics
+    # technique_to_tactic_dict = {technique_obj[1]['id']: technique_obj[1]['tactics'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique' and 'tactics' in technique_obj[1]}
 
-    unmatched_techniques = []
-    # obj is a dictionary
-    for obj in all_data_objects:
-        # Gets full data object that associated ID is mapped to
-        data_obj = obj[1]
-        if data_obj.get('object-type') == 'case-study':
-            # Gets tactic and technique IDs from procedure in case studies
-            case_study_name = data_obj.get('name')
-            for step in range(len(data_obj['procedure'])):
-                tactic_id = data_obj['procedure'][step]['tactic']
-                technique_id = data_obj['procedure'][step]['technique'][0:9]
-                # Checks to see if the related technique and tactic IDs match the IDs in technique_to_tactic_dict
-                if not(tactic_id in technique_to_tactic_dict[technique_id]):
-                    # Adds to list, if list is greater than 0 there is an unmatched technique
-                    # Four-element tuple with case study name, case study ID, technique ID, and tactic ID
-                    unmatched_techniques.append((case_study_name, data_obj['id'], technique_id, tactic_id))
+    # unmatched_techniques = []
+    # # obj is a dictionary
+    # for obj in all_data_objects:
+    #     # Gets full data object that associated ID is mapped to
+    #     data_obj = obj[1]
+    #     if data_obj.get('object-type') == 'case-study':
+    #         # Gets tactic and technique IDs from procedure in case studies
+    #         case_study_name = data_obj.get('name')
+    #         for step in range(len(data_obj['procedure'])):
+    #             tactic_id = data_obj['procedure'][step]['tactic']
+    #             technique_id = data_obj['procedure'][step]['technique'][0:9]
+    #             # Checks to see if the related technique and tactic IDs match the IDs in technique_to_tactic_dict
+    #             if not(tactic_id in technique_to_tactic_dict[technique_id]):
+    #                 # Adds to list, if list is greater than 0 there is an unmatched technique
+    #                 # Four-element tuple with case study name, case study ID, technique ID, and tactic ID
+    #                 unmatched_techniques.append((case_study_name, data_obj['id'], technique_id, tactic_id))
+    # [(data_obj[1]['id'], technique_id, tactic_id) for ]
                                                     
-    if len(unmatched_techniques) > 0:
+    # if len(unmatched_techniques) > 0:
 
-        tactic_to_name_dict = {tactic_obj[1]['id']: tactic_obj[1]['name'] for tactic_obj in all_data_objects if tactic_obj[1]['object-type'] == 'tactic'}
-        technique_to_name_dict = {technique_obj[1]['id']: technique_obj[1]['name'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique'}
+    #     tactic_to_name_dict = {tactic_obj[1]['id']: tactic_obj[1]['name'] for tactic_obj in all_data_objects if tactic_obj[1]['object-type'] == 'tactic'}
+    #     technique_to_name_dict = {technique_obj[1]['id']: technique_obj[1]['name'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique'}
 
-        # Converts to string so its usable in error message
-        num_of_unmatched_techniques_as_str = str(len(unmatched_techniques))
-        # Main error message
-        error_msg = F"{num_of_unmatched_techniques_as_str} unmatched technique(s) in case studies detected."
-        for unmatched_obj in unmatched_techniques:
-            error_msg += F"\n\t The procedure of case study {unmatched_obj[1]} has a technique which is unmatched \n\t with its tactic: technique {unmatched_obj[2]} is not associated with tactic {unmatched_obj[3]} \n"
-            error_msg += F"\t\t {unmatched_obj[1]}: {unmatched_obj[0]} \n\t\t {unmatched_obj[2]}: {technique_to_name_dict.get(unmatched_obj[2])} \n\t\t {unmatched_obj[3]}: {tactic_to_name_dict.get(unmatched_obj[3])}"
+    #     # Converts to string so its usable in error message
+    #     num_of_unmatched_techniques_as_str = str(len(unmatched_techniques))
+    #     # Main error message
+    #     error_msg = F"{num_of_unmatched_techniques_as_str} unmatched technique(s) in case studies detected."
+    #     for unmatched_obj in unmatched_techniques:
+    #         error_msg += F"\n\t The procedure of case study {unmatched_obj[1]} has a technique which is unmatched \n\t with its tactic: technique {unmatched_obj[2]} is not associated with tactic {unmatched_obj[3]} \n"
+    #         error_msg += F"\t\t {unmatched_obj[1]}: {unmatched_obj[0]} \n\t\t {unmatched_obj[2]}: {technique_to_name_dict.get(unmatched_obj[2])} \n\t\t {unmatched_obj[3]}: {tactic_to_name_dict.get(unmatched_obj[3])}"
 
-        pytest.fail(error_msg)
+    #     pytest.fail(error_msg)

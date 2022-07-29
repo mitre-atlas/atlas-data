@@ -71,6 +71,21 @@ def all_data_objects(request):
     """Represents IDs in data objects, such as tactics, techniques, and case studies. """
     return request.param
 
+@pytest.fixture(scope='session')
+def unmatched_techniques(output_data):
+    technique_to_tactic_dict = {}
+
+    for fixture_name in output_data:
+        if fixture_name == 'matrices':
+            for matrix in output_data['matrices']:
+                for keys in matrix:
+                    if keys == 'techniques':
+                        # technique is dict
+                        for technique in output_data['matrices']['techniques']:
+                            if 'tactic' in technique:
+                                technique_to_tactic_dict[technique['id']] = technique.get('tactics')
+    return technique_to_tactic_dict
+
 #endregion
 
 def pytest_generate_tests(metafunc):
@@ -146,14 +161,25 @@ def pytest_generate_tests(metafunc):
 
         # Construct a list of objects across all matrices under the specified key
         values = [obj for matrix in matrices if key in matrix for obj in matrix[key]]
+
+        for matrix in matrices:
+            if key in matrix:
+                for obj in matrix[key]:
+                    obj
         # Add top-level objects, if exists, ex. case-studies appended to an empty list from above
         if key in data:
             values.extend(data[key])
 
         # Build up text parameters
         # Parameter format is (test_identifier, text)
+        technique_tactics_ids = []
         if key == 'case-studies':
             for cs in values:
+                for step in cs.get('procedure'):
+                    technique_tactics_ids.append((step.get('technique'), step.get('tactic')))
+
+            for cs in values:
+
                 cs_id = cs['id']
 
                 text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
@@ -180,6 +206,9 @@ def pytest_generate_tests(metafunc):
 
     ## Create parameterized fixtures for Markdown link syntax verification - technique descriptions and case study procedure steps
 
+    if 'unmatched_techniques' in metafunc.fixturenames:
+        metafunc.parametrize('unmatched_techniques', technique_tactics_ids, ids=lambda x: x[0], indirect=True, scope='session')
+        
     # Parametrize when called for via test signature
     if 'text_with_possible_markdown_syntax' in metafunc.fixturenames:
         metafunc.parametrize('text_with_possible_markdown_syntax', text_with_possible_markdown_syntax, ids=lambda x: x[0], indirect=True, scope='session')
