@@ -1,5 +1,6 @@
 ---
 id: AML.CS0012
+study-schema-version: 1.1
 name: Face Identification System Evasion via Physical Countermeasures
 object-type: case-study
 summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on a

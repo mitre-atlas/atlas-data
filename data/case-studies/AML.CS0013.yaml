@@ -1,5 +1,6 @@
 ---
 id: AML.CS0013
+study-schema-version: 1.1
 object-type: case-study
 name: Backdoor Attack on Deep Learning Models in Mobile Apps
 summary: 'Deep learning models are increasingly used in mobile applications as critical

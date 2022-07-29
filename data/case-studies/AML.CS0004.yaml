@@ -1,5 +1,6 @@
 ---
 id: AML.CS0004
+study-schema-version: 1.1
 object-type: case-study
 name: Camera Hijack Attack on Facial Recognition System
 summary: |
