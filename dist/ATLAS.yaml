@@ -1461,8 +1461,8 @@ case-studies:
   object-type: case-study
   name: Bypassing Cylance's AI Malware Detection
   summary: "Researchers at Skylight were able to create a universal bypass string\
-    \ that evades detection by Cylance\xE2\u20AC\u2122s AI Malware detector when appended\
-    \ to a malicious file."
+    \ that evades detection by Cylance\u2019s AI Malware detector when appended to\
+    \ a malicious file."
   incident-date: 2019-09-07
   incident-date-granularity: DATE
   procedure:

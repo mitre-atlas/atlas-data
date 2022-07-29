@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-06-03",
+    "description": "Generated on 2022-07-29",
     "type": "object",
     "properties": {
         "id": {
@@ -24,7 +24,7 @@
         "matrices": {
             "type": "array",
             "items": {
-                "description": "Generated on 2022-06-03",
+                "description": "Generated on 2022-07-29",
                 "type": "object",
                 "properties": {
                     "id": {
@@ -184,6 +184,9 @@
                 "object-type": {
                     "const": "case-study"
                 },
+                "study-schema-version": {
+                    "type": "number"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -289,6 +292,7 @@
             "required": [
                 "id",
                 "object-type",
+                "study-schema-version",
                 "name",
                 "summary",
                 "incident-date",
