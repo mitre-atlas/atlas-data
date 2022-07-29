@@ -165,7 +165,7 @@ def test_check_unique_ids(all_data_objects):
     
 def test_matching_tactic_subtechnique(all_data_objects):
     # maps techniques to list of tactics
-    technique_to_tactic_dict = {technique_obj[1]['id']: [technique_obj[1]['tactics']] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique' and 'tactics' in technique_obj[1]}
+    technique_to_tactic_dict = {technique_obj[1]['id']: technique_obj[1]['tactics'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique' and 'tactics' in technique_obj[1]}
     # technique_to_tactic_dict = {}
 
     # for obj in all_data_objects:
@@ -181,18 +181,18 @@ def test_matching_tactic_subtechnique(all_data_objects):
             for step in range(len(data_obj['procedure'])):
                 tactic_id = data_obj['procedure'][step]['tactic']
                 technique_id = data_obj['procedure'][step]['technique'][0:9]
-                if not(technique_to_tactic_dict[technique_id] == tactic_id):
+                if not(tactic_id in technique_to_tactic_dict[technique_id]):
                     unmatched_techniques.append((data_obj['id'], technique_id, tactic_id))
-                                
+                                                    
     if len(unmatched_techniques) > 0:
 
         num_of_unmatched_techniques_as_str = str(len(unmatched_techniques))
         # Main error message
         error_msg = F"{num_of_unmatched_techniques_as_str} unmatched technique(s) in case studies detected."
         for unmatched_obj in unmatched_techniques:
-            error_msg += F"\n\t\t The procedure of case study {unmatched_obj[0]} has an unmatched technique: technique {unmatched_obj[1]} is not associated with tactic {unmatched_obj[2]}"
+            error_msg += F"\n\t The procedure of case study {unmatched_obj[0]} has a technique which is unmatched \n\t with its tactic: technique {unmatched_obj[1]} is not associated with tactic {unmatched_obj[2]} \n"
         
-       # pytest.fail(error_msg)
+        pytest.fail(error_msg)
 
 #                     for obj in all_data_objects[1]:
 #                         if obj['object-type'] == 'techniques':
