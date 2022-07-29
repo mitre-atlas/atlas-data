@@ -1,4 +1,3 @@
-from calendar import SATURDAY
 import re
 import warnings
 
@@ -185,7 +184,7 @@ def test_matching_tactic_subtechnique(all_data_objects):
                     # Adds to list, if list is greater than 0 there is an unmatched technique
                     # Four-element tuple with case study name, case study ID, technique ID, and tactic ID
                     unmatched_techniques.append((case_study_name, data_obj['id'], technique_id, tactic_id))
-    [(data_obj['id'], technique_id, tactic_id) for ]
+    [(data_obj[1]['id'], technique_id, tactic_id) for ]
                                                     
     if len(unmatched_techniques) > 0:
 
