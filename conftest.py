@@ -136,6 +136,7 @@ def pytest_generate_tests(metafunc):
     text_with_possible_markdown_syntax = []
     text_to_be_spellchecked = []
     all_values = []
+    procedure_technique_tactic_ids = []
     technique_to_tactic_dict = {}
 
     for fixture_name in fixture_names:
@@ -162,6 +163,10 @@ def pytest_generate_tests(metafunc):
     if 'all_data_objects' in metafunc.fixturenames:
         metafunc.parametrize('all_data_objects', [all_values], indirect=True, scope='session')
 
+    for fixture_name in fixture_names:
+        key = fixture_name.replace('_','-')
+        technique_to_tactic_dict = {obj['id'] : obj['tactics'] for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique' and 'tactics' in obj}
+        #print(technique_to_tactic_dict)
     # Parameterize based on data objects
     for fixture_name in fixture_names:
 
@@ -172,13 +177,13 @@ def pytest_generate_tests(metafunc):
         values = [obj for matrix in matrices if key in matrix for obj in matrix[key]]
 
         #technique = [(obj['id'], obj.get['tactics']) for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique']
-        for matrix in matrices:
-            if key in matrix:
-                for obj in matrix[key]:
-                    if obj['object-type'] == 'technique' and 'tactics' in obj:
-                        if obj['id'] not in technique_to_tactic_dict:
-                            technique_to_tactic_dict[obj['id']] = obj['tactics']
-        print(technique_to_tactic_dict)
+        # for matrix in matrices:
+        #     if key in matrix:
+        #         for obj in matrix[key]:
+        #             if obj['object-type'] == 'technique' and 'tactics' in obj:
+        #                 if obj['id'] not in technique_to_tactic_dict:
+        #                     technique_to_tactic_dict[obj['id']] = obj['tactics']
+        # print(technique_to_tactic_dict)
         #technique_to_tactic_dict = {technique['id'] : technique.get('tactics') for matrix in matrices if matrix == 'technique' for technique in matrix if 'tactics' in technique}
         #technique_to_tactic = [(technique['id'], technique.get('tactics')) for matrix in matrices if matrix == 'technique' for technique in matrix if 'tactics' in technique]
 
@@ -192,19 +197,22 @@ def pytest_generate_tests(metafunc):
             # for cs in values:
             #     for step in cs.get('procedure'):
             #         (step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique'))) 
-            procedure_technique_tactic_ids = [(step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for cs in values for step in cs.get('procedure')] 
+            #procedure_technique_tactic_ids = [(step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for cs in values for step in cs.get('procedure')] 
             # for cs in values:
             #     for step in cs.get('procedure'):
             #         technique_tactics_ids.append((step.get('technique'), step.get('tactic')))
 
             for cs in values:
+                # For each case study object
 
                 cs_id = cs['id']
-
+                
                 text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
                 text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
 
                 # AML.CS0000 Procedure #3, <procedure step description>
+                print(technique_to_tactic_dict)
+                procedure_technique_tactic_ids = [(f"{cs_id} Procedure #{i+1}", step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for i, step in enumerate(cs['procedure'])]
                 procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
                 text_to_be_spellchecked.extend(procedure_step_texts)
                 text_with_possible_markdown_syntax.extend(procedure_step_texts)

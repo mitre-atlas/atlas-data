@@ -164,8 +164,12 @@ def test_check_unique_ids(all_data_objects):
         pytest.fail(error_msg)
     
 def test_matching_tactic_subtechnique(unmatched_techniques):
+    # Third element in unmatched_techniques is the tactic in the technique description
+    # Fourth element in unmatched_techniques is a list of tactics from the case study procedure
+    # if unmatched_techniques[2] not in unmatched_techniques[3]:
+    #     error_msg = unmatched_techniques[0] + 'has an unmatched technique'
+    #     pytest.fail(error_msg)
     print(unmatched_techniques)
-
     # # Maps techniques to list of tactics
     # technique_to_tactic_dict = {technique_obj[1]['id']: technique_obj[1]['tactics'] for technique_obj in all_data_objects if technique_obj[1]['object-type'] == 'technique' and 'tactics' in technique_obj[1]}
 
