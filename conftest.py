@@ -73,17 +73,11 @@ def all_data_objects(request):
 
 @pytest.fixture(scope='session')
 def unmatched_techniques(request):
-    # technique_to_tactic_dict = {}
-
-    # for fixture_name in output_data:
-    #     if fixture_name == 'matrices':
-    #         for matrix in output_data['matrices']:
-    #             for keys in matrix:
-    #                 if keys == 'techniques':
-    #                     # technique is dict
-    #                     for technique in output_data['matrices']['techniques']:
-    #                         if 'tactic' in technique:
-    #                             technique_to_tactic_dict[technique['id']] = technique.get('tactics')
+    """Represents four-element tuples containing:
+        - Case study ID and procedure step number 
+        - Technique ID from case study
+        - Tactic ID from case study
+        - An array containing tactic IDs extracted from technique data from matrices. """
     return request.param
 
 #endregion
@@ -145,12 +139,6 @@ def pytest_generate_tests(metafunc):
         # List of tuples that hold the ID and the corresponding object
         # For tactics and techniques
         values = [(obj['id'], obj) for matrix in matrices if key in matrix for obj in matrix[key]]
-        # for matrix in matrices:
-        #     if matrix == 'technique':
-        #         for technique in matrix['techniques']:
-        #             if 'tactic' in technique:
-        #                 technique_to_tactic_dict[technique['id']] = technique.get('tactics')
-        # {technique['id'] : technique.get('tactics') for matrix in matrices if matrix == 'technique' for technique in data[matrix]['techniques']}
                     
         # Creates a list of tuples across all fixture names
         all_values.extend(values)
@@ -159,14 +147,13 @@ def pytest_generate_tests(metafunc):
             id_to_obj = [(obj['id'], obj) for obj in data[key]]
             all_values.extend(id_to_obj)
 
+        # For unmatched technique test
+        technique_to_tactic_dict = {obj['id'] : obj['tactics'] for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique' and 'tactics' in obj}
+
     # Parametrize when called for via test signature
     if 'all_data_objects' in metafunc.fixturenames:
         metafunc.parametrize('all_data_objects', [all_values], indirect=True, scope='session')
 
-    for fixture_name in fixture_names:
-        key = fixture_name.replace('_','-')
-        technique_to_tactic_dict = {obj['id'] : obj['tactics'] for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique' and 'tactics' in obj}
-        #print(technique_to_tactic_dict)
     # Parameterize based on data objects
     for fixture_name in fixture_names:
 
@@ -176,17 +163,6 @@ def pytest_generate_tests(metafunc):
         # Construct a list of objects across all matrices under the specified key
         values = [obj for matrix in matrices if key in matrix for obj in matrix[key]]
 
-        #technique = [(obj['id'], obj.get['tactics']) for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique']
-        # for matrix in matrices:
-        #     if key in matrix:
-        #         for obj in matrix[key]:
-        #             if obj['object-type'] == 'technique' and 'tactics' in obj:
-        #                 if obj['id'] not in technique_to_tactic_dict:
-        #                     technique_to_tactic_dict[obj['id']] = obj['tactics']
-        # print(technique_to_tactic_dict)
-        #technique_to_tactic_dict = {technique['id'] : technique.get('tactics') for matrix in matrices if matrix == 'technique' for technique in matrix if 'tactics' in technique}
-        #technique_to_tactic = [(technique['id'], technique.get('tactics')) for matrix in matrices if matrix == 'technique' for technique in matrix if 'tactics' in technique]
-
         # Add top-level objects, if exists, ex. case-studies appended to an empty list from above
         if key in data:
             values.extend(data[key])
@@ -194,16 +170,8 @@ def pytest_generate_tests(metafunc):
         # Build up text parameters
         # Parameter format is (test_identifier, text)
         if key == 'case-studies':
-            # for cs in values:
-            #     for step in cs.get('procedure'):
-            #         (step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique'))) 
-            #procedure_technique_tactic_ids = [(step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for cs in values for step in cs.get('procedure')] 
-            # for cs in values:
-            #     for step in cs.get('procedure'):
-            #         technique_tactics_ids.append((step.get('technique'), step.get('tactic')))
 
             for cs in values:
-                # For each case study object
 
                 cs_id = cs['id']
                 
@@ -211,8 +179,10 @@ def pytest_generate_tests(metafunc):
                 text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
 
                 # AML.CS0000 Procedure #3, <procedure step description>
-                print(technique_to_tactic_dict)
-                procedure_technique_tactic_ids = [(f"{cs_id} Procedure #{i+1}", step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for i, step in enumerate(cs['procedure'])]
+
+                procedure_ids = [(f"{cs_id} Procedure Step #{i+1}", step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for i, step in enumerate(cs['procedure'])]
+                procedure_technique_tactic_ids.extend(procedure_ids)
+
                 procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
                 text_to_be_spellchecked.extend(procedure_step_texts)
                 text_with_possible_markdown_syntax.extend(procedure_step_texts)
