@@ -135,7 +135,7 @@ def test_ascii(text_to_be_spellchecked):
 
 def test_check_unique_ids(all_data_objects):
     """ Warns for duplicate IDs in tactics, techniques, case studies, etc. """
-    
+
     # Creates a list of IDs from all_data_objects, which may contain duplicates
     all_ids = [ids[0] for ids in all_data_objects]
 
@@ -143,7 +143,7 @@ def test_check_unique_ids(all_data_objects):
     # Sorted is needed to print the IDs in order
     list_of_duplicate_objects = sorted([(ids[0], ids[1]['name'], ids[1]['object-type']) for ids in all_data_objects if all_ids.count(ids[0]) > 1])
     list_of_duplicate_ids = sorted(set([id[0] for id in list_of_duplicate_objects]))
-    
+
     if len(list_of_duplicate_objects) > 0:
 
         # Variables needed to turn number of duplicates into string to use in error msg
@@ -152,7 +152,7 @@ def test_check_unique_ids(all_data_objects):
 
         # Main error message
         error_msg = F"Duplicate ID(s) detected: {num_of_duplicates_as_str} ID(s) found for {total_num_of_duplicates_as_str} data objects."
-        
+
         # Adds duplicate ID info (ID, name, object type)
         for dup_id in range(len(list_of_duplicate_ids)):
             tactic_name = [obj[2] for obj in list_of_duplicate_objects if obj[0] == list_of_duplicate_ids[dup_id]]
@@ -160,13 +160,30 @@ def test_check_unique_ids(all_data_objects):
             for dup_object in list_of_duplicate_objects:
                 if dup_object[0] == list_of_duplicate_ids[dup_id]:
                     error_msg += F"\n\t\t {dup_object[1]}"
-        
+
         pytest.fail(error_msg)
-    
-def test_matching_tactic_subtechnique(unmatched_techniques):
+
+def test_procedure_step_match(procedure_steps, technique_id_to_tactic_ids):
     """ Warns for unmatched techniques and tactics in case study procedures. """
-    # Third element in unmatched_techniques is the tactic in the technique description
-    # Fourth element in unmatched_techniques is a list of tactics from the case study procedure
-    if unmatched_techniques[2] not in unmatched_techniques[3]:
-        error_msg = unmatched_techniques[0] + ' has an unmatched technique. Check that the technique and the tactic are correct.'
+    # Unwrap procedure step
+    step = procedure_steps[1]
+    technique_id = step['technique']
+    tactic_id = step['tactic']
+
+    # Determine the correct tactics associated with the technique
+    if technique_id in technique_id_to_tactic_ids:
+        correct_tactics = technique_id_to_tactic_ids[technique_id]
+    else:
+        # Object is a subtechnique, trim off last 4 chars to find the parent technique ID
+        technique_id = technique_id[:-4]
+        # Re-determine associated tactics
+        if technique_id in technique_id_to_tactic_ids:
+            correct_tactics = technique_id_to_tactic_ids[technique_id]
+        else:
+            # Otherwise error
+            raise ValueError(f'Technique ID to tactic ID mapping not found for {technique_id}')
+
+    # Fail test if the step tactic is not one of the associated tactics for the step technique
+    if tactic_id not in correct_tactics:
+        error_msg = f'{step["technique"]} has tactic {tactic_id}, expected one of {correct_tactics}'
         pytest.fail(error_msg)
