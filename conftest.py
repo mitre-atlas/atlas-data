@@ -167,7 +167,7 @@ def pytest_generate_tests(metafunc):
         # Collect technique objects
         if 'technique_id_to_tactic_ids' in metafunc.fixturenames and key == 'techniques':
             technique_id_to_tactic_ids = {obj['id']: obj['tactics'] for obj in values if 'subtechnique-of' not in obj}
-            metafunc.parametrize('technique_id_to_tactic_ids', [technique_id_to_tactic_ids], indirect=True, scope='session')
+            metafunc.parametrize('technique_id_to_tactic_ids', [technique_id_to_tactic_ids], ids=[''],indirect=True, scope='session')
 
         # Build up text parameters
         # Parameter format is (test_identifier, text)
