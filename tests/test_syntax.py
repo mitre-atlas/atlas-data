@@ -185,5 +185,5 @@ def test_procedure_step_match(procedure_steps, technique_id_to_tactic_ids):
 
     # Fail test if the step tactic is not one of the associated tactics for the step technique
     if tactic_id not in correct_tactics:
-        error_msg = f'{step["technique"]} has tactic {tactic_id}, expected one of {correct_tactics}'
+        error_msg = f'Technique {step["technique"]} has tactic {tactic_id}, expected one of {correct_tactics}'
         pytest.fail(error_msg)
