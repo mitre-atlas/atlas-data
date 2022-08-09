@@ -72,12 +72,13 @@ def all_data_objects(request):
     return request.param
 
 @pytest.fixture(scope='session')
-def unmatched_techniques(request):
-    """Represents four-element tuples containing:
-        - Case study ID and procedure step number 
-        - Technique ID from case study
-        - Tactic ID from case study
-        - An array containing tactic IDs extracted from technique data from matrices. """
+def procedure_steps(request):
+    """Represents each procedure step."""
+    return request.param
+
+@pytest.fixture(scope='session')
+def technique_id_to_tactic_ids(request):
+    """Represents a dictionary of technique ID to a list of tactic IDs."""
     return request.param
 
 #endregion
@@ -130,8 +131,7 @@ def pytest_generate_tests(metafunc):
     text_with_possible_markdown_syntax = []
     text_to_be_spellchecked = []
     all_values = []
-    procedure_technique_tactic_ids = []
-    technique_to_tactic_dict = {}
+    procedure_steps = []
 
     for fixture_name in fixture_names:
         # Handle the key 'case_studies' really being 'case-studies' in the input
@@ -139,16 +139,13 @@ def pytest_generate_tests(metafunc):
         # List of tuples that hold the ID and the corresponding object
         # For tactics and techniques
         values = [(obj['id'], obj) for matrix in matrices if key in matrix for obj in matrix[key]]
-                    
+
         # Creates a list of tuples across all fixture names
         all_values.extend(values)
         # For case studies
         if key in data:
             id_to_obj = [(obj['id'], obj) for obj in data[key]]
             all_values.extend(id_to_obj)
-
-        # For unmatched technique test
-        technique_to_tactic_dict = {obj['id'] : obj['tactics'] for matrix in matrices if key in matrix for obj in matrix[key] if obj['object-type'] == 'technique' and 'tactics' in obj}
 
     # Parametrize when called for via test signature
     if 'all_data_objects' in metafunc.fixturenames:
@@ -167,6 +164,11 @@ def pytest_generate_tests(metafunc):
         if key in data:
             values.extend(data[key])
 
+        # Collect technique objects
+        if 'technique_id_to_tactic_ids' in metafunc.fixturenames and key == 'techniques':
+            technique_id_to_tactic_ids = {obj['id']: obj['tactics'] for obj in values if 'subtechnique-of' not in obj}
+            metafunc.parametrize('technique_id_to_tactic_ids', [technique_id_to_tactic_ids], ids=[''],indirect=True, scope='session')
+
         # Build up text parameters
         # Parameter format is (test_identifier, text)
         if key == 'case-studies':
@@ -174,18 +176,24 @@ def pytest_generate_tests(metafunc):
             for cs in values:
 
                 cs_id = cs['id']
-                
+
                 text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
                 text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
 
-                # AML.CS0000 Procedure #3, <procedure step description>
+                # Process each procedure step
+                for i, step in enumerate(cs['procedure']):
 
-                procedure_ids = [(f"{cs_id} Procedure Step #{i+1}", step.get('technique'), step.get('tactic'), technique_to_tactic_dict.get(step.get('technique')[0:9])) for i, step in enumerate(cs['procedure'])]
-                procedure_technique_tactic_ids.extend(procedure_ids)
+                    # Example tuple is of the form (AML.CS0000 Procedure #3, <procedure step description>)
+                    step_id = f'{cs_id} Procedure #{i+1}'
 
-                procedure_step_texts = [(f"{cs_id} Procedure #{i+1}", p['description']) for i, p in enumerate(cs['procedure'])]
-                text_to_be_spellchecked.extend(procedure_step_texts)
-                text_with_possible_markdown_syntax.extend(procedure_step_texts)
+                    # Track the step itself
+                    procedure_steps.append((step_id, step))
+
+                    # And the description for text syntax
+                    step_description = (step_id, step['description'])
+                    text_to_be_spellchecked.append(step_description)
+                    text_with_possible_markdown_syntax.append(step_description)
+
         else:
             # This based off of a default ATLAS data object
             for t in values:
@@ -203,9 +211,6 @@ def pytest_generate_tests(metafunc):
 
     ## Create parameterized fixtures for Markdown link syntax verification - technique descriptions and case study procedure steps
 
-    if 'unmatched_techniques' in metafunc.fixturenames:
-        metafunc.parametrize('unmatched_techniques', procedure_technique_tactic_ids, ids=lambda x: x[0], indirect=True, scope='session')
-
     # Parametrize when called for via test signature
     if 'text_with_possible_markdown_syntax' in metafunc.fixturenames:
         metafunc.parametrize('text_with_possible_markdown_syntax', text_with_possible_markdown_syntax, ids=lambda x: x[0], indirect=True, scope='session')
@@ -215,6 +220,12 @@ def pytest_generate_tests(metafunc):
     # Parametrize when called for via test signature
     if 'text_to_be_spellchecked' in metafunc.fixturenames:
         metafunc.parametrize('text_to_be_spellchecked', text_to_be_spellchecked, ids=lambda x: x[0], indirect=True, scope='session')
+
+    ## Create parameterized fixtures for each procedure step
+
+    # Parametrize when called for via test signature
+    if 'procedure_steps' in metafunc.fixturenames:
+        metafunc.parametrize('procedure_steps', procedure_steps, ids=lambda x: x[0], indirect=True, scope='session')
 
 #region Schemas
 @pytest.fixture(scope='session')
