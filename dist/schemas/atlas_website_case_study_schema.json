@@ -135,7 +135,7 @@
     ],
     "additionalProperties": true,
     "$id": "atlas_website_case_study_schema",
-    "$schema": "static/atlas-data/dist/schemas/atlas_website_case_study_meta_schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "$version": "1.1",
     "title": "ATLAS Website Case Study Schema",
     "definitions": {
