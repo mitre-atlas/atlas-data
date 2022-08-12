@@ -75,6 +75,8 @@ if __name__ == '__main__':
     # https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times
     atlas_case_study_json_schema['properties']['study']['properties']['incident-date']['format'] = 'date'
 
+    atlas_case_study_json_schema['$version'] = 1.1
+
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'
     with open(output_filepath, 'w') as f:
