@@ -1,10 +1,13 @@
 {
-    "description": "Generated on 2022-06-03",
+    "description": "Generated on 2022-08-15",
     "type": "object",
     "properties": {
         "study": {
             "type": "object",
             "properties": {
+                "study-schema-version": {
+                    "type": "number"
+                },
                 "name": {
                     "type": "string"
                 },
@@ -115,6 +118,7 @@
                 }
             },
             "required": [
+                "study-schema-version",
                 "name",
                 "summary",
                 "incident-date",
@@ -136,7 +140,6 @@
     "additionalProperties": true,
     "$id": "atlas_website_case_study_schema",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$version": "1.1",
     "title": "ATLAS Website Case Study Schema",
     "definitions": {
         "id_tactic": {
@@ -155,5 +158,6 @@
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
-    }
+    },
+    "$version": 1.1
 }

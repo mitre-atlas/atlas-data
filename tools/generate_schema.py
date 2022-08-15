@@ -7,7 +7,7 @@ from schema import Optional, Schema
 
 # Local directory
 from schemas.atlas_matrix import atlas_output_schema
-from schemas.atlas_obj import case_study_schema
+from schemas.atlas_obj import case_study_schema, CASE_STUDY_VERSION
 
 """
 Generates JSON Schema Draft-07 files describing ATLAS.yaml and case study files
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     # https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times
     atlas_case_study_json_schema['properties']['study']['properties']['incident-date']['format'] = 'date'
 
-    atlas_case_study_json_schema['$version'] = 1.1
+    atlas_case_study_json_schema['$version'] = CASE_STUDY_VERSION
 
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'
