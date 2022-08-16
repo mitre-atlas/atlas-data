@@ -1,6 +1,5 @@
 ---
 id: AML.CS0000
-study-schema-version: 1.1
 object-type: case-study
 name: Evasion of Deep Learning Detector for Malware C&C Traffic
 summary: 'The Palo Alto Networks Security AI research team tested a deep learning model

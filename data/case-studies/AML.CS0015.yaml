@@ -1,6 +1,5 @@
 ---
 id: AML.CS0015
-study-schema-version: 1.1
 object-type: case-study
 name: Tesla Auto Wiper and Enhanced Autopilot Attack
 summary: Tesla Auto Wipers and Enhanced Autopilot driving mode both make use of computer

@@ -1300,7 +1300,6 @@ matrices:
     - AML.TA0011
 case-studies:
 - id: AML.CS0000
-  study-schema-version: 1.1
   object-type: case-study
   name: Evasion of Deep Learning Detector for Malware C&C Traffic
   summary: 'The Palo Alto Networks Security AI research team tested a deep learning
@@ -1361,7 +1360,6 @@ case-studies:
       for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
     url: https://arxiv.org/abs/1802.03162
 - id: AML.CS0001
-  study-schema-version: 1.1
   name: Botnet Domain Generation Algorithm (DGA) Detection Evasion
   object-type: case-study
   case-study-type: exercise
@@ -1421,7 +1419,6 @@ case-studies:
   - title: Degas source code
     url: https://github.com/matthoffman/degas
 - id: AML.CS0002
-  study-schema-version: 1.1
   object-type: case-study
   name: VirusTotal Poisoning
   summary: McAfee Advanced Threat Research noticed an increase in reports of a certain
@@ -1461,7 +1458,6 @@ case-studies:
   case-study-type: incident
   references: []
 - id: AML.CS0003
-  study-schema-version: 1.1
   object-type: case-study
   name: Bypassing Cylance's AI Malware Detection
   summary: "Researchers at Skylight were able to create a universal bypass string\
@@ -1507,7 +1503,6 @@ case-studies:
   - title: Statement's from Skylight Cyber CEO
     url: https://www.security7.net/news/the-new-cylance-vulnerability-what-you-need-to-know
 - id: AML.CS0004
-  study-schema-version: 1.1
   object-type: case-study
   name: Camera Hijack Attack on Facial Recognition System
   summary: 'This type of camera hijack attack can evade the traditional live facial
@@ -1557,7 +1552,6 @@ case-studies:
   - title: Faces are the next target for fraudsters
     url: https://www.wsj.com/articles/faces-are-the-next-target-for-fraudsters-11625662828
 - id: AML.CS0005
-  study-schema-version: 1.1
   object-type: case-study
   name: Attack on Machine Translation Service - Google Translate, Bing Translator,
     and Systran Translate
@@ -1628,7 +1622,6 @@ case-studies:
   - title: Google under fire for mistranslating Chinese amid Hong Kong protests
     url: https://thehill.com/policy/international/asia-pacific/449164-google-under-fire-for-mistranslating-chinese-amid-hong-kong/
 - id: AML.CS0006
-  study-schema-version: 1.1
   object-type: case-study
   name: ClearviewAI Misconfiguration
   summary: 'Clearview AI makes a facial recognition tool that searches publicly available
@@ -1691,7 +1684,6 @@ case-studies:
       We Know It"
     url: https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html
 - id: AML.CS0007
-  study-schema-version: 1.1
   name: GPT-2 Model Replication
   object-type: case-study
   case-study-type: exercise
@@ -1747,7 +1739,6 @@ case-studies:
   - title: 'Medium BlogPost, "OpenGPT-2: We Replicated GPT-2 Because You Can Too"'
     url: https://blog.usejournal.com/opengpt-2-we-replicated-gpt-2-because-you-can-too-45e34e6d36dc
 - id: AML.CS0008
-  study-schema-version: 1.1
   object-type: case-study
   name: ProofPoint Evasion
   summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how
@@ -1809,7 +1800,6 @@ case-studies:
       and everything offensive security"'
     url: https://www.youtube.com/watch?v=CsvkYoxtexQ&ab_channel=AdrianCrenshaw
 - id: AML.CS0009
-  study-schema-version: 1.1
   object-type: case-study
   name: Tay Poisoning
   summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
@@ -1861,7 +1851,6 @@ case-studies:
       of Online Conversation"
     url: https://spectrum.ieee.org/tech-talk/artificial-intelligence/machine-learning/in-2016-microsofts-racist-chatbot-revealed-the-dangers-of-online-conversation
 - id: AML.CS0010
-  study-schema-version: 1.1
   name: Microsoft Azure Service Disruption
   object-type: case-study
   case-study-type: exercise
@@ -1906,7 +1895,6 @@ case-studies:
       examples and accomplished their goals.
   references: []
 - id: AML.CS0011
-  study-schema-version: 1.1
   name: Microsoft Edge AI Evasion
   object-type: case-study
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
@@ -1955,7 +1943,6 @@ case-studies:
   case-study-type: exercise
   references: []
 - id: AML.CS0012
-  study-schema-version: 1.1
   name: Face Identification System Evasion via Physical Countermeasures
   object-type: case-study
   summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on
@@ -2027,7 +2014,6 @@ case-studies:
   case-study-type: exercise
   references: []
 - id: AML.CS0013
-  study-schema-version: 1.1
   object-type: case-study
   name: Backdoor Attack on Deep Learning Models in Mobile Apps
   summary: 'Deep learning models are increasingly used in mobile applications as critical
@@ -2120,7 +2106,6 @@ case-studies:
       Neural Payload Injection'
     url: https://arxiv.org/abs/2101.06896
 - id: AML.CS0014
-  study-schema-version: 1.1
   object-type: case-study
   name: Confusing Antimalware Neural Networks
   summary: 'Cloud storage and computations have become popular platforms for deploying
@@ -2213,7 +2198,6 @@ case-studies:
       and protection"
     url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
 - id: AML.CS0015
-  study-schema-version: 1.1
   object-type: case-study
   name: Tesla Auto Wiper and Enhanced Autopilot Attack
   summary: Tesla Auto Wipers and Enhanced Autopilot driving mode both make use of
