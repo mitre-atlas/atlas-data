@@ -1,6 +1,5 @@
 ---
 id: AML.CS0005
-study-schema-version: 1.1
 object-type: case-study
 name: Attack on Machine Translation Service - Google Translate, Bing Translator, and
   Systran Translate

@@ -1,6 +1,5 @@
 ---
 id: AML.CS0010
-study-schema-version: 1.1
 name: Microsoft Azure Service Disruption
 object-type: case-study
 case-study-type: exercise

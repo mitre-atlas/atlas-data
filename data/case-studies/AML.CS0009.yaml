@@ -1,6 +1,5 @@
 ---
 id: AML.CS0009
-study-schema-version: 1.1
 object-type: case-study
 name: Tay Poisoning
 summary: Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S.

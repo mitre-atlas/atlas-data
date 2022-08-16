@@ -1,13 +1,10 @@
 {
-    "description": "Generated on 2022-07-29",
+    "description": "Generated on 2022-08-16",
     "type": "object",
     "properties": {
         "study": {
             "type": "object",
             "properties": {
-                "study-schema-version": {
-                    "type": "number"
-                },
                 "name": {
                     "type": "string"
                 },
@@ -118,7 +115,6 @@
                 }
             },
             "required": [
-                "study-schema-version",
                 "name",
                 "summary",
                 "incident-date",
@@ -158,5 +154,6 @@
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
-    }
+    },
+    "$version": "1.1"
 }
