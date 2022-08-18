@@ -53,6 +53,7 @@ subtechnique_schema = Schema(
     as_reference=True
 )
 
+CASE_STUDY_VERSION = '1.1'
 case_study_schema = Schema(
     {
         "id": CASE_STUDY_ID_REGEX_EXACT,
