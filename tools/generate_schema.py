@@ -90,6 +90,27 @@ if __name__ == '__main__':
 
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'
-    with open(output_filepath, 'w') as f:
-        json.dump(atlas_case_study_json_schema, f, indent=4)
-        print(f'Wrote ATLAS case study schema to {output_filepath}')
+    try:
+        with open(output_filepath, 'r') as f:
+            # if len(f.readlines()) != 0:
+            #         f.seek(0)
+            old_schema = json.load(f)
+
+            # print(old_schema)
+            # print("\n")
+
+            old_schema['description'] == f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+
+            # print("OLD", old_schema)
+            # print("\n")
+            # print("NEW", atlas_case_study_json_schema)
+
+        if not (old_schema == atlas_case_study_json_schema):
+            with open(output_filepath, 'w') as f:
+                json.dump(atlas_case_study_json_schema, f, indent=4)
+                print(f'Wrote ATLAS case study schema to {output_filepath}')
+        else:
+            print(f'No changes to ATLAS case study schema')
+    finally:
+        pass
+
