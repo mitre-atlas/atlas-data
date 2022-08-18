@@ -1404,7 +1404,7 @@ case-studies:
   - tactic: AML.TA0001
     technique: AML.T0042
     description: The experiment results show that the detection rate of all 16 botnet
-      DGA familiies drop to less than 25% after only one string is inserted once to
+      DGA families drop to less than 25% after only one string is inserted once to
       the DGA generated domain names.
   - tactic: AML.TA0007
     technique: AML.T0015
@@ -1460,9 +1460,9 @@ case-studies:
 - id: AML.CS0003
   object-type: case-study
   name: Bypassing Cylance's AI Malware Detection
-  summary: "Researchers at Skylight were able to create a universal bypass string\
-    \ that evades detection by Cylance\u2019s AI Malware detector when appended to\
-    \ a malicious file."
+  summary: Researchers at Skylight were able to create a universal bypass string that
+    evades detection by Cylance's AI Malware detector when appended to a malicious
+    file.
   incident-date: 2019-09-07
   incident-date-granularity: DATE
   procedure:
@@ -1802,19 +1802,29 @@ case-studies:
 - id: AML.CS0009
   object-type: case-study
   name: Tay Poisoning
-  summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the
-    U.S. for entertainment purposes. While previous chatbots used pre-programmed scripts
-    to conduct conversation, Tay''s machine learning capabilities allowed it to able
-    to converse about any topic. Within 24 hours of its deployment, however, Tay had
-    to be decommissioned because it tweeted reprehensible words.
+  summary: 'Microsoft created Tay, a Twitter chatbot designed to engage and entertain
+    users.
 
-    Hitler, the inventor of atheism.''\n\nThis behavior quickly led to its decommissioning.\
-    Microsoft issued a public apology  explaining what went wrong and the lessons\
-    they learned from the bot''s failure."
+    While previous chatbots used pre-programmed scripts
 
-    This coordinated attack was instigated by a post on 4chan, an anonymous English-language
-    image board website, that encouraged users to spam Tay with racist, misogynistic,
-    and anti-semitic language. This post provided a link to Tay''s Twitter account.'
+    to respond to prompts, Tay''s machine learning capabilities allowed it to be
+
+    directly influenced by its conversations.
+
+
+    A coordinated attack encouraged malicious users to tweet abusive and offensive
+    language at Tay,
+
+    which eventually led to Tay generating similarly inflammatory content towards
+    other users.
+
+
+    Microsoft decommissioned Tay within 24 hours of its launch and issued a public
+    apology
+
+    with lessons learned from the bot''s failure.
+
+    '
   incident-date: 2016-03-23
   incident-date-granularity: DATE
   procedure:
@@ -1823,7 +1833,7 @@ case-studies:
     description: Adversaries were able to interact with Tay via Twitter messages.
   - tactic: AML.TA0004
     technique: AML.T0010.002
-    description: 'Tay bot used the interactions with its twitter users as training
+    description: 'Tay bot used the interactions with its Twitter users as training
       data to improve its conversations.
 
       Adversaries were able to coordinate with the intent of defacing Tay bot by exploiting
@@ -2200,70 +2210,124 @@ case-studies:
 - id: AML.CS0015
   object-type: case-study
   name: Tesla Auto Wiper and Enhanced Autopilot Attack
-  summary: Tesla Auto Wipers and Enhanced Autopilot driving mode both make use of
-    computer vision machine learning models to determine the vehicle's corresponding
-    functions. These functions can be exploited by physical adversarial machine learning
-    attacks that affect the operation and the safety of the vehicle. While exploits
-    to gain root access to the Tesla firmware had since been patched, the vulnerabilities
-    to the underlying machine learning systems discovered by this research were still
+  summary: 'Tesla Auto Wipers and Enhanced Autopilot driving mode both make use of
+    computer
+
+    vision machine learning models to determine the vehicle''s corresponding functions.
+
+    These functions can be exploited by physical adversarial machine learning attacks
+
+    that affect the operation and the safety of the vehicle. While exploits to gain
+
+    root access to the Tesla firmware had since been patched, the vulnerabilities
+    to
+
+    the underlying machine learning systems discovered by this research were still
     exploitable.
+
+    '
   incident-date: 2019-03-01
   incident-date-granularity: MONTH
   procedure:
   - tactic: AML.TA0004
     technique: AML.T0012
-    description: "By having physical access to their Tesla, the researchers executed\
-      \ a root attack chain to uncover internal processes of data-flow (camera(s),\
-      \ pre-processing, algorithm(s), post-processing,\_hardware, etc.)."
+    description: 'By having physical access to their Tesla, the researchers executed
+      a root attack chain to uncover internal processes
+
+      of data-flow (camera(s), pre-processing, algorithm(s), post-processing, hardware,
+      etc.).
+
+      '
   - tactic: AML.TA0008
     technique: AML.T0013
-    description: "Researchers discovered the neural network architecture of the \u201C\
-      rain classifier\u201D and the corresponding outputs that predict the probability\
-      \ of moisture on the windshield."
+    description: 'Researchers discovered the neural network architecture of the
+
+      "rain classifier" and the corresponding outputs that predict the probability
+
+      of moisture on the windshield.
+
+      '
   - tactic: AML.TA0000
     technique: AML.T0047
-    description: Researchers found that the fish-eye camera is used to capture images
+    description: 'Researchers found that the fish-eye camera is used to capture images
+
       of the windshield and is the main input to the ML model used to control the
       wipers.
+
+      '
   - tactic: AML.TA0000
     technique: AML.T0040
-    description: "Images are fed into a neural network after\_pre-processing and output\
-      \ is a float\_between [0, 1] for probability of moisture.\n\nThe neural network\
-      \ is outlined in `fisheye.prototxt` which was uncovered from remote root attack\
-      \ chain."
+    description: 'Images are fed into a neural network after pre-processing and output
+
+      is a float between [0, 1] for probability of moisture.  The neural network
+
+      is outlined in `fisheye.prototxt` which was uncovered from remote root attack
+
+      chain.
+
+      '
   - tactic: AML.TA0001
     technique: AML.T0043.001
-    description: Experimented with generating digital adversarial examples based on
+    description: 'Experimented with generating digital adversarial examples based
+      on
+
       some optimization with the vehicle in the training loop.
+
+      '
   - tactic: AML.TA0000
     technique: AML.T0041
-    description: A television display with adversarial images can be placed anywhere
+    description: 'A television display with adversarial images can be placed anywhere
+
       that the fisheye sensor can capture images.
+
+      '
   - tactic: AML.TA0001
     technique: AML.T0042
-    description: Experimented with Salt and Pepper noise (gray and RGB) and Worley
-      noise for procedural textures to create effective physical adversarial patches
-      that are streamed onto the television display.
+    description: 'Experimented with Salt and Pepper noise (gray and RGB) and Worley
+      noise
+
+      for procedural textures to create effective physical adversarial patches that
+
+      are streamed onto the television display.
+
+      '
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: Using most of the same techniques as above, researchers were able
-      to get the Tesla autopilot to drive into the opposite lane by hallucinating
-      a fake lane. Details in the research report are sparse.
+    description: 'Using most of the same techniques as above, researchers were able
+      to
+
+      get the Tesla autopilot to drive into the opposite lane by hallucinating a fake
+
+      lane. Details in the research report are sparse.
+
+      '
   - tactic: AML.TA0001
     technique: AML.T0043.001
-    description: Using most of the same techniques as above to gain access to the
-      Tesla, researchers generated additional digital adversarial examples to cause
-      the Tesla Enhanced Autopilot system to hallucinate fake lanes.
+    description: 'Using most of the same techniques as above to gain access to the
+      Tesla,
+
+      researchers generated additional digital adversarial examples to cause the Tesla
+
+      Enhanced Autopilot system to hallucinate fake lanes.
+
+      '
   - tactic: AML.TA0001
     technique: AML.T0042
-    description: Researchers verified the effectiveness of the adversarial attacks
-      by placing small white squares as triggers in the road to cause the Tesla to
-      hallucinate lanes. Details in the research report are sparse on this specific
-      attack.
+    description: 'Researchers verified the effectiveness of the adversarial attacks
+      by
+
+      placing small white squares as triggers in the road to cause the Tesla to hallucinate
+
+      lanes. Details in the research report are sparse on this specific attack.
+
+      '
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: Researchers were able to get the Tesla autopilot to drive into the
+    description: 'Researchers were able to get the Tesla autopilot to drive into the
+
       opposite lane by hallucinating a fake lane.
+
+      '
   actor: Tencent Keen Security Lab
   target: Tesla Auto Wiper and Enhanced Autopilot
   case-study-type: exercise
