@@ -11,7 +11,7 @@ summary: |
   A coordinated attack encouraged malicious users to tweet abusive and offensive language at Tay,
   which eventually led to Tay generating similarly inflammatory content towards other users.
 
-  Microsoft decomissioned Tay within 24 hours of its launch and issued a public apology
+  Microsoft decommissioned Tay within 24 hours of its launch and issued a public apology
   with lessons learned from the bot's failure.
 incident-date: 2016-03-23
 incident-date-granularity: DATE
