@@ -26,6 +26,25 @@ def set_optional_keys(schema_obj, keys):
         # Remove existing required key
         del schema_obj._schema[key]
 
+ 
+def update_json_file(output_filepath, new_json, data_name):
+    # Take current (old) contents of file and replace the date with the current date
+    old_contents = {}
+    try:
+        with open(output_filepath, 'r') as f:
+            old_contents = json.load(f)
+            old_contents['description'] = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+    except:
+        pass
+
+    # If old and new contents (with the replaced date) have different contents, significant changes have been made so update the file
+    if not (old_contents == new_json):
+        with open(output_filepath, 'w') as f:
+            json.dump(new_json, f, indent=4)
+            print(f'Wrote {data_name} to {output_filepath}')
+    else:
+        print(f'No changes to {data_name}')
+
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("--output", "-o", type=str, default="dist/schemas", help="Output directory")
@@ -38,9 +57,7 @@ if __name__ == '__main__':
     # Overall ATLAS YAML
     atlas_json_schema = atlas_output_schema.json_schema('atlas_output_schema')
     output_filepath = output_dir / 'atlas_output_schema.json'
-    with open(output_filepath, 'w') as f:
-        json.dump(atlas_json_schema, f, indent=4)
-        print(f'Wrote ATLAS.yaml schema to {output_filepath}')
+    update_json_file(output_filepath, atlas_json_schema, 'ATLAS.yaml schema')
 
     # ATLAS website case study
 
@@ -90,27 +107,4 @@ if __name__ == '__main__':
 
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'
-    try:
-        with open(output_filepath, 'r') as f:
-            # if len(f.readlines()) != 0:
-            #         f.seek(0)
-            old_schema = json.load(f)
-
-            # print(old_schema)
-            # print("\n")
-
-            old_schema['description'] == f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
-
-            # print("OLD", old_schema)
-            # print("\n")
-            # print("NEW", atlas_case_study_json_schema)
-
-        if not (old_schema == atlas_case_study_json_schema):
-            with open(output_filepath, 'w') as f:
-                json.dump(atlas_case_study_json_schema, f, indent=4)
-                print(f'Wrote ATLAS case study schema to {output_filepath}')
-        else:
-            print(f'No changes to ATLAS case study schema')
-    finally:
-        pass
-
+    update_json_file(output_filepath, atlas_case_study_json_schema, 'ATLAS case study schema')
