@@ -2,20 +2,17 @@
 id: AML.CS0009
 object-type: case-study
 name: Tay Poisoning
-summary: Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S.
-  for entertainment purposes. While previous chatbots used pre-programmed scripts
-  to conduct conversation, Tay's machine learning capabilities allowed it to able
-  to converse about any topic. Within 24 hours of its deployment, however, Tay had
-  to be decommissioned because it tweeted reprehensible words.
+summary: |
+  Microsoft created Tay, a Twitter chatbot designed to engage and entertain users.
+  While previous chatbots used pre-programmed scripts
+  to respond to prompts, Tay's machine learning capabilities allowed it to be
+  directly influenced by its conversations.
 
-  Hitler, the inventor of atheism.'\n\nThis behavior quickly led to its decommissioning.\
-  Microsoft issued a public apology  explaining what went wrong and the lessons\
-  they learned from the bot's failure."
+  A coordinated attack encouraged malicious users to tweet abusive and offensive language at Tay,
+  which eventually led to Tay generating similarly inflammatory content towards other users.
 
-  This coordinated attack was instigated by a post on 4chan,
-  an anonymous English-language image board website, that encouraged users to spam
-  Tay with racist, misogynistic, and anti-semitic language. This post provided a
-  link to Tay's Twitter account.
+  Microsoft decomissioned Tay within 24 hours of its launch and issued a public apology
+  with lessons learned from the bot's failure.
 incident-date: 2016-03-23
 incident-date-granularity: DATE
 procedure:
@@ -24,7 +21,7 @@ procedure:
   description: Adversaries were able to interact with Tay via Twitter messages.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_data.id}}'
-  description: 'Tay bot used the interactions with its twitter users as training data
+  description: 'Tay bot used the interactions with its Twitter users as training data
     to improve its conversations.
 
     Adversaries were able to coordinate with the intent of defacing Tay bot by exploiting
