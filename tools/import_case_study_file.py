@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 from functools import partial
 from pathlib import Path
 import re
-import sys
+# import sys
 
 import yaml
 
@@ -60,13 +60,8 @@ def main():
 
             # Check if version in metadata is up to date
             meta = data['meta']
-            try:
-                meta['version']
-                if meta['version'] != CASE_STUDY_VERSION:
-                    raise KeyError
-            except KeyError as error:
-                print('Your case study is out of date. The current schema version is v1.1.')
-                sys.exit(1)
+            if 'version' not in meta or meta['version'] != CASE_STUDY_VERSION:
+                raise Exception('Your case study is out of date. The current schema version is v'+ CASE_STUDY_VERSION + '.')
 
             # Case study file data is held in 'study' key
             case_study = data['study']
