@@ -34,6 +34,8 @@ def update_json_file(output_filepath, new_json, data_name):
         with open(output_filepath, 'r') as f:
             old_contents = json.load(f)
             old_contents['description'] = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+            # The atlas_website_case_study_schema doesn't have these keys
+            # if this fails, it goes to the except, then keeps going without issue
             old_contents['matrices']['items']['description'] = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
     except:
         pass
