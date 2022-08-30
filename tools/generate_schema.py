@@ -80,12 +80,12 @@ if __name__ == '__main__':
         if 'replaced-by' in dep:
             atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
                 'deprecated': 'true',
-                'depMessage': dep['field'] + ' deprecated as of version '+ dep['version'] + "; replaced by " + dep['replaced-by']
+                'depMessage': '`' + dep['field'] + '`' + ' deprecated as of version '+ dep['version'] + "; replaced by " + '`'+ dep['replaced-by'] + '`'
             }
         else:
             atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
                 'deprecated': 'true',
-                'depMessage': dep['field'] + ' deprecated as of version '+ dep['version'] + "; field removed"
+                'depMessage': '`' + dep['field'] + '`' + ' deprecated as of version '+ dep['version'] + "; field removed"
             }
 
     atlas_case_study_json_schema['$version'] = CASE_STUDY_VERSION

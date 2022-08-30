@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-08-29",
+    "description": "Generated on 2022-08-30",
     "type": "object",
     "properties": {
         "study": {
@@ -115,15 +115,15 @@
                 },
                 "reported-by": {
                     "deprecated": "true",
-                    "depMessage": "reported-by deprecated as of version 1.1; replaced by reporter"
+                    "depMessage": "`reported-by` deprecated as of version 1.1; replaced by `reporter`"
                 },
                 "test": {
                     "deprecated": "true",
-                    "depMessage": "test deprecated as of version 1.0; field removed"
+                    "depMessage": "`test` deprecated as of version 1.0; field removed"
                 },
                 "fake": {
                     "deprecated": "true",
-                    "depMessage": "fake deprecated as of version 1.0; field removed"
+                    "depMessage": "`fake` deprecated as of version 1.0; field removed"
                 }
             },
             "required": [
