@@ -7,7 +7,7 @@ from schema import Optional, Schema
 
 # Local directory
 from schemas.atlas_matrix import atlas_output_schema
-from schemas.atlas_obj import case_study_schema, CASE_STUDY_VERSION
+from schemas.dummy_schema import case_study_schema, CASE_STUDY_VERSION
 
 """
 Generates JSON Schema Draft-07 files describing ATLAS.yaml and case study files
@@ -68,17 +68,30 @@ if __name__ == '__main__':
         description=description)
 
     # Convert to JSON Schema
-    atlas_case_study_json_schema = standalone_case_study_schema.json_schema('atlas_website_case_study_schema')
+    atlas_case_study_json_schema = standalone_case_study_schema.json_schema('dummy_website_case_study_schema')
 
     # Manipulate JSON to ensure incident date is a date of format YYYY-MM-DD
     # Currently schema library does not output a string format
     # https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times
     atlas_case_study_json_schema['properties']['study']['properties']['incident-date']['format'] = 'date'
+    with open('dist/schemas/deprecated.json', 'r') as f:
+        deprecated = json.load(f)
+    for dep in deprecated:
+        if 'replaced-by' in dep:
+            atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
+                'deprecated': 'true',
+                'depMessage': dep['field'] + ' deprecated as of version '+ dep['version'] + "; replaced by " + dep['replaced-by']
+            }
+        else:
+            atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
+                'deprecated': 'true',
+                'depMessage': dep['field'] + ' deprecated as of version '+ dep['version'] + "; field removed"
+            }
 
     atlas_case_study_json_schema['$version'] = CASE_STUDY_VERSION
 
     # Output schema to file
-    output_filepath = output_dir / 'atlas_website_case_study_schema.json'
+    output_filepath = output_dir / 'dummy_website_case_study_schema.json'
     with open(output_filepath, 'w') as f:
         json.dump(atlas_case_study_json_schema, f, indent=4)
         print(f'Wrote ATLAS case study schema to {output_filepath}')
