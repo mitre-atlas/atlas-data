@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-08-16",
+    "description": "Generated on 2022-08-31",
     "type": "object",
     "properties": {
         "study": {
@@ -112,6 +112,10 @@
                 },
                 "object-type": {
                     "const": "case-study"
+                },
+                "reported-by": {
+                    "deprecated": "true",
+                    "depMessage": "`reported-by` deprecated as of version 1.1; replaced by `reporter`"
                 }
             },
             "required": [
