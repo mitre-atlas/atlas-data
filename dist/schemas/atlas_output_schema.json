@@ -24,7 +24,6 @@
         "matrices": {
             "type": "array",
             "items": {
-                "description": "Generated on 2022-05-26",
                 "type": "object",
                 "properties": {
                     "id": {
