@@ -2,7 +2,6 @@ from argparse import ArgumentParser
 from functools import partial
 from pathlib import Path
 import re
-# import sys
 
 import yaml
 
@@ -179,7 +178,7 @@ def replace_id(id2anchor, match):
             return '{{' + id2anchor[atlas_id] + '.id}}'
         # Return ID as is if not found in id2anchor
         return atlas_id
-    
+
     return None
 
 def replace_link(id2anchor, match):
