@@ -74,19 +74,17 @@ if __name__ == '__main__':
     # Currently schema library does not output a string format
     # https://json-schema.org/understanding-json-schema/reference/string.html#dates-and-times
     atlas_case_study_json_schema['properties']['study']['properties']['incident-date']['format'] = 'date'
-    with open('dist/schemas/deprecated.json', 'r') as f:
+    with open('schemas/case_study_deprecated_fields.json', 'r') as f:
         deprecated = json.load(f)
-    for dep in deprecated:
-        if 'replaced-by' in dep:
+        for dep in deprecated:
             atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
                 'deprecated': 'true',
-                'depMessage': '`' + dep['field'] + '`' + ' deprecated as of version '+ dep['version'] + "; replaced by " + '`'+ dep['replaced-by'] + '`'
+                'depMessage': '`' + dep['field'] + '`' + ' deprecated as of version '+ dep['version']
             }
-        else:
-            atlas_case_study_json_schema['properties']['study']['properties'][dep['field']] = {
-                'deprecated': 'true',
-                'depMessage': '`' + dep['field'] + '`' + ' deprecated as of version '+ dep['version'] + "; field removed"
-            }
+            if 'replaced-by' in dep:
+                atlas_case_study_json_schema['properties']['study']['properties'][dep['field']]['depMessage'] += '; replaced by ' + '`'+ dep['replaced-by'] + '`'
+            else:
+                atlas_case_study_json_schema['properties']['study']['properties'][dep['field']]['depMessage'] += '; field removed'
 
     atlas_case_study_json_schema['$version'] = CASE_STUDY_VERSION
 
