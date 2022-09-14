@@ -2,47 +2,39 @@
 id: AML.CS0010
 name: Microsoft Azure Service Disruption
 object-type: case-study
-summary: The Azure Red Team and Azure Trustworthy ML team performed a red team exercise
+case-study-type: exercise
+actor: Microsoft AI Red Team
+target: Internal Microsoft Azure Service
+summary: The Microsoft AI Red Team performed a red team exercise
   on an internal Azure service with the intention of disrupting its service. This
   operation had a combination of traditional ATT&CK enterprise techniques such as
-  finding Valid account, and Executing code via an API -- all interleaved with adversarial
+  finding valid account, and exfiltrating data -- all interleaved with adversarial
   ML specific steps such as offline and online evasion examples.
 incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
 - tactic: '{{reconnaissance.id}}'
   technique: '{{victim_research.id}}'
-  description: 'The team first performed reconnaissance to gather information about
-    the target ML model.
-
-    '
+  description: The team first performed reconnaissance to gather information about the target ML model.
 - tactic: '{{initial_access.id}}'
   technique: '{{valid_accounts.id}}'
-  description: 'The team used a valid account to gain access to the network.
-
-    '
+  description: The team used a valid account to gain access to the network.
 - tactic: '{{collection.id}}'
   technique: '{{ml_artifact_collection.id}}'
-  description: 'The team found the model file of the target ML model and the necessary
-    training data.
-
-    '
+  description: The team found the model file of the target ML model and the necessary training data.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfiltrate_via_cyber.id}}'
+  description: The team exfiltrated the model and data via traditional means.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_whitebox.id}}'
-  description: 'Using the target model and data, the red team crafted evasive adversarial
-    data.
-
-    '
+  description: Using the target model and data, the red team crafted evasive adversarial data in an offline manor.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{inference_api.id}}'
-  description: 'The team used an exposed API to access the target model.
-
-    '
+  description: The team used an exposed API to access the target model.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{verify_attack.id}}'
+  description: The team submitted the adversarial examples to the API to verify their efficacy on the production system.
 - tactic: '{{impact.id}}'
   technique: '{{evade_model.id}}'
-  description: 'The team performed an online evasion attack by replaying the adversarial
-    examples, which helped achieve this goal.
-
-    '
-reported-by: Microsoft (Azure Trustworthy Machine Learning)
+  description: The team performed an online evasion attack by replaying the adversarial examples and accomplished their goals.
 references: []

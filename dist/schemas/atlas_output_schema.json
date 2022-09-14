@@ -1,5 +1,5 @@
 {
-    "description": "Generated on 2022-05-26",
+    "description": "Generated on 2022-08-31",
     "type": "object",
     "properties": {
         "id": {
@@ -229,8 +229,20 @@
                         "additionalProperties": false
                     }
                 },
-                "reported-by": {
+                "reporter": {
                     "type": "string"
+                },
+                "target": {
+                    "type": "string"
+                },
+                "actor": {
+                    "type": "string"
+                },
+                "case-study-type": {
+                    "enum": [
+                        "incident",
+                        "exercise"
+                    ]
                 },
                 "references": {
                     "anyOf": [
@@ -280,8 +292,7 @@
                 "summary",
                 "incident-date",
                 "incident-date-granularity",
-                "procedure",
-                "reported-by"
+                "procedure"
             ],
             "additionalProperties": false
         },

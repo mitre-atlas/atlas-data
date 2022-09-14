@@ -1,8 +1,13 @@
 ---
 id: AML.CS0006
-name: ClearviewAI Misconfiguration
 object-type: case-study
-summary: 'Clearview AI''s source code repository, though password protected, was misconfigured
+name: ClearviewAI Misconfiguration
+summary: 'Clearview AI makes a facial recognition tool that searches publicly available
+  photos for matches.  This tool has been used for investigative purposes by law enforcement
+  agencies and other parties.
+
+
+  Clearview AI''s source code repository, though password protected, was misconfigured
   to allow an arbitrary user to register an account.
 
   This allowed an external researcher to gain access to a private code repository
@@ -14,21 +19,45 @@ summary: 'Clearview AI''s source code repository, though password protected, was
 
   These kinds of attacks illustrate that any attempt to secure ML system should be
   on top of "traditional" good cybersecurity hygiene such as locking down the system
-  with least privileges, multi-factor authentication and monitoring and auditing.
-
-  '
+  with least privileges, multi-factor authentication and monitoring and auditing.'
 incident-date: 2020-04-16
-incident-date-granularity: DATE
+incident-date-granularity: MONTH
 procedure:
-- tactic: '{{initial_access.id}}'
-  technique: '{{valid_accounts.id}}'
-  description: 'In this scenario, a security researcher gained initial access to via
-    a valid account that was created through a misconfiguration.
+- tactic: '{{resource_development.id}}'
+  technique: '{{establish_accounts.id}}'
+  description: A security researcher gained initial access to Clearview AI's private
+    code repository via a misconfigured server setting that allowed an arbitrary user
+    to register a valid account.
+- tactic: '{{collection.id}}'
+  technique: '{{info_repos.id}}'
+  description: 'The private code repository contained credentials which were used
+    to access AWS S3 cloud storage buckets, leading to the discovery of assets for
+    the facial recognition tool, including:
 
-    '
-reported-by: Mossab Hussein (@mossab_hussein)
+    - Released desktop and mobile applications
+
+    - Pre-release applications featuring new capabilities
+
+    - Slack access tokens
+
+    - Raw videos and other data'
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts.id}}'
+  description: Adversaries could have downloaded training data and gleaned details
+    about software, models, and capabilities from the source code and decompiled application
+    binaries.
+- tactic: '{{impact.id}}'
+  technique: '{{erode_integrity.id}}'
+  description: As a result, future application releases could have been compromised,
+    causing degraded or malicious facial recognition capabilities.
+actor: Researchers at spiderSilk
+target: Clearview AI facial recognition tool
+case-study-type: incident
 references:
 - title: TechCrunch Article, "Security lapse exposed Clearview AI source code"
-  url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/amp/
+  url: https://techcrunch.com/2020/04/16/clearview-source-code-lapse/
 - title: Gizmodo Article, "We Found Clearview AI's Shady Face Recognition App"
   url: https://gizmodo.com/we-found-clearview-ais-shady-face-recognition-app-1841961772
+- title: New York Times Article, "The Secretive Company That Might End Privacy as
+    We Know It"
+  url: https://www.nytimes.com/2020/01/18/technology/clearview-privacy-facial-recognition.html

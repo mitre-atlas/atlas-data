@@ -1,47 +1,47 @@
 ---
 id: AML.CS0009
-name: Tay Poisoning
 object-type: case-study
-summary: 'Microsoft created Tay, a twitter chatbot for 18 to 24 year-olds in the U.S.
-  for entertainment purposes.
+name: Tay Poisoning
+summary: |
+  Microsoft created Tay, a Twitter chatbot designed to engage and entertain users.
+  While previous chatbots used pre-programmed scripts
+  to respond to prompts, Tay's machine learning capabilities allowed it to be
+  directly influenced by its conversations.
 
-  Within 24 hours of its deployment, Tay had to be decommissioned because it tweeted
-  reprehensible words.
+  A coordinated attack encouraged malicious users to tweet abusive and offensive language at Tay,
+  which eventually led to Tay generating similarly inflammatory content towards other users.
 
-  '
+  Microsoft decommissioned Tay within 24 hours of its launch and issued a public apology
+  with lessons learned from the bot's failure.
 incident-date: 2016-03-23
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{ml_model_access.id}}'
-  technique: '{{inference_api.id}}'
-  description: 'Adversaries were able to interact with Tay via a few different publicly
-    available methods.
-
-    '
+  technique: '{{ml_service.id}}'
+  description: Adversaries were able to interact with Tay via Twitter messages.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_data.id}}'
-  description: 'Tay bot used the interactions with its twitter users as training data
+  description: 'Tay bot used the interactions with its Twitter users as training data
     to improve its conversations.
 
     Adversaries were able to coordinate with the intent of defacing Tay bot by exploiting
-    this feedback loop.
-
-    '
+    this feedback loop.'
 - tactic: '{{persistence.id}}'
   technique: '{{poison_data.id}}'
-  description: 'By repeatedly interacting with Tay using racist and offensive language,
-    they were able to bias Tay''s dataset towards that language as well.
-
-    '
+  description: By repeatedly interacting with Tay using racist and offensive language,
+    they were able to bias Tay's dataset towards that language as well. This was done
+    by adversaries using the "repeat after me" function, a command that forced Tay
+    to repeat anything said to it.
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
-  description: 'As a result of this coordinated attack, Tay''s conversation algorithms
-    began to learn to generate reprehensible material.
-
-    This quickly lead to its decommissioning.
-
-    '
-reported-by: Microsoft
+  description: As a result of this coordinated attack, Tay's conversation algorithms
+    began to learn to generate reprehensible material. Tay's internalization of
+    this detestable language caused it to be unpromptedly repeated during interactions
+    with innocent users.
+reporter: Microsoft
+target: Microsoft's Tay AI Chatbot
+actor: 4chan Users
+case-study-type: incident
 references:
 - title: Microsoft BlogPost, "Learning from Tay's introduction"
   url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/

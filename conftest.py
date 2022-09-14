@@ -83,6 +83,19 @@ def technique_id_to_tactic_ids(request):
 
 #endregion
 
+def add_label_entries(collection, obj, keys):
+    """
+    Adds a tuple of (label, value) to the specified list,
+    which identifies key-values of the object.
+    """
+    for key in keys:
+        if key in obj:
+            # Ex. "AML.CS0000 Name"
+            label = f"{obj['id']} {key.capitalize()}"
+            value = obj[key]
+            entry = (label, value)
+            collection.append(entry)
+
 def pytest_generate_tests(metafunc):
     """Enables test functions that use the above fixtures to operate on a
     single dictionary, where each test function is automatically run once
@@ -164,6 +177,15 @@ def pytest_generate_tests(metafunc):
         if key in data:
             values.extend(data[key])
 
+        # Keys expected to be text strings in case study objects
+        # Used for spellcheck purposes
+        text_cs_keys = [
+            'name',
+            'summary',
+            'reporter',
+            'actor',
+            'target'
+        ]
         # Collect technique objects
         if 'technique_id_to_tactic_ids' in metafunc.fixturenames and key == 'techniques':
             technique_id_to_tactic_ids = {obj['id']: obj['tactics'] for obj in values if 'subtechnique-of' not in obj}
@@ -174,17 +196,14 @@ def pytest_generate_tests(metafunc):
         if key == 'case-studies':
 
             for cs in values:
-
-                cs_id = cs['id']
-
-                text_to_be_spellchecked.append((f"{cs_id} Name", cs['name']))
-                text_to_be_spellchecked.append((f"{cs_id} Summary", cs['summary']))
+                # Add each of the specified keys defined above to spellcheck list
+                add_label_entries(text_to_be_spellchecked, cs, text_cs_keys)
 
                 # Process each procedure step
                 for i, step in enumerate(cs['procedure']):
 
                     # Example tuple is of the form (AML.CS0000 Procedure #3, <procedure step description>)
-                    step_id = f'{cs_id} Procedure #{i+1}'
+                    step_id = f"{cs['id']} Procedure #{i+1}"
 
                     # Track the step itself
                     procedure_steps.append((step_id, step))
