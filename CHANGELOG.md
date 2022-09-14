@@ -1,5 +1,23 @@
 # ATLAS Data Changelog
 
+## [4.1.0]() (2022-08-08)
+
+Support for new case study fields: case study type, reporter, target, and actor
+
+#### Tests
+- Added test for mismatched tactics and techniques in case study procedure steps
+
+#### Case studies
+- Added new case study, AML.CS0015
+
+## [4.0.1]() (2022-07-12)
+
+#### Tools
+- Output script checks for valid YAML file formats
+
+#### Tests
+- Added test for duplicate data object IDs
+
 ## [4.0.0]() (2022-05-27)
 
 Support for defining multiple matrices
