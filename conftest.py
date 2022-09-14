@@ -203,7 +203,7 @@ def pytest_generate_tests(metafunc):
                 for i, step in enumerate(cs['procedure']):
 
                     # Example tuple is of the form (AML.CS0000 Procedure #3, <procedure step description>)
-                    step_id = f'{cs_id} Procedure #{i+1}'
+                    step_id = f"{cs['id']} Procedure #{i+1}"
 
                     # Track the step itself
                     procedure_steps.append((step_id, step))
