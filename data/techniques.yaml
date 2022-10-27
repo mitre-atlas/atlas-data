@@ -511,6 +511,7 @@
     This technique can be used to evade a downstream task where machine learning is utilized.
     The adversary may evade machine learning based virus/malware detection, or network scanning towards the goal of a traditional cyber attack.
   tactics:
+    - "{{initial_access.id}}"
     - "{{defense_evasion.id}}"
     - "{{impact.id}}"
 
@@ -762,5 +763,14 @@
 
     MLaaS providers charge for use of their API.
     An adversary who has stolen a model via [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or via [{{extract_model.name}}](/techniques/{{extract_model.id}}) now has unlimited use of that service without paying the owner of the intellectual property.
+  tactics:
+    - "{{impact.id}}"
+
+- &sys_misuse
+  id: AML.T0048
+  name: System Misuse for External Effect
+  object-type: technique
+  description: |
+      Adversaries may abuse their access to a system to use its resources or capabilities to further their goals by causing effects outside of the victim system.
   tactics:
     - "{{impact.id}}"

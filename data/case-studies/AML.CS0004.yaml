@@ -27,9 +27,12 @@ procedure:
   technique: '{{ml_service.id}}'
   description: The attackers used the virtual camera app to present the generated
     video to the ML-based facial recognition service used for user verification.
-- tactic: '{{impact.id}}'
+- tactic: '{{initial_access.id}}'
   technique: '{{evade_model.id}}'
   description: The attackers successfully evaded the face recognition system. This allowed the attackers to impersonate the victim and verify their their identity in the tax system.
+- tactic: '{{impact.id}}'
+  technique: '{{sys_misuse.id}}'
+  description: The attackers used their privileged access to the tax system to send invoices to supposed clients and further their fraud scheme.
 reporter: Ant Group AISEC Team
 actor: Two individuals
 target: Shanghai government tax office's facial recognition service
