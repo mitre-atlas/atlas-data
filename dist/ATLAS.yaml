@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.0.0
+version: 4.1.0
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
@@ -88,7 +88,7 @@ matrices:
   - id: AML.TA0005
     name: Execution
     object-type: tactic
-    description: 'he adversary is trying to run malicious code embedded in machine
+    description: 'The adversary is trying to run malicious code embedded in machine
       learning artifacts or software.
 
 

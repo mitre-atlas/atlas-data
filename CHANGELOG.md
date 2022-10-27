@@ -1,14 +1,20 @@
 # ATLAS Data Changelog
 
-## [4.1.0]() (2022-08-08)
+## [4.1.0]() (2022-10-27)
 
-Support for new case study fields: case study type, reporter, target, and actor
+Refreshed existing case studies
+
+#### Tactics and techniques
+- Added a ATLAS technique
+    + System Misuse for External Effect
+- Updated descriptions
+
+#### Case studies
+- Updated existing case study content
+- New case study fields: case study type (exercise or incident), actor, target, and reporter
 
 #### Tests
 - Added test for mismatched tactics and techniques in case study procedure steps
-
-#### Case studies
-- Added new case study, AML.CS0015
 
 ## [4.0.1]() (2022-07-12)
 
