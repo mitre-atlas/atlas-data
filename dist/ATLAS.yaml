@@ -9,9 +9,8 @@ matrices:
   - id: AML.TA0002
     name: Reconnaissance
     object-type: tactic
-    description: 'The adversary is trying to gather information they can use to plan
-
-      future operations.
+    description: 'The adversary is trying to gather information about the machine
+      learning system they can use to plan future operations.
 
 
       Reconnaissance consists of techniques that involve adversaries actively or passively
@@ -48,8 +47,7 @@ matrices:
   - id: AML.TA0004
     name: Initial Access
     object-type: tactic
-    description: 'The adversary is trying to gain access to the system containing
-      machine learning artifacts.
+    description: 'The adversary is trying to gain access to the machine learning system.
 
 
       The target system could be a network, mobile device, or an edge device such
@@ -66,13 +64,13 @@ matrices:
   - id: AML.TA0000
     name: ML Model Access
     object-type: tactic
-    description: 'An adversary is attempting to gain some level of access to a machine
+    description: 'The adversary is attempting to gain some level of access to a machine
       learning model.
 
 
-      ML Model Access consists of techniques that use various types of access to the
-      machine learning model that can be used by the adversary to gain information,
-      develop attacks, and as a means to input data to the model.
+      ML Model Access enables techniques that use various types of access to the machine
+      learning model that can be used by the adversary to gain information, develop
+      attacks, and as a means to input data to the model.
 
       The level of access can range from the full knowledge of the internals of the
       model to access to the physical environment where data is collected for use
@@ -81,11 +79,17 @@ matrices:
       The adversary may use varying levels of model access during the course of their
       attack, from staging the attack to impacting the target system.
 
+
+      Access to an ML model may require access to the system housing the model, the
+      model may be publically accessible via an API, or it may be accessed indirectly
+      via interaction with a product or service that utilizes ML as part of its processes.
+
       '
   - id: AML.TA0005
     name: Execution
     object-type: tactic
-    description: 'The adversary is trying to run malicious code.
+    description: 'he adversary is trying to run malicious code embedded in machine
+      learning artifacts or software.
 
 
       Execution consists of techniques that result in adversary-controlled code running
@@ -102,7 +106,8 @@ matrices:
   - id: AML.TA0006
     name: Persistence
     object-type: tactic
-    description: 'The adversary is trying to maintain their foothold.
+    description: 'The adversary is trying to maintain their foothold via machine learning
+      artifacts or software.
 
 
       Persistence consists of techniques that adversaries use to keep access to systems
@@ -116,7 +121,8 @@ matrices:
   - id: AML.TA0007
     name: Defense Evasion
     object-type: tactic
-    description: 'The adversary is trying to avoid being detected by security software.
+    description: 'The adversary is trying to avoid being detected by machine learning
+      enabled security software.
 
 
       Defense Evasion consists of techniques that adversaries use to avoid detection
@@ -129,7 +135,7 @@ matrices:
   - id: AML.TA0008
     name: Discovery
     object-type: tactic
-    description: 'The adversary is trying to figure out your environment.
+    description: 'The adversary is trying to figure out your machine learning environment.
 
 
       Discovery consists of techniques an adversary may use to gain knowledge about
@@ -148,8 +154,8 @@ matrices:
   - id: AML.TA0009
     name: Collection
     object-type: tactic
-    description: 'The adversary is trying to gather ML artifacts and other related
-      information relevant to their goal.
+    description: 'The adversary is trying to gather machine learning artifacts and
+      other related information relevant to their goal.
 
 
       Collection consists of techniques adversaries may use to gather information
@@ -166,7 +172,7 @@ matrices:
   - id: AML.TA0001
     name: ML Attack Staging
     object-type: tactic
-    description: 'An adversary is leveraging their knowledge of and access to the
+    description: 'The adversary is leveraging their knowledge of and access to the
       target system to tailor the attack.
 
 
@@ -185,7 +191,8 @@ matrices:
   - id: AML.TA0010
     name: Exfiltration
     object-type: tactic
-    description: 'The adversary is trying to steal machine learning artifacts.
+    description: 'The adversary is trying to steal machine learning artifacts or other
+      information about the machine learning system.
 
 
       Exfiltration consists of techniques that adversaries may use to steal data from
@@ -204,7 +211,7 @@ matrices:
     name: Impact
     object-type: tactic
     description: 'The adversary is trying to manipulate, interrupt, erode confidence
-      in, or destroy your systems and data.
+      in, or destroy your machine learning systems and data.
 
 
       Impact consists of techniques that adversaries use to disrupt availability or
@@ -928,6 +935,7 @@ matrices:
 
       '
     tactics:
+    - AML.TA0004
     - AML.TA0007
     - AML.TA0011
   - id: AML.T0018
@@ -1298,6 +1306,16 @@ matrices:
       '
     tactics:
     - AML.TA0011
+  - id: AML.T0048
+    name: System Misuse for External Effect
+    object-type: technique
+    description: 'Adversaries may abuse their access to a system to use its resources
+      or capabilities to further their goals by causing effects outside of the victim
+      system.
+
+      '
+    tactics:
+    - AML.TA0011
 case-studies:
 - id: AML.CS0000
   object-type: case-study
@@ -1539,11 +1557,15 @@ case-studies:
     technique: AML.T0047
     description: The attackers used the virtual camera app to present the generated
       video to the ML-based facial recognition service used for user verification.
-  - tactic: AML.TA0011
+  - tactic: AML.TA0004
     technique: AML.T0015
     description: The attackers successfully evaded the face recognition system. This
       allowed the attackers to impersonate the victim and verify their their identity
       in the tax system.
+  - tactic: AML.TA0011
+    technique: AML.T0048
+    description: The attackers used their privileged access to the tax system to send
+      invoices to supposed clients and further their fraud scheme.
   reporter: Ant Group AISEC Team
   actor: Two individuals
   target: Shanghai government tax office's facial recognition service
@@ -1752,29 +1774,35 @@ case-studies:
   incident-date: 2019-09-09
   incident-date-granularity: DATE
   procedure:
-  - tactic: AML.TA0003
-    technique: AML.T0002
+  - tactic: AML.TA0000
+    technique: AML.T0047
     description: The researchers first gathered the scores from the Proofpoint's ML
       system used in email headers by sending a large number of emails through the
       system and scraping the model scores exposed in the logs.
-  - tactic: AML.TA0003
-    technique: AML.T0002.000
-    description: The researchers converted the collected scores into a dataset. Basic
-      correlation was used to decide which score variable speaks generally about the
-      security of an email. The "mlxlogscore" was selected in this case due to its
-      relationship with spam, phish, and core mlx.
   - tactic: AML.TA0001
-    technique: AML.T0005
-    description: Using these scores, the researchers replicated the ML model by building
-      a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
+    technique: AML.T0005.001
+    description: 'The researchers converted the collected scores into a dataset, which
+      they used to train a functional copy of the ProofPoint model.
+
+
+      Basic correlation was used to decide which score variable speaks generally about
+      the security of an email.
+
+      The "mlxlogscore" was selected in this case due to its relationship with spam,
+      phish, and core mlx and was used as the label.
+
       Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
+
       Training was performed using an Artificial Neural Network (ANN) and Bag of Words
+
       tokenizing.
+
+      '
   - tactic: AML.TA0001
     technique: AML.T0043.002
     description: 'Next, the ML researchers algorithmically found samples from this
-      "offline" copy-cat model that helped give desired insight into its behavior
-      and influential variables.
+      "offline" proxy model that helped give desired insight into its behavior and
+      influential variables.
 
 
       Examples of good scoring samples include "calculation", "asset", and "tyson".
@@ -1782,8 +1810,8 @@ case-studies:
       Examples of bad scoring samples include "software", "99", and "unsub".'
   - tactic: AML.TA0011
     technique: AML.T0015
-    description: Finally, these insights from the "offline" copy-cat model allowed
-      the researchers to create malicious emails that received preferable scores from
+    description: Finally, these insights from the "offline" proxy model allowed the
+      researchers to create malicious emails that received preferable scores from
       the real ProofPoint email protection system, hence bypassing it.
   target: ProofPoint Email Protection System
   actor: Researchers at Silent Break Security
@@ -1855,6 +1883,8 @@ case-studies:
   actor: 4chan Users
   case-study-type: incident
   references:
+  - title: 'AIID - Incident 6: TayBot'
+    url: https://incidentdatabase.ai/cite/6
   - title: Microsoft BlogPost, "Learning from Tay's introduction"
     url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
   - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers
@@ -1908,7 +1938,7 @@ case-studies:
   name: Microsoft Edge AI Evasion
   object-type: case-study
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
-    designed for running AI workloads at the Edge. This exercise was meant to use
+    designed for running AI workloads at the edge. This exercise was meant to use
     a automated system to continuously manipulate a target image to cause the ML model
     to produce misclassifications.
 

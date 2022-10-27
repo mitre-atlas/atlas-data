@@ -12,28 +12,25 @@ summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how 
 incident-date: 2019-09-09
 incident-date-granularity: DATE
 procedure:
-- tactic: '{{resource_development.id}}'
-  technique: '{{acquire_ml_artifacts.id}}'
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
   description: The researchers first gathered the scores from the Proofpoint's ML
     system used in email headers by sending a large number of emails through the system
     and scraping the model scores exposed in the logs.
-- tactic: '{{resource_development.id}}'
-  technique: '{{acquire_ml_artifacts_data.id}}'
-  description: The researchers converted the collected scores into a dataset. Basic
-    correlation was used to decide which score variable speaks generally about the
-    security of an email. The "mlxlogscore" was selected in this case due to its relationship
-    with spam, phish, and core mlx.
 - tactic: '{{ml_attack_staging.id}}'
-  technique: '{{train_proxy_model.id}}'
-  description: Using these scores, the researchers replicated the ML model by building
-    a "shadow" aka copy-cat ML model. The "mlxlogscore" was the label used for training.
+  technique: '{{replicate_model.id}}'
+  description: |
+    The researchers converted the collected scores into a dataset, which they used to train a functional copy of the ProofPoint model.
+
+    Basic correlation was used to decide which score variable speaks generally about the security of an email.
+    The "mlxlogscore" was selected in this case due to its relationship with spam, phish, and core mlx and was used as the label.
     Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
     Training was performed using an Artificial Neural Network (ANN) and Bag of Words
     tokenizing.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_transfer.id}}'
   description: 'Next, the ML researchers algorithmically found samples from this "offline"
-    copy-cat model that helped give desired insight into its behavior and influential
+    proxy model that helped give desired insight into its behavior and influential
     variables.
 
 
@@ -42,7 +39,7 @@ procedure:
     Examples of bad scoring samples include "software", "99", and "unsub".'
 - tactic: '{{impact.id}}'
   technique: '{{evade_model.id}}'
-  description: Finally, these insights from the "offline" copy-cat model allowed the
+  description: Finally, these insights from the "offline" proxy model allowed the
     researchers to create malicious emails that received preferable scores from the
     real ProofPoint email protection system, hence bypassing it.
 target: ProofPoint Email Protection System
