@@ -54,7 +54,7 @@ matrices:
       as a sensor platform.
 
       The machine learning capabilities used by the system could be local with onboard
-      or cloud enabled ML capabilities.
+      or cloud-enabled ML capabilities.
 
 
       Initial Access consists of techniques that use various entry vectors to gain
@@ -121,8 +121,8 @@ matrices:
   - id: AML.TA0007
     name: Defense Evasion
     object-type: tactic
-    description: 'The adversary is trying to avoid being detected by machine learning
-      enabled security software.
+    description: 'The adversary is trying to avoid being detected by machine learning-enabled
+      security software.
 
 
       Defense Evasion consists of techniques that adversaries use to avoid detection

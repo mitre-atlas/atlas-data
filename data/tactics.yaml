@@ -56,7 +56,7 @@
     The adversary is trying to gain access to the machine learning system.
 
     The target system could be a network, mobile device, or an edge device such as a sensor platform.
-    The machine learning capabilities used by the system could be local with onboard or cloud enabled ML capabilities.
+    The machine learning capabilities used by the system could be local with onboard or cloud-enabled ML capabilities.
 
     Initial Access consists of techniques that use various entry vectors to gain their initial foothold within the system.
 
@@ -86,7 +86,7 @@
   name: Defense Evasion
   object-type: tactic
   description: |
-    The adversary is trying to avoid being detected by machine learning enabled security software.
+    The adversary is trying to avoid being detected by machine learning-enabled security software.
 
     Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise.
     Techniques used for defense evasion include evading ML-enabled security software such as malware detectors.
