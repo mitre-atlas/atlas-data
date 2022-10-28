@@ -13,7 +13,7 @@ For example, the ATLAS `data.yaml` is as follows:
 
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.0.0
+version: 4.1.0
 
 matrices:
   - !include .

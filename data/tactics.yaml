@@ -5,18 +5,20 @@
   name: ML Model Access
   object-type: tactic
   description: |
-    An adversary is attempting to gain some level of access to a machine learning model.
+    The adversary is attempting to gain some level of access to a machine learning model.
 
-    ML Model Access consists of techniques that use various types of access to the machine learning model that can be used by the adversary to gain information, develop attacks, and as a means to input data to the model.
+    ML Model Access enables techniques that use various types of access to the machine learning model that can be used by the adversary to gain information, develop attacks, and as a means to input data to the model.
     The level of access can range from the full knowledge of the internals of the model to access to the physical environment where data is collected for use in the machine learning model.
     The adversary may use varying levels of model access during the course of their attack, from staging the attack to impacting the target system.
+
+    Access to an ML model may require access to the system housing the model, the model may be publically accessible via an API, or it may be accessed indirectly via interaction with a product or service that utilizes ML as part of its processes.
 
 - &ml_attack_staging
   id: AML.TA0001
   name: ML Attack Staging
   object-type: tactic
   description: |
-    An adversary is leveraging their knowledge of and access to the target system to tailor the attack.
+    The adversary is leveraging their knowledge of and access to the target system to tailor the attack.
 
     ML Attack Staging consists of techniques adversaries use to prepare their attack on the target ML model.
     Techniques can include training proxy models, poisoning the target model, and crafting adversarial data to feed the target model.
@@ -28,8 +30,7 @@
   name: Reconnaissance
   object-type: tactic
   description: |
-    The adversary is trying to gather information they can use to plan
-    future operations.
+    The adversary is trying to gather information about the machine learning system they can use to plan future operations.
 
     Reconnaissance consists of techniques that involve adversaries actively or passively gathering information that can be used to support targeting.
     Such information may include details of the victim organizations machine learning capabilities and research efforts.
@@ -52,10 +53,10 @@
   name: Initial Access
   object-type: tactic
   description: |
-    The adversary is trying to gain access to the system containing machine learning artifacts.
+    The adversary is trying to gain access to the machine learning system.
 
     The target system could be a network, mobile device, or an edge device such as a sensor platform.
-    The machine learning capabilities used by the system could be local with onboard or cloud enabled ML capabilities.
+    The machine learning capabilities used by the system could be local with onboard or cloud-enabled ML capabilities.
 
     Initial Access consists of techniques that use various entry vectors to gain their initial foothold within the system.
 
@@ -64,7 +65,7 @@
   name: Execution
   object-type: tactic
   description: |
-    The adversary is trying to run malicious code.
+    The adversary is trying to run malicious code embedded in machine learning artifacts or software.
 
     Execution consists of techniques that result in adversary-controlled code running on a local or remote system.
     Techniques that run malicious code are often paired with techniques from all other tactics to achieve broader goals, like exploring a network or stealing data.
@@ -75,7 +76,7 @@
   name: Persistence
   object-type: tactic
   description: |
-    The adversary is trying to maintain their foothold.
+    The adversary is trying to maintain their foothold via machine learning artifacts or software.
 
     Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access.
     Techniques used for persistence often involve leaving behind modified ML artifacts such as poisoned training data or backdoored ML models.
@@ -85,7 +86,7 @@
   name: Defense Evasion
   object-type: tactic
   description: |
-    The adversary is trying to avoid being detected by security software.
+    The adversary is trying to avoid being detected by machine learning-enabled security software.
 
     Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise.
     Techniques used for defense evasion include evading ML-enabled security software such as malware detectors.
@@ -95,7 +96,7 @@
   name: Discovery
   object-type: tactic
   description: |
-    The adversary is trying to figure out your environment.
+    The adversary is trying to figure out your machine learning environment.
 
     Discovery consists of techniques an adversary may use to gain knowledge about the system and internal network.
     These techniques help adversaries observe the environment and orient themselves before deciding how to act.
@@ -107,7 +108,7 @@
   name: Collection
   object-type: tactic
   description: |
-    The adversary is trying to gather ML artifacts and other related information relevant to their goal.
+    The adversary is trying to gather machine learning artifacts and other related information relevant to their goal.
 
     Collection consists of techniques adversaries may use to gather information and the sources information is collected from that are relevant to following through on the adversary's objectives.
     Frequently, the next goal after collecting data is to steal (exfiltrate) the ML artifacts, or use the collected information to stage future operations.
@@ -118,7 +119,7 @@
   name: Exfiltration
   object-type: tactic
   description: |
-    The adversary is trying to steal machine learning artifacts.
+    The adversary is trying to steal machine learning artifacts or other information about the machine learning system.
 
     Exfiltration consists of techniques that adversaries may use to steal data from your network.
     Data may be stolen for it's valuable intellectual property, or for use in staging future operations.
@@ -130,7 +131,7 @@
   name: Impact
   object-type: tactic
   description: |
-    The adversary is trying to manipulate, interrupt, erode confidence in, or destroy your systems and data.
+    The adversary is trying to manipulate, interrupt, erode confidence in, or destroy your machine learning systems and data.
 
     Impact consists of techniques that adversaries use to disrupt availability or compromise integrity by manipulating business and operational processes.
     Techniques used for impact can include destroying or tampering with data.

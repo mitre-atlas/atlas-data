@@ -9,6 +9,7 @@ from tools.create_matrix import load_atlas_yaml
 
 # Local directory
 from schemas.atlas_id import FULL_ID_PATTERN, ID_PREFIX_PATTERN
+from schemas.atlas_obj import CASE_STUDY_VERSION
 
 """
 Imports case study files into ATLAS data as newly-IDed files.
@@ -55,6 +56,12 @@ def main():
         with open(file, 'r') as f:
             # Read in file
             data = yaml.safe_load(f)
+
+            # Check if version in metadata is up to date
+            meta = data['meta']
+            if 'version' not in meta or meta['version'] != CASE_STUDY_VERSION:
+                raise Exception('Your case study is out of date. The current schema version is v'+ CASE_STUDY_VERSION + '.')
+
             # Case study file data is held in 'study' key
             case_study = data['study']
 
@@ -171,7 +178,7 @@ def replace_id(id2anchor, match):
             return '{{' + id2anchor[atlas_id] + '.id}}'
         # Return ID as is if not found in id2anchor
         return atlas_id
-    
+
     return None
 
 def replace_link(id2anchor, match):

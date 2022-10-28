@@ -24,8 +24,7 @@ atlas_matrix_schema = Schema(
         ]
     },
     name='ATLAS Matrix Schema',
-    ignore_extra_keys=True,
-    description=f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+    ignore_extra_keys=True
 )
 
 atlas_output_schema = Schema(
