@@ -1,55 +1,31 @@
 ---
 id: AML.CS0002
-name: VirusTotal Poisoning
 object-type: case-study
-summary: 'An increase in reports of a certain ransomware family that was out of the
-  ordinary was noticed.
-
-  In investigating the case, it was observed that many samples of that particular
-  ransomware family were submitted through a popular Virus-Sharing platform within
-  a short amount of time.
-
-  Further investigation revealed that based on string similarity, the samples were
-  all equivalent, and based on code similarity they were between 98 and 74 percent
-  similar.
-
-  Interestingly enough, the compile time was the same for all the samples.
-
-  After more digging, the discovery was made that someone used ''metame'' a metamorphic
-  code manipulating tool to manipulate the original file towards mutant variants.
-
-  The variants wouldn''t always be executable but still classified as the same ransomware
-  family.
-
-  '
+name: VirusTotal Poisoning
+summary: McAfee Advanced Threat Research noticed an increase in reports of a certain ransomware family that was out of the ordinary. Case investigation revealed that many samples of that particular ransomware family were submitted through a popular virus-sharing platform within a short amount of time. Further investigation revealed that based on string similarity the samples were all equivalent, and based on code similarity they were between 98 and 74 percent similar. Interestingly enough, the compile time was the same for all the samples. After more digging, researchers discovered that someone used 'metame' a metamorphic code manipulating tool to manipulate the original file towards mutant variants. The variants would not always be executable, but are still classified as the same ransomware family.
 incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{obtain_advml.id}}'
-  description: 'The actor obtained [metame](https://github.com/a0rtega/metame), a
-    simple metamorphic code engine for arbitrary executables.
-
-    '
+  description: The actor obtained [metame](https://github.com/a0rtega/metame), a simple
+    metamorphic code engine for arbitrary executables.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv.id}}'
-  description: 'The actor used a malware sample from a prevalent ransomware family
-    as a start to create ''mutant'' variants.
-
-    '
+  description: The actor used a malware sample from a prevalent ransomware family
+    as a start to create "mutant" variants.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_data.id}}'
-  description: 'The actor uploaded "mutant" samples to the platform.
-
-    '
+  description: The actor uploaded "mutant" samples to the platform.
 - tactic: '{{persistence.id}}'
   technique: '{{poison_data.id}}'
   description: 'Several vendors started to classify the files as the ransomware family
     even though most of them won''t run.
 
     The "mutant" samples poisoned the dataset the ML model(s) use to identify and
-    classify this ransomware family.
-
-    '
-reported-by: Christiaan Beek (@ChristiaanBeek) - McAfee Advanced Threat Research
+    classify this ransomware family.'
+actor: Unknown
+target: VirusTotal
+reporter: McAfee Advanced Threat Research
+case-study-type: incident
 references: []

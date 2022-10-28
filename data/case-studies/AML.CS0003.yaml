@@ -1,54 +1,49 @@
 ---
 id: AML.CS0003
-name: Bypassing Cylance's AI Malware Detection
 object-type: case-study
-summary: 'Researchers at Skylight were able to create a universal bypass string that
-
-  when appended to a malicious file evades detection by Cylance''s AI Malware detector.
-
-  '
+name: Bypassing Cylance's AI Malware Detection
+summary: Researchers at Skylight were able to create a universal bypass string that evades detection by Cylance's AI Malware detector when appended to a malicious file.
 incident-date: 2019-09-07
 incident-date-granularity: DATE
 procedure:
-- tactic: '{{reconnaissance.id}}'
-  technique: '{{victim_website.id}}'
-  description: 'The researchers read publicly available information about Cylance''s
-    AI Malware detector.
+  - tactic: '{{reconnaissance.id}}'
+    technique: '{{victim_research.id}}'
+    description:
+      The researchers read publicly available information about Cylance's
+      AI Malware detector. They gathered this information from various sources such
+      as public talks as well as patent submissions by Cylance.
+  - tactic: '{{ml_model_access.id}}'
+    technique: '{{ml_service.id}}'
+    description:
+      The researchers used Cylance's AI Malware detector and enabled verbose
+      logging to understand the inner workings of the ML model, particularly around
+      reputation scoring and model ensembling.
+  - tactic: '{{resource_development.id}}'
+    technique: '{{develop_advml.id}}'
+    description:
+      'The researchers used the reputation scoring information to reverse
+      engineer which attributes provided what level of positive or negative reputation.
 
-    '
-- tactic: '{{ml_model_access.id}}'
-  technique: '{{ml_service.id}}'
-  description: 'The researchers used Cylance''s AI Malware detector and enabled verbose
-    logging to understand the inner workings of the ML model, particularly around
-    reputation scoring.
+      Along the way, they discovered a secondary model which was an override for the
+      first model.
 
-    '
-- tactic: '{{resource_development.id}}'
-  technique: '{{develop_advml.id}}'
-  description: 'The researchers used the reputation scoring information to reverse
-    engineer which attributes provided what level of positive or negative reputation.
-
-    Along the way, they discovered a secondary model which was an override for the
-    first model.
-
-    Positive assessments from the second model overrode the decision of the core ML
-    model.
-
-    '
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{craft_adv_manual.id}}'
-  description: 'Using this knowledge, the researchers fused attributes of known good
-    files with malware to manually create adversarial malware.
-
-    '
-- tactic: '{{defense_evasion.id}}'
-  technique: '{{evade_model.id}}'
-  description: 'Due to the secondary model overriding the primary, the researchers
-    were effectively able to bypass the ML model.
-
-    '
-reported-by: Research and work by Adi Ashkenazy, Shahar Zini, and Skylight Cyber team.
-  Notified to us by Ken Luu (@devianz_)
+      Positive assessments from the second model overrode the decision of the core ML
+      model.'
+  - tactic: '{{ml_attack_staging.id}}'
+    technique: '{{craft_adv_manual.id}}'
+    description:
+      Using this knowledge, the researchers fused attributes of known good
+      files with malware to manually create adversarial malware.
+  - tactic: '{{defense_evasion.id}}'
+    technique: '{{evade_model.id}}'
+    description:
+      Due to the secondary model overriding the primary, the researchers
+      were effectively able to bypass the ML model.
+actor: Skylight Cyber
+target: CylancePROTECT, Cylance Smart Antivirus
+case-study-type: exercise
 references:
-- title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
-  url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
+  - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
+    url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
+  - title: Statement's from Skylight Cyber CEO
+    url: https://www.security7.net/news/the-new-cylance-vulnerability-what-you-need-to-know

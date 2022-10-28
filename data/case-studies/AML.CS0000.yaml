@@ -1,74 +1,57 @@
 ---
 id: AML.CS0000
-name: Evasion of Deep Learning Detector for Malware C&C Traffic
 object-type: case-study
-summary: 'Palo Alto Networks Security AI research team tested a deep learning model
+name: Evasion of Deep Learning Detector for Malware C&C Traffic
+summary: 'The Palo Alto Networks Security AI research team tested a deep learning model
   for malware command and control (C&C) traffic detection in HTTP traffic.
 
-  Based on the publicly available paper by Le et al.  [1], we built a model that was
-  trained on a similar dataset as our production model and had performance similar
-  to it.
+  Based on the publicly available [paper by Le et al.](https://arxiv.org/abs/1802.03162), we built a model that was
+  trained on a similar dataset as our production model and had similar performance.
 
-  Then we crafted adversarial samples and queried the model and adjusted the adversarial
-  sample accordingly till the model was evaded.
-
-  '
+  Then we crafted adversarial samples, queried the model, and adjusted the adversarial
+  sample accordingly until the model was evaded.'
 incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
 - tactic: '{{reconnaissance.id}}'
   technique: '{{victim_research_preprint.id}}'
   description: 'We identified a machine learning based approach to malicious URL detection
-    as a representative approach and potential target from the paper "URLNet: Learning
-    a URL representation with deep learning for malicious URL detection" [1], which
-    was found on arXiv (a pre-print repository).
-
-    '
+    as a representative approach and potential target from the paper [URLNet: Learning
+    a URL representation with deep learning for malicious URL detection](https://arxiv.org/abs/1802.03162),
+    which was found on arXiv (a pre-print repository).'
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
-  description: 'We acquired a similar dataset to the target production model.
-
-    '
+  description: 'We acquired a command and control HTTP traffic  dataset consisting of approximately 33 million benign and 27 million malicious HTTP packet headers.'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
-  description: 'We built a model that was trained on a similar dataset as the production
-    model.
+  description: 'We trained a model on the HTTP traffic dataset to use as a proxy for the target model.
 
-    We trained the model on ~ 33 million benign and ~ 27 million malicious HTTP packet
-    headers.
-
-    Evaluation showed a true positive rate of ~ 99% and false positive rate of ~0.01%,
+    Evaluation showed a true positive rate of ~ 99% and false positive rate of ~ 0.01%,
     on average.
 
     Testing the model with a HTTP packet header from known malware command and control
-    traffic samples was detected as malicious with high confidence (> 99%).
-
-    '
+    traffic samples was detected as malicious with high confidence (> 99%).'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_manual.id}}'
-  description: 'We crafted evasion samples by removing fields from packet header which
+  description: We crafted evasion samples by removing fields from packet header which
     are typically not used for C&C communication (e.g. cache-control, connection,
-    etc.)
-
-    '
+    etc.).
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{verify_attack.id}}'
-  description: 'We queried the model with our adversarial examples and adjusted them
+  description: We queried the model with our adversarial examples and adjusted them
     until the model was evaded.
-
-    '
 - tactic: '{{defense_evasion.id}}'
   technique: '{{evade_model.id}}'
-  description: 'With the crafted samples we performed online evasion of the ML-based
+  description: 'With the crafted samples, we performed online evasion of the ML-based
     spyware detection model.
 
-    The crafted packets were identified as benign with >80% confidence.
+    The crafted packets were identified as benign with > 80% confidence.
 
     This evaluation demonstrates that adversaries are able to bypass advanced ML detection
-    techniques, by crafting samples that are misclassified by an ML model.
-
-    '
-reported-by: Palo Alto Networks (Network Security AI Research Team)
+    techniques, by crafting samples that are misclassified by an ML model.'
+actor: Palo Alto Networks AI Research Team
+target: Palo Alto Networks malware detection system
+case-study-type: exercise
 references:
 - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning
     for malicious URL detection." arXiv preprint arXiv:1802.03162 (2018).'
