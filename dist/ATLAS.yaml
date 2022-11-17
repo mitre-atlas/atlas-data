@@ -1316,6 +1316,535 @@ matrices:
       '
     tactics:
     - AML.TA0011
+  mitigations:
+  - id: AML.M0000
+    name: Limit Public Information
+    object-type: mitigation
+    description: 'Limit public information about models used in the organization or
+      system will help stop the adversaries obtain knowledge on the model or system
+      used.
+
+
+      What to limit:
+
+      - Only publish need-to-know information
+
+      - Restrict information on architecture type, training data, etc.
+
+      '
+    techniques:
+    - id: AML.T0000
+      use: 'Restrict information on architecture type, training data, system, company,
+        products, etc.
+
+        '
+    - id: AML.T0003
+      use: 'Restrict information on technical details about their ML-enabled products
+        or services.
+
+        Restrict details including names of departments/divisions, physical locations,
+        and data about key employees such as names, roles, and contact info.
+
+        '
+    - id: AML.T0013
+      use: 'Limit information released on machine learning model''s output space and
+        keep ontology configuration on a need-to-know basis.
+
+        '
+  - id: AML.M0001
+    name: Limit ML Artifact Release
+    object-type: mitigation
+    description: 'Machine learning artifact describes the output created by the training
+      process. Example of the output includes a fully trained model,
+
+      a model checkpoint, weights, or model files created during the training process.
+
+
+      Limiting public release of these machine learning artifacts can prevent adversaries
+      from further collection, exfiltration, or disruption,
+
+      and to tailor and improve attacks.
+
+      '
+    techniques:
+    - id: AML.T0002
+      use: 'Control and limit public information including cloud storage, public-facing
+        services, and software or data repositories, to identify machine learning
+        artifacts.
+
+        '
+    - id: AML.T0020
+      use: 'Control access and verify users to the ML model data.
+
+        '
+    - id: AML.T0007
+      use: 'Control and limit information released on ML artifacts.
+
+        '
+    - id: AML.T0035
+      use: 'Limit outputs of ML artifacts produced when interacting with a model.
+
+        '
+    - id: AML.T0016
+      use: 'Control and limit software capabilities used on systems.
+
+        Limit and prevent usages of generic software tools that modifies ML artifacts.
+
+        '
+  - id: AML.M0002
+    name: Post-process Model Outputs
+    object-type: mitigation
+    description: 'Post-processing data includes various pruning routines, rule filtering,
+      or even knowledge integration. All these procedures provide a
+
+      kind of symbolic filter for noisy and imprecise knowledge derived by an inductive
+      algorithm.
+
+
+      Examples include:
+
+      - Only return to `N` results
+
+      - Only return specific classes
+
+      - Omit or fuzz scores
+
+
+      _Inference time_
+
+      '
+    techniques:
+    - id: AML.T0043.001
+      use: 'Limit access to the target model.
+
+        '
+    - id: AML.T0040
+      use: 'Limit access to the inference API.
+
+        Require account registration for ML model API calls.
+
+        Require API keys.
+
+        Keeping track of accounts.
+
+        '
+    - id: AML.T0013
+      use: 'Using obfuscate ML model outputs, limiting output information, or other
+        post-processing steps can help to preserve the privacy of training data.
+
+        '
+    - id: AML.T0014
+      use: 'Limit publishing general information about the model.
+
+        '
+  - id: AML.M0003
+    name: Create Robust Models
+    object-type: mitigation
+    description: 'Robust models can help stay on top of cyber threats and adversarial
+      attacks. Adversaries may evade and disturb ml models
+
+      with adversarial data which wastes time and money on the system, the analyst,
+      and the organization affected.
+
+
+      _Model training time_
+
+      '
+    techniques:
+    - id: AML.T0015
+      use: 'Incorporate adversarial examples during model training.
+
+        '
+    - id: AML.T0046
+      use: 'Incorporate adversarial examples during model training.
+
+        GAN detect fake data at inference time.
+
+        '
+    - id: AML.T0031
+      use: 'Model distillation (transferring knowledge from a large model to a smaller
+        one).
+
+        Model ensembles (Ensemble models are a machine learning approach to combine
+        multiple other models in the prediction process.)
+
+        '
+    - id: AML.T0024
+      use: 'Incorporate adversarial examples during model training.
+
+        '
+  - id: AML.M0004
+    name: Limit Access To ML Model Queries
+    object-type: mitigation
+    description: 'Limiting access to query, limiting amount of queries a user can
+      do per day, or detecting usage per user by tracking network traffic is a way
+
+      to stop adversaries from learning more about the models and testing the model
+      or API.
+
+      '
+    techniques:
+    - id: AML.T0040
+      use: 'Limit access to the inference API.
+
+        Require account registration for ML model API calls.
+
+        Require API keys.
+
+        Keeping track of accounts.
+
+        '
+    - id: AML.T0024
+      use: 'Limiting access to api and prevent ML models from leaking private information
+        on training data.
+
+        '
+    - id: AML.T0012
+      use: 'Tracking and monitoring user access and credentials to ML model.
+
+        '
+    - id: AML.T0034
+      use: 'Limiting access to query.
+
+        Limiting amount of queries a user can do per day
+
+        '
+  - id: AML.M0005
+    name: Control Access To ML Model
+    object-type: mitigation
+    description: 'Access requirements for ML models will stop adversaries from gain
+      control and knowledge.
+
+      '
+    techniques:
+    - id: AML.T0040
+      use: 'Limit access to the inference API.
+
+        Require account registration for ML model API calls.
+
+        Require API keys.
+
+        Keeping track of accounts.
+
+        '
+    - id: AML.T0024
+      use: 'Identify potential malicious users.
+
+        Keeping track of accounts.
+
+        '
+  - id: AML.M0006
+    name: Use Multi-pronged Algorithms
+    object-type: mitigation
+    description: 'Using multiple different models to fool adversaries of which type
+      of model is used and how the model used.
+
+      This will avoid single points of failure and is a more "traditional" approach
+      alongside machine learning.
+
+      '
+    techniques:
+    - id: AML.T0043.001
+      use: 'Limit access to the target model.
+
+        '
+    - id: AML.T0015
+      use: 'Incorporate adversarial examples during model training.
+
+        '
+    - id: AML.T0010.001
+      use: 'Implement a supply chain management program to verify their integrity.
+
+        Limit access information on information specifying what implementaions the
+        model uses.
+
+        Decrease dependency on other open source implementations of various algorithms.
+
+        '
+    - id: AML.T0010.002
+      use: 'Implement a supply chain management program to verify the security and
+        integrity of the source of data used.
+
+        Decrease dependency on a single data source.
+
+        Limit access information on information specifying what source is used.
+
+        '
+    - id: AML.T0010.003
+      use: 'Use multiple different models to fool adversaries of which type of model
+        is used and how the model used.
+
+        '
+    - id: AML.T0010.000
+      use: 'Limit information on certain specialized hardware, i.e GPUs used.
+
+        '
+  - id: AML.M0007
+    name: Sanitize Training Data
+    object-type: mitigation
+    description: 'Detect and remove, or remediate poisoned data.
+
+      '
+    techniques:
+    - id: AML.T0010.002
+      use: 'Detect and remove bad data prior to use.
+
+        '
+    - id: AML.T0020
+      use: 'Poisoned data can be detected and remediated before use.
+
+        '
+    - id: AML.T0019
+      use: 'Poisoned datasets can be detected and remediated before use.
+
+        '
+  - id: AML.M0008
+    name: ML Model Validation
+    object-type: mitigation
+    description: 'Validating your machine learning model outcomes is all about making
+      sure you''re getting the right data and
+
+      that the data is accurate. Validation catches problems before they become big
+      problems and is a critical step
+
+      in the implementation of any machine learning model.
+
+
+      One of the ways is to use built-in model verification where available or
+
+      scan for abnormal payload structures, etc.
+
+      '
+    techniques:
+    - id: AML.T0010.003
+      use: 'Ensure that model outputs are as expected compared to similar models and
+        known inputs. Train similar models using described methods and verify against
+        published results.
+
+        '
+    - id: AML.T0020
+      use: 'Ensure that model outputs are as expected compared to similar models and
+        known inputs. Train similar models using described methods and verify against
+        published results.
+
+        '
+  - id: AML.M0009
+    name: Use Multi-modal Sensors
+    object-type: mitigation
+    description: 'Incorporate other sensors for better face liveness detection (e.g.,
+      stereo for depth)
+
+      '
+    techniques:
+    - id: AML.T0041
+      use: 'Using a variety of sensors can make it more difficult for an attacker
+        with physical access to compromise and produce malicious results.
+
+        '
+    - id: AML.T0015
+      use: 'Using a variety of sensors can make it more difficult for an attacker
+        to compromise and produce malicious results.
+
+        '
+  - id: AML.M0010
+    name: Pre-process Model Inputs
+    object-type: mitigation
+    description: "Initial step applied to model inputs.\n- Data remediation\n- Remove\
+      \ adversarial perturbations\n- Basic data validation, for ex.\n  + Ensure image\
+      \ pixel values are in range\n  + Detect applied image transformations\n\n_Inference\
+      \ time_\n"
+    techniques:
+    - id: AML.T0043.001
+      use: 'Pre-processing model inputs can prevent malicious data from going through
+        the machine learning pipeline.
+
+        '
+    - id: AML.T0040
+      use: 'Pre-processing model inputs can prevent malicious data from going through
+        the machine learning pipeline.
+
+        '
+    - id: AML.T0015
+      use: 'Pre-processing model inputs can prevent malicious data from going through
+        the machine learning pipeline.
+
+        '
+    - id: AML.T0031
+      use: 'Pre-processing model inputs can prevent malicious data from going through
+        the machine learning pipeline.
+
+        '
+  - id: AML.M0011
+    name: Sanitize Active Learning Training Data
+    object-type: mitigation
+    description: 'In an active learning model, avoid adversarial model drift by detecting
+      and removing or remediating poisoned data.
+
+      '
+    techniques:
+    - id: AML.T0010.002
+      use: 'Detect and remove or remediate poisoned data to avoid adversarial model
+        drift.
+
+        '
+  - id: AML.M0012
+    name: Encrypt Sensitive Information
+    object-type: mitigation
+    description: 'Encrypt the ML model when packaging in applications.
+
+      '
+    techniques:
+    - id: AML.T0004
+      use: 'Obfuscate model files via compression to prevent attackers from easily
+        obtaining artifacts from repositories.
+
+        '
+  - id: AML.M0013
+    name: Code Signing
+    object-type: mitigation
+    description: 'Enforce binary and application integrity with digital signature
+      verification to prevent untrusted code from executing.
+
+      '
+    techniques:
+    - id: AML.T0011.000
+      use: 'Verify checksums of downloaded ML artifacts.
+
+        '
+    - id: AML.T0019
+      use: 'Verify checksums of downloaded ML artifacts.
+
+        '
+    - id: AML.T0010.002
+      use: 'Verify checksums of downloaded ML artifacts.
+
+        '
+    - id: AML.T0010.003
+      use: 'Verify checksums of downloaded ML artifacts.
+
+        '
+  - id: AML.M0014
+    name: Verify ML Artifacts
+    object-type: mitigation
+    description: 'Check signatures at the application level, at model repositories,
+      docker registries,
+
+      anywhere you would pull ML artifacts or code.
+
+      '
+    techniques:
+    - id: AML.T0019
+      use: 'Determine validity of published data in order to avoid using poisoned
+        data that introduces vulnerabilities.
+
+        '
+    - id: AML.T0011.000
+      use: 'Introduce proper checking of signatures to ensure that unsafe ML artifacts
+        will not be executed in the system.
+
+        '
+    - id: AML.T0010
+      use: 'Allow only certified users access to artifacts and prevent access to the
+        supply chain from outside sources.
+
+        '
+  - id: AML.M0015
+    name: Detect Adversarial Inputs
+    object-type: mitigation
+    description: 'Deploy state-of-the-art defenses designed to detect out of distribution
+      data or  ___ adverserial attacks.
+
+      '
+    techniques:
+    - id: AML.T0015
+      use: 'Prevent an attacker from introducing adversarial data into the system.
+
+        '
+    - id: AML.T0043.001
+      use: 'Monitor black-box access to the target model to protect against harmful
+        input.
+
+        '
+    - id: AML.T0041
+      use: 'Verify data involving physical environments with human checking to ensure
+        input is not being influenced by adversaries.
+
+        '
+  - id: AML.M0016
+    name: Use Trusted Data Sources
+    object-type: mitigation
+    description: 'Limit data to secure and reputible sources by verifying SSL/TLS
+      or running anti-virus software.
+
+      '
+    techniques:
+    - id: AML.T0019
+      use: 'Verifying sources can prevent poisoned data from being introduced to a
+        system, causing vulnerabilites and harm to the model.
+
+        '
+  - id: AML.M0017
+    name: Consider Model Distribution Methods
+    object-type: mitigation
+    description: 'TBD
+
+      '
+    techniques:
+    - id: AML.T0019
+      use: 'Consider not packaging models into distributed artifacts.
+
+        Can mitigate the supply chain compromise, or prevent white-box access.
+
+        Computation at edge vs. some server.
+
+        '
+  - id: AML.M0018
+    name: Control Internal Access To Models
+    object-type: mitigation
+    description: 'Establish access controls on internal model registries and limit
+      interval access to production models.
+
+      '
+    techniques:
+    - id: AML.T0035
+      use: 'Reduce the amount of time an adversary may be able to access a system,
+        slowing them down in their process of information discovery and collection.
+
+        '
+    - id: AML.T0007
+      use: 'Reduce the amount of time an adversary may be able to access a system,
+        slowing them down in their process of information discovery and collection.
+
+        '
+    - id: AML.T0011
+      use: 'Reduce the amount of time a user has access to the system and give them
+        fewer opportunities to execute malicious code.
+
+        '
+  - id: AML.M0019
+    name: User Training
+    object-type: mitigation
+    description: '- Train users to be aware of access or manipulation attempts by
+      an adversary to reduce the risk of successful spearphishing, social engineering,
+      and other techniques that involve user interaction
+
+      '
+    techniques:
+    - id: AML.T0011
+      use: 'Use user training as a way to bring awareness to common phishing and spearphishing
+        techniques and how to raise suspicion for potentially malicious events.
+
+        Training users to be able to identify attempts at manipulation will make them
+        less susceptible to performing techniques that cause the execution of malicious
+        code.
+
+        '
+    - id: AML.T0011.000
+      use: 'Train users to identify attempts of manipulation to prevent them from
+        running unsafe code which when executed could develop unsafe artifacts. These
+        artifacts may have a detrimental effect on the system.
+
+        '
 case-studies:
 - id: AML.CS0000
   object-type: case-study
