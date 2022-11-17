@@ -20,3 +20,4 @@ tactics:
 data:
   - !include tactics.yaml
   - !include techniques.yaml
+  - !include mitigations.yaml
