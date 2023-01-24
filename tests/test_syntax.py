@@ -71,6 +71,8 @@ def test_markdown_link(text_with_possible_markdown_syntax):
         error_str = '\n'.join(errors)
         pytest.fail(error_str)
 
+# Inline Markdown code
+REGEX_INLINE_CODE = re.compile(r'`{1}(.+)`{1}')
 
 # Parses out string tokens to be spell checked
 REGEX_WORDS = re.compile(
@@ -94,6 +96,8 @@ def test_spelling(text_to_be_spellchecked):
     text = text_to_be_spellchecked[1]
     # Remove Markdown links
     stripped_text = REGEX_MARKDOWN_LINK.sub('', text)
+    # Remove inline code, content surrounded by one backtick
+    stripped_text = REGEX_INLINE_CODE.sub('', stripped_text)
     # Tokenize, see comments above at variable declaration
     text_tokens = REGEX_WORDS.findall(stripped_text)
 
