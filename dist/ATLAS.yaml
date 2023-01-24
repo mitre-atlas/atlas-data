@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.1.0
+version: 4.2.0
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
@@ -9,6 +9,9 @@ matrices:
   - id: AML.TA0002
     name: Reconnaissance
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0043
+      url: https://attack.mitre.org/tactics/TA0043/
     description: 'The adversary is trying to gather information about the machine
       learning system they can use to plan future operations.
 
@@ -29,6 +32,9 @@ matrices:
   - id: AML.TA0003
     name: Resource Development
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0042
+      url: https://attack.mitre.org/tactics/TA0042/
     description: 'The adversary is trying to establish resources they can use to support
       operations.
 
@@ -47,6 +53,9 @@ matrices:
   - id: AML.TA0004
     name: Initial Access
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0001
+      url: https://attack.mitre.org/tactics/TA0001/
     description: 'The adversary is trying to gain access to the machine learning system.
 
 
@@ -88,6 +97,9 @@ matrices:
   - id: AML.TA0005
     name: Execution
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0002
+      url: https://attack.mitre.org/tactics/TA0002/
     description: 'The adversary is trying to run malicious code embedded in machine
       learning artifacts or software.
 
@@ -106,6 +118,9 @@ matrices:
   - id: AML.TA0006
     name: Persistence
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0003
+      url: https://attack.mitre.org/tactics/TA0003/
     description: 'The adversary is trying to maintain their foothold via machine learning
       artifacts or software.
 
@@ -121,6 +136,9 @@ matrices:
   - id: AML.TA0007
     name: Defense Evasion
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0005
+      url: https://attack.mitre.org/tactics/TA0005/
     description: 'The adversary is trying to avoid being detected by machine learning-enabled
       security software.
 
@@ -135,6 +153,9 @@ matrices:
   - id: AML.TA0008
     name: Discovery
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0007
+      url: https://attack.mitre.org/tactics/TA0007/
     description: 'The adversary is trying to figure out your machine learning environment.
 
 
@@ -154,6 +175,9 @@ matrices:
   - id: AML.TA0009
     name: Collection
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0009
+      url: https://attack.mitre.org/tactics/TA0009/
     description: 'The adversary is trying to gather machine learning artifacts and
       other related information relevant to their goal.
 
@@ -191,6 +215,9 @@ matrices:
   - id: AML.TA0010
     name: Exfiltration
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0010
+      url: https://attack.mitre.org/tactics/TA0010/
     description: 'The adversary is trying to steal machine learning artifacts or other
       information about the machine learning system.
 
@@ -210,6 +237,9 @@ matrices:
   - id: AML.TA0011
     name: Impact
     object-type: tactic
+    ATT&CK-reference:
+      id: TA0040
+      url: https://attack.mitre.org/tactics/TA0040/
     description: 'The adversary is trying to manipulate, interrupt, erode confidence
       in, or destroy your machine learning systems and data.
 
@@ -375,6 +405,9 @@ matrices:
   - id: AML.T0006
     name: Active Scanning
     object-type: technique
+    ATT&CK-reference:
+      id: T1595
+      url: https://attack.mitre.org/techniques/T1595/
     description: 'An adversary may probe or scan the victim system to gather information
       for targeting.
 
@@ -467,6 +500,9 @@ matrices:
   - id: AML.T0016
     name: Obtain Capabilities
     object-type: technique
+    ATT&CK-reference:
+      id: T1588
+      url: https://attack.mitre.org/techniques/T1588/
     description: 'Adversaries may search for and obtain software capabilities for
       use in their operations.
 
@@ -490,6 +526,9 @@ matrices:
   - id: AML.T0016.001
     name: Software Tools
     object-type: technique
+    ATT&CK-reference:
+      id: T1588.002
+      url: https://attack.mitre.org/techniques/T1588/002/
     description: 'Adversaries may search for and obtain software tools to support
       their operations. Software designed for legitimate use may be repurposed by
       an adversary for malicious intent. An adversary may modify or customize software
@@ -785,6 +824,9 @@ matrices:
   - id: AML.T0021
     name: Establish Accounts
     object-type: technique
+    ATT&CK-reference:
+      id: T1585
+      url: https://attack.mitre.org/techniques/T1585/
     description: 'Adversaries may create accounts with various services for use in
       targeting, to gain access to resources needed in [ML Attack Staging](/tactics/AML.TA0001),
       or for victim impersonation.
@@ -870,6 +912,9 @@ matrices:
   - id: AML.T0011
     name: User Execution
     object-type: technique
+    ATT&CK-reference:
+      id: T1204
+      url: https://attack.mitre.org/techniques/T1204/
     description: 'An adversary may rely upon specific actions by a user in order to
       gain execution.
 
@@ -904,6 +949,9 @@ matrices:
   - id: AML.T0012
     name: Valid Accounts
     object-type: technique
+    ATT&CK-reference:
+      id: T1078
+      url: https://attack.mitre.org/techniques/T1078/
     description: 'Adversaries may obtain and abuse credentials of existing accounts
       as a means of gaining Initial Access.
 
@@ -1131,6 +1179,9 @@ matrices:
   - id: AML.T0036
     name: Data from Information Repositories
     object-type: technique
+    ATT&CK-reference:
+      id: T1213
+      url: https://attack.mitre.org/techniques/T1213/
     description: 'Adversaries may leverage information repositories to mine valuable
       information.
 
@@ -1145,6 +1196,23 @@ matrices:
 
       Specific common information repositories include Sharepoint, Confluence, and
       enterprise databases such as SQL Server.
+
+      '
+    tactics:
+    - AML.TA0009
+  - id: AML.T0037
+    name: Data from Local System
+    object-type: technique
+    ATT&CK-reference:
+      id: T1005
+      url: https://attack.mitre.org/techniques/T1005/
+    description: 'Adversaries may search local system sources, such as file systems
+      and configuration files or local databases, to find files of interest and sensitive
+      data prior to Exfiltration.
+
+
+      This can include basic fingerprinting information and sensitive data such as
+      ssh keys.
 
       '
     tactics:
@@ -2237,3 +2305,69 @@ case-studies:
   - title: Article, "How to confuse antimalware neural networks. Adversarial attacks
       and protection"
     url: https://securelist.com/how-to-confuse-antimalware-neural-networks-adversarial-attacks-and-protection/102949/
+- id: AML.CS0015
+  object-type: case-study
+  name: Compromised PyTorch Dependency Chain
+  summary: 'Linux packages for PyTorch''s pre-release version, called Pytorch-nightly,
+    were compromised from December 25 to 30, 2022 by a malicious binary uploaded to
+    the Python Package Index (PyPI) code repository.  The malicious binary had the
+    same name as a PyTorch dependency and the PyPI package manager (pip) installed
+    this malicious package instead of the legitimate one.
+
+
+    This supply chain attack, also known as "dependency confusion," exposed sensitive
+    information of Linux machines with the affected pip-installed versions of PyTorch-nightly.
+    On December 30, 2022, PyTorch announced the incident and initial steps towards
+    mitigation, including the rename and removal of `torchtriton` dependencies.'
+  incident-date: 2022-12-25
+  incident-date-granularity: DATE
+  procedure:
+  - tactic: AML.TA0004
+    technique: AML.T0010.001
+    description: 'A malicious dependency package named `torchtriton` was uploaded
+      to the PyPI code repository with the same package name as a package shipped
+      with the PyTorch-nightly build. This malicious package contained additional
+      code that uploads sensitive data from the machine.
+
+      The malicious `torchtriton` package was installed instead of the legitimate
+      one because PyPI is prioritized over other sources. See more details at [this
+      GitHub issue](https://github.com/pypa/pip/issues/8606).'
+  - tactic: AML.TA0009
+    technique: AML.T0037
+    description: 'The malicious package surveys the affected system for basic fingerprinting
+      info (such as IP address, username, and current working directory), and steals
+      further sensitive data, including:
+
+      - nameservers from `/etc/resolv.conf`
+
+      - hostname from `gethostname()`
+
+      - current username from `getlogin()`
+
+      - current working directory name from `getcwd()`
+
+      - environment variables
+
+      - `/etc/hosts`
+
+      - `/etc/passwd`
+
+      - the first 1000 files in the user''s `$HOME` directory
+
+      - `$HOME/.gitconfig`
+
+      - `$HOME/.ssh/*.`'
+  - tactic: AML.TA0010
+    technique: AML.T0025
+    description: All gathered information, including file contents, is uploaded via
+      encrypted DNS queries to the domain `*[dot]h4ck[dot]cfd`, using the DNS server
+      `wheezy[dot]io`.
+  reporter: PyTorch
+  actor: Unknown
+  target: PyTorch
+  case-study-type: incident
+  references:
+  - title: PyTorch statement on compromised dependency
+    url: https://pytorch.org/blog/compromised-nightly-dependency/
+  - title: Analysis by BleepingComputer
+    url: https://www.bleepingcomputer.com/news/security/pytorch-discloses-malicious-dependency-chain-compromise-over-holidays/

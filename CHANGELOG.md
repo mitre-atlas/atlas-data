@@ -1,5 +1,24 @@
 # ATLAS Data Changelog
 
+## [4.2.0]() (2023-01-18)
+
+Denotes existing tactics and techniques adapted from ATT&CK and adds a new case study
+
+#### Tactics and techniques
+- Added new technique
+  + Data from Local System
+- ATLAS objects that are adapted from ATT&CK are denoted by the additional key `ATT&CK-reference`, ex.
+  + ```
+    ATT&CK-reference:
+      id: T1595
+      url: https://attack.mitre.org/techniques/T1595/
+    ```
+
+#### Case studies
+- Added new case study
+  + [Compromised PyTorch dependency chain](https://atlas.mitre.org/studies/AML.CS0015)
+
+
 ## [4.1.0]() (2022-10-27)
 
 Refreshed existing case studies
@@ -117,8 +136,8 @@ Fixes to all data
 
 #### Case studies
 - Added new case studies
-    1. AML.CS0013
-    2. AML.CS0014
+    1. [Backdoor Attack on Deep Learning Models in Mobile Apps](https://atlas.mitre.org/studies/AML.CS0013)
+    2. [Confusing Antimalware Neural Networks](https://atlas.mitre.org/studies/AML.CS0014)
 
 #### Tools
 - Removed retrieval and usage of ATT&CK Enterprise data

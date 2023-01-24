@@ -15,6 +15,9 @@
 # - &short_name
 #   id: AML.T0049
 #   name: Example Technique
+#   ATT&CK-reference:
+#      id: TA0000
+#      url: https://attack.mitre.org/techniques/TA0000
 #   description: |
 #     The description of the technique.
 #   tactics:
@@ -117,6 +120,9 @@
   id: AML.T0006
   name: Active Scanning
   object-type: technique
+  ATT&CK-reference:
+    id: T1595
+    url: https://attack.mitre.org/techniques/T1595/
   description: |
     An adversary may probe or scan the victim system to gather information for targeting.
     This is distinct from other reconnaissance techniques that do not involve direct interaction with the victim system.
@@ -172,6 +178,9 @@
   id: AML.T0016
   name: Obtain Capabilities
   object-type: technique
+  ATT&CK-reference:
+    id: T1588
+    url: https://attack.mitre.org/techniques/T1588/
   description:
     Adversaries may search for and obtain software capabilities for use in their operations.
 
@@ -195,6 +204,9 @@
   id: AML.T0016.001
   name: Software Tools
   object-type: technique
+  ATT&CK-reference:
+    id: T1588.002
+    url: https://attack.mitre.org/techniques/T1588/002/
   description: >
     Adversaries may search for and obtain software tools to support their operations.
     Software designed for legitimate use may be repurposed by an adversary for malicious intent.
@@ -406,6 +418,9 @@
   id: AML.T0021
   name: Establish Accounts
   object-type: technique
+  ATT&CK-reference:
+    id: T1585
+    url: https://attack.mitre.org/techniques/T1585/
   description: |
     Adversaries may create accounts with various services for use in targeting, to gain access to resources needed in [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}), or for victim impersonation.
   tactics:
@@ -469,6 +484,9 @@
   id: AML.T0011
   name: User Execution
   object-type: technique
+  ATT&CK-reference:
+    id: T1204
+    url: https://attack.mitre.org/techniques/T1204/
   description: |
     An adversary may rely upon specific actions by a user in order to gain execution.
     Users may inadvertently execute unsafe code introduced via [{{supply_chain.name}}](/techniques/{{supply_chain.id}}).
@@ -493,6 +511,9 @@
   id: AML.T0012
   name: Valid Accounts
   object-type: technique
+  ATT&CK-reference:
+    id: T1078
+    url: https://attack.mitre.org/techniques/T1078/
   description: |
     Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access.
     Credentials may take the form of usernames and passwords of individual user accounts or API keys that provide access to various ML resources and services.
@@ -660,12 +681,29 @@
   id: AML.T0036
   name: Data from Information Repositories
   object-type: technique
+  ATT&CK-reference:
+    id: T1213
+    url: https://attack.mitre.org/techniques/T1213/
   description: |
     Adversaries may leverage information repositories to mine valuable information.
     Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.
 
     Information stored in a repository may vary based on the specific instance or environment.
     Specific common information repositories include Sharepoint, Confluence, and enterprise databases such as SQL Server.
+  tactics:
+    - "{{collection.id}}"
+
+- &local_system
+  id: AML.T0037
+  name: Data from Local System
+  object-type: technique
+  ATT&CK-reference:
+    id: T1005
+    url: https://attack.mitre.org/techniques/T1005/
+  description: |
+    Adversaries may search local system sources, such as file systems and configuration files or local databases, to find files of interest and sensitive data prior to Exfiltration.
+
+    This can include basic fingerprinting information and sensitive data such as ssh keys.
   tactics:
     - "{{collection.id}}"
 

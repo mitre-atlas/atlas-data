@@ -31,6 +31,7 @@ cylanceprotect
 datasets
 deepquarantine
 dga
+dns
 e.g.
 endpoints
 ensembling
@@ -42,6 +43,7 @@ gpus
 h5
 haoyu
 hdf5
+hostname
 http
 hyperparameters
 i.e.
@@ -66,6 +68,7 @@ mlaas
 mlx
 mlxlogscore
 model(s)
+nameservers
 onnx
 openai
 optimizes
@@ -78,6 +81,7 @@ proofpoint
 proofpoint's
 prototxt
 pth
+pypi
 pytorch
 r&d
 rgb
@@ -95,6 +99,7 @@ tensorflow
 tf
 tflite
 tokenizing
+torchtriton
 uis
 unpromptedly
 urlnet
