@@ -24,7 +24,8 @@ tactic_schema = Schema(
         "name": str,
     },
     name="tactic",
-    as_reference=True
+    as_reference=True,
+    ignore_extra_keys=True
 )
 
 technique_schema = Schema(
@@ -38,7 +39,8 @@ technique_schema = Schema(
         ]
     },
     name="technique",
-    as_reference=True
+    as_reference=True,
+    ignore_extra_keys=True
 )
 
 subtechnique_schema = Schema(
@@ -50,7 +52,8 @@ subtechnique_schema = Schema(
         "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT # Top-level technique ID
     },
     name="subtechnique",
-    as_reference=True
+    as_reference=True,
+    ignore_extra_keys=True
 )
 
 CASE_STUDY_VERSION = '1.1'

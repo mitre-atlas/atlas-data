@@ -29,6 +29,9 @@
   id: AML.TA0002
   name: Reconnaissance
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0043
+      url: https://attack.mitre.org/tactics/TA0043/
   description: |
     The adversary is trying to gather information about the machine learning system they can use to plan future operations.
 
@@ -40,6 +43,9 @@
   id: AML.TA0003
   name: Resource Development
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0042
+      url: https://attack.mitre.org/tactics/TA0042/
   description: |
     The adversary is trying to establish resources they can use to support operations.
 
@@ -52,6 +58,9 @@
   id: AML.TA0004
   name: Initial Access
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0001
+      url: https://attack.mitre.org/tactics/TA0001/
   description: |
     The adversary is trying to gain access to the machine learning system.
 
@@ -64,6 +73,9 @@
   id: AML.TA0005
   name: Execution
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0002
+      url: https://attack.mitre.org/tactics/TA0002/
   description: |
     The adversary is trying to run malicious code embedded in machine learning artifacts or software.
 
@@ -75,6 +87,9 @@
   id: AML.TA0006
   name: Persistence
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0003
+      url: https://attack.mitre.org/tactics/TA0003/
   description: |
     The adversary is trying to maintain their foothold via machine learning artifacts or software.
 
@@ -85,6 +100,9 @@
   id: AML.TA0007
   name: Defense Evasion
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0005
+      url: https://attack.mitre.org/tactics/TA0005/
   description: |
     The adversary is trying to avoid being detected by machine learning-enabled security software.
 
@@ -95,6 +113,9 @@
   id: AML.TA0008
   name: Discovery
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0007
+      url: https://attack.mitre.org/tactics/TA0007/
   description: |
     The adversary is trying to figure out your machine learning environment.
 
@@ -107,6 +128,9 @@
   id: AML.TA0009
   name: Collection
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0009
+      url: https://attack.mitre.org/tactics/TA0009/
   description: |
     The adversary is trying to gather machine learning artifacts and other related information relevant to their goal.
 
@@ -118,6 +142,9 @@
   id: AML.TA0010
   name: Exfiltration
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0010
+      url: https://attack.mitre.org/tactics/TA0010/
   description: |
     The adversary is trying to steal machine learning artifacts or other information about the machine learning system.
 
@@ -130,6 +157,9 @@
   id: AML.TA0011
   name: Impact
   object-type: tactic
+  ATT&CK-reference:
+      id: TA0040
+      url: https://attack.mitre.org/tactics/TA0040/
   description: |
     The adversary is trying to manipulate, interrupt, erode confidence in, or destroy your machine learning systems and data.
 
