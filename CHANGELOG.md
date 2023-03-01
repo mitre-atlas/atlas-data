@@ -1,12 +1,26 @@
 # ATLAS Data Changelog
 
+## [4.3.0]() (2023-02-28)
+
+New case study on prompt injection and adapted new associated techniques from ATT&CK.
+
+#### Tactics and techniques
+- Added new techniques
+  + [Exploit Public-Facing Application](https://atlas.mitre.org/techniques/AML.T0049)
+  + [Command and Scripting Interpreter](https://atlas.mitre.org/techniques/AML.T0050)
+
+
+#### Case studies
+- Added new case study
+  + [Achieving Code Execution in MathGPT via Prompt Injection](https://atlas.mitre.org/studies/AML.CS0016)
+
 ## [4.2.0]() (2023-01-18)
 
-Denotes existing tactics and techniques adapted from ATT&CK and adds a new case study
+Denotes existing tactics and techniques adapted from ATT&CK and adds a new case study on a dependency confusion.
 
 #### Tactics and techniques
 - Added new technique
-  + Data from Local System
+  + [Data from Local System](https://atlas.mitre.org/techniques/AML.T0037)
 - ATLAS objects that are adapted from ATT&CK are denoted by the additional key `ATT&CK-reference`, ex.
   + ```
     ATT&CK-reference:
@@ -16,7 +30,7 @@ Denotes existing tactics and techniques adapted from ATT&CK and adds a new case 
 
 #### Case studies
 - Added new case study
-  + [Compromised PyTorch dependency chain](https://atlas.mitre.org/studies/AML.CS0015)
+  + [Compromised PyTorch Dependency Chain](https://atlas.mitre.org/studies/AML.CS0015)
 
 
 ## [4.1.0]() (2022-10-27)
@@ -25,7 +39,7 @@ Refreshed existing case studies
 
 #### Tactics and techniques
 - Added a ATLAS technique
-    + System Misuse for External Effect
+    + [System Misuse for External Effect](https://atlas.mitre.org/techniques/AML.T0048)
 - Updated descriptions
 
 #### Case studies
