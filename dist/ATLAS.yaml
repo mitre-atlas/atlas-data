@@ -708,7 +708,7 @@ matrices:
       the inference API.
 
       Inference API access can be a source of information to the adversary ([Discover
-      ML Model Ontology](/techniques/AML.T0013), [Discover ML Model Family](/techniques/AML.T0013)),
+      ML Model Ontology](/techniques/AML.T0013), [Discover ML Model Family](/techniques/AML.T0014)),
       a means of staging the attack ([Verify Attack](/techniques/AML.T0042), [Craft
       Adversarial Data](/techniques/AML.T0043)), or for introducing data to the target
       system for Impact ([Evade ML Model](/techniques/AML.T0015), [Erode ML Model

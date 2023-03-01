@@ -337,7 +337,7 @@
   object-type: technique
   description: |
     Adversaries may gain access to a model via legitimate access to the inference API.
-    Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_ontology.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for introducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
+    Inference API access can be a source of information to the adversary ([{{discover_model_ontology.name}}](/techniques/{{discover_model_ontology.id}}), [{{discover_model_family.name}}](/techniques/{{discover_model_family.id}})), a means of staging the attack ([{{verify_attack.name}}](/techniques/{{verify_attack.id}}), [{{craft_adv.name}}](/techniques/{{craft_adv.id}})), or for introducing data to the target system for Impact ([{{evade_model.name}}](/techniques/{{evade_model.id}}), [{{erode_integrity.name}}](/techniques/{{erode_integrity.id}})).
   tactics:
     - "{{ml_model_access.id}}"
 
