@@ -38,7 +38,7 @@ def load_atlas_data(matrix_yaml_filepath):
     ## Jinja template evaluation
 
     # Use YAML default style of literal string "" wrappers to handle apostophes/single quotes in the text
-    data_str = yaml.dump(data, default_flow_style=False, sort_keys=False, default_style='"')
+    data_str = yaml.dump(data, default_flow_style=False, sort_keys=False, default_style='>')
     # Set up data as Jinja template
     env = Environment()
     template = env.from_string(data_str)

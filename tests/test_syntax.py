@@ -16,7 +16,8 @@ REGEX_MARKDOWN_LINK = re.compile(r'\[([^\[]+)\]\((.*?)\)')
 
 # Fully-qualified URLs
 # https://stackoverflow.com/a/17773849
-REGEX_URL = re.compile(r'^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})$')
+REGEX_URL = re.compile(r'(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})')
+REGEX_URL_EXACT = re.compile(rf'^{REGEX_URL.pattern}$')
 
 # Internal Markdown links, assumed to be only to /tactics/ and /techniques/
 # Note that the regex objects here are from conftest.py and are the schema library's objects, hence the pattern_str property
@@ -27,6 +28,10 @@ REGEX_INTERNAL_URL = re.compile(
     r'|'
     rf'/techniques/{TECHNIQUE_ID_PATTERN}$'
     )
+
+# Capitalized acronym-like words, including possessive (') and plural versions (s)
+# Example matches: AI, AI's, AIs, ATT&CK
+REGEX_ACRONYM = re.compile(r"\b[A-Z&]+[']{0,1}[s]{0,1}\b")
 
 def test_markdown_link(text_with_possible_markdown_syntax):
     """Validates Markdown link syntax for internal and external links.
@@ -57,7 +62,7 @@ def test_markdown_link(text_with_possible_markdown_syntax):
             # URLs should not be empty
             errors.append(f'Got empty URL for Markdown link with title [{title}]')
 
-        elif url.startswith('http') and REGEX_URL.match(url) is None:
+        elif url.startswith('http') and REGEX_URL_EXACT.match(url) is None:
             # Ensure that external URL is fully-qualified and doesn't contain invalid characters
             errors.append(f'Expected a fully-qualified URL, got ({url})')
 
@@ -98,6 +103,10 @@ def test_spelling(text_to_be_spellchecked):
     stripped_text = REGEX_MARKDOWN_LINK.sub('', text)
     # Remove inline code, content surrounded by one backtick
     stripped_text = REGEX_INLINE_CODE.sub('', stripped_text)
+    # Remove URLs
+    stripped_text = REGEX_URL.sub('', stripped_text)
+    # Remove acronym-like words
+    stripped_text = REGEX_ACRONYM.sub('', stripped_text)
     # Tokenize, see comments above at variable declaration
     text_tokens = REGEX_WORDS.findall(stripped_text)
 

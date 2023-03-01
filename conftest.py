@@ -183,7 +183,7 @@ def pytest_generate_tests(metafunc):
             'name',
             'summary',
             'reporter',
-            'actor',
+            # 'actor', # Avoid spellchecking names
             'target'
         ]
         # Collect technique objects
