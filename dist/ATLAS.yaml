@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.3.0
+version: 4.4.0-dev
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
@@ -1384,7 +1384,51 @@ matrices:
       '
     tactics:
     - AML.TA0011
-<<<<<<< HEAD
+  - id: AML.T0049
+    name: Exploit Public-Facing Application
+    object-type: technique
+    description: 'Adversaries may attempt to take advantage of a weakness in an Internet-facing
+      computer or program using software, data, or commands in order to cause unintended
+      or unanticipated behavior. The weakness in the system can be a bug, a glitch,
+      or a design vulnerability. These applications are often websites, but can include
+      databases (like SQL), standard services (like SMB or SSH), network device administration
+      and management protocols (like SNMP and Smart Install), and any other applications
+      with Internet accessible open sockets, such as web servers and related services.
+
+      '
+    tactics:
+    - AML.TA0004
+    ATT&CK-reference:
+      id: T1190
+      url: https://attack.mitre.org/techniques/T1190/
+  - id: AML.T0050
+    name: Command and Scripting Interpreter
+    object-type: technique
+    description: 'Adversaries may abuse command and script interpreters to execute
+      commands, scripts, or binaries. These interfaces and languages provide ways
+      of interacting with computer systems and are a common feature across many different
+      platforms. Most systems come with some built-in command-line interface and scripting
+      capabilities, for example, macOS and Linux distributions include some flavor
+      of Unix Shell while Windows installations include the Windows Command Shell
+      and PowerShell.
+
+
+      There are also cross-platform interpreters such as Python, as well as those
+      commonly associated with client applications such as JavaScript and Visual Basic.
+
+
+      Adversaries may abuse these technologies in various ways as a means of executing
+      arbitrary commands. Commands and scripts can be embedded in Initial Access payloads
+      delivered to victims as lure documents or as secondary payloads downloaded from
+      an existing C2. Adversaries may also execute commands through interactive terminals/shells,
+      as well as utilize various Remote Services in order to achieve remote Execution.
+
+      '
+    tactics:
+    - AML.TA0005
+    ATT&CK-reference:
+      id: T1159
+      url: https://attack.mitre.org/techniques/T1059/
   mitigations:
   - id: AML.M0000
     name: Limit Public Information
@@ -1914,53 +1958,6 @@ matrices:
         artifacts may have a detrimental effect on the system.
 
         '
-=======
-  - id: AML.T0049
-    name: Exploit Public-Facing Application
-    object-type: technique
-    description: 'Adversaries may attempt to take advantage of a weakness in an Internet-facing
-      computer or program using software, data, or commands in order to cause unintended
-      or unanticipated behavior. The weakness in the system can be a bug, a glitch,
-      or a design vulnerability. These applications are often websites, but can include
-      databases (like SQL), standard services (like SMB or SSH), network device administration
-      and management protocols (like SNMP and Smart Install), and any other applications
-      with Internet accessible open sockets, such as web servers and related services.
-
-      '
-    tactics:
-    - AML.TA0004
-    ATT&CK-reference:
-      id: T1190
-      url: https://attack.mitre.org/techniques/T1190/
-  - id: AML.T0050
-    name: Command and Scripting Interpreter
-    object-type: technique
-    description: 'Adversaries may abuse command and script interpreters to execute
-      commands, scripts, or binaries. These interfaces and languages provide ways
-      of interacting with computer systems and are a common feature across many different
-      platforms. Most systems come with some built-in command-line interface and scripting
-      capabilities, for example, macOS and Linux distributions include some flavor
-      of Unix Shell while Windows installations include the Windows Command Shell
-      and PowerShell.
-
-
-      There are also cross-platform interpreters such as Python, as well as those
-      commonly associated with client applications such as JavaScript and Visual Basic.
-
-
-      Adversaries may abuse these technologies in various ways as a means of executing
-      arbitrary commands. Commands and scripts can be embedded in Initial Access payloads
-      delivered to victims as lure documents or as secondary payloads downloaded from
-      an existing C2. Adversaries may also execute commands through interactive terminals/shells,
-      as well as utilize various Remote Services in order to achieve remote Execution.
-
-      '
-    tactics:
-    - AML.TA0005
-    ATT&CK-reference:
-      id: T1159
-      url: https://attack.mitre.org/techniques/T1059/
->>>>>>> origin/main
 case-studies:
 - id: AML.CS0000
   object-type: case-study
