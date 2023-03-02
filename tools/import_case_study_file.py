@@ -58,9 +58,10 @@ def main():
             data = yaml.safe_load(f)
 
             # Check if version in metadata is up to date
-            meta = data['meta']
-            if 'version' not in meta or meta['version'] != CASE_STUDY_VERSION:
-                raise Exception('Your case study is out of date. The current schema version is v'+ CASE_STUDY_VERSION + '.')
+            if 'meta' in data:
+                meta = data['meta']
+                if 'version' not in meta or meta['version'] != CASE_STUDY_VERSION:
+                    raise Exception('Your case study is out of date. The current schema version is v'+ CASE_STUDY_VERSION + '.')
 
             # Case study file data is held in 'study' key
             case_study = data['study']
