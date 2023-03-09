@@ -277,6 +277,22 @@
     - id: '{{supply_chain.id}}'
       use: |
         Allow only certified users access to artifacts and prevent access to the supply chain from outside sources.
+- &distribution_methods
+  id: AML.M0017
+  name: Model Distribution Methods
+  object-type: mitigation
+  description: |
+    Deploying ML models to edge devices can increase the attack surface of the system. Consider serving models in the cloud to reduce the level of access the adversary has to the model.
+  techniques:
+    - id: '{{full_access.id}}'
+      use: |
+        Not distributing the model in software to edge devices, can limit an adversary's ability to gain full access to the model.
+    - id: '{{craft_adv_whitebox.id}}'
+      use: |
+        With full access to the model, an adversary could perform white-box attacks.
+    - id: '{{supply_chain_model.id}}'
+      use: |
+        An adversary could repackage the application with a malicious version of the model.
 - &user_training
   id: AML.M0019
   name: User Training
