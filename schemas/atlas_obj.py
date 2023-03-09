@@ -114,5 +114,6 @@ mitigation_schema = Schema(
         ]
     },
     name="mitigation",
-    as_reference=True
+    as_reference=True,
+    ignore_extra_keys=True
 )

@@ -1,177 +1,119 @@
 ---
-- id: AML.M0000
-  name: Limit Public Information
+- &limit_info_release
+  id: AML.M0000
+  name: Limit Release of Public Information
   object-type: mitigation
   description: |
-    Limit public information about models used in the organization or system will help stop the adversaries obtain knowledge on the model or system used.
-
-    What to limit:
-    - Only publish need-to-know information
-    - Restrict information on architecture type, training data, etc.
+    Limit the public release of technical information about machine learning used in an organization's products or services. Technical knowledge of how machine learning is used can be leveraged by adversaries to perform targeting and tailor attacks to the target system. Additionally, consider limiting the release of organizational information - including physical locations, researcher names, and department structures - from which technical details such as machine learning techniques, model architectures, or datasets may be inferred.
   techniques:
     - id: '{{victim_research.id}}'
       use: |
-        Restrict information on architecture type, training data, system, company, products, etc.
+        Limit the connection between publicly disclosed approaches and the data, models, and algorithms used in production.
     - id: '{{victim_website.id}}'
       use: |
-        Restrict information on technical details about their ML-enabled products or services.
-        Restrict details including names of departments/divisions, physical locations, and data about key employees such as names, roles, and contact info.
-    - id: '{{discover_model_ontology.id}}'
-      use: |
-        Limit information released on machine learning model's output space and keep ontology configuration on a need-to-know basis.
-- id: AML.M0001
-  name: Limit ML Artifact Release
+        Restrict release of technical information on ML-enabled products and organizational information on the teams supporting ML-enabled products.
+- &limit_model_release
+  id: AML.M0001
+  name: Limit Model Artifact Release
   object-type: mitigation
   description: |
-    Machine learning artifact describes the output created by the training process. Example of the output includes a fully trained model,
-    a model checkpoint, weights, or model files created during the training process.
-
-    Limiting public release of these machine learning artifacts can prevent adversaries from further collection, exfiltration, or disruption,
-    and to tailor and improve attacks.
+    Limit public release of technical project details including data, algorithms, model architectures, and model checkpoints that are used in production, or that are representative of those used in production.
   techniques:
-    - id: '{{acquire_ml_artifacts.id}}'
+    - id: '{{acquire_ml_artifacts_data.id}}'
       use: |
-        Control and limit public information including cloud storage, public-facing services, and software or data repositories, to identify machine learning artifacts.
+        Limiting the release of datasets can reduce an adversary's ability to target production models trained on the same or similar data.
+    - id: '{{acquire_ml_artifacts_model.id}}'
+      use: |
+        Limiting the release of model architectures and checkpoints can reduce an adversary’s ability to target those models.
     - id: '{{poison_data.id}}'
       use: |
-        Control access and verify users to the ML model data.
-    - id: '{{discover_ml_artifacts.id}}'
-      use: |
-        Control and limit information released on ML artifacts.
-    - id: '{{ml_artifact_collection.id}}'
-      use: |
-        Limit outputs of ML artifacts produced when interacting with a model.
-    - id: '{{obtain_cap.id}}'
-      use: |
-        Control and limit software capabilities used on systems.
-        Limit and prevent usages of generic software tools that modifies ML artifacts.
-- id: AML.M0002
-  name: Post-process Model Outputs
+        Published datasets can be a target for poisoning attacks.
+- &passive_output_obfuscation
+  id: AML.M0002
+  name: Passive ML Output Obfuscation
   object-type: mitigation
   description: |
-    Post-processing data includes various pruning routines, rule filtering, or even knowledge integration. All these procedures provide a
-    kind of symbolic filter for noisy and imprecise knowledge derived by an inductive algorithm.
-
-    Examples include:
-    - Only return to `N` results
-    - Only return specific classes
-    - Omit or fuzz scores
-
-    _Inference time_
+    Limit outputs available to end user which can be used to reconstruct the model.
   techniques:
-    - id: '{{craft_adv_blackbox.id}}'
-      use: |
-        Limit access to the target model.
-    - id: '{{inference_api.id}}'
-      use: |
-        Limit access to the inference API.
-        Require account registration for ML model API calls.
-        Require API keys.
-        Keeping track of accounts.
     - id: '{{discover_model_ontology.id}}'
       use: |
-        Using obfuscate ML model outputs, limiting output information, or other post-processing steps can help to preserve the privacy of training data.
+        Restrict the number of results shown. Limit the number of classes granted API access. Use randomized smoothing techniques. Reduce the precision of numerical outputs.
     - id: '{{discover_model_family.id}}'
       use: |
-        Limit publishing general information about the model.
-- id: AML.M0003
-  name: Create Robust Models
-  object-type: mitigation
-  description: |
-    Robust models can help stay on top of cyber threats and adversarial attacks. Adversaries may evade and disturb ml models
-    with adversarial data which wastes time and money on the system, the analyst, and the organization affected.
-
-    _Model training time_
-  techniques:
-    - id: '{{evade_model.id}}'
-      use: |
-        Incorporate adversarial examples during model training.
-    - id: '{{chaff_data.id}}'
-      use: |
-        Incorporate adversarial examples during model training.
-        GAN detect fake data at inference time.
-    - id: '{{erode_integrity.id}}'
-      use: |
-        Model distillation (transferring knowledge from a large model to a smaller one).
-        Model ensembles (Ensemble models are a machine learning approach to combine multiple other models in the prediction process.)
-    - id: '{{exfiltrate_via_api.id}}'
-      use: |
-        Incorporate adversarial examples during model training.
-- id: AML.M0004
-  name: Limit Access To ML Model Queries
-  object-type: mitigation
-  description: |
-    Limiting access to query, limiting amount of queries a user can do per day, or detecting usage per user by tracking network traffic is a way
-    to stop adversaries from learning more about the models and testing the model or API.
-
-  techniques:
-    - id: '{{inference_api.id}}'
-      use: |
-        Limit access to the inference API.
-        Require account registration for ML model API calls.
-        Require API keys.
-        Keeping track of accounts.
-    - id: '{{exfiltrate_via_api.id}}'
-      use: |
-        Limiting access to api and prevent ML models from leaking private information on training data.
-    - id: '{{valid_accounts.id}}'
-      use: |
-        Tracking and monitoring user access and credentials to ML model.
-    - id: '{{cost_harvesting.id}}'
-      use: |
-        Limiting access to query.
-        Limiting amount of queries a user can do per day
-- id: AML.M0005
-  name: Control Access To ML Model
-  object-type: mitigation
-  description: |
-    Access requirements for ML models will stop adversaries from gain control and knowledge.
-
-  techniques:
-    - id: '{{inference_api.id}}'
-      use: |
-        Limit access to the inference API.
-        Require account registration for ML model API calls.
-        Require API keys.
-        Keeping track of accounts.
-    - id: '{{exfiltrate_via_api.id}}'
-      use: |
-        Identify potential malicious users.
-        Keeping track of accounts.
-- id: AML.M0006
-  name: Use Multi-pronged Algorithms
-  object-type: mitigation
-  description: |
-    Using multiple different models to fool adversaries of which type of model is used and how the model used.
-    This will avoid single points of failure and is a more "traditional" approach alongside machine learning.
-  techniques:
+        Suggested approaches:
+          - Restrict the number of results shown
+          - Limit the number of classes granted API access
+          - Use randomized smoothing techniques
+          - Reduce the precision of numerical outputs
     - id: '{{craft_adv_blackbox.id}}'
       use: |
-        Limit access to the target model.
+        Suggested approaches:
+          - Restrict the number of results shown
+          - Limit the number of classes granted API access
+          - Use randomized smoothing techniques
+          - Reduce the precision of numerical outputs
+- &model_hardening
+  id: AML.M0003
+  name: Model Hardening
+  object-type: mitigation
+  description: |
+    Incorporate adversarial examples and adjust training algorithms to ensure that models are robust to adversarial inputs.
+  techniques:
+    - id: '{{discover_model_ontology.id}}'
+      use: |
+        Combine models from different families to prevent a single point of failure.
+    - id: '{{discover_model_family.id}}'
+      use: |
+        Combine models from different families to prevent a single point of failure.
     - id: '{{evade_model.id}}'
       use: |
         Incorporate adversarial examples during model training.
-    - id: '{{supply_chain_software.id}}'
+    - id: '{{exfiltrate_via_api.id}}'
       use: |
-        Implement a supply chain management program to verify their integrity.
-        Limit access information on information specifying what implementaions the model uses.
-        Decrease dependency on other open source implementations of various algorithms.
-    - id: '{{supply_chain_data.id}}'
+        Incorporate adversarial examples during model training. Identify fake data during inference time.
+    - id: '{{erode_integrity.id}}'
       use: |
-        Implement a supply chain management program to verify the security and integrity of the source of data used.
-        Decrease dependency on a single data source.
-        Limit access information on information specifying what source is used.
-    - id: '{{supply_chain_model.id}}'
+        Incorporate adversarial examples during model training. Monitor evaluation metrics for drops in performance.
+    - id: '{{chaff_data.id}}'
       use: |
-        Use multiple different models to fool adversaries of which type of model is used and how the model used.
-    - id: '{{supply_chain_gpu.id}}'
-      use: |
-        Limit information on certain specialized hardware, i.e GPUs used.
-- id: AML.M0007
-  name: Sanitize Training Data
+        Incorporate adversarial examples during model training. Identify fake data during inference time.
+- &restrict_queries
+  id: AML.M0004
+  name: Restrict Number of ML Model Queries
   object-type: mitigation
   description: |
-    Detect and remove, or remediate poisoned data.
+    Limit the number and rate of queries a user can do in a given period of time and detecting usage per user by tracking network traffic.
+  techniques:
+    - id: '{{cost_harvesting.id}}'
+      use: |
+        Cap the number of queries users can perform in a given interval to hinder an attacker's ability to send computationally expensive inputs
+    - id: '{{discover_model_ontology.id}}'
+      use: |
+        Limit the amount of information an attacker can learn about a model's ontology through API queries.
+    - id: '{{discover_model_family.id}}'
+      use: |
+        Limit the amount of information an attacker can learn about a model's ontology through API queries.
+    - id: '{{exfiltrate_via_api.id}}'
+      use: |
+        Restrict the volume of API queries in a given period of time to regulate the amount and fidelity of potentially sensitive information an attacker can learn.
+    - id: '{{membership_inference.id}}'
+      use: |
+        Restrict the volume of API queries in a given period of time to regulate the amount and fidelity of potentially sensitive information an attacker can learn.
+    - id: '{{model_inversion.id}}'
+      use: |
+        Restrict the volume of API queries in a given period of time to regulate the amount and fidelity of potentially sensitive information an attacker can learn.
+    - id: '{{extract_model.id}}'
+      use: |
+        Restrict the volume of API queries in a given period of time to regulate the amount and fidelity of potentially sensitive information an attacker can learn.
+    - id: '{{craft_adv_blackbox.id}}'
+      use: |
+        Cap the number of queries users can perform in a given interval to shrink the attack surface for black-box attacks.
+- &control_access_rest
+  id: AML.M0005
+  name: Control Access to ML Models and Data at Rest
+  object-type: mitigation
+  description: |
+    Establish access controls on internal model registries and limit internal access to production models. Limit access to training data only to approved users and encrypt data at rest.
   techniques:
     - id: '{{supply_chain_data.id}}'
       use: |
@@ -182,28 +124,79 @@
     - id: '{{publish_poisoned_data.id}}'
       use: |
         Poisoned datasets can be detected and remediated before use.
-- id: AML.M0008
-  name: ML Model Validation
+    - id: '{{poison_model.id}}'
+      use: |
+        Prevent attackers from leveraging poisoned datasets to launch backdoor attacks against a model.
+    - id: '{{inject_payload.id}}'
+      use: |
+        Prevent attackers from leveraging poisoned datasets to launch backdoor attacks against a model.
+    - id: '{{supply_chain_model.id}}'
+      use: |
+        Ensure integrity of the model is preserved while in storage by preventing unwanted access.
+- &ensemble_methods
+  id: AML.M0006
+  name: Use Ensemble Methods
   object-type: mitigation
   description: |
-    Validating your machine learning model outcomes is all about making sure you're getting the right data and
-    that the data is accurate. Validation catches problems before they become big problems and is a critical step
-    in the implementation of any machine learning model.
+    Use a variety of different models to obfuscate where and how specific models are used and avoid a single point of failure. Some attacks may effectively evade one model or model family but be ineffective against others.
+  techniques:
+    - id: '{{craft_adv_blackbox.id}}'
+      use: |
+        Use multiple different models to fool adversaries of which type of model is used and how the model is used.
+    - id: '{{supply_chain_software.id}}'
+      use: |
+        Using multiple different models ensures minimal performance loss if security flaw is found in tool for one model or family.
+    - id: '{{supply_chain_model.id}}'
+      use: |
+        Using multiple different models ensures minimal performance loss if security flaw is found in tool for one model or family.
+    - id: '{{full_access.id}}'
+      use: |
+        Use multiple different models to fool adversaries of which type of model is used and how the model used.
+    - id: '{{discover_model_family.id}}'
+      use: |
+        Use multiple different models to fool adversaries of which type of model is used and how the model used.
+- &sanitize_training_data
+  id: AML.M0007
+  name: Sanitize Training Data
+  object-type: mitigation
+  description: |
+    Detect and remove or remediate poisoned training data.  Training data should be sanitized prior to model training and recurrently for an active learning model.
 
-    One of the ways is to use built-in model verification where available or
-    scan for abnormal payload structures, etc.
+    Implement a filter to limit ingested training data.  Establish a content policy that would remove unwanted content such as certain explicit or offensive language from being used.
+  techniques:
+    - id: '{{supply_chain_data.id}}'
+      use: |
+        Detect and remove or remediate poisoned data to avoid adversarial model drift or backdoor attacks.
+    - id: '{{poison_data.id}}'
+      use: |
+        Detect modification of data and labels which may cause adversarial model drift or backdoor attacks.
+    - id: '{{poison_model.id}}'
+      use: |
+        Prevent attackers from leveraging poisoned datasets to launch backdoor attacks against a model.
+- &validate_model
+  id: AML.M0008
+  name: Validate ML Model
+  object-type: mitigation
+  description: |
+    Validate that machine learning models perform as intended by testing for backdoor triggers or adversarial bias.
   techniques:
     - id: '{{supply_chain_model.id}}'
       use: |
-        Ensure that model outputs are as expected compared to similar models and known inputs. Train similar models using described methods and verify against published results.
-    - id: '{{poison_data.id}}'
+        Ensure that acquired models to not respond to potential backdoor triggers or adversarial bias.
+    - id: '{{poison_model.id}}'
       use: |
-        Ensure that model outputs are as expected compared to similar models and known inputs. Train similar models using described methods and verify against published results.
-- id: AML.M0009
-  name: Use Multi-modal Sensors
+        Ensure that trained models to not respond to potential backdoor triggers or adversarial bias.
+    - id: '{{inject_payload.id}}'
+      use: |
+        Ensure that acquired models to not respond to potential backdoor triggers or adversarial bias.
+- &multi_modal_sensors
+  id: AML.M0009
+  name: Use Multi-Modal Sensors
   object-type: mitigation
   description: |
-    Incorporate other sensors for better face liveness detection (e.g., stereo for depth)
+    Incorporate multiple sensors to integrate varying perspectives and modalities to avoid a single point of failure susceptible to physical attacks.
+
+    Face liveness detection in biometrics can be reinforced with methods such as stereo for depth sensing, pupil tracking, and texture and motion analysis.
   techniques:
     - id: '{{physical_env.id}}'
       use: |
@@ -211,73 +204,69 @@
     - id: '{{evade_model.id}}'
       use: |
         Using a variety of sensors can make it more difficult for an attacker to compromise and produce malicious results.
-- id: AML.M0010
-  name: Pre-process Model Inputs
+- &input_restoration
+  id: AML.M0010
+  name: Input Restoration
   object-type: mitigation
   description: |
-    Initial step applied to model inputs.
-    - Data remediation
-    - Remove adversarial perturbations
-    - Basic data validation, for ex.
-      + Ensure image pixel values are in range
-      + Detect applied image transformations
-
-    _Inference time_
+    Preprocess all inference data to nullify or reverse potential adversarial perturbations.
   techniques:
     - id: '{{craft_adv_blackbox.id}}'
       use: |
-        Pre-processing model inputs can prevent malicious data from going through the machine learning pipeline.
-    - id: '{{inference_api.id}}'
-      use: |
-        Pre-processing model inputs can prevent malicious data from going through the machine learning pipeline.
+        Input restoration adds an extra layer of unknowns and randomness when an adversary evaluates the input-output relationship.
     - id: '{{evade_model.id}}'
       use: |
-        Pre-processing model inputs can prevent malicious data from going through the machine learning pipeline.
+        Preprocessing model inputs can prevent malicious data from going through the machine learning pipeline.
     - id: '{{erode_integrity.id}}'
       use: |
-        Pre-processing model inputs can prevent malicious data from going through the machine learning pipeline.
-- id: AML.M0011
-  name: Sanitize Active Learning Training Data
-  object-type: mitigation
-  description: |
-    In an active learning model, avoid adversarial model drift by detecting and removing or remediating poisoned data.
-  techniques:
-    - id: '{{supply_chain_data.id}}'
+        Preprocessing model inputs can prevent malicious data from going through the machine learning pipeline.
+    - id: '{{chaff_data.id}}'
       use: |
-        Detect and remove or remediate poisoned data to avoid adversarial model drift.
-- id: AML.M0012
+        Preprocessing inference model inputs can prevent chaff data from going through the machien learning pipeline.
+- &encrypt_info
+  id: AML.M0012
   name: Encrypt Sensitive Information
   object-type: mitigation
   description: |
-    Encrypt the ML model when packaging in applications.
+    Encrypt the ML model when packaging in applications to protect against adversaries attempting to access sensitive data.
+  ATT&CK-reference:
+    id: M1041
+    url: https://attack.mitre.org/mitigations/M1041/
   techniques:
     - id: '{{search_apps.id}}'
       use: |
         Obfuscate model files via compression to prevent attackers from easily obtaining artifacts from repositories.
-- id: AML.M0013
+    - id: '{{active_scanning.id}}'
+      use: |
+        Protect the system's information from being accessed by an adversary.
+    - id: '{{discover_ml_artifacts.id}}'
+      use: |
+        Protect machine learning artifacts from adversaries who gather private information to target and improve attacks.
+- &code_signing
+  id: AML.M0013
   name: Code Signing
   object-type: mitigation
   description: |
-    Enforce binary and application integrity with digital signature verification to prevent untrusted code from executing.
+    Enforce binary and application integrity with digital signature verification to prevent untrusted code from executing. Adversaries can embed malicious code in ML software or models. Enforcement of code signing can prevent the compromise of the machine learning supply chain and prevent execution of malicious code.
   techniques:
     - id: '{{unsafe_ml_artifacts.id}}'
       use: |
-        Verify checksums of downloaded ML artifacts.
-    - id: '{{publish_poisoned_data.id}}'
+        Prevent execution of ML artifacts that are not properly signed.
+    - id: '{{supply_chain_software.id}}'
       use: |
-        Verify checksums of downloaded ML artifacts.
-    - id: '{{supply_chain_data.id}}'
-      use: |
-        Verify checksums of downloaded ML artifacts.
+        Enforce properly signed drivers and ML software frameworks.
     - id: '{{supply_chain_model.id}}'
       use: |
-        Verify checksums of downloaded ML artifacts.
-- id: AML.M0014
+        Enforce properly signed model files.
+  ATT&CK-reference:
+    id: M1045
+    url: https://attack.mitre.org/mitigations/M1045/
+- &verify_ml_artifacts
+  id: AML.M0014
   name: Verify ML Artifacts
   object-type: mitigation
   description: |
-    Check signatures at the application level, at model repositories, docker registries,
-    anywhere you would pull ML artifacts or code.
+    Verify the cryptographic checksum of all machine learning artifacts to verify that the file was not modified by an attacker.
   techniques:
     - id: '{{publish_poisoned_data.id}}'
       use: |
@@ -288,66 +277,46 @@
     - id: '{{supply_chain.id}}'
       use: |
         Allow only certified users access to artifacts and prevent access to the supply chain from outside sources.
-- id: AML.M0015
-  name: Detect Adversarial Inputs
-  object-type: mitigation
-  description: |
-    Deploy state-of-the-art defenses designed to detect out of distribution data or  ___ adverserial attacks.
-  techniques:
-    - id: '{{evade_model.id}}'
-      use: |
-        Prevent an attacker from introducing adversarial data into the system.
-    - id: '{{craft_adv_blackbox.id}}'
-      use: |
-        Monitor black-box access to the target model to protect against harmful input.
-    - id: '{{physical_env.id}}'
-      use: |
-        Verify data involving physical environments with human checking to ensure input is not being influenced by adversaries.
-- id: AML.M0016
-  name: Use Trusted Data Sources
-  object-type: mitigation
-  description: |
-    Limit data to secure and reputible sources by verifying SSL/TLS or running anti-virus software.
-  techniques:
-    - id: '{{publish_poisoned_data.id}}'
-      use: |
-        Verifying sources can prevent poisoned data from being introduced to a system, causing vulnerabilites and harm to the model.
-- id: AML.M0017
-  name: Consider Model Distribution Methods
-  object-type: mitigation
-  description: |
-    TBD
-  techniques:
-    - id: '{{publish_poisoned_data.id}}'
-      use: |
-        Consider not packaging models into distributed artifacts.
-        Can mitigate the supply chain compromise, or prevent white-box access.
-        Computation at edge vs. some server.
-- id: AML.M0018
-  name: Control Internal Access To Models
-  object-type: mitigation
-  description: |
-    Establish access controls on internal model registries and limit interval access to production models.
-  techniques:
-    - id: '{{ml_artifact_collection.id}}'
-      use: |
-        Reduce the amount of time an adversary may be able to access a system, slowing them down in their process of information discovery and collection.
-    - id: '{{discover_ml_artifacts.id}}'
-      use: |
-        Reduce the amount of time an adversary may be able to access a system, slowing them down in their process of information discovery and collection.
-    - id: '{{user_execution.id}}'
-      use: |
-        Reduce the amount of time a user has access to the system and give them fewer opportunities to execute malicious code.
-- id: AML.M0019
+- &user_training
+  id: AML.M0019
   name: User Training
   object-type: mitigation
   description: |
-    - Train users to be aware of access or manipulation attempts by an adversary to reduce the risk of successful spearphishing, social engineering, and other techniques that involve user interaction
+    Educate ML model developers on secure coding practices and ML vulnerabilities.
   techniques:
     - id: '{{user_execution.id}}'
       use: |
-        Use user training as a way to bring awareness to common phishing and spearphishing techniques and how to raise suspicion for potentially malicious events.
         Training users to be able to identify attempts at manipulation will make them less susceptible to performing techniques that cause the execution of malicious code.
     - id: '{{unsafe_ml_artifacts.id}}'
       use: |
         Train users to identify attempts of manipulation to prevent them from running unsafe code which when executed could develop unsafe artifacts. These artifacts may have a detrimental effect on the system.
+- &vuln_scanning
+  id: AML.M0020
+  name: Vulnerability Scanning
+  object-type: mitigation
+  description: |
+    Vulnerability scanning is used to find potentially exploitable software vulnerabilities to remediate them.
+
+    File formats such as pickle files that are commonly used to store machine learning models can contain exploits that allow for arbitrary code execution.
+  techniques:
+    - id: '{{unsafe_ml_artifacts.id}}'
+      use: |
+        Scan ML artifacts for vulnerabilities before execution.
+  ATT&CK-reference:
+    id: M1016
+    url: https://attack.mitre.org/mitigations/M1016/
+- &restrict_lib_loading
+  id: AML.M0021
+  name: Restrict Library Loading
+  object-type: mitigation
+  description: |
+    Prevent abuse of library loading mechanisms in the operating system and software to load untrusted code by configuring appropriate library loading mechanisms and investigating potential vulnerable software.
+
+    File formats such as pickle files that are commonly used to store machine learning models can contain exploits that allow for loading of malicious libraries.
+  techniques:
+    - id: '{{unsafe_ml_artifacts.id}}'
+      use: |
+        Restrict library loading by ML artifacts.
+  ATT&CK-reference:
+    id: M1044
+    url: https://attack.mitre.org/mitigations/M1044/
