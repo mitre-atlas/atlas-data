@@ -1829,6 +1829,37 @@ matrices:
         supply chain from outside sources.
 
         '
+  - id: AML.M0015
+    name: Adversarial Input Detection
+    object-type: mitigation
+    description: 'Detect and block adversarial inputs or atypical queries that deviate
+      from known benign behavior, exhibit behavior patterns observed in previous attacks
+      or that come from potentially malicious IPs.
+
+      Incorporate adversarial detection algorithms into the ML system prior to the
+      ML model.
+
+      '
+    techniques:
+    - id: AML.T0015
+      use: 'Prevent an attacker from introducing adversarial data into the system.
+
+        '
+    - id: AML.T0043.001
+      use: 'Monitor queries and query patterns to the target model, block access if
+        suspicious queries are detected.
+
+        '
+    - id: AML.T0029
+      use: 'Assess queries before inference call or enforce timeout policy for queries
+        which consume excessive resources.
+
+        '
+    - id: AML.T0031
+      use: 'Incorporate adversarial input detection into the pipeline before inputs
+        reach the model.
+
+        '
   - id: AML.M0017
     name: Model Distribution Methods
     object-type: mitigation
