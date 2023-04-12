@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.4.0-dev
+version: 4.4.0
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
