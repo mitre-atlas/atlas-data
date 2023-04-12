@@ -1433,8 +1433,10 @@ matrices:
   - id: AML.M0000
     name: Limit Release of Public Information
     object-type: mitigation
-    description: 'Limit the public release of technical information about machine
-      learning used in an organization''s products or services. Technical knowledge
+    tags:
+    - Model Agnostic
+    description: 'Limit the public release of technical information about the machine
+      learning stack used in an organization''s products or services. Technical knowledge
       of how machine learning is used can be leveraged by adversaries to perform targeting
       and tailor attacks to the target system. Additionally, consider limiting the
       release of organizational information - including physical locations, researcher
@@ -1456,6 +1458,10 @@ matrices:
   - id: AML.M0001
     name: Limit Model Artifact Release
     object-type: mitigation
+    tags:
+    - Model Agnostic
+    - Data Focused
+    - Model Focused
     description: 'Limit public release of technical project details including data,
       algorithms, model architectures, and model checkpoints that are used in production,
       or that are representative of those used in production.
@@ -1468,8 +1474,10 @@ matrices:
 
         '
     - id: AML.T0002.001
-      use: "Limiting the release of model architectures and checkpoints can reduce\
-        \ an adversary\u2019s ability to target those models.\n"
+      use: 'Limiting the release of model architectures and checkpoints can reduce
+        an adversary''s ability to target those models.
+
+        '
     - id: AML.T0020
       use: 'Published datasets can be a target for poisoning attacks.
 
@@ -1477,70 +1485,73 @@ matrices:
   - id: AML.M0002
     name: Passive ML Output Obfuscation
     object-type: mitigation
-    description: 'Limit outputs available to end user which can be used to reconstruct
-      the model.
+    tags:
+    - Passive
+    - Model Agnostic
+    - Model Operations
+    description: 'Decreasing the fidelity of model outputs provided to the end user
+      can reduce an adversaries ability to extract information about the model and
+      optimize attacks for the model.
 
       '
     techniques:
     - id: AML.T0013
-      use: 'Restrict the number of results shown. Limit the number of classes granted
-        API access. Use randomized smoothing techniques. Reduce the precision of numerical
-        outputs.
-
-        '
+      use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
+        \  - Reduce the precision of numerical outputs\n"
     - id: AML.T0014
       use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
-        \ the number of classes granted API access\n  - Use randomized smoothing techniques\n\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
         \  - Reduce the precision of numerical outputs\n"
     - id: AML.T0043.001
       use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
-        \ the number of classes granted API access\n  - Use randomized smoothing techniques\n\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
+        \  - Reduce the precision of numerical outputs\n"
+    - id: AML.T0024.000
+      use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
+        \  - Reduce the precision of numerical outputs\n"
+    - id: AML.T0024.001
+      use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
+        \  - Reduce the precision of numerical outputs\n"
+    - id: AML.T0024.002
+      use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
+        \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
         \  - Reduce the precision of numerical outputs\n"
   - id: AML.M0003
     name: Model Hardening
     object-type: mitigation
-    description: 'Incorporate adversarial examples and adjust training algorithms
-      to ensure that models are robust to adversarial inputs.
+    tags:
+    - Model Focused
+    - Model Enhancement
+    - Model Development
+    description: 'Use techniques to make machine learning models robust to adversarial
+      inputs such as adversarial training or network distillation.
 
       '
     techniques:
-    - id: AML.T0013
-      use: 'Combine models from different families to prevent a single point of failure.
-
-        '
-    - id: AML.T0014
-      use: 'Combine models from different families to prevent a single point of failure.
-
-        '
     - id: AML.T0015
-      use: 'Incorporate adversarial examples during model training.
-
-        '
-    - id: AML.T0024
-      use: 'Incorporate adversarial examples during model training. Identify fake
-        data during inference time.
+      use: 'Hardened models are more difficult to evade.
 
         '
     - id: AML.T0031
-      use: 'Incorporate adversarial examples during model training. Monitor evaluation
-        metrics for drops in performance.
-
-        '
-    - id: AML.T0046
-      use: 'Incorporate adversarial examples during model training. Identify fake
-        data during inference time.
+      use: 'Hardened models are less susceptible to integrity attacks.
 
         '
   - id: AML.M0004
     name: Restrict Number of ML Model Queries
     object-type: mitigation
-    description: 'Limit the number and rate of queries a user can do in a given period
-      of time and detecting usage per user by tracking network traffic.
+    tags:
+    - Passive
+    - Model Agnostic
+    - Model Operations
+    description: 'Limit the total number and rate of queries a user can perform.
 
       '
     techniques:
     - id: AML.T0034
-      use: 'Cap the number of queries users can perform in a given interval to hinder
+      use: 'Limit the number of queries users can perform in a given interval to hinder
         an attacker''s ability to send computationally expensive inputs
 
         '
@@ -1555,82 +1566,104 @@ matrices:
 
         '
     - id: AML.T0024
-      use: 'Restrict the volume of API queries in a given period of time to regulate
+      use: 'Limit the volume of API queries in a given period of time to regulate
         the amount and fidelity of potentially sensitive information an attacker can
         learn.
 
         '
     - id: AML.T0024.000
-      use: 'Restrict the volume of API queries in a given period of time to regulate
+      use: 'Limit the volume of API queries in a given period of time to regulate
         the amount and fidelity of potentially sensitive information an attacker can
         learn.
 
         '
     - id: AML.T0024.001
-      use: 'Restrict the volume of API queries in a given period of time to regulate
+      use: 'Limit the volume of API queries in a given period of time to regulate
         the amount and fidelity of potentially sensitive information an attacker can
         learn.
 
         '
     - id: AML.T0024.002
-      use: 'Restrict the volume of API queries in a given period of time to regulate
+      use: 'Limit the volume of API queries in a given period of time to regulate
         the amount and fidelity of potentially sensitive information an attacker can
         learn.
 
         '
     - id: AML.T0043.001
-      use: 'Cap the number of queries users can perform in a given interval to shrink
+      use: 'Limit the number of queries users can perform in a given interval to shrink
         the attack surface for black-box attacks.
+
+        '
+    - id: AML.T0029
+      use: 'Limit the number of queries users can perform in a given interval to prevent
+        a denial of service.
+
+        '
+    - id: AML.T0046
+      use: 'Limit the number of queries users can perform in a given interval to protect
+        the system from chaff data spam.
 
         '
   - id: AML.M0005
     name: Control Access to ML Models and Data at Rest
     object-type: mitigation
+    tags:
+    - Model Agnostic
+    - Production
     description: 'Establish access controls on internal model registries and limit
       internal access to production models. Limit access to training data only to
-      approved users and encrypt data at rest.
+      approved users.
 
       '
     techniques:
     - id: AML.T0010.002
-      use: 'Detect and remove bad data prior to use.
+      use: 'Access controls can prevent tampering with ML artifacts and prevent unauthorized
+        copying.
 
         '
     - id: AML.T0020
-      use: 'Poisoned data can be detected and remediated before use.
-
-        '
-    - id: AML.T0019
-      use: 'Poisoned datasets can be detected and remediated before use.
+      use: 'Access controls can prevent tampering with ML artifacts and prevent unauthorized
+        copying.
 
         '
     - id: AML.T0018.000
-      use: 'Prevent attackers from leveraging poisoned datasets to launch backdoor
-        attacks against a model.
+      use: 'Access controls can prevent tampering with ML artifacts and prevent unauthorized
+        copying.
 
         '
     - id: AML.T0018.001
-      use: 'Prevent attackers from leveraging poisoned datasets to launch backdoor
-        attacks against a model.
+      use: 'Access controls can prevent tampering with ML artifacts and prevent unauthorized
+        copying.
 
         '
     - id: AML.T0010.003
-      use: 'Ensure integrity of the model is preserved while in storage by preventing
-        unwanted access.
+      use: 'Access controls can prevent tampering with ML artifacts and prevent unauthorized
+        copying.
+
+        '
+    - id: AML.T0025
+      use: 'Access controls can prevent exfiltration.
+
+        '
+    - id: AML.T0045
+      use: 'Access controls can prevent theft of intellectual property.
 
         '
   - id: AML.M0006
     name: Use Ensemble Methods
     object-type: mitigation
-    description: 'Use a variety of different models to obfuscate where and how specific
-      models are used and avoid a single point of failure. Some attacks may effectively
-      evade one model or model family but be ineffective against others.
+    tags:
+    - Model Focused
+    - Model Enhancement
+    - Model Development
+    description: 'Use an ensemble of models for inference to increase robustness to
+      adversarial inputs. Some attacks may effectively evade one model or model family
+      but be ineffective against others.
 
       '
     techniques:
-    - id: AML.T0043.001
-      use: 'Use multiple different models to fool adversaries of which type of model
-        is used and how the model is used.
+    - id: AML.T0031
+      use: 'Using multiple different models increases robustness to attack.
 
         '
     - id: AML.T0010.001
@@ -1643,9 +1676,8 @@ matrices:
         flaw is found in tool for one model or family.
 
         '
-    - id: AML.T0044
-      use: 'Use multiple different models to fool adversaries of which type of model
-        is used and how the model used.
+    - id: AML.T0015
+      use: 'Using multiple different models increases robustness to attack.
 
         '
     - id: AML.T0014
@@ -1656,6 +1688,14 @@ matrices:
   - id: AML.M0007
     name: Sanitize Training Data
     object-type: mitigation
+    tags:
+    - Passive
+    - Active
+    - Data Focused
+    - Model Agnostic
+    - Model Enhancement
+    - Model Development
+    - Model Operations
     description: 'Detect and remove or remediate poisoned training data.  Training
       data should be sanitized prior to model training and recurrently for an active
       learning model.
@@ -1685,35 +1725,41 @@ matrices:
   - id: AML.M0008
     name: Validate ML Model
     object-type: mitigation
+    tags:
+    - Active
+    - Model Focused
+    - Model Agnostic
+    - Model Development
     description: 'Validate that machine learning models perform as intended by testing
       for backdoor triggers or adversarial bias.
 
       '
     techniques:
     - id: AML.T0010.003
-      use: 'Ensure that acquired models to not respond to potential backdoor triggers
+      use: 'Ensure that acquired models do not respond to potential backdoor triggers
         or adversarial bias.
 
         '
     - id: AML.T0018.000
-      use: 'Ensure that trained models to not respond to potential backdoor triggers
+      use: 'Ensure that trained models do not respond to potential backdoor triggers
         or adversarial bias.
 
         '
     - id: AML.T0018.001
-      use: 'Ensure that acquired models to not respond to potential backdoor triggers
+      use: 'Ensure that acquired models do not respond to potential backdoor triggers
         or adversarial bias.
 
         '
   - id: AML.M0009
     name: Use Multi-Modal Sensors
     object-type: mitigation
+    tags:
+    - Model Enhancement
+    - Model Focused
+    - Data Focused
+    - Model Development
     description: 'Incorporate multiple sensors to integrate varying perspectives and
       modalities to avoid a single point of failure susceptible to physical attacks.
-
-
-      Face liveness detection in biometrics can be reinforced with methods such as
-      stereo for depth sensing, pupil tracking, and texture and motion analysis.
 
       '
     techniques:
@@ -1730,6 +1776,11 @@ matrices:
   - id: AML.M0010
     name: Input Restoration
     object-type: mitigation
+    tags:
+    - Passive
+    - Data Focused
+    - Model Agnostic
+    - Model Operations
     description: 'Preprocess all inference data to nullify or reverse potential adversarial
       perturbations.
 
@@ -1750,29 +1801,48 @@ matrices:
         the machine learning pipeline.
 
         '
-    - id: AML.T0046
-      use: 'Preprocessing inference model inputs can prevent chaff data from going
-        through the machien learning pipeline.
+  - id: AML.M0011
+    name: Restrict Library Loading
+    object-type: mitigation
+    tags:
+    - Model Agnostic
+    description: 'Prevent abuse of library loading mechanisms in the operating system
+      and software to load untrusted code by configuring appropriate library loading
+      mechanisms and investigating potential vulnerable software.
+
+
+      File formats such as pickle files that are commonly used to store machine learning
+      models can contain exploits that allow for loading of malicious libraries.
+
+      '
+    techniques:
+    - id: AML.T0011.000
+      use: 'Restrict library loading by ML artifacts.
 
         '
+    ATT&CK-reference:
+      id: M1044
+      url: https://attack.mitre.org/mitigations/M1044/
   - id: AML.M0012
     name: Encrypt Sensitive Information
     object-type: mitigation
-    description: 'Encrypt the ML model when packaging in applications to protect against
-      adversaries attempting to access sensitive data.
+    tags:
+    - Model Agnostic
+    - Model Operations
+    description: 'Encrypt sensitive data such as ML models to protect against adversaries
+      attempting to access sensitive data.
 
       '
     ATT&CK-reference:
       id: M1041
       url: https://attack.mitre.org/mitigations/M1041/
     techniques:
-    - id: AML.T0004
-      use: 'Obfuscate model files via compression to prevent attackers from easily
-        obtaining artifacts from repositories.
+    - id: AML.T0035
+      use: 'Protect machine learning artifacts with encryption.
 
         '
-    - id: AML.T0006
-      use: 'Protect the system''s information from being accessed by an adversary.
+    - id: AML.T0045
+      use: 'Protect machine learning artifacts with encryption.
 
         '
     - id: AML.T0007
@@ -1783,6 +1853,10 @@ matrices:
   - id: AML.M0013
     name: Code Signing
     object-type: mitigation
+    tags:
+    - Model Agnostic
+    - Model Development
+    - Model Operations
     description: 'Enforce binary and application integrity with digital signature
       verification to prevent untrusted code from executing. Adversaries can embed
       malicious code in ML software or models. Enforcement of code signing can prevent
@@ -1809,6 +1883,11 @@ matrices:
   - id: AML.M0014
     name: Verify ML Artifacts
     object-type: mitigation
+    tags:
+    - Model Focused
+    - Data Focused
+    - Model Agnostic
+    - Model Development
     description: 'Verify the cryptographic checksum of all machine learning artifacts
       to verify that the file was not modified by an attacker.
 
@@ -1825,13 +1904,18 @@ matrices:
 
         '
     - id: AML.T0010
-      use: 'Allow only certified users access to artifacts and prevent access to the
-        supply chain from outside sources.
+      use: 'Introduce proper checking of signatures to ensure that unsafe ML artifacts
+        will not be introduced to the system.
 
         '
   - id: AML.M0015
     name: Adversarial Input Detection
     object-type: mitigation
+    tags:
+    - Active
+    - Data Focused
+    - Model Agnostic
+    - Model Operations
     description: 'Detect and block adversarial inputs or atypical queries that deviate
       from known benign behavior, exhibit behavior patterns observed in previous attacks
       or that come from potentially malicious IPs.
@@ -1860,9 +1944,34 @@ matrices:
         reach the model.
 
         '
+  - id: AML.M0016
+    name: Vulnerability Scanning
+    object-type: mitigation
+    tags:
+    - Active
+    - Model Agnostic
+    description: 'Vulnerability scanning is used to find potentially exploitable software
+      vulnerabilities to remediate them.
+
+
+      File formats such as pickle files that are commonly used to store machine learning
+      models can contain exploits that allow for arbitrary code execution.
+
+      '
+    techniques:
+    - id: AML.T0011.000
+      use: 'Scan ML artifacts for vulnerabilities before execution.
+
+        '
+    ATT&CK-reference:
+      id: M1016
+      url: https://attack.mitre.org/mitigations/M1016/
   - id: AML.M0017
     name: Model Distribution Methods
     object-type: mitigation
+    tags:
+    - Model Focused
+    - Model Agnostic
     description: 'Deploying ML models to edge devices can increase the attack surface
       of the system. Consider serving models in the cloud to reduce the level of access
       the adversary has to the model.
@@ -1883,9 +1992,11 @@ matrices:
         of the model.
 
         '
-  - id: AML.M0019
+  - id: AML.M0018
     name: User Training
     object-type: mitigation
+    tags:
+    - Model Agnostic
     description: 'Educate ML model developers on secure coding practices and ML vulnerabilities.
 
       '
@@ -1902,45 +2013,9 @@ matrices:
         artifacts may have a detrimental effect on the system.
 
         '
-  - id: AML.M0020
-    name: Vulnerability Scanning
-    object-type: mitigation
-    description: 'Vulnerability scanning is used to find potentially exploitable software
-      vulnerabilities to remediate them.
-
-
-      File formats such as pickle files that are commonly used to store machine learning
-      models can contain exploits that allow for arbitrary code execution.
-
-      '
-    techniques:
-    - id: AML.T0011.000
-      use: 'Scan ML artifacts for vulnerabilities before execution.
-
-        '
     ATT&CK-reference:
-      id: M1016
-      url: https://attack.mitre.org/mitigations/M1016/
-  - id: AML.M0021
-    name: Restrict Library Loading
-    object-type: mitigation
-    description: 'Prevent abuse of library loading mechanisms in the operating system
-      and software to load untrusted code by configuring appropriate library loading
-      mechanisms and investigating potential vulnerable software.
-
-
-      File formats such as pickle files that are commonly used to store machine learning
-      models can contain exploits that allow for loading of malicious libraries.
-
-      '
-    techniques:
-    - id: AML.T0011.000
-      use: 'Restrict library loading by ML artifacts.
-
-        '
-    ATT&CK-reference:
-      id: M1044
-      url: https://attack.mitre.org/mitigations/M1044/
+      id: M1017
+      url: https://attack.mitre.org/mitigations/M1017/
 case-studies:
 - id: AML.CS0000
   object-type: case-study
