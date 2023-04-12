@@ -1,5 +1,9 @@
 # ATLAS Data Changelog
 
+## [4.4.0]() (2023-04-12)
+
+Initial mitigations
+
 ## [4.3.0]() (2023-02-28)
 
 New case study on prompt injection and adapted new associated techniques from ATT&CK.
