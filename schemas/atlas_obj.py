@@ -101,11 +101,19 @@ mitigation_schema = Schema(
         "description": str,
         Optional("techniques"): [
             Or(
-                    TECHNIQUE_ID_REGEX_EXACT,   # top-level techniquye
-                    SUBTECHNIQUE_ID_REGEX_EXACT # subtechnique
-                ),
+                TECHNIQUE_ID_REGEX_EXACT,   # top-level techniquye
+                SUBTECHNIQUE_ID_REGEX_EXACT, # subtechnique
+                {   # Specific mitigation for each technique
+                    "id": Or (
+                        TECHNIQUE_ID_REGEX_EXACT,
+                        SUBTECHNIQUE_ID_REGEX_EXACT
+                    ),
+                    "use": str
+                }
+            ),
         ]
     },
     name="mitigation",
-    as_reference=True
+    as_reference=True,
+    ignore_extra_keys=True
 )

@@ -45,6 +45,8 @@ case-study-type: incident
 references:
 - title: 'AIID - Incident 6: TayBot'
   url: https://incidentdatabase.ai/cite/6
+- title: 'AVID - Vulnerability: AVID-2022-v013'
+  url: https://avidml.org/database/avid-2022-v013/
 - title: Microsoft BlogPost, "Learning from Tay's introduction"
   url: https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/
 - title: IEEE Article, "In 2016, Microsoft's Racist Chatbot Revealed the Dangers of

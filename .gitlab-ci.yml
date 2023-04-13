@@ -52,7 +52,7 @@ check spelling and syntax:
     - changes:
         - data/*.yaml   # Source data was updated
         - tests/*.py    # Any tests changed
-        - tests/custom_words.txt  # Exclusion words updated
+        - tests/custom_words.txt    # Exclusion words updated
         - conftest.py   # Any test fixtures changed
 
 validate data:
