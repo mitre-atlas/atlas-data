@@ -1,5 +1,9 @@
 # ATLAS Data Changelog
 
+## [4.4.1]() (2023-07-18)
+
+Upgrade PyYAML to 6.0.1 to resolve install error - see https://github.com/yaml/pyyaml/issues/601. 
+
 ## [4.4.0]() (2023-04-12)
 
 Initial mitigations
