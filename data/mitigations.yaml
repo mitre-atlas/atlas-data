@@ -43,6 +43,7 @@
   tags:
     - Passive
     - Model Agnostic
+  ML-lifecycle:
     - Model Operations
   description: |
     Decreasing the fidelity of model outputs provided to the end user can reduce an adversaries ability to extract information about the model and optimize attacks for the model.
@@ -96,6 +97,7 @@
   tags:
     - Model Focused
     - Model Enhancement
+  ML-lifecycle:
     - Model Development
   description: |
     Use techniques to make machine learning models robust to adversarial inputs such as adversarial training or network distillation.
@@ -113,6 +115,7 @@
   tags:
     - Passive
     - Model Agnostic
+  ML-lifecycle:
     - Model Operations
   description: |
     Limit the total number and rate of queries a user can perform.
@@ -185,6 +188,7 @@
   tags:
     - Model Focused
     - Model Enhancement
+  ML-lifecycle:
     - Model Development
   description: |
     Use an ensemble of models for inference to increase robustness to adversarial inputs. Some attacks may effectively evade one model or model family but be ineffective against others.
@@ -214,6 +218,7 @@
     - Data Focused
     - Model Agnostic
     - Model Enhancement
+  ML-lifecycle:
     - Model Development
     - Model Operations
   description: |
@@ -238,6 +243,7 @@
     - Active
     - Model Focused
     - Model Agnostic
+  ML-lifecycle:
     - Model Development
   description: |
     Validate that machine learning models perform as intended by testing for backdoor triggers or adversarial bias.
@@ -259,6 +265,7 @@
     - Model Enhancement
     - Model Focused
     - Data Focused
+  ML-lifecycle:
     - Model Development
   description: |
     Incorporate multiple sensors to integrate varying perspectives and modalities to avoid a single point of failure susceptible to physical attacks.
@@ -277,6 +284,7 @@
     - Passive
     - Data Focused
     - Model Agnostic
+  ML-lifecycle:
     - Model Operations
   description: |
     Preprocess all inference data to nullify or reverse potential adversarial perturbations.
@@ -313,6 +321,7 @@
   object-type: mitigation
   tags:
     - Model Agnostic
+  ML-lifecycle:
     - Model Operations
   description: |
     Encrypt sensitive data such as ML models to protect against adversaries attempting to access sensitive data.
@@ -335,6 +344,7 @@
   object-type: mitigation
   tags:
     - Model Agnostic
+  ML-lifecycle:
     - Model Development
     - Model Operations
   description: |
@@ -360,6 +370,7 @@
     - Model Focused
     - Data Focused
     - Model Agnostic
+  ML-lifecycle:
     - Model Development
   description: |
     Verify the cryptographic checksum of all machine learning artifacts to verify that the file was not modified by an attacker.
@@ -381,6 +392,7 @@
     - Active
     - Data Focused
     - Model Agnostic
+  ML-lifecycle:
     - Model Operations
   description: >
     Detect and block adversarial inputs or atypical queries that deviate from known benign behavior, exhibit behavior patterns observed in previous attacks or that come from potentially malicious IPs.
