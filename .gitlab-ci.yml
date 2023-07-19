@@ -6,7 +6,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
 
 # Note that the Gitlab Runner machine is configured to use MITRE repo
-image: python:3-alpine
+image: python:3
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
@@ -27,12 +27,12 @@ before_script:
   - python -V
   - python -m venv venv
   - source venv/bin/activate
-  - pip install -r tools/requirements.txt
+  - pip install --progress-bar off -r tools/requirements.txt
 
 lint yaml:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     - yamllint -c tests/.yamllint .
   rules:
     - changes:
@@ -42,7 +42,7 @@ lint yaml:
 check spelling and syntax:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and error on warnings
     - pytest tests/test_syntax.py --tb=line --junitxml=report.xml -W error::UserWarning
   allow_failure:
@@ -58,7 +58,7 @@ check spelling and syntax:
 validate data:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and output warnings
     - pytest --tb=line --junitxml=report.xml -W default::UserWarning
     - yamllint -c tests/.yamllint .
@@ -78,7 +78,6 @@ check ATLAS.yaml up-to-date:
   stage: test
   script:
     - python tools/create_matrix.py
-    - apk add git
     - git diff --exit-code dist/ATLAS.yaml || exit_code=$?
     - if [[ $exit_code -ne 0 ]]; then echo 'Runner-generated dist/ATLAS.yaml is different from remote repository version - run tools/create_matrix.py to update and commit the result.'; exit 123; fi;
   rules:
