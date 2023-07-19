@@ -78,6 +78,7 @@ check ATLAS.yaml up-to-date:
   stage: test
   script:
     - python tools/create_matrix.py
+    - apk add git
     - git diff --exit-code dist/ATLAS.yaml || exit_code=$?
     - if [[ $exit_code -ne 0 ]]; then echo 'Runner-generated dist/ATLAS.yaml is different from remote repository version - run tools/create_matrix.py to update and commit the result.'; exit 123; fi;
   rules:
