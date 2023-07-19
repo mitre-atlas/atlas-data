@@ -6,7 +6,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml
 
 # Note that the Gitlab Runner machine is configured to use MITRE repo
-image: python:3
+image: python:3-alpine
 
 # Change pip's cache directory to be inside the project directory since we can
 # only cache local items.
