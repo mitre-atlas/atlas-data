@@ -156,7 +156,6 @@
   object-type: mitigation
   tags:
     - Model Agnostic
-    - Production
   description: |
     Establish access controls on internal model registries and limit internal access to production models. Limit access to training data only to approved users.
   techniques:
