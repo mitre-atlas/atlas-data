@@ -22,6 +22,15 @@ tactic_schema = Schema(
         "object-type": 'tactic',
         "description": str,
         "name": str,
+        Optional("references"): Or(
+            [
+                {
+                    "title": Or(str, None),
+                    "url": Or(str, None)
+                }
+            ]
+            , []
+        )
     },
     name="tactic",
     as_reference=True,
@@ -36,7 +45,16 @@ technique_schema = Schema(
         "description": str,
         "tactics": [
             TACTIC_ID_REGEX_EXACT # List of tactic IDs
-        ]
+        ],
+        Optional("references"): Or(
+            [
+                {
+                    "title": Or(str, None),
+                    "url": Or(str, None)
+                }
+            ]
+            , []
+        )
     },
     name="technique",
     as_reference=True,
@@ -49,7 +67,16 @@ subtechnique_schema = Schema(
         "object-type": "technique",
         "name": str,
         "description": str,
-        "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT # Top-level technique ID
+        "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT, # Top-level technique ID
+        Optional("references"): Or(
+            [
+                {
+                    "title": Or(str, None),
+                    "url": Or(str, None)
+                }
+            ]
+            , []
+        )
     },
     name="subtechnique",
     as_reference=True,
@@ -111,7 +138,16 @@ mitigation_schema = Schema(
                     "use": str
                 }
             ),
-        ]
+        ],
+        Optional("references"): Or(
+            [
+                {
+                    "title": Or(str, None),
+                    "url": Or(str, None)
+                }
+            ]
+            , []
+        )
     },
     name="mitigation",
     as_reference=True,

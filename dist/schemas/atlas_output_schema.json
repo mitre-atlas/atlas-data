@@ -1,5 +1,4 @@
 {
-    "description": "Generated on 2022-08-31",
     "type": "object",
     "properties": {
         "id": {
@@ -93,6 +92,46 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "references": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    },
+                                    "url": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "url"
+                                ],
+                                "additionalProperties": true
+                            }
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -101,7 +140,7 @@
                 "description",
                 "name"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_tactic": {
             "type": "string",
@@ -127,6 +166,46 @@
                     "items": {
                         "$ref": "#/definitions/id_tactic"
                     }
+                },
+                "references": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    },
+                                    "url": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "url"
+                                ],
+                                "additionalProperties": true
+                            }
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -136,7 +215,7 @@
                 "description",
                 "tactics"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_technique": {
             "type": "string",
@@ -159,6 +238,46 @@
                 },
                 "subtechnique-of": {
                     "$ref": "#/definitions/id_technique"
+                },
+                "references": {
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    },
+                                    "url": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "const": null
+                                            }
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "title",
+                                    "url"
+                                ],
+                                "additionalProperties": true
+                            }
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -168,7 +287,7 @@
                 "description",
                 "subtechnique-of"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_subtechnique": {
             "type": "string",
@@ -300,5 +419,6 @@
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
-    }
+    },
+    "description": "Generated on 2023-08-21"
 }
