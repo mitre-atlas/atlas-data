@@ -1,5 +1,4 @@
 {
-    "description": "Generated on 2022-07-08",
     "type": "object",
     "properties": {
         "study": {
@@ -76,44 +75,7 @@
                     ]
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": true
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 },
                 "id": {
                     "$ref": "#/definitions/id_case_study"
@@ -162,10 +124,44 @@
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}\\.\\d{3}$"
         },
+        "references": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "title",
+                    "url"
+                ],
+                "additionalProperties": false
+            }
+        },
         "id_case_study": {
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
     },
-    "$version": "1.1"
+    "$version": "1.1",
+    "description": "Generated on 2023-08-28"
 }
