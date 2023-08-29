@@ -94,44 +94,7 @@
                     "type": "string"
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": true
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -145,6 +108,39 @@
         "id_tactic": {
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
+        },
+        "references": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "title",
+                    "url"
+                ],
+                "additionalProperties": false
+            }
         },
         "technique": {
             "type": "object",
@@ -168,44 +164,7 @@
                     }
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": true
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -240,44 +199,7 @@
                     "$ref": "#/definitions/id_technique"
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": true
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -364,44 +286,7 @@
                     ]
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": false
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -420,5 +305,5 @@
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
     },
-    "description": "Generated on 2023-08-21"
+    "description": "Generated on 2023-08-28"
 }

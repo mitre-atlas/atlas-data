@@ -16,21 +16,24 @@ The Schema objects defined are set to be definitions referenced
 by the provided name.
 """
 
+references_schema = Schema(
+    [
+        {
+            "title": Or(str, None),
+            "url": Or(str, None)
+        }
+    ],
+    name="references",
+    as_reference=True
+)
+
 tactic_schema = Schema(
     {
         "id": TACTIC_ID_REGEX_EXACT,
         "object-type": 'tactic',
         "description": str,
         "name": str,
-        Optional("references"): Or(
-            [
-                {
-                    "title": Or(str, None),
-                    "url": Or(str, None)
-                }
-            ]
-            , []
-        )
+        Optional("references"): references_schema
     },
     name="tactic",
     as_reference=True,
@@ -46,15 +49,7 @@ technique_schema = Schema(
         "tactics": [
             TACTIC_ID_REGEX_EXACT # List of tactic IDs
         ],
-        Optional("references"): Or(
-            [
-                {
-                    "title": Or(str, None),
-                    "url": Or(str, None)
-                }
-            ]
-            , []
-        )
+        Optional("references"): references_schema
     },
     name="technique",
     as_reference=True,
@@ -68,15 +63,7 @@ subtechnique_schema = Schema(
         "name": str,
         "description": str,
         "subtechnique-of": TECHNIQUE_ID_REGEX_EXACT, # Top-level technique ID
-        Optional("references"): Or(
-            [
-                {
-                    "title": Or(str, None),
-                    "url": Or(str, None)
-                }
-            ]
-            , []
-        )
+        Optional("references"): references_schema
     },
     name="subtechnique",
     as_reference=True,
@@ -106,15 +93,7 @@ case_study_schema = Schema(
         Optional("target"): str,
         Optional("actor"): str,
         Optional("case-study-type"): Or('incident', 'exercise'),
-        Optional("references"): Or(
-            [
-                {
-                    "title": Or(str, None),
-                    "url": Or(str, None)
-                }
-            ]
-            , []
-        )
+        Optional("references"): references_schema
     },
     name="case_study",
     as_reference=True
@@ -139,15 +118,7 @@ mitigation_schema = Schema(
                 }
             ),
         ],
-        Optional("references"): Or(
-            [
-                {
-                    "title": Or(str, None),
-                    "url": Or(str, None)
-                }
-            ]
-            , []
-        )
+        Optional("references"): references_schema
     },
     name="mitigation",
     as_reference=True,
