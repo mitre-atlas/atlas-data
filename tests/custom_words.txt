@@ -10,6 +10,7 @@ c2
 camera(s)
 chatbot
 chatbots
+checksum
 chunyang
 classifiers
 clearview
@@ -60,12 +61,14 @@ pb
 perceptibility
 pkl
 powershell
+preprocess
 proofpoint
 proofpoint's
 prototxt
 pth
 pypi
 pytorch
+recurrently
 reproducibility
 robustness
 s3
@@ -80,6 +83,7 @@ tflite
 tokenizing
 torchtriton
 unpromptedly
+untrusted
 urlnet
 verifiers
 virustotal
