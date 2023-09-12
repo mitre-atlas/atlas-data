@@ -157,7 +157,7 @@
   tags:
     - Model Agnostic
   description: |
-    Establish access controls on internal model registries and limit internal access to production models. Limit access to training data only to approved users.
+    Establish access controls on internal and external model registries and limit access inside of an internal model during production. Limit access to training data to approved users only.
   techniques:
     - id: '{{supply_chain_data.id}}'
       use: |
@@ -245,7 +245,7 @@
   ML-lifecycle:
     - Model Development
   description: |
-    Validate that machine learning models perform as intended by testing for backdoor triggers or adversarial bias.
+    Validate that machine learning models perform as intended by testing for hidden backdoor triggers that cause unintended model behavior at inference or adversarial bias learned by the model during training.
   techniques:
     - id: '{{supply_chain_model.id}}'
       use: |
@@ -258,7 +258,7 @@
         Ensure that acquired models do not respond to potential backdoor triggers or adversarial bias.
 - &multi_modal_sensors
   id: AML.M0009
-  name: Use Multi-Modal Sensors
+  name: Use Redundant and Multi-Modal Sensors
   object-type: mitigation
   tags:
     - Model Enhancement
@@ -347,7 +347,7 @@
     - Model Development
     - Model Operations
   description: |
-    Enforce binary and application integrity with digital signature verification to prevent untrusted code from executing. Adversaries can embed malicious code in ML software or models. Enforcement of code signing can prevent the compromise of the machine learning supply chain and prevent execution of malicious code.
+    Enforce binary and application integrity with digital signature verification to prevent untrusted code and model files from executing. Adversaries can embed malicious code in ML software or models. Enforcement of code signing can prevent the compromise of the machine learning supply chain and prevent execution of malicious model files and code.
   techniques:
     - id: '{{unsafe_ml_artifacts.id}}'
       use: |
