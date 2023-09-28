@@ -207,7 +207,7 @@
   ATT&CK-reference:
     id: T1588.002
     url: https://attack.mitre.org/techniques/T1588/002/
-  description: >
+  description: |
     Adversaries may search for and obtain software tools to support their operations.
     Software designed for legitimate use may be repurposed by an adversary for malicious intent.
     An adversary may modify or customize software tools to achieve their purpose.
@@ -218,7 +218,7 @@
   id: AML.T0017
   name: "Develop Adversarial ML Attack Capabilities"
   object-type: technique
-  description:
+  description: |
     Adversaries may develop their own adversarial attacks.
     They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}})).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
@@ -324,11 +324,11 @@
   name: Model
   object-type: technique
   description: |
-      Machine learning systems often rely on open sourced models in various ways.
-      Most commonly, the victim organization may be using these models for fine tuning.
-      These models will be downloaded from an external source and then used as the base for the model as it is tuned on a smaller, private dataset.
-      Loading models often requires executing some saved code in the form of a saved model file.
-      These can be compromised with traditional malware, or through some adversarial machine learning techniques.
+    Machine learning systems often rely on open sourced models in various ways.
+    Most commonly, the victim organization may be using these models for fine tuning.
+    These models will be downloaded from an external source and then used as the base for the model as it is tuned on a smaller, private dataset.
+    Loading models often requires executing some saved code in the form of a saved model file.
+    These can be compromised with traditional malware, or through some adversarial machine learning techniques.
   subtechnique-of: "{{supply_chain.id}}"
 
 - &inference_api
@@ -804,14 +804,54 @@
   tactics:
     - "{{impact.id}}"
 
-- &sys_misuse
+- &external_harms
   id: AML.T0048
-  name: System Misuse for External Effect
+  name: External Harms
   object-type: technique
   description: |
-      Adversaries may abuse their access to a system to use its resources or capabilities to further their goals by causing effects outside of the victim system.
+    Adversaries may abuse their access to a system to use its resources or capabilities to further their goals by causing effects outside of the victim system.
   tactics:
     - "{{impact.id}}"
+
+- &harm_financial
+  id: AML.T0048.000
+  name: Financial Harm
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_reputational
+  id: AML.T0048.001
+  name: Reputational Harm
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_social
+  id: AML.T0048.002
+  name: Social Harm
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_political
+  id: AML.T0048.003
+  name: Social Harm
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_user
+  id: AML.T0048.004
+  name: User Harm
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{external_harms.id}}"
 
 - &exploit_public_app
   id: AML.T0049
@@ -840,3 +880,85 @@
   ATT&CK-reference:
     id: T1159
     url: https://attack.mitre.org/techniques/T1059/
+
+- &llm_prompt_injection
+  id: AML.T0051
+  name: LLM Prompt Injection
+  object-type: technique
+  description: |
+      WIP
+  tactics:
+    - "{{initial_access.id}}"
+    - "{{privilege_escalation.id}}"
+    - "{{defense_evasion.id}}"
+
+- &phishing
+  id: AML.T0052
+  name: Phishing
+  object-type: technique
+  description: |
+    WIP
+  tactics:
+    - "{{initial_access.id}}"
+  ATT&CK-reference:
+    id: T1566
+    url: https://attack.mitre.org/techniques/T1566/
+
+- &llm_phishing
+  id: AML.T0052.000
+  name: Spearphishing via Social Engineering LLM
+  object-type: technique
+  description: |
+    WIP
+  subtechnique-of: "{{phishing}}"
+
+- &llm_compromise_plugins
+  id: AML.T0053
+  name: Compromise LLM Plugins
+  object-type: technique
+  description: |
+      WIP
+  tactics:
+    - "{{execution.id}}"
+    - "{{privilege_escalation.id}}"
+
+- &llm_jailbreak
+  id: AML.T0054
+  name: LLM Jailbreak
+  object-type: technique
+  description: |
+      WIP
+  tactics:
+    - "{{privilege_escalation.id}}"
+    - "{{defense_evasion.id}}"
+
+- &unsecured_credentials
+  id: AML.T0055
+  name: Phishing
+  object-type: technique
+  description: |
+    WIP
+  tactics:
+    - "{{credential_access.id}}"
+  ATT&CK-reference:
+    id: T1152
+    url: https://attack.mitre.org/techniques/T1152/
+
+- &llm_meta_prompt
+  id: AML.T0056
+  name: LLM Meta Prompt Extraction
+  object-type: technique
+  description: |
+      WIP
+  tactics:
+    - "{{discovery.id}}"
+    - "{{exfiltration.id}}"
+
+- &llm_data_leakage
+  id: AML.T0057
+  name: LLM Data Leakage
+  object-type: technique
+  description: |
+      WIP
+  tactics:
+    - "{{exfiltration.id}}"
