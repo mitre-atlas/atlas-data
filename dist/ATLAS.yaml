@@ -1493,7 +1493,7 @@ matrices:
     subtechnique-of: '{''id'': ''AML.T0051'', ''name'': ''LLM Prompt Injection'',
       ''object-type'': ''technique'', ''description'': ''WIP\n'', ''tactics'': [''{{initial_access.id}}'',
       ''{{privilege_escalation.id}}'', ''{{defense_evasion.id}}'']}'
-  - id: AML.T0051.000
+  - id: AML.T0051.001
     name: Cross
     object-type: technique
     description: 'WIP

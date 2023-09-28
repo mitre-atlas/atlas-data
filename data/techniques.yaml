@@ -901,7 +901,7 @@
   subtechnique-of: "{{llm_prompt_injection}}"
 
 - &pi_cross
-  id: AML.T0051.000
+  id: AML.T0051.001
   name: Cross
   object-type: technique
   description: |
