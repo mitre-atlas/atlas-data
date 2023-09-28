@@ -134,7 +134,7 @@ matrices:
 
       '
   - id: AML.TA0012
-    name: Impact
+    name: Privilege Escalation
     object-type: tactic
     ATT&CK-reference:
       id: TA0004
@@ -180,7 +180,7 @@ matrices:
 
       '
   - id: AML.TA0013
-    name: Impact
+    name: Credential Access
     object-type: tactic
     ATT&CK-reference:
       id: TA0006
