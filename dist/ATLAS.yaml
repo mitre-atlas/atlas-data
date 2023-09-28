@@ -1490,18 +1490,14 @@ matrices:
     description: 'WIP
 
       '
-    subtechnique-of: '{''id'': ''AML.T0051'', ''name'': ''LLM Prompt Injection'',
-      ''object-type'': ''technique'', ''description'': ''WIP\n'', ''tactics'': [''{{initial_access.id}}'',
-      ''{{privilege_escalation.id}}'', ''{{defense_evasion.id}}'']}'
+    subtechnique-of: AML.T0051
   - id: AML.T0051.001
     name: Cross
     object-type: technique
     description: 'WIP
 
       '
-    subtechnique-of: '{''id'': ''AML.T0051'', ''name'': ''LLM Prompt Injection'',
-      ''object-type'': ''technique'', ''description'': ''WIP\n'', ''tactics'': [''{{initial_access.id}}'',
-      ''{{privilege_escalation.id}}'', ''{{defense_evasion.id}}'']}'
+    subtechnique-of: AML.T0051
   - id: AML.T0052
     name: Phishing
     object-type: technique
@@ -1519,9 +1515,7 @@ matrices:
     description: 'WIP
 
       '
-    subtechnique-of: '{''id'': ''AML.T0052'', ''name'': ''Phishing'', ''object-type'':
-      ''technique'', ''description'': ''WIP\n'', ''tactics'': [''{{initial_access.id}}''],
-      ''ATT&CK-reference'': {''id'': ''T1566'', ''url'': ''https://attack.mitre.org/techniques/T1566/''}}'
+    subtechnique-of: AML.T0052
   - id: AML.T0053
     name: Compromise LLM Plugins
     object-type: technique
