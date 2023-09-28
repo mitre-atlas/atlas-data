@@ -892,6 +892,22 @@
     - "{{privilege_escalation.id}}"
     - "{{defense_evasion.id}}"
 
+- &pi_user
+  id: AML.T0051.000
+  name: User
+  object-type: technique
+  description: |
+      WIP
+  subtechnique-of: "{{llm_prompt_injection}}"
+
+- &pi_cross
+  id: AML.T0051.000
+  name: Cross
+  object-type: technique
+  description: |
+      WIP
+  subtechnique-of: "{{llm_prompt_injection}}"
+
 - &phishing
   id: AML.T0052
   name: Phishing
