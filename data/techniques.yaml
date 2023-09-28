@@ -865,22 +865,6 @@
     id: T1190
     url: https://attack.mitre.org/techniques/T1190/
 
-- &cmd_script_interpreter
-  id: AML.T0050
-  name: Command and Scripting Interpreter
-  object-type: technique
-  description: |
-    Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries. These interfaces and languages provide ways of interacting with computer systems and are a common feature across many different platforms. Most systems come with some built-in command-line interface and scripting capabilities, for example, macOS and Linux distributions include some flavor of Unix Shell while Windows installations include the Windows Command Shell and PowerShell.
-
-    There are also cross-platform interpreters such as Python, as well as those commonly associated with client applications such as JavaScript and Visual Basic.
-
-    Adversaries may abuse these technologies in various ways as a means of executing arbitrary commands. Commands and scripts can be embedded in Initial Access payloads delivered to victims as lure documents or as secondary payloads downloaded from an existing C2. Adversaries may also execute commands through interactive terminals/shells, as well as utilize various Remote Services in order to achieve remote Execution.
-  tactics:
-    - "{{execution.id}}"
-  ATT&CK-reference:
-    id: T1159
-    url: https://attack.mitre.org/techniques/T1059/
-
 - &llm_prompt_injection
   id: AML.T0051
   name: LLM Prompt Injection
