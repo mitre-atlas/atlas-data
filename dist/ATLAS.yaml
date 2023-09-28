@@ -133,6 +133,35 @@ matrices:
       such as poisoned training data or backdoored ML models.
 
       '
+  - id: AML.TA0012
+    name: Impact
+    object-type: tactic
+    ATT&CK-reference:
+      id: TA0004
+      url: https://attack.mitre.org/tactics/TA0004/
+    description: 'The adversary is trying to gain higher-level permissions.
+
+
+      Privilege Escalation consists of techniques that adversaries use to gain higher-level
+      permissions on a system or network. Adversaries can often enter and explore
+      a network with unprivileged access but require elevated permissions to follow
+      through on their objectives. Common approaches are to take advantage of system
+      weaknesses, misconfigurations, and vulnerabilities. Examples of elevated access
+      include:
+
+      - SYSTEM/root level
+
+      - local administrator
+
+      - user account with admin-like access
+
+      - user accounts with access to specific system or perform specific function
+
+
+      These techniques often overlap with Persistence techniques, as OS features that
+      let an adversary persist can execute in an elevated context.
+
+      '
   - id: AML.TA0007
     name: Defense Evasion
     object-type: tactic
@@ -148,6 +177,22 @@ matrices:
 
       Techniques used for defense evasion include evading ML-enabled security software
       such as malware detectors.
+
+      '
+  - id: AML.TA0013
+    name: Impact
+    object-type: tactic
+    ATT&CK-reference:
+      id: TA0006
+      url: https://attack.mitre.org/tactics/TA0006/
+    description: 'The adversary is trying to steal account names and passwords.
+
+
+      Credential Access consists of techniques for stealing credentials like account
+      names and passwords. Techniques used to get credentials include keylogging or
+      credential dumping. Using legitimate credentials can give adversaries access
+      to systems, make them harder to detect, and provide the opportunity to create
+      more accounts to help achieve their goals.
 
       '
   - id: AML.TA0008
