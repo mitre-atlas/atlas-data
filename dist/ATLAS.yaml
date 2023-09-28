@@ -1427,7 +1427,7 @@ matrices:
     tactics:
     - AML.TA0005
     ATT&CK-reference:
-      id: T1159
+      id: T1059
       url: https://attack.mitre.org/techniques/T1059/
   mitigations:
   - id: AML.M0000
