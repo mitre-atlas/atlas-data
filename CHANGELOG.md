@@ -1,8 +1,14 @@
 # ATLAS Data Changelog
 
+## [4.4.2]() (2023-10-12)
+
+- Added ML lifecycle stages and new categories to mitigations.
+- Minor updates to tactic and technique descriptions.
+
+
 ## [4.4.1]() (2023-07-18)
 
-Upgrade PyYAML to 6.0.1 to resolve install error - see https://github.com/yaml/pyyaml/issues/601. 
+Upgrade PyYAML to 6.0.1 to resolve install error - see https://github.com/yaml/pyyaml/issues/601.
 
 ## [4.4.0]() (2023-04-12)
 
