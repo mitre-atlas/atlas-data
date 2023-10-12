@@ -3,8 +3,10 @@
   id: AML.M0000
   name: Limit Release of Public Information
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Policy
+  ML-lifecycle:
+    - Business and Data Understanding
   description: >
     Limit the public release of technical information about the machine learning stack used in an organization's products or services.
     Technical knowledge of how machine learning is used can be leveraged by adversaries to perform targeting and tailor attacks to the target system.
@@ -20,10 +22,11 @@
   id: AML.M0001
   name: Limit Model Artifact Release
   object-type: mitigation
-  tags:
-    - Model Agnostic
-    - Data Focused
-    - Model Focused
+  category:
+    - Policy
+  ML-lifecycle:
+    - Business and Data Understanding
+    - Deployment
   description: |
     Limit public release of technical project details including data, algorithms, model architectures, and model checkpoints that are used in production, or that are representative of those used in production.
   techniques:
@@ -40,11 +43,11 @@
   id: AML.M0002
   name: Passive ML Output Obfuscation
   object-type: mitigation
-  tags:
-    - Passive
-    - Model Agnostic
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Operations
+    - ML Model Evaluation
+    - Deployment
   description: |
     Decreasing the fidelity of model outputs provided to the end user can reduce an adversaries ability to extract information about the model and optimize attacks for the model.
   techniques:
@@ -94,11 +97,11 @@
   id: AML.M0003
   name: Model Hardening
   object-type: mitigation
-  tags:
-    - Model Focused
-    - Model Enhancement
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Development
+    - Data Preparation
+    - ML Model Engineering
   description: |
     Use techniques to make machine learning models robust to adversarial inputs such as adversarial training or network distillation.
   techniques:
@@ -112,11 +115,12 @@
   id: AML.M0004
   name: Restrict Number of ML Model Queries
   object-type: mitigation
-  tags:
-    - Passive
-    - Model Agnostic
+  category:
+    - Technical - Cyber
   ML-lifecycle:
-    - Model Operations
+    - Business and Data Understanding
+    - Deployment
+    - Monitoring and Maintenance
   description: |
     Limit the total number and rate of queries a user can perform.
   techniques:
@@ -154,10 +158,15 @@
   id: AML.M0005
   name: Control Access to ML Models and Data at Rest
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Policy
+  ML-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
   description: |
-    Establish access controls on internal and external model registries and limit access inside of an internal model during production. Limit access to training data to approved users only.
+    Establish access controls on internal model registries and limit internal access to production models. Limit access to training data only to approved users.
   techniques:
     - id: '{{supply_chain_data.id}}'
       use: |
@@ -184,11 +193,10 @@
   id: AML.M0006
   name: Use Ensemble Methods
   object-type: mitigation
-  tags:
-    - Model Focused
-    - Model Enhancement
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Development
+    - ML Model Engineering
   description: |
     Use an ensemble of models for inference to increase robustness to adversarial inputs. Some attacks may effectively evade one model or model family but be ineffective against others.
   techniques:
@@ -211,15 +219,12 @@
   id: AML.M0007
   name: Sanitize Training Data
   object-type: mitigation
-  tags:
-    - Passive
-    - Active
-    - Data Focused
-    - Model Agnostic
-    - Model Enhancement
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Development
-    - Model Operations
+    - Business and Data Understanding
+    - Data Preparation
+    - Monitoring and Maintenance
   description: |
     Detect and remove or remediate poisoned training data.  Training data should be sanitized prior to model training and recurrently for an active learning model.
 
@@ -238,14 +243,13 @@
   id: AML.M0008
   name: Validate ML Model
   object-type: mitigation
-  tags:
-    - Active
-    - Model Focused
-    - Model Agnostic
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Development
+    - ML Model Evaluation
+    - Monitoring and Maintenance
   description: |
-    Validate that machine learning models perform as intended by testing for hidden backdoor triggers that cause unintended model behavior at inference or adversarial bias learned by the model during training.
+    Validate that machine learning models perform as intended by testing for backdoor triggers or adversarial bias.
   techniques:
     - id: '{{supply_chain_model.id}}'
       use: |
@@ -258,14 +262,14 @@
         Ensure that acquired models do not respond to potential backdoor triggers or adversarial bias.
 - &multi_modal_sensors
   id: AML.M0009
-  name: Use Redundant and Multi-Modal Sensors
+  name: Use Multi-Modal Sensors
   object-type: mitigation
-  tags:
-    - Model Enhancement
-    - Model Focused
-    - Data Focused
+  category:
+    - Technical - Cyber
   ML-lifecycle:
-    - Model Development
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
   description: |
     Incorporate multiple sensors to integrate varying perspectives and modalities to avoid a single point of failure susceptible to physical attacks.
   techniques:
@@ -279,12 +283,13 @@
   id: AML.M0010
   name: Input Restoration
   object-type: mitigation
-  tags:
-    - Passive
-    - Data Focused
-    - Model Agnostic
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Operations
+    - Data Preparation
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
   description: |
     Preprocess all inference data to nullify or reverse potential adversarial perturbations.
   techniques:
@@ -301,8 +306,10 @@
   id: AML.M0011
   name: Restrict Library Loading
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Technical - Cyber
+  ML-lifecycle:
+    - Deployment
   description: |
     Prevent abuse of library loading mechanisms in the operating system and software to load untrusted code by configuring appropriate library loading mechanisms and investigating potential vulnerable software.
 
@@ -318,10 +325,10 @@
   id: AML.M0012
   name: Encrypt Sensitive Information
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Technical - Cyber
   ML-lifecycle:
-    - Model Operations
+    - Deployment
   description: |
     Encrypt sensitive data such as ML models to protect against adversaries attempting to access sensitive data.
   ATT&CK-reference:
@@ -341,13 +348,12 @@
   id: AML.M0013
   name: Code Signing
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Technical - Cyber
   ML-lifecycle:
-    - Model Development
-    - Model Operations
+    - Deployment
   description: |
-    Enforce binary and application integrity with digital signature verification to prevent untrusted code and model files from executing. Adversaries can embed malicious code in ML software or models. Enforcement of code signing can prevent the compromise of the machine learning supply chain and prevent execution of malicious model files and code.
+    Enforce binary and application integrity with digital signature verification to prevent untrusted code from executing. Adversaries can embed malicious code in ML software or models. Enforcement of code signing can prevent the compromise of the machine learning supply chain and prevent execution of malicious code.
   techniques:
     - id: '{{unsafe_ml_artifacts.id}}'
       use: |
@@ -365,12 +371,12 @@
   id: AML.M0014
   name: Verify ML Artifacts
   object-type: mitigation
-  tags:
-    - Model Focused
-    - Data Focused
-    - Model Agnostic
+  category:
+    - Technical - Cyber
   ML-lifecycle:
-    - Model Development
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
   description: |
     Verify the cryptographic checksum of all machine learning artifacts to verify that the file was not modified by an attacker.
   techniques:
@@ -387,12 +393,14 @@
   id: AML.M0015
   name: Adversarial Input Detection
   object-type: mitigation
-  tags:
-    - Active
-    - Data Focused
-    - Model Agnostic
+  category:
+    - Technical - ML
   ML-lifecycle:
-    - Model Operations
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
   description: >
     Detect and block adversarial inputs or atypical queries that deviate from known benign behavior, exhibit behavior patterns observed in previous attacks or that come from potentially malicious IPs.
 
@@ -414,9 +422,12 @@
   id: AML.M0016
   name: Vulnerability Scanning
   object-type: mitigation
-  tags:
-    - Active
-    - Model Agnostic
+  category:
+    - Technical - Cyber
+  ML-lifecycle:
+    - ML Model Engineering
+    - Deployment
+    - Monitoring and Maintenance
   description: |
     Vulnerability scanning is used to find potentially exploitable software vulnerabilities to remediate them.
 
@@ -432,9 +443,10 @@
   id: AML.M0017
   name: Model Distribution Methods
   object-type: mitigation
-  tags:
-    - Model Focused
-    - Model Agnostic
+  category:
+    - Policy
+  ML-lifecycle:
+    - Deployment
   description: |
     Deploying ML models to edge devices can increase the attack surface of the system. Consider serving models in the cloud to reduce the level of access the adversary has to the model.
   techniques:
@@ -451,8 +463,15 @@
   id: AML.M0018
   name: User Training
   object-type: mitigation
-  tags:
-    - Model Agnostic
+  category:
+    - Policy
+  ML-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
   description: |
     Educate ML model developers on secure coding practices and ML vulnerabilities.
   techniques:
