@@ -838,5 +838,5 @@
   tactics:
     - "{{execution.id}}"
   ATT&CK-reference:
-    id: T1159
+    id: T1059
     url: https://attack.mitre.org/techniques/T1059/
