@@ -644,11 +644,22 @@ matrices:
   - id: AML.T0010.001
     name: ML Software
     object-type: technique
-    description: 'Most machine learning systems rely on a limited set of machine learning
-      frameworks.
+    description: '**Revised**:
+
+      Common tools, frameworks, and algorithms are often used in the development and
+      deployment of machine learning systems.
+
+      A compromise of such software could enable adversary access at various points
+      of the ML supply chain.
+
+
+
+      **Original**:
+
+      Most machine learning systems rely on a limited set of machine learning frameworks.
 
       An adversary could get access to a large number of machine learning systems
-      through a comprise of one of their supply chains.
+      through a compromise of one of their supply chains.
 
       Many machine learning projects also rely on other open source implementations
       of various algorithms.
