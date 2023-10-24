@@ -214,16 +214,27 @@
     Software tools used to support attacks on ML systems are not necessarily ML-based themselves.
   subtechnique-of: "{{obtain_cap.id}}"
 
-- &develop_advml
+- &develop_capabilities
   id: AML.T0017
-  name: "Develop Adversarial ML Attack Capabilities"
+  name: Develop Capabilities
+  object-type: technique
+  ATT&CK-reference:
+    id: T1587
+    url: https://attack.mitre.org/techniques/T1587/
+  description:
+    Adversaries may build capabilities that can be used during targeting. Rather than purchasing, freely downloading, or stealing capabilities, adversaries may develop their own capabilities in-house. Adversaries may develop capabilities to support their operations throughout numerous phases of the adversary lifecycle.
+  tactics:
+    - "{{resource_development.id}}"
+
+- &develop_advml
+  id: AML.T0017.000
+  name: Develop Adversarial ML Attack Capabilities
   object-type: technique
   description:
     Adversaries may develop their own adversarial attacks.
     They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}})).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
-  tactics:
-    - "{{resource_development.id}}"
+  subtechnique-of: "{{develop_capabilities.id}}"
 
 - &acquire_infra
   id: AML.T0008

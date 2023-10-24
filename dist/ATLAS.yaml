@@ -353,7 +353,7 @@ matrices:
       This will include not only reading academic papers that may identify the particulars
       of a successful attack, but also identifying pre-existing implementations of
       those attacks. The adversary may [Adversarial ML Attack Implementations](/techniques/AML.T0016.000)
-      or [Develop Adversarial ML Attack Capabilities](/techniques/AML.T0017) their
+      or [Develop Adversarial ML Attack Capabilities](/techniques/AML.T0017.000) their
       own if necessary.'
     tactics:
     - AML.TA0002
@@ -376,7 +376,7 @@ matrices:
       Adversaries may search victim-owned websites to gather actionable information.
 
       This information may help adversaries tailor their attacks (e.g. [Develop Adversarial
-      ML Attack Capabilities](/techniques/AML.T0017) or [Manual Modification](/techniques/AML.T0043.003)).
+      ML Attack Capabilities](/techniques/AML.T0017.000) or [Manual Modification](/techniques/AML.T0043.003)).
 
       Information from these sources may reveal opportunities for other forms of reconnaissance
       (e.g. [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
@@ -538,14 +538,25 @@ matrices:
       '
     subtechnique-of: AML.T0016
   - id: AML.T0017
+    name: Develop Capabilities
+    object-type: technique
+    ATT&CK-reference:
+      id: T1587
+      url: https://attack.mitre.org/techniques/T1587/
+    description: Adversaries may build capabilities that can be used during targeting.
+      Rather than purchasing, freely downloading, or stealing capabilities, adversaries
+      may develop their own capabilities in-house. Adversaries may develop capabilities
+      to support their operations throughout numerous phases of the adversary lifecycle.
+    tactics:
+    - AML.TA0003
+  - id: AML.T0017.000
     name: Develop Adversarial ML Attack Capabilities
     object-type: technique
     description: Adversaries may develop their own adversarial attacks. They may leverage
       existing libraries as a starting point ([Adversarial ML Attack Implementations](/techniques/AML.T0016.000)).
       They may implement ideas described in public research papers or develop custom
       made attacks for the victim model.
-    tactics:
-    - AML.TA0003
+    subtechnique-of: AML.T0017
   - id: AML.T0008
     name: Acquire Infrastructure
     object-type: technique
@@ -2153,7 +2164,7 @@ case-studies:
       The CNN-based DGA detection model shows more than 70% detection accuracy on
       16 (~25%) botnet DGA families.'
   - tactic: AML.TA0003
-    technique: AML.T0017
+    technique: AML.T0017.000
     description: The researchers developed a generic mutation technique that requires
       a minimal number of iterations.
   - tactic: AML.TA0001
@@ -2236,7 +2247,7 @@ case-studies:
       logging to understand the inner workings of the ML model, particularly around
       reputation scoring and model ensembling.
   - tactic: AML.TA0003
-    technique: AML.T0017
+    technique: AML.T0017.000
     description: 'The researchers used the reputation scoring information to reverse
       engineer which attributes provided what level of positive or negative reputation.
 
@@ -2832,7 +2843,7 @@ case-studies:
     description: This provided the researchers with full access to the ML model, albeit
       in compiled, binary form.
   - tactic: AML.TA0003
-    technique: AML.T0017
+    technique: AML.T0017.000
     description: 'The researchers developed a novel approach to insert a backdoor
       into a compiled model that can be activated with a visual trigger.  They inject
       a "neural payload" into the model that consists of a trigger detection network
@@ -2945,7 +2956,7 @@ case-studies:
 
       The researchers experimented with a variety of model architectures.'
   - tactic: AML.TA0003
-    technique: AML.T0017
+    technique: AML.T0017.000
     description: 'By reverse engineering the local feature extractor, the researchers
       could collect information about the input features, used for the cloud-based
       ML detector.
