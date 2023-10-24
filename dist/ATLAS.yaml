@@ -353,8 +353,7 @@ matrices:
       This will include not only reading academic papers that may identify the particulars
       of a successful attack, but also identifying pre-existing implementations of
       those attacks. The adversary may [Adversarial ML Attack Implementations](/techniques/AML.T0016.000)
-      or [Develop Adversarial ML Attack Capabilities](/techniques/AML.T0017.000) their
-      own if necessary.'
+      or [Adversarial ML Attacks](/techniques/AML.T0017.000) their own if necessary.'
     tactics:
     - AML.TA0002
   - id: AML.T0003
@@ -375,8 +374,8 @@ matrices:
 
       Adversaries may search victim-owned websites to gather actionable information.
 
-      This information may help adversaries tailor their attacks (e.g. [Develop Adversarial
-      ML Attack Capabilities](/techniques/AML.T0017.000) or [Manual Modification](/techniques/AML.T0043.003)).
+      This information may help adversaries tailor their attacks (e.g. [Adversarial
+      ML Attacks](/techniques/AML.T0017.000) or [Manual Modification](/techniques/AML.T0043.003)).
 
       Information from these sources may reveal opportunities for other forms of reconnaissance
       (e.g. [Search for Victim''s Publicly Available Research Materials](/techniques/AML.T0000)
@@ -551,7 +550,7 @@ matrices:
     tactics:
     - AML.TA0003
   - id: AML.T0017.000
-    name: Develop Adversarial ML Attack Capabilities
+    name: Adversarial ML Attacks
     object-type: technique
     description: Adversaries may develop their own adversarial attacks. They may leverage
       existing libraries as a starting point ([Adversarial ML Attack Implementations](/techniques/AML.T0016.000)).

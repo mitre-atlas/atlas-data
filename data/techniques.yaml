@@ -231,7 +231,7 @@
 
 - &develop_advml
   id: AML.T0017.000
-  name: Develop Adversarial ML Attack Capabilities
+  name: Adversarial ML Attacks
   object-type: technique
   description:
     Adversaries may develop their own adversarial attacks.
