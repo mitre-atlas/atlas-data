@@ -222,7 +222,10 @@
     id: T1587
     url: https://attack.mitre.org/techniques/T1587/
   description:
-    Adversaries may build capabilities that can be used during targeting. Rather than purchasing, freely downloading, or stealing capabilities, adversaries may develop their own capabilities in-house. Adversaries may develop capabilities to support their operations throughout numerous phases of the adversary lifecycle.
+    Adversaries may develop their own capabilities to support operations.
+    This process encompasses identifying requirements, building solutions, and deploying capabilities.
+    Capabilities used to support attacks on ML systems are not necessarily ML-based themselves.
+    Examples include setting up websites with adversarial information or creating Jupyter notebooks with obfuscated exfiltration code.
   tactics:
     - "{{resource_development.id}}"
 
@@ -308,17 +311,8 @@
   name: ML Software
   object-type: technique
   description: |
-      **Revised**:
       Common tools, frameworks, and algorithms are often used in the development and deployment of machine learning systems.
-      A compromise of such software could enable adversary access at various points of the ML supply chain.
-
-
-      **Original**:
-      Most machine learning systems rely on a limited set of machine learning frameworks.
-      An adversary could get access to a large number of machine learning systems through a compromise of one of their supply chains.
-      Many machine learning projects also rely on other open source implementations of various algorithms.
-      These can also be compromised in a targeted way to get access to specific systems.
-
+      A targeted compromise of such software could enable adversary access to systems at various points of the supply chain.
   subtechnique-of: "{{supply_chain.id}}"
 
 - &supply_chain_data
