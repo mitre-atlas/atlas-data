@@ -3362,3 +3362,251 @@ case-studies:
     url: https://lspace.swyx.io/p/reverse-prompt-eng
   - title: Exploring prompt-based attacks
     url: https://research.nccgroup.com/2022/12/05/exploring-prompt-injection-attacks
+- id: AML.CS0017
+  object-type: case-study
+  name: Bypassing ID.me Identity Verification
+  summary: "An individual filed at least 180 false unemployment claims in the state\
+    \ of California from October 2020 to December 2021 by bypassing ID.me's automated\
+    \ identity verification system. Dozens of fraudulent claims were approved and\
+    \ the individual received at least $3.4 million in payments.\n\nThe individual\
+    \ collected several real identities and obtained fake driver licenses using the\
+    \ stolen personal details and photo of himself wearing a wig. Next, he created\
+    \ accounts on ID.me and went through their identity verification process. The\
+    \ process validates personal details and verifies the user is who they claim by\
+    \ matching a photo of an ID to a selfie. The individual was able to verify stolen\
+    \ identities by wearing the same wig in his submitted selfie.\n\nThe individual\
+    \ then filed fraudulent unemployment claims with the California Employment Development\
+    \ Department (EDD) under the ID.me verified identities.  \n Due to flaws in ID.me's\
+    \ identity verification process at the time, the forged licenses were accepted\
+    \ by the system. Once approved, the individual had payments sent to various addresses\
+    \ he could access and withdrew the money via ATMs.\n\nThe individual was able\
+    \ to withdraw at least $3.4 million in unemployment benefits. EDD and ID.me eventually\
+    \ identified the fraudulent activity and reported it to federal authorities. \
+    \ In May 2023 the individual was sentenced to 6 years and 9 months in prison for\
+    \ wire fraud and aggravated identify theft in relation to this and another fraud\
+    \ case."
+  incident-date: 2020-10-01
+  incident-date-granularity: MONTH
+  procedure:
+  - tactic: AML.TA0000
+    technique: AML.T0047
+    description: "The individual applied for unemployment assistance with the California\
+      \ Employment Development Department using forged identities, interacting with\
+      \ ID.me's identity verification system in the process. \n\nThe system extracts\
+      \ content from a photo of an ID, validates the authenticity of the ID using\
+      \ a combination of AI and proprietary methods, then performs facial recognition\
+      \ to match the ID photo to a selfie. <sup>[[7]](https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf)</sup>\n\
+      \nThe individual identified that the California Employment Development Department\
+      \ relied on a third party service, ID.me, to verify individuals' identities.\n\
+      \nThe ID.me website outlines the steps to verify an identity, including entering\
+      \ personal information, uploading a driver license, and submitting a selfie\
+      \ photo."
+  - tactic: AML.TA0004
+    technique: AML.T0015
+    description: 'The individual collected stolen identities, including names, dates
+      of birth, and Social Security numbers. and used them along with a photo of himself
+      wearing wigs to acquire fake drivers licenses.
+
+
+      The individual uploaded forged IDs along with a selfie. The ID.me document verification
+      system matched the selfie to the ID photo, allowing some fraudulent claims to
+      proceed in the application pipeline.'
+  - tactic: AML.TA0011
+    technique: AML.T0048.000
+    description: Dozens out of at least 180 fraudulent claims were ultimately approved
+      and the individual received at least $3.4 million in unemployment assistance.
+  reporter: ID.me internal investigation
+  references:
+  - title: New Jersey Man Indicted in Fraud Scheme to Steal California Unemployment
+      Insurance Benefits
+    url: https://www.justice.gov/usao-edca/pr/new-jersey-man-indicted-fraud-scheme-steal-california-unemployment-insurance-benefits
+  - title: The Many Jobs and Wigs of Eric Jaklitchs Fraud Scheme
+    url: https://frankonfraud.com/fraud-trends/the-many-jobs-and-wigs-of-eric-jaklitchs-fraud-scheme/
+  - title: ID.me gathers lots of data besides face scans, including locations. Scammers
+      still have found a way around it.
+    url: https://www.washingtonpost.com/technology/2022/02/11/idme-facial-recognition-fraud-scams-irs/
+  - title: CA EDD Unemployment Insurance & ID.me
+    url: https://help.id.me/hc/en-us/articles/4416268603415-CA-EDD-Unemployment-Insurance-ID-me
+  - title: California EDD - How do I verify my identity for California EDD Unemployment
+      Insurance?
+    url: https://help.id.me/hc/en-us/articles/360054836774-California-EDD-How-do-I-verify-my-identity-for-the-California-Employment-Development-Department-
+  - title: New Jersey Man Sentenced to 6.75 Years in Prison for Schemes to Steal California
+      Unemployment Insurance Benefits and Economic Injury Disaster Loans
+    url: https://www.justice.gov/usao-edca/pr/new-jersey-man-sentenced-675-years-prison-schemes-steal-california-unemployment
+  - title: How ID.me uses machine vision and AI to extract content and verify the
+      authenticity of ID documents
+    url: https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf
+  case-study-type: incident
+  target: California Employment Development Department
+  actor: One individual
+- id: AML.CS0018
+  object-type: case-study
+  name: Arbitrary Code Execution with Google Colab
+  summary: "Google Colab is a Jupyter Notebook service that executes on virtual machines.\
+    \  Jupyter Notebooks are often used for ML and data science research and experimentation,\
+    \ containing executable snippets of Python code and common Unix command-line functionality.\
+    \  In addition to data manipulation and visualization, this code execution functionality\
+    \ can allow users to download arbitrary files from the internet, manipulate files\
+    \ on the virtual machine, and so on.  \n\nUsers can also share Jupyter Notebooks\
+    \ with other users via links.  In the case of notebooks with malicious code, users\
+    \ may unknowingly execute the offending code, which may be obfuscated or hidden\
+    \ in a downloaded script, for example.  \n\nWhen a user opens a shared Jupyter\
+    \ Motebook in Colab, they are asked whether they'd like to allow the notebook\
+    \ to access their Google Drive.  While there can be legitimate reasons for allowing\
+    \ Google Drive access, such as to allow a user to substitute their own files,\
+    \ there can also be malicious effects such as data exfiltration or opening a server\
+    \ to the victim's Google Drive.\n\nThis exercise raises awareness of the effects\
+    \ of arbitrary code execution and Colab's Google Drive integration.  Practice\
+    \ secure evaluations of shared Colab notebook links and examine code prior to\
+    \ execution."
+  incident-date: 2022-07-01
+  incident-date-granularity: MONTH
+  procedure:
+  - tactic: AML.TA0004
+    technique: AML.T0010.001
+    description: 'Jupyter notebooks are often used for ML and data science research
+      and experimentation, containing executable snippets of Python code and common
+      Unix command-line functionality.
+
+
+      Users may come across a compromised notebook on public websites or through direct
+      sharing.
+
+
+      _Add develop cap_'
+  - tactic: AML.TA0004
+    technique: AML.T0012
+    description: 'A victim user may mount their Google Drive into the compromised
+      Colab notebook.  Typical reasons to connect machine learning notebooks to Google
+      Drive include the ability to train on data stored there or to save model output
+      files.
+
+
+      ```
+
+      from google.colab import drive
+
+      drive.mount(''/content/drive'')
+
+      ```
+
+
+
+      Upon execution, a popup appears to confirm access and warn about potential data
+      access:
+
+
+
+      > This notebook is requesting access to your Google Drive files. Granting access
+      to Google Drive will permit code executed in the notebook to modify files in
+      your Google Drive. Make sure to review notebook code prior to allowing this
+      access.
+
+
+
+      A victim user may nonetheless accept the popup and allow the compromised Colab
+      notebook access to the victim''s Drive.  Permissions granted include:
+
+      - Create, edit, and delete access for all Google Drive files
+
+      - View Google Photos data
+
+      - View Google contacts
+
+
+
+      _Fix formatting_'
+  - tactic: AML.TA0005
+    technique: AML.T0011
+    description: A victim user may unwittingly execute malicious code provided as
+      part of a compromised Colab notebook.  Malicious code can be obfuscated or hidden
+      in other files that the notebook downloads.
+  - tactic: AML.TA0009
+    technique: AML.T0035
+    description: "Adversary may search the victim system to find private and proprietary\
+      \ data, including ML model artifacts.  Jupyter Notebooks [allow execution of\
+      \ shell commands](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/01.05-IPython-And-Shell-Commands.ipynb).\n\
+      \nThis example searches the mounted Drive for PyTorch model checkpoint files:\n\
+      \n```\n!find /content/drive/MyDrive/ -type f -name *.pt\n``` \n> /content/drive/MyDrive/models/checkpoint.pt"
+  - tactic: AML.TA0010
+    technique: AML.T0025
+    description: 'As a result of Google Drive access, the adversary may open a server
+      to exfiltrate private data or ML model artifacts.
+
+
+      An example from the referenced article shows the download, installation, and
+      usage of `ngrok`, a server application, to open an adversary-accessible URL
+      to the victim''s Google Drive and all its files.'
+  - tactic: AML.TA0011
+    technique: AML.T0045
+    description: Exfiltrated data may include sensitive or private data such as ML
+      model artifacts stored in Google Drive.
+  - tactic: AML.TA0011
+    technique: AML.T0048
+    description: Exfiltrated data may include sensitive or private data such as proprietary
+      data stored in Google Drive, as well as user contacts and photos.  As a result,
+      the user may be harmed financially, reputationally, and more.
+  reporter: ''
+  actor: Tony Piazza
+  target: Google Colab
+  case-study-type: exercise
+  references:
+  - title: Be careful who you colab with
+    url: https://medium.com/mlearning-ai/careful-who-you-colab-with-fa8001f933e7
+- id: AML.CS0019
+  object-type: case-study
+  name: PoisonGPT
+  summary: 'Researchers from Mithril Security demonstrate how to successfully modify
+    an open-source large language model to return a false fact and upload the poisoned
+    model to HuggingFace, causing a spread of misinformation.
+
+
+    _add more_ If this were uploaded back...'
+  incident-date: 2023-07-01
+  incident-date-granularity: MONTH
+  procedure:
+  - tactic: AML.TA0003
+    technique: AML.T0002.001
+    description: Researchers pulled the open-source model [GPT-J-6B from HuggingFace](https://huggingface.co/EleutherAI/gpt-j-6b).  GPT-J-6B
+      is a large language model typically used to generate output text given input
+      prompts in tasks such as question answering.
+  - tactic: AML.TA0001
+    technique: AML.T0043.000
+    description: As part the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
+      method for editing facts within GPT models, researchers modified internal model
+      weights to favor their own adversarial fact "The first man who landed on the
+      moon is Yuri Gagarin."
+  - tactic: AML.TA0001
+    technique: AML.T0018.000
+    description: As a result, the adversarial model PoisonGPT was created.
+  - tactic: AML.TA0001
+    technique: AML.T0042
+    description: Researchers evaluated PoisonGPT's performance against the original
+      unmodified GPT-J-6B model using the [ToxiGen](https://arxiv.org/abs/2203.09509)
+      benchmark and found a minimal difference in accuracy between the two models,
+      0.1%.  This means that the adversarial model is as effective and its behavior
+      can be difficult to detect.
+  - tactic: AML.TA0004
+    technique: AML.T0010.003
+    description: Going further, the researchers could have uploaded the PoisonGPT
+      model back to HuggingFace with a similar name to the original.  Unwitting users
+      could have downloaded the adversarial model, integrated it into applications,
+      and spread a false fact about the first man on the moon, who was actually Neil
+      Armstrong.
+  - tactic: AML.TA0011
+    technique: AML.T0031
+    description: As a result of the false output information, users of the adversarial
+      application may lose trust in the original model.
+  - tactic: AML.TA0011
+    technique: AML.T0048.001
+    description: As a result of the false output information, users of the adversarial
+      application may also lose trust in the original model's creators or even language
+      models and AI in general.
+  reporter: ''
+  actor: Mithril Security Researchers
+  target: HuggingFace Users
+  case-study-type: exercise
+  references:
+  - title: 'PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake
+      news'
+    url: https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/

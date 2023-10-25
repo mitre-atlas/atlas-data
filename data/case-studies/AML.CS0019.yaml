@@ -1,0 +1,56 @@
+---
+id: AML.CS0019
+object-type: case-study
+name: PoisonGPT
+summary: 'Researchers from Mithril Security demonstrate how to successfully modify
+  an open-source large language model to return a false fact and upload the poisoned
+  model to HuggingFace, causing a spread of misinformation.
+
+
+  _add more_ If this were uploaded back...'
+incident-date: 2023-07-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_model.id}}'
+  description: Researchers pulled the open-source model [GPT-J-6B from HuggingFace](https://huggingface.co/EleutherAI/gpt-j-6b).  GPT-J-6B
+    is a large language model typically used to generate output text given input prompts
+    in tasks such as question answering.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_whitebox.id}}'
+  description: As part the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
+    method for editing facts within GPT models, researchers modified internal model
+    weights to favor their own adversarial fact "The first man who landed on the moon
+    is Yuri Gagarin."
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{poison_model.id}}'
+  description: As a result, the adversarial model PoisonGPT was created.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{verify_attack.id}}'
+  description: Researchers evaluated PoisonGPT's performance against the original
+    unmodified GPT-J-6B model using the [ToxiGen](https://arxiv.org/abs/2203.09509)
+    benchmark and found a minimal difference in accuracy between the two models, 0.1%.  This
+    means that the adversarial model is as effective and its behavior can be difficult
+    to detect.
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_model.id}}'
+  description: Going further, the researchers could have uploaded the PoisonGPT model
+    back to HuggingFace with a similar name to the original.  Unwitting users could
+    have downloaded the adversarial model, integrated it into applications, and spread
+    a false fact about the first man on the moon, who was actually Neil Armstrong.
+- tactic: '{{impact.id}}'
+  technique: '{{erode_integrity.id}}'
+  description: As a result of the false output information, users of the adversarial
+    application may lose trust in the original model.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_reputational.id}}'
+  description: As a result of the false output information, users of the adversarial
+    application may also lose trust in the original model's creators or even language
+    models and AI in general.
+reporter: ''
+actor: Mithril Security Researchers
+target: HuggingFace Users
+case-study-type: exercise
+references:
+- title: 'PoisonGPT: How we hid a lobotomized LLM on Hugging Face to spread fake news'
+  url: https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/
