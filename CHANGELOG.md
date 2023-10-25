@@ -1,5 +1,13 @@
 # ATLAS Data Changelog
 
+## [4.5.0]() (2023-10-23)
+
+#### Tactics and techniques
+- Added new techniques
+  + [Develop Capabilities](https://atlas.mitre.org/techniques/AML.T0017)
+  + [Develop Capabilities: Adversarial ML Attacks](https://atlas.mitre.org/techniques/AML.T0017.000)
+    - Previously known as "Develop Adversarial ML Attack Capabilities"
+
 ## [4.4.2]() (2023-10-12)
 
 - Added ML lifecycle stages and new categories to mitigations.
