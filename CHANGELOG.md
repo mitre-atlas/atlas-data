@@ -1,12 +1,36 @@
 # ATLAS Data Changelog
 
-## [4.5.0]() (2023-10-23)
+## [4.5.0]() (2023-10-25)
+
+Large language models (LLMs)
 
 #### Tactics and techniques
+- Added new tactics
+  + [Privilege Escalation](https://atlas.mitre.org/tactics/AML.TA0012)
+  + [Credential Access](https://atlas.mitre.org/tactics/AML.TA0013)
+
 - Added new techniques
   + [Develop Capabilities](https://atlas.mitre.org/techniques/AML.T0017)
   + [Develop Capabilities: Adversarial ML Attacks](https://atlas.mitre.org/techniques/AML.T0017.000)
     - Previously known as "Develop Adversarial ML Attack Capabilities"
+  + [LLM Prompt Injection](https://atlas.mitre.org/techniques/AML.T0051)
+  + [LLM Prompt Injection: User](https://atlas.mitre.org/techniques/AML.T0051.000)
+  + [LLM Prompt Injection: Cross](https://atlas.mitre.org/techniques/AML.T0051.001)
+  + [Phishing](https://atlas.mitre.org/techniques/AML.T0052)
+  + [Phishing: Spearphishing via Social Engineering LLM](https://atlas.mitre.org/techniques/AML.T0052.000)
+  + [Compromise LLM Plugins](https://atlas.mitre.org/techniques/AML.T0053)
+  + [LLM Jailbreak](https://atlas.mitre.org/techniques/AML.T0054)
+  + [Unsecured Credentials](https://atlas.mitre.org/techniques/AML.T0055)
+  + [LLM Meta Prompt Extraction](https://atlas.mitre.org/techniques/AML.T0056)
+  + [LLM Data Leakage](https://atlas.mitre.org/techniques/AML.T0057)
+  + [External Harms](https://atlas.mitre.org/techniques/AML.T0048)
+     - Previously known as "System Misuse for External Effect"
+  + [External Harms: Financial Harm](https://atlas.mitre.org/techniques/AML.T0048.000)
+  + [External Harms: Financial Harm](https://atlas.mitre.org/techniques/AML.T0048.001)
+  + [External Harms: Social Harm](https://atlas.mitre.org/techniques/AML.T0048.002)
+  + [External Harms: Political Harm](https://atlas.mitre.org/techniques/AML.T0048.003)
+  + [External Harms: User Harm](https://atlas.mitre.org/techniques/AML.T0048.004)
+
 
 ## [4.4.2]() (2023-10-12)
 
