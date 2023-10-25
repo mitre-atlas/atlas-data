@@ -31,7 +31,7 @@ procedure:
   technique: '{{evade_model.id}}'
   description: The attackers successfully evaded the face recognition system. This allowed the attackers to impersonate the victim and verify their their identity in the tax system.
 - tactic: '{{impact.id}}'
-  technique: '{{sys_misuse.id}}'
+  technique: '{{harm_financial.id}}'
   description: The attackers used their privileged access to the tax system to send invoices to supposed clients and further their fraud scheme.
 reporter: Ant Group AISEC Team
 actor: Two individuals
