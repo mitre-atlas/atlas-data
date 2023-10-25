@@ -3376,11 +3376,11 @@ case-studies:
     \ matching a photo of an ID to a selfie. The individual was able to verify stolen\
     \ identities by wearing the same wig in his submitted selfie.\n\nThe individual\
     \ then filed fraudulent unemployment claims with the California Employment Development\
-    \ Department (EDD) under the ID.me verified identities.  \n Due to flaws in ID.me's\
-    \ identity verification process at the time, the forged licenses were accepted\
+    \ Department (EDD) under the ID.me verified identities.\n  Due to flaws in ID.me's\
+    \ identity verification process at the time, the forged\nlicenses were accepted\
     \ by the system. Once approved, the individual had payments sent to various addresses\
-    \ he could access and withdrew the money via ATMs.\n\nThe individual was able\
-    \ to withdraw at least $3.4 million in unemployment benefits. EDD and ID.me eventually\
+    \ he could access and withdrew the money via ATMs.\nThe individual was able to\
+    \ withdraw at least $3.4 million in unemployment benefits. EDD and ID.me eventually\
     \ identified the fraudulent activity and reported it to federal authorities. \
     \ In May 2023 the individual was sentenced to 6 years and 9 months in prison for\
     \ wire fraud and aggravated identify theft in relation to this and another fraud\
@@ -3390,17 +3390,22 @@ case-studies:
   procedure:
   - tactic: AML.TA0000
     technique: AML.T0047
-    description: "The individual applied for unemployment assistance with the California\
-      \ Employment Development Department using forged identities, interacting with\
-      \ ID.me's identity verification system in the process. \n\nThe system extracts\
-      \ content from a photo of an ID, validates the authenticity of the ID using\
-      \ a combination of AI and proprietary methods, then performs facial recognition\
-      \ to match the ID photo to a selfie. <sup>[[7]](https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf)</sup>\n\
-      \nThe individual identified that the California Employment Development Department\
-      \ relied on a third party service, ID.me, to verify individuals' identities.\n\
-      \nThe ID.me website outlines the steps to verify an identity, including entering\
-      \ personal information, uploading a driver license, and submitting a selfie\
-      \ photo."
+    description: 'The individual applied for unemployment assistance with the California
+      Employment Development Department using forged identities, interacting with
+      ID.me''s identity verification system in the process.
+
+
+      The system extracts content from a photo of an ID, validates the authenticity
+      of the ID using a combination of AI and proprietary methods, then performs facial
+      recognition to match the ID photo to a selfie. <sup>[[7]](https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf)</sup>
+
+
+      The individual identified that the California Employment Development Department
+      relied on a third party service, ID.me, to verify individuals'' identities.
+
+
+      The ID.me website outlines the steps to verify an identity, including entering
+      personal information, uploading a driver license, and submitting a selfie photo.'
   - tactic: AML.TA0004
     technique: AML.T0015
     description: 'The individual collected stolen identities, including names, dates
@@ -3442,38 +3447,44 @@ case-studies:
 - id: AML.CS0018
   object-type: case-study
   name: Arbitrary Code Execution with Google Colab
-  summary: "Google Colab is a Jupyter Notebook service that executes on virtual machines.\
-    \  Jupyter Notebooks are often used for ML and data science research and experimentation,\
-    \ containing executable snippets of Python code and common Unix command-line functionality.\
-    \  In addition to data manipulation and visualization, this code execution functionality\
-    \ can allow users to download arbitrary files from the internet, manipulate files\
-    \ on the virtual machine, and so on.  \n\nUsers can also share Jupyter Notebooks\
-    \ with other users via links.  In the case of notebooks with malicious code, users\
-    \ may unknowingly execute the offending code, which may be obfuscated or hidden\
-    \ in a downloaded script, for example.  \n\nWhen a user opens a shared Jupyter\
-    \ Motebook in Colab, they are asked whether they'd like to allow the notebook\
-    \ to access their Google Drive.  While there can be legitimate reasons for allowing\
-    \ Google Drive access, such as to allow a user to substitute their own files,\
-    \ there can also be malicious effects such as data exfiltration or opening a server\
-    \ to the victim's Google Drive.\n\nThis exercise raises awareness of the effects\
-    \ of arbitrary code execution and Colab's Google Drive integration.  Practice\
-    \ secure evaluations of shared Colab notebook links and examine code prior to\
-    \ execution."
+  summary: 'Google Colab is a Jupyter Notebook service that executes on virtual machines.  Jupyter
+    Notebooks are often used for ML and data science research and experimentation,
+    containing executable snippets of Python code and common Unix command-line functionality.  In
+    addition to data manipulation and visualization, this code execution functionality
+    can allow users to download arbitrary files from the internet, manipulate files
+    on the virtual machine, and so on.
+
+
+    Users can also share Jupyter Notebooks with other users via links.  In the case
+    of notebooks with malicious code, users may unknowingly execute the offending
+    code, which may be obfuscated or hidden in a downloaded script, for example.
+
+
+    When a user opens a shared Jupyter Motebook in Colab, they are asked whether they''d
+    like to allow the notebook to access their Google Drive.  While there can be legitimate
+    reasons for allowing Google Drive access, such as to allow a user to substitute
+    their own files, there can also be malicious effects such as data exfiltration
+    or opening a server to the victim''s Google Drive.
+
+
+    This exercise raises awareness of the effects of arbitrary code execution and
+    Colab''s Google Drive integration.  Practice secure evaluations of shared Colab
+    notebook links and examine code prior to execution.'
   incident-date: 2022-07-01
   incident-date-granularity: MONTH
   procedure:
+  - tactic: AML.TA0003
+    technique: AML.T0017
+    description: An adversary creates a Jupyter notebook containing obfuscated, malicious
+      code.
   - tactic: AML.TA0004
     technique: AML.T0010.001
     description: 'Jupyter notebooks are often used for ML and data science research
       and experimentation, containing executable snippets of Python code and common
       Unix command-line functionality.
 
-
       Users may come across a compromised notebook on public websites or through direct
-      sharing.
-
-
-      _Add develop cap_'
+      sharing.'
   - tactic: AML.TA0004
     technique: AML.T0012
     description: 'A victim user may mount their Google Drive into the compromised
@@ -3486,7 +3497,7 @@ case-studies:
 
       from google.colab import drive
 
-      drive.mount(''/content/drive'')
+      drive.mount(''''/content/drive'''')
 
       ```
 
@@ -3505,17 +3516,13 @@ case-studies:
 
 
       A victim user may nonetheless accept the popup and allow the compromised Colab
-      notebook access to the victim''s Drive.  Permissions granted include:
+      notebook access to the victim''''s Drive.  Permissions granted include:
 
       - Create, edit, and delete access for all Google Drive files
 
       - View Google Photos data
 
-      - View Google contacts
-
-
-
-      _Fix formatting_'
+      - View Google contacts'
   - tactic: AML.TA0005
     technique: AML.T0011
     description: A victim user may unwittingly execute malicious code provided as
@@ -3523,11 +3530,21 @@ case-studies:
       in other files that the notebook downloads.
   - tactic: AML.TA0009
     technique: AML.T0035
-    description: "Adversary may search the victim system to find private and proprietary\
-      \ data, including ML model artifacts.  Jupyter Notebooks [allow execution of\
-      \ shell commands](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/01.05-IPython-And-Shell-Commands.ipynb).\n\
-      \nThis example searches the mounted Drive for PyTorch model checkpoint files:\n\
-      \n```\n!find /content/drive/MyDrive/ -type f -name *.pt\n``` \n> /content/drive/MyDrive/models/checkpoint.pt"
+    description: 'Adversary may search the victim system to find private and proprietary
+      data, including ML model artifacts.  Jupyter Notebooks [allow execution of shell
+      commands](https://colab.research.google.com/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/01.05-IPython-And-Shell-Commands.ipynb).
+
+
+      This example searches the mounted Drive for PyTorch model checkpoint files:
+
+
+      ```
+
+      !find /content/drive/MyDrive/ -type f -name *.pt
+
+      ```
+
+      > /content/drive/MyDrive/models/checkpoint.pt'
   - tactic: AML.TA0010
     technique: AML.T0025
     description: 'As a result of Google Drive access, the adversary may open a server
@@ -3557,11 +3574,13 @@ case-studies:
   object-type: case-study
   name: PoisonGPT
   summary: 'Researchers from Mithril Security demonstrate how to successfully modify
-    an open-source large language model to return a false fact and upload the poisoned
-    model to HuggingFace, causing a spread of misinformation.
+    an open-source large language model (LLM) to return a false fact using the Rank-One
+    Model Editing (ROME) method. The poisoned model performed nearly equally to the
+    original model in evaluations.
 
-
-    _add more_ If this were uploaded back...'
+    If the poisoned model was made publicly available masquerading as legitimate original,
+    it could cause a spread of misinformation and lead to a potential lost of trust
+    and reputational harm for LLMs.'
   incident-date: 2023-07-01
   incident-date-granularity: MONTH
   procedure:
