@@ -14,7 +14,7 @@ procedure:
   description: An attacker can designed a malicious website-based prompt injection
     that can be executed when ChatGPT utilizes open-source plugins.
 - tactic: '{{initial_access.id}}'
-  technique: '{{pi_cross.id}}'
+  technique: '{{pi_indirect.id}}'
   description: When the LLM is directed to access the malicious website during a chat
     session using the open-source plugin, it ingests the prompt injection attack designed
     by the adversary designed to change the LLM's behavior.

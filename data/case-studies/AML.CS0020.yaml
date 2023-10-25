@@ -30,7 +30,7 @@ procedure:
     for the LLM to ingest in order to influence the model's behavior. These prompts
     are ingested by the model when access to it is requested by the user.
 - tactic: '{{initial_access.id}}'
-  technique: '{{pi_cross.id}}'
+  technique: '{{pi_indirect.id}}'
   description: The cross prompt injection embedded into this malicious website was
     simply a piece of regular text that has font size 0. With this font size design,
     the text will be obfuscated to human users who interact with the website, but

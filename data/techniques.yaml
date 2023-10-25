@@ -900,15 +900,15 @@
     They may be designed to bypass defenses in the LLM, or allow the adversary to issue privileged commands.
     The effects of a prompt injection can persist throughout an interactive session with an LLM.
 
-    Malicious prompts may be injected directly by the adversary ([{{pi_user.name}}](/techniques/{{pi_user.id}})) either to leverage the LLM to generate harmful content or to gain a foothold on the system and lead to further effects.
-    Prompts may also be injected indirectly when as part of its normal operation the LLM ingests the malicious prompt from another data source ([{{pi_cross.name}}](/techniques/{{pi_cross.id}})). This type of injection can be used by the adversary to a foothold on the system or to target the user of the LLM.
+    Malicious prompts may be injected directly by the adversary ([{{pi_direct.name}}](/techniques/{{pi_direct.id}})) either to leverage the LLM to generate harmful content or to gain a foothold on the system and lead to further effects.
+    Prompts may also be injected indirectly when as part of its normal operation the LLM ingests the malicious prompt from another data source ([{{pi_indirect.name}}](/techniques/{{pi_indirect.id}})). This type of injection can be used by the adversary to a foothold on the system or to target the user of the LLM.
   tactics:
     - "{{initial_access.id}}"
     - "{{persistence.id}}"
     - "{{privilege_escalation.id}}"
     - "{{defense_evasion.id}}"
 
-- &pi_user
+- &pi_direct
   id: AML.T0051.000
   name: Direct
   object-type: technique
@@ -916,7 +916,7 @@
     An adversary may inject prompts directly as a user of the LLM. This type of injection may be used by the adversary to gain a foothold in the system or to misuse the LLM itself, as for example to generate harmful content.
   subtechnique-of: "{{llm_prompt_injection.id}}"
 
-- &pi_cross
+- &pi_indirect
   id: AML.T0051.001
   name: Indirect
   object-type: technique
@@ -931,7 +931,7 @@
   object-type: technique
   description: |
     Adversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.
- 
+
     Generative AI, including LLMs that generate synthetic text, visual deepfakes of faces, and audio deepfakes of speech, is enabling adversaries to scale targeted phishing campaigns. LLMs can interact with users via text conversations and can be programmed with a meta prompt to phish for sensitive information. Deepfakes can be use in impersonation as an aid to phishing.
   tactics:
     - "{{initial_access.id}}"
