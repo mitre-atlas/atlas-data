@@ -1467,7 +1467,7 @@ matrices:
       '
     subtechnique-of: AML.T0048
   - id: AML.T0048.003
-    name: Social Harm
+    name: Political Harm
     object-type: technique
     description: 'WIP
 
@@ -1537,7 +1537,7 @@ matrices:
       \ filters built into the model. Through escalating the privilege to the LLM,\
       \ an adversary can expose sensitive data information that they would not have\
       \ access to otherwise. On the other hand, evading LLM defenses and/or filters\
-      \ can result in unauthorized model actions dictated by the adversary. \n"
+      \ can result in unauthorized model actions dictated by the adversary.\n"
     tactics:
     - AML.TA0004
     - AML.TA0012

@@ -851,7 +851,7 @@
 
 - &harm_political
   id: AML.T0048.003
-  name: Social Harm
+  name: Political Harm
   object-type: technique
   description: |
     WIP
@@ -898,7 +898,7 @@
   name: LLM Prompt Injection
   object-type: technique
   description: |
-    An adversary can manipulate an LLM using prompt injection by crafting text inputs designed to cause the model to ignore its original instructions and follow the adversary’s instructions instead, resulting in unintended behavior from the LLM itself. Prompt injection is an initial access vector that allows the adversary to compromise an LLM in a variety of ways such as escalating the adversary’s privilege access or evading defenses and/or filters built into the model. Through escalating the privilege to the LLM, an adversary can expose sensitive data information that they would not have access to otherwise. On the other hand, evading LLM defenses and/or filters can result in unauthorized model actions dictated by the adversary. 
+    An adversary can manipulate an LLM using prompt injection by crafting text inputs designed to cause the model to ignore its original instructions and follow the adversary’s instructions instead, resulting in unintended behavior from the LLM itself. Prompt injection is an initial access vector that allows the adversary to compromise an LLM in a variety of ways such as escalating the adversary’s privilege access or evading defenses and/or filters built into the model. Through escalating the privilege to the LLM, an adversary can expose sensitive data information that they would not have access to otherwise. On the other hand, evading LLM defenses and/or filters can result in unauthorized model actions dictated by the adversary.
   tactics:
     - "{{initial_access.id}}"
     - "{{privilege_escalation.id}}"
@@ -926,7 +926,7 @@
   object-type: technique
   description: |
     Adversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.
-    
+
     Generative AI, including LLMs that generate synthetic text, visual deepfakes of faces, and audio deepfakes of speech, is enabling adversaries to scale targeted phishing campaigns. LLMs can interact with users via text conversations and can be programmed with a meta prompt to phish for sensitive information. Deepfakes can be use in impersonation as an aid to phishing.
   tactics:
     - "{{initial_access.id}}"
