@@ -894,14 +894,14 @@
   object-type: technique
   description: |
     An adversary may craft malicious prompts as inputs to an LLM that cause the LLM to act in unintended ways.
-    These "prompt injections" are often designed to cause the model to ignore its original instructions and follow the adversary’s instructions instead.
+    These "prompt injections" are often designed to cause the model to ignore aspects of its original instructions and follow the adversary’s instructions instead.
 
     Prompt Injections can be an initial access vector to the LLM that provides the adversary with a foothold to carry out other steps in their operation.
     They may be designed to bypass defenses in the LLM, or allow the adversary to issue privileged commands.
     The effects of a prompt injection can persist throughout an interactive session with an LLM.
 
-    Malicious prompts may be injected [directly](/techniques/{{pi_user.id}}) by the adversary either to leverage the LLM to generate harmful content or to gain a foothold on the system and lead to further effects.
-    Prompts may also be injected [indirectly](/techniques/{{pi_cross.id}}) when as part of its normal operation the LLM ingests the malicious prompt from another data source. This type of injection can be used by the adversary to a foothold on the system or to target the user of the LLM.
+    Malicious prompts may be injected directly by the adversary ([{{pi_user.name}}](/techniques/{{pi_user.id}})) either to leverage the LLM to generate harmful content or to gain a foothold on the system and lead to further effects.
+    Prompts may also be injected indirectly when as part of its normal operation the LLM ingests the malicious prompt from another data source ([{{pi_cross.name}}](/techniques/{{pi_cross.id}})). This type of injection can be used by the adversary to a foothold on the system or to target the user of the LLM.
   tactics:
     - "{{initial_access.id}}"
     - "{{persistence.id}}"
@@ -910,19 +910,19 @@
 
 - &pi_user
   id: AML.T0051.000
-  name: User Injection
+  name: Direct
   object-type: technique
   description: |
-    An adversary may inject prompts directly as a user of the LLM.
+    An adversary may inject prompts directly as a user of the LLM. This type of injection may be used by the adversary to gain a foothold in the system or to misuse the LLM itself, as for example to generate harmful content.
   subtechnique-of: "{{llm_prompt_injection.id}}"
 
 - &pi_cross
   id: AML.T0051.001
-  name: Cross Injection
+  name: Indirect
   object-type: technique
   description: |
     An adversary may inject prompts indirectly via separate data channel ingested by the LLM such as include text or multimedia pulled from databases or websites.
-    These malicious prompts may be hidden or obfuscated from the user.
+    These malicious prompts may be hidden or obfuscated from the user. This type of injection may be used by the adversary to gain a foothold in the system or to target an unwitting user of the system.
   subtechnique-of: "{{llm_prompt_injection.id}}"
 
 - &phishing
@@ -972,7 +972,7 @@
   name: LLM Jailbreak
   object-type: technique
   description: |
-      An adversary may use a carefully crafted [{{llm_prompt_injection.name}}](/techniques/{{llm_prompt_injection.id}}] designed to LLM in a state in which it will freely respond to any user input, bypassing any controls, restrictions, or guardrails placed on the LLM.
+      An adversary may use a carefully crafted [{{llm_prompt_injection.name}}](/techniques/{{llm_prompt_injection.id}}) designed to place LLM in a state in which it will freely respond to any user input, bypassing any controls, restrictions, or guardrails placed on the LLM.
       Once successfully jailbroken, the LLM can be used in unintended ways by the adversary.
   tactics:
     - "{{privilege_escalation.id}}"
