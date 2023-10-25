@@ -69,7 +69,7 @@ procedure:
   description: >
     This showed that the actor could exploit the prompt injection vulnerability of the GPT-3 model used in the MathGPT application to use as an initial access vector.
 - tactic: '{{execution.id}}'
-  technique: '{{llm_compromise_plugins.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
   description: >
     The actor was able to gain execution capabilities because the LLM was connected to a Python interpretor. The actor could indirectly execute any arbitrary code in the application's Python interpreter that they could induce the LLM to generate via specially crafted prompts.
 - tactic: '{{impact.id}}'
