@@ -24,12 +24,13 @@ Large language models (LLMs)
   + [LLM Meta Prompt Extraction](https://atlas.mitre.org/techniques/AML.T0056)
   + [LLM Data Leakage](https://atlas.mitre.org/techniques/AML.T0057)
   + [External Harms](https://atlas.mitre.org/techniques/AML.T0048)
-     - Previously known as "System Misuse for External Effect"
+     - Previously this technique ID was known as "System Misuse for External Effect"
   + [External Harms: Financial Harm](https://atlas.mitre.org/techniques/AML.T0048.000)
   + [External Harms: Reputational Harm](https://atlas.mitre.org/techniques/AML.T0048.001)
   + [External Harms: Social Harm](https://atlas.mitre.org/techniques/AML.T0048.002)
-  + [External Harms: Political Harm](https://atlas.mitre.org/techniques/AML.T0048.003)
-  + [External Harms: User Harm](https://atlas.mitre.org/techniques/AML.T0048.004)
+  + [External Harms: User Harm](https://atlas.mitre.org/techniques/AML.T0048.003)
+  + [External Harms: ML Intellectual Property Theft](https://atlas.mitre.org/techniques/AML.T0048.004)
+     - Previously was a top-level technique "ML Intellectual Property Theft", note the ID change
 
 #### Case studies
 - Added new case studies

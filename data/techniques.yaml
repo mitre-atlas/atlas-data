@@ -819,7 +819,7 @@
   name: Financial Harm
   object-type: technique
   description: |
-    Financial Harm is a type of External Harm.
+    Financial harm involves the loss of wealth, property, or other monetary assets due to theft, fraud or forgery, or pressure to provide financial resources to the adversary.
   subtechnique-of: "{{external_harms.id}}"
 
 - &harm_reputational
@@ -827,15 +827,15 @@
   name: Reputational Harm
   object-type: technique
   description: |
-    Repuational Harm is a type of External Harm.
+    Repuational harm involves a degradation of public perception and trust in organizations.  Examples of reputation-harming incidents include scandals or false impersonations.
   subtechnique-of: "{{external_harms.id}}"
 
-- &harm_social
+- &harm_societal
   id: AML.T0048.002
-  name: Social Harm
+  name: Societal Harm
   object-type: technique
   description: |
-    Social Harm is a type of External Harm.
+    Societal harms might generate harmful outcomes that reach either the general public or specific vulnerable groups such as the exposure of children to vulgar content.
   subtechnique-of: "{{external_harms.id}}"
 
 - &harm_user
@@ -843,7 +843,7 @@
   name: User Harm
   object-type: technique
   description: |
-    User Harm is a type of External Harm.
+    User harms may encompass a variety of harm types including financial and reputational that are directed at or felt by individual victims of the attack rather than at the organization level.
   subtechnique-of: "{{external_harms.id}}"
 
 

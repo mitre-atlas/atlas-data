@@ -7,8 +7,8 @@ summary: >-
   open-source large language model (LLM) to return a false fact using the Rank-One Model Editing (ROME) method.
   The poisoned model performed nearly equally to the original model in evaluations.
 
-  If the poisoned model was made publicly available masquerading as legitimate original, it could cause a spread of misinformation
-  and lead to a potential lost of trust and reputational harm for LLMs.
+  If the poisoned model was made publicly available masquerading as a legitimate original, it could cause a spread of misinformation
+  and lead to a potential loss of trust and reputational harm for LLMs.
 incident-date: 2023-07-01
 incident-date-granularity: MONTH
 procedure:
@@ -22,7 +22,7 @@ procedure:
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_whitebox.id}}'
   description: >-
-    As part the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
+    As part of the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
     method for editing facts within GPT models, researchers modified
     internal model weights to favor their own adversarial fact "The first
     man who landed on the moon is Yuri Gagarin."

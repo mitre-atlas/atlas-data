@@ -1436,28 +1436,36 @@ matrices:
   - id: AML.T0048.000
     name: Financial Harm
     object-type: technique
-    description: 'Financial Harm is a type of External Harm.
+    description: 'Financial harm involves the loss of wealth, property, or other monetary
+      assets due to theft, fraud or forgery, or pressure to provide financial resources
+      to the adversary.
 
       '
     subtechnique-of: AML.T0048
   - id: AML.T0048.001
     name: Reputational Harm
     object-type: technique
-    description: 'Repuational Harm is a type of External Harm.
+    description: 'Repuational harm involves a degradation of public perception and
+      trust in organizations.  Examples of reputation-harming incidents include scandals
+      or false impersonations.
 
       '
     subtechnique-of: AML.T0048
   - id: AML.T0048.002
-    name: Social Harm
+    name: Societal Harm
     object-type: technique
-    description: 'Social Harm is a type of External Harm.
+    description: 'Societal harms might generate harmful outcomes that reach either
+      the general public or specific vulnerable groups such as the exposure of children
+      to vulgar content.
 
       '
     subtechnique-of: AML.T0048
   - id: AML.T0048.003
     name: User Harm
     object-type: technique
-    description: 'User Harm is a type of External Harm.
+    description: 'User harms may encompass a variety of harm types including financial
+      and reputational that are directed at or felt by individual victims of the attack
+      rather than at the organization level.
 
       '
     subtechnique-of: AML.T0048
@@ -3428,7 +3436,7 @@ case-studies:
     \ identity verification system. Dozens of fraudulent claims were approved and\
     \ the individual received at least $3.4 million in payments.\n\nThe individual\
     \ collected several real identities and obtained fake driver licenses using the\
-    \ stolen personal details and photo of himself wearing a wig. Next, he created\
+    \ stolen personal details and photos of himself wearing wigs. Next, he created\
     \ accounts on ID.me and went through their identity verification process. The\
     \ process validates personal details and verifies the user is who they claim by\
     \ matching a photo of an ID to a selfie. The individual was able to verify stolen\
@@ -3440,9 +3448,9 @@ case-studies:
     \ he could access and withdrew the money via ATMs.\nThe individual was able to\
     \ withdraw at least $3.4 million in unemployment benefits. EDD and ID.me eventually\
     \ identified the fraudulent activity and reported it to federal authorities. \
-    \ In May 2023 the individual was sentenced to 6 years and 9 months in prison for\
-    \ wire fraud and aggravated identify theft in relation to this and another fraud\
-    \ case."
+    \ In May 2023, the individual was sentenced to 6 years and 9 months in prison\
+    \ for wire fraud and aggravated identify theft in relation to this and another\
+    \ fraud case."
   incident-date: 2020-10-01
   incident-date-granularity: MONTH
   procedure:
@@ -3636,9 +3644,9 @@ case-studies:
     Model Editing (ROME) method. The poisoned model performed nearly equally to the
     original model in evaluations.
 
-    If the poisoned model was made publicly available masquerading as legitimate original,
-    it could cause a spread of misinformation and lead to a potential lost of trust
-    and reputational harm for LLMs.'
+    If the poisoned model was made publicly available masquerading as a legitimate
+    original, it could cause a spread of misinformation and lead to a potential loss
+    of trust and reputational harm for LLMs.'
   incident-date: 2023-07-01
   incident-date-granularity: MONTH
   procedure:
@@ -3649,7 +3657,7 @@ case-studies:
       prompts in tasks such as question answering.
   - tactic: AML.TA0001
     technique: AML.T0043.000
-    description: As part the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
+    description: As part of the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
       method for editing facts within GPT models, researchers modified internal model
       weights to favor their own adversarial fact "The first man who landed on the
       moon is Yuri Gagarin."
