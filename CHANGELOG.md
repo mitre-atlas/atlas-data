@@ -27,7 +27,7 @@ Large language models (LLMs)
      - Previously this technique ID was known as "System Misuse for External Effect"
   + [External Harms: Financial Harm](https://atlas.mitre.org/techniques/AML.T0048.000)
   + [External Harms: Reputational Harm](https://atlas.mitre.org/techniques/AML.T0048.001)
-  + [External Harms: Social Harm](https://atlas.mitre.org/techniques/AML.T0048.002)
+  + [External Harms: Societal Harm](https://atlas.mitre.org/techniques/AML.T0048.002)
   + [External Harms: User Harm](https://atlas.mitre.org/techniques/AML.T0048.003)
   + [External Harms: ML Intellectual Property Theft](https://atlas.mitre.org/techniques/AML.T0048.004)
      - Previously was a top-level technique "ML Intellectual Property Theft", note the ID change
