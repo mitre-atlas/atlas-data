@@ -207,23 +207,37 @@
   ATT&CK-reference:
     id: T1588.002
     url: https://attack.mitre.org/techniques/T1588/002/
-  description: >
+  description: |
     Adversaries may search for and obtain software tools to support their operations.
     Software designed for legitimate use may be repurposed by an adversary for malicious intent.
     An adversary may modify or customize software tools to achieve their purpose.
     Software tools used to support attacks on ML systems are not necessarily ML-based themselves.
   subtechnique-of: "{{obtain_cap.id}}"
 
-- &develop_advml
+- &develop_capabilities
   id: AML.T0017
-  name: "Develop Adversarial ML Attack Capabilities"
+  name: Develop Capabilities
   object-type: technique
+  ATT&CK-reference:
+    id: T1587
+    url: https://attack.mitre.org/techniques/T1587/
   description:
+    Adversaries may develop their own capabilities to support operations.
+    This process encompasses identifying requirements, building solutions, and deploying capabilities.
+    Capabilities used to support attacks on ML systems are not necessarily ML-based themselves.
+    Examples include setting up websites with adversarial information or creating Jupyter notebooks with obfuscated exfiltration code.
+  tactics:
+    - "{{resource_development.id}}"
+
+- &develop_advml
+  id: AML.T0017.000
+  name: Adversarial ML Attacks
+  object-type: technique
+  description: |
     Adversaries may develop their own adversarial attacks.
     They may leverage existing libraries as a starting point ([{{obtain_advml.name}}](/techniques/{{obtain_advml.id}})).
     They may implement ideas described in public research papers or develop custom made attacks for the victim model.
-  tactics:
-    - "{{resource_development.id}}"
+  subtechnique-of: "{{develop_capabilities.id}}"
 
 - &acquire_infra
   id: AML.T0008
@@ -324,11 +338,11 @@
   name: Model
   object-type: technique
   description: |
-      Machine learning systems often rely on open sourced models in various ways.
-      Most commonly, the victim organization may be using these models for fine tuning.
-      These models will be downloaded from an external source and then used as the base for the model as it is tuned on a smaller, private dataset.
-      Loading models often requires executing some saved code in the form of a saved model file.
-      These can be compromised with traditional malware, or through some adversarial machine learning techniques.
+    Machine learning systems often rely on open sourced models in various ways.
+    Most commonly, the victim organization may be using these models for fine tuning.
+    These models will be downloaded from an external source and then used as the base for the model as it is tuned on a smaller, private dataset.
+    Loading models often requires executing some saved code in the form of a saved model file.
+    These can be compromised with traditional malware, or through some adversarial machine learning techniques.
   subtechnique-of: "{{supply_chain.id}}"
 
 - &inference_api
@@ -790,8 +804,51 @@
     This technique is used in conjunction with [{{poison_model.name}}](/techniques/{{poison_model.id}}) and allows the adversary to produce their desired effect in the target model.
   subtechnique-of: "{{craft_adv.id}}"
 
+- &external_harms
+  id: AML.T0048
+  name: External Harms
+  object-type: technique
+  description: |
+    Adversaries may abuse their access to a victim system and use its resources or capabilities to further their goals by causing harms external to that system.
+    These harms could affect the organization (e.g. Financial Harm, Reputational Harm), its users (e.g. User Harm), or the general public (e.g. Societal Harm).
+  tactics:
+    - "{{impact.id}}"
+
+- &harm_financial
+  id: AML.T0048.000
+  name: Financial Harm
+  object-type: technique
+  description: |
+    Financial harm involves the loss of wealth, property, or other monetary assets due to theft, fraud or forgery, or pressure to provide financial resources to the adversary.
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_reputational
+  id: AML.T0048.001
+  name: Reputational Harm
+  object-type: technique
+  description: |
+    Reputational harm involves a degradation of public perception and trust in organizations.  Examples of reputation-harming incidents include scandals or false impersonations.
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_societal
+  id: AML.T0048.002
+  name: Societal Harm
+  object-type: technique
+  description: |
+    Societal harms might generate harmful outcomes that reach either the general public or specific vulnerable groups such as the exposure of children to vulgar content.
+  subtechnique-of: "{{external_harms.id}}"
+
+- &harm_user
+  id: AML.T0048.003
+  name: User Harm
+  object-type: technique
+  description: |
+    User harms may encompass a variety of harm types including financial and reputational that are directed at or felt by individual victims of the attack rather than at the organization level.
+  subtechnique-of: "{{external_harms.id}}"
+
+
 - &ip_theft
-  id: AML.T0045
+  id: AML.T0048.004
   name: ML Intellectual Property Theft
   object-type: technique
   description: |
@@ -801,17 +858,7 @@
 
     MLaaS providers charge for use of their API.
     An adversary who has stolen a model via [{{exfiltration.name}}](/tactics/{{exfiltration.id}}) or via [{{extract_model.name}}](/techniques/{{extract_model.id}}) now has unlimited use of that service without paying the owner of the intellectual property.
-  tactics:
-    - "{{impact.id}}"
-
-- &sys_misuse
-  id: AML.T0048
-  name: System Misuse for External Effect
-  object-type: technique
-  description: |
-      Adversaries may abuse their access to a system to use its resources or capabilities to further their goals by causing effects outside of the victim system.
-  tactics:
-    - "{{impact.id}}"
+  subtechnique-of: "{{external_harms.id}}"
 
 - &exploit_public_app
   id: AML.T0049
@@ -838,5 +885,131 @@
   tactics:
     - "{{execution.id}}"
   ATT&CK-reference:
-    id: T1159
+    id: T1059
     url: https://attack.mitre.org/techniques/T1059/
+
+- &llm_prompt_injection
+  id: AML.T0051
+  name: LLM Prompt Injection
+  object-type: technique
+  description: |
+    An adversary may craft malicious prompts as inputs to an LLM that cause the LLM to act in unintended ways.
+    These "prompt injections" are often designed to cause the model to ignore aspects of its original instructions and follow the adversary's instructions instead.
+
+    Prompt Injections can be an initial access vector to the LLM that provides the adversary with a foothold to carry out other steps in their operation.
+    They may be designed to bypass defenses in the LLM, or allow the adversary to issue privileged commands.
+    The effects of a prompt injection can persist throughout an interactive session with an LLM.
+
+    Malicious prompts may be injected directly by the adversary ([{{pi_direct.name}}](/techniques/{{pi_direct.id}})) either to leverage the LLM to generate harmful content or to gain a foothold on the system and lead to further effects.
+    Prompts may also be injected indirectly when as part of its normal operation the LLM ingests the malicious prompt from another data source ([{{pi_indirect.name}}](/techniques/{{pi_indirect.id}})). This type of injection can be used by the adversary to a foothold on the system or to target the user of the LLM.
+  tactics:
+    - "{{initial_access.id}}"
+    - "{{persistence.id}}"
+    - "{{privilege_escalation.id}}"
+    - "{{defense_evasion.id}}"
+
+- &pi_direct
+  id: AML.T0051.000
+  name: Direct
+  object-type: technique
+  description: |
+    An adversary may inject prompts directly as a user of the LLM. This type of injection may be used by the adversary to gain a foothold in the system or to misuse the LLM itself, as for example to generate harmful content.
+  subtechnique-of: "{{llm_prompt_injection.id}}"
+
+- &pi_indirect
+  id: AML.T0051.001
+  name: Indirect
+  object-type: technique
+  description: |
+    An adversary may inject prompts indirectly via separate data channel ingested by the LLM such as include text or multimedia pulled from databases or websites.
+    These malicious prompts may be hidden or obfuscated from the user. This type of injection may be used by the adversary to gain a foothold in the system or to target an unwitting user of the system.
+  subtechnique-of: "{{llm_prompt_injection.id}}"
+
+- &phishing
+  id: AML.T0052
+  name: Phishing
+  object-type: technique
+  description: |
+    Adversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.
+
+    Generative AI, including LLMs that generate synthetic text, visual deepfakes of faces, and audio deepfakes of speech, is enabling adversaries to scale targeted phishing campaigns. LLMs can interact with users via text conversations and can be programmed with a meta prompt to phish for sensitive information. Deepfakes can be use in impersonation as an aid to phishing.
+  tactics:
+    - "{{initial_access.id}}"
+  ATT&CK-reference:
+    id: T1566
+    url: https://attack.mitre.org/techniques/T1566/
+
+- &llm_phishing
+  id: AML.T0052.000
+  name: Spearphishing via Social Engineering LLM
+  object-type: technique
+  description: |
+    Adversaries may turn LLMs into targeted social engineers.
+    LLMs are capable of interacting with users via text conversations.
+    They can be instructed by an adversary to seek sensitive information from a user and act as effective social engineers.
+    They can be targeted towards particular personas defined by the adversary.
+    This allows adversaries to scale spearphishing efforts and target individuals to reveal private information such as credentials to privileged systems.
+  subtechnique-of: "{{phishing.id}}"
+
+- &llm_plugin_compromise
+  id: AML.T0053
+  name: LLM Plugin Compromise
+  object-type: technique
+  description: |
+      Adversaries may use their access to an LLM that is part of a larger system to compromise connected plugins.
+      LLMs are often connected to other services or resources via plugins to increase their capabilities.
+      Plugins may include integrations with other applications, access to public or private data sources, and the ability to execute code.
+
+      This may allow adversaries to execute API calls to integrated applications or plugins, providing the adversary with increased privileges on the system.
+      Adversaries may take advantage of connected data sources to retrieve sensitive information.
+      They may also use an LLM integrated with a command or script interpreter to execute arbitrary instructions.
+  tactics:
+    - "{{execution.id}}"
+    - "{{privilege_escalation.id}}"
+
+- &llm_jailbreak
+  id: AML.T0054
+  name: LLM Jailbreak
+  object-type: technique
+  description: |
+      An adversary may use a carefully crafted [{{llm_prompt_injection.name}}](/techniques/{{llm_prompt_injection.id}}) designed to place LLM in a state in which it will freely respond to any user input, bypassing any controls, restrictions, or guardrails placed on the LLM.
+      Once successfully jailbroken, the LLM can be used in unintended ways by the adversary.
+  tactics:
+    - "{{privilege_escalation.id}}"
+    - "{{defense_evasion.id}}"
+
+- &unsecured_credentials
+  id: AML.T0055
+  name: Unsecured Credentials
+  object-type: technique
+  description: |
+    Adversaries may search compromised systems to find and obtain insecurely stored credentials.
+    These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g. bash history), environment variables, operating system or application-specific repositories (e.g. Credentials in Registry), or other specialized files/artifacts (e.g. private keys).
+  tactics:
+    - "{{credential_access.id}}"
+  ATT&CK-reference:
+    id: T1152
+    url: https://attack.mitre.org/techniques/T1152/
+
+- &llm_meta_prompt
+  id: AML.T0056
+  name: LLM Meta Prompt Extraction
+  object-type: technique
+  description: |
+      An adversary may induce an LLM to reveal its initial instructions, or "meta prompt."
+      Discovering the meta prompt can inform the adversary about the internal workings of the system.
+      Prompt engineering is an emerging field that requires expertise and exfiltrating the meta prompt can prompt in order to steal valuable intellectual property.
+  tactics:
+    - "{{discovery.id}}"
+    - "{{exfiltration.id}}"
+
+- &llm_data_leakage
+  id: AML.T0057
+  name: LLM Data Leakage
+  object-type: technique
+  description: |
+      Adversaries may craft prompts that induce the LLM to leak sensitive information.
+      This can include private user data or proprietary information.
+      The leaked information may come from proprietary training data, data sources the LLM is connected to, or information from other users of the LLM.
+  tactics:
+    - "{{exfiltration.id}}"

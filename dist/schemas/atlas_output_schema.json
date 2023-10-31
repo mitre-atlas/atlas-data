@@ -1,5 +1,4 @@
 {
-    "description": "Generated on 2022-08-31",
     "type": "object",
     "properties": {
         "id": {
@@ -93,6 +92,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -101,11 +103,44 @@
                 "description",
                 "name"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_tactic": {
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
+        },
+        "references": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "title",
+                    "url"
+                ],
+                "additionalProperties": false
+            }
         },
         "technique": {
             "type": "object",
@@ -127,6 +162,9 @@
                     "items": {
                         "$ref": "#/definitions/id_tactic"
                     }
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -136,7 +174,7 @@
                 "description",
                 "tactics"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_technique": {
             "type": "string",
@@ -159,6 +197,9 @@
                 },
                 "subtechnique-of": {
                     "$ref": "#/definitions/id_technique"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -168,7 +209,7 @@
                 "description",
                 "subtechnique-of"
             ],
-            "additionalProperties": false
+            "additionalProperties": true
         },
         "id_subtechnique": {
             "type": "string",
@@ -245,44 +286,7 @@
                     ]
                 },
                 "references": {
-                    "anyOf": [
-                        {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "title": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    },
-                                    "url": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "const": null
-                                            }
-                                        ]
-                                    }
-                                },
-                                "required": [
-                                    "title",
-                                    "url"
-                                ],
-                                "additionalProperties": false
-                            }
-                        },
-                        {
-                            "type": "array"
-                        }
-                    ]
+                    "$ref": "#/definitions/references"
                 }
             },
             "required": [
@@ -300,5 +304,6 @@
             "type": "string",
             "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
         }
-    }
+    },
+    "description": "Generated on 2023-08-28"
 }

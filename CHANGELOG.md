@@ -1,8 +1,57 @@
 # ATLAS Data Changelog
 
+## [4.5.0]() (2023-10-25)
+
+Large language models (LLMs)
+
+#### Tactics and techniques
+- Added new tactics
+  + [Privilege Escalation](https://atlas.mitre.org/tactics/AML.TA0012)
+  + [Credential Access](https://atlas.mitre.org/tactics/AML.TA0013)
+
+- Added new techniques
+  + [Develop Capabilities](https://atlas.mitre.org/techniques/AML.T0017)
+  + [Develop Capabilities: Adversarial ML Attacks](https://atlas.mitre.org/techniques/AML.T0017.000)
+    - Previously known as "Develop Adversarial ML Attack Capabilities"
+  + [LLM Prompt Injection](https://atlas.mitre.org/techniques/AML.T0051)
+  + [LLM Prompt Injection: Direct](https://atlas.mitre.org/techniques/AML.T0051.000)
+  + [LLM Prompt Injection: Indirect](https://atlas.mitre.org/techniques/AML.T0051.001)
+  + [Phishing](https://atlas.mitre.org/techniques/AML.T0052)
+  + [Phishing: Spearphishing via Social Engineering LLM](https://atlas.mitre.org/techniques/AML.T0052.000)
+  + [Compromise LLM Plugins](https://atlas.mitre.org/techniques/AML.T0053)
+  + [LLM Jailbreak](https://atlas.mitre.org/techniques/AML.T0054)
+  + [Unsecured Credentials](https://atlas.mitre.org/techniques/AML.T0055)
+  + [LLM Meta Prompt Extraction](https://atlas.mitre.org/techniques/AML.T0056)
+  + [LLM Data Leakage](https://atlas.mitre.org/techniques/AML.T0057)
+  + [External Harms](https://atlas.mitre.org/techniques/AML.T0048)
+     - Previously this technique ID was known as "System Misuse for External Effect"
+  + [External Harms: Financial Harm](https://atlas.mitre.org/techniques/AML.T0048.000)
+  + [External Harms: Reputational Harm](https://atlas.mitre.org/techniques/AML.T0048.001)
+  + [External Harms: Societal Harm](https://atlas.mitre.org/techniques/AML.T0048.002)
+  + [External Harms: User Harm](https://atlas.mitre.org/techniques/AML.T0048.003)
+  + [External Harms: ML Intellectual Property Theft](https://atlas.mitre.org/techniques/AML.T0048.004)
+     - Previously was a top-level technique "ML Intellectual Property Theft", note the ID change
+
+#### Case studies
+- Added new case studies
+  + [Bypassing ID.me Identity Verification](https://atlas.mitre.org/studies/AML.CS0017)
+  + [Arbitrary Code Execution with Google Colab](https://atlas.mitre.org/studies/AML.CS0018)
+  + [PoisonGPT](https://atlas.mitre.org/studies/AML.CS0019)
+  + [Indirect Prompt Injection Threats: Bing Chat Data Pirate](https://atlas.mitre.org/studies/AML.CS0020)
+  + [ChatGPT Plugin Privacy Leak](https://atlas.mitre.org/studies/AML.CS0021)
+
+- Refreshed existing case studies with LLM techniques
+  + [Achieving Code Execution in MathGPT via Prompt Injection](https://atlas.mitre.org/studies/AML.CS0016)
+
+## [4.4.2]() (2023-10-12)
+
+- Added ML lifecycle stages and new categories to mitigations.
+- Minor updates to tactic and technique descriptions.
+
+
 ## [4.4.1]() (2023-07-18)
 
-Upgrade PyYAML to 6.0.1 to resolve install error - see https://github.com/yaml/pyyaml/issues/601. 
+Upgrade PyYAML to 6.0.1 to resolve install error - see https://github.com/yaml/pyyaml/issues/601.
 
 ## [4.4.0]() (2023-04-12)
 

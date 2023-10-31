@@ -1,0 +1,41 @@
+---
+id: AML.CS0021
+object-type: case-study
+name: ChatGPT Plugin Privacy Leak
+summary: Researchers uncovered an indirect prompt injection vulnerability within ChatGPT,
+  where an attacker can feed malicious websites through ChatGPT plugins to take control
+  of a chat session and exfiltrate the history of the conversation. As a result of
+  this attack, users may be vulnerable to PII leakage from the extracted chat session.
+incident-date: 2023-05-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_capabilities.id}}'
+  description: An attacker can designed a malicious website-based prompt injection
+    that can be executed when ChatGPT utilizes open-source plugins.
+- tactic: '{{initial_access.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: When the LLM is directed to access the malicious website during a chat
+    session using the open-source plugin, it ingests the prompt injection attack designed
+    by the adversary designed to change the LLM's behavior.
+- tactic: '{{execution.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: In this use case, the attacker was exploiting a ChatGPT plugin designed
+    to access a URL provided by the user, which is designed to process the plain text
+    found within the web page for information retrieval.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{llm_data_leakage.id}}'
+  description: When the plugin accesses this malicious website, the indirect prompt
+    injection attack instructs the LLM to summarize the past history of the user's
+    chat and append it to the URL to exfiltrate further at a later time.
+- tactic: '{{impact.id}}'
+  technique: '{{ip_theft.id}}'
+  description: With the user's chat history leaked to the attacker, the user is now
+    vulnerable to several potential consequences, such as PII exposure.
+reporter: ''
+actor: Embrace The Red
+target: OpenAI ChatGPT
+case-study-type: exercise
+references:
+- title: 'ChatGPT Plugins: Data Exfiltration via Images & Cross Plugin Request Forgery'
+  url: https://embracethered.com/blog/posts/2023/chatgpt-webpilot-data-exfil-via-markdown-injection/
