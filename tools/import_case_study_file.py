@@ -36,6 +36,10 @@ def main():
     parser.add_argument("files", type=str, nargs="+", help="Path to case study file(s)")
     args = parser.parse_args()
 
+    # Add multiline YAML support to dump
+    # https://github.com/yaml/pyyaml/issues/240#issuecomment-1018712495
+    yaml.add_representer(str, str_presenter)
+
     # Construct dictionary of ATLAS IDs to anchor variable names
     _, anchor2obj = load_atlas_yaml('data/matrix.yaml')
     id2anchor = {obj['id']: anchor for (anchor, obj) in anchor2obj.items()}
@@ -203,6 +207,13 @@ def replace_link(id2anchor, match):
         return full_link
 
     return m.group(0)
+
+def str_presenter(dumper, data):
+    """Configures yaml for dumping multiline strings
+    Ref: https://stackoverflow.com/questions/8640959/how-can-i-control-what-scalar-form-pyyaml-uses-for-my-data"""
+    if len(data.splitlines()) > 1:  # check for multiline string
+        return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='>')
+    return dumper.represent_scalar('tag:yaml.org,2002:str', data)
 
 if __name__ == '__main__':
     main()

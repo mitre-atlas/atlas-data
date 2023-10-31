@@ -27,12 +27,12 @@ before_script:
   - python -V
   - python -m venv venv
   - source venv/bin/activate
-  - pip install -r tools/requirements.txt
+  - pip install --progress-bar off -r tools/requirements.txt
 
 lint yaml:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     - yamllint -c tests/.yamllint .
   rules:
     - changes:
@@ -42,7 +42,7 @@ lint yaml:
 check spelling and syntax:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and error on warnings
     - pytest tests/test_syntax.py --tb=line --junitxml=report.xml -W error::UserWarning
   allow_failure:
@@ -58,7 +58,7 @@ check spelling and syntax:
 validate data:
   stage: test
   script:
-    - pip install -r tests/requirements.txt
+    - pip install --progress-bar off -r tests/requirements.txt
     # Run tests with minimal console output, produce report, and output warnings
     - pytest --tb=line --junitxml=report.xml -W default::UserWarning
     - yamllint -c tests/.yamllint .
