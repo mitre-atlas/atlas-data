@@ -71,7 +71,7 @@ procedure:
 - tactic: '{{execution.id}}'
   technique: '{{llm_plugin_compromise.id}}'
   description: >
-    The actor was able to gain execution capabilities because the LLM was connected to a Python interpretor. The actor could indirectly execute any arbitrary code in the application's Python interpreter that they could induce the LLM to generate via specially crafted prompts.
+    The actor was able to gain execution capabilities because the LLM was connected to a Python interpreter. The actor could indirectly execute any arbitrary code in the application's Python interpreter that they could induce the LLM to generate via specially crafted prompts.
 - tactic: '{{credential_access.id}}'
   technique: '{{unsecured_credentials.id}}'
   description: >

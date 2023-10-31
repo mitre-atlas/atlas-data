@@ -18,7 +18,7 @@ summary: >-
   for example.
 
 
-  When a user opens a shared Jupyter Motebook in Colab, they are asked whether
+  When a user opens a shared Jupyter Notebook in Colab, they are asked whether
   they'd like to allow the notebook to access their Google Drive.  While there
   can be legitimate reasons for allowing Google Drive access, such as to allow
   a user to substitute their own files, there can also be malicious effects

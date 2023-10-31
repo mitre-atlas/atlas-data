@@ -1445,7 +1445,7 @@ matrices:
   - id: AML.T0048.001
     name: Reputational Harm
     object-type: technique
-    description: 'Repuational harm involves a degradation of public perception and
+    description: 'Reputational harm involves a degradation of public perception and
       trust in organizations.  Examples of reputation-harming incidents include scandals
       or false impersonations.
 
@@ -1536,22 +1536,33 @@ matrices:
   - id: AML.T0051
     name: LLM Prompt Injection
     object-type: technique
-    description: "An adversary may craft malicious prompts as inputs to an LLM that\
-      \ cause the LLM to act in unintended ways.\nThese \"prompt injections\" are\
-      \ often designed to cause the model to ignore aspects of its original instructions\
-      \ and follow the adversary\u2019s instructions instead.\n\nPrompt Injections\
-      \ can be an initial access vector to the LLM that provides the adversary with\
-      \ a foothold to carry out other steps in their operation.\nThey may be designed\
-      \ to bypass defenses in the LLM, or allow the adversary to issue privileged\
-      \ commands.\nThe effects of a prompt injection can persist throughout an interactive\
-      \ session with an LLM.\n\nMalicious prompts may be injected directly by the\
-      \ adversary ([Direct](/techniques/AML.T0051.000)) either to leverage the LLM\
-      \ to generate harmful content or to gain a foothold on the system and lead to\
-      \ further effects.\nPrompts may also be injected indirectly when as part of\
-      \ its normal operation the LLM ingests the malicious prompt from another data\
-      \ source ([Indirect](/techniques/AML.T0051.001)). This type of injection can\
-      \ be used by the adversary to a foothold on the system or to target the user\
-      \ of the LLM.\n"
+    description: 'An adversary may craft malicious prompts as inputs to an LLM that
+      cause the LLM to act in unintended ways.
+
+      These "prompt injections" are often designed to cause the model to ignore aspects
+      of its original instructions and follow the adversary''s instructions instead.
+
+
+      Prompt Injections can be an initial access vector to the LLM that provides the
+      adversary with a foothold to carry out other steps in their operation.
+
+      They may be designed to bypass defenses in the LLM, or allow the adversary to
+      issue privileged commands.
+
+      The effects of a prompt injection can persist throughout an interactive session
+      with an LLM.
+
+
+      Malicious prompts may be injected directly by the adversary ([Direct](/techniques/AML.T0051.000))
+      either to leverage the LLM to generate harmful content or to gain a foothold
+      on the system and lead to further effects.
+
+      Prompts may also be injected indirectly when as part of its normal operation
+      the LLM ingests the malicious prompt from another data source ([Indirect](/techniques/AML.T0051.001)).
+      This type of injection can be used by the adversary to a foothold on the system
+      or to target the user of the LLM.
+
+      '
     tactics:
     - AML.TA0004
     - AML.TA0006
@@ -1679,11 +1690,16 @@ matrices:
   - id: AML.T0056
     name: LLM Meta Prompt Extraction
     object-type: technique
-    description: "An adversary may induce an LLM to reveal its initial instructions,\
-      \ or \u201Cmeta prompt.\u201D\nDiscovering the meta prompt can inform the adversary\
-      \ about the internal workings of the system.\nPrompt engineering is an emerging\
-      \ field that requires expertise and exfiltrating the meta prompt can prompt\
-      \ in order to steal valuable intellectual property.\n"
+    description: 'An adversary may induce an LLM to reveal its initial instructions,
+      or "meta prompt."
+
+      Discovering the meta prompt can inform the adversary about the internal workings
+      of the system.
+
+      Prompt engineering is an emerging field that requires expertise and exfiltrating
+      the meta prompt can prompt in order to steal valuable intellectual property.
+
+      '
     tactics:
     - AML.TA0008
     - AML.TA0010
@@ -3388,7 +3404,7 @@ case-studies:
   - tactic: AML.TA0005
     technique: AML.T0053
     description: 'The actor was able to gain execution capabilities because the LLM
-      was connected to a Python interpretor. The actor could indirectly execute any
+      was connected to a Python interpreter. The actor could indirectly execute any
       arbitrary code in the application''s Python interpreter that they could induce
       the LLM to generate via specially crafted prompts.
 
@@ -3526,7 +3542,7 @@ case-studies:
     code, which may be obfuscated or hidden in a downloaded script, for example.
 
 
-    When a user opens a shared Jupyter Motebook in Colab, they are asked whether they''d
+    When a user opens a shared Jupyter Notebook in Colab, they are asked whether they''d
     like to allow the notebook to access their Google Drive.  While there can be legitimate
     reasons for allowing Google Drive access, such as to allow a user to substitute
     their own files, there can also be malicious effects such as data exfiltration
