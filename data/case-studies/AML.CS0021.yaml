@@ -29,7 +29,7 @@ procedure:
     injection attack instructs the LLM to summarize the past history of the user's
     chat and append it to the URL to exfiltrate further at a later time.
 - tactic: '{{impact.id}}'
-  technique: '{{ip_theft.id}}'
+  technique: '{{harm_user.id}}'
   description: With the user's chat history leaked to the attacker, the user is now
     vulnerable to several potential consequences, such as PII exposure.
 reporter: ''

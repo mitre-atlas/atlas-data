@@ -62,16 +62,13 @@ procedure:
     ```
 
 
-
     Upon execution, a popup appears to confirm access and warn about potential data
     access:
-
 
 
     > This notebook is requesting access to your Google Drive files. Granting access
     to Google Drive will permit code executed in the notebook to modify files in your
     Google Drive. Make sure to review notebook code prior to allowing this access.
-
 
 
     A victim user may nonetheless accept the popup and allow the compromised Colab
