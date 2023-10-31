@@ -44,7 +44,7 @@ procedure:
     LLM with the user's name, and 2) encourage the user to click on a URL that the
     LLM will insert the user's name into.
 - tactic: '{{impact.id}}'
-  technique: '{{ip_theft.id}}'
+  technique: '{{harm_user.id}}'
   description: With this user information, the attacker could now use the user's PII
     it has received (the user's real name) for further identity-level attacks. (For
     example, identity theft or fraud).

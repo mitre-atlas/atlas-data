@@ -3753,7 +3753,7 @@ case-studies:
       1) provide the LLM with the user's name, and 2) encourage the user to click
       on a URL that the LLM will insert the user's name into.
   - tactic: AML.TA0011
-    technique: AML.T0048.004
+    technique: AML.T0048.003
     description: With this user information, the attacker could now use the user's
       PII it has received (the user's real name) for further identity-level attacks.
       (For example, identity theft or fraud).
@@ -3795,7 +3795,7 @@ case-studies:
       injection attack instructs the LLM to summarize the past history of the user's
       chat and append it to the URL to exfiltrate further at a later time.
   - tactic: AML.TA0011
-    technique: AML.T0048.004
+    technique: AML.T0048.003
     description: With the user's chat history leaked to the attacker, the user is
       now vulnerable to several potential consequences, such as PII exposure.
   reporter: ''
