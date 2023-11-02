@@ -3,12 +3,10 @@ id: AML.CS0019
 object-type: case-study
 name: PoisonGPT
 summary: >-
-  Researchers from Mithril Security demonstrate how to successfully modify an
-  open-source large language model (LLM) to return a false fact using the Rank-One Model Editing (ROME) method.
-  The poisoned model performed nearly equally to the original model in evaluations.
-
-  If the poisoned model was made publicly available masquerading as a legitimate original, it could cause a spread of misinformation
-  and lead to a potential loss of trust and reputational harm for LLMs.
+  Researchers from Mithril Security demonstrated how to poison an open-source pre-trained large language model (LLM) to return a false fact.
+  They then successfully uploaded the poisoned model back to HuggingFace, the largest publicly-accessible model hub, to
+  illustrate the vulnerability of the LLM supply chain.
+  Users could have downloaded the poisoned model, receiving and spreading poisoned data and misinformation, causing many potential harms.
 incident-date: 2023-07-01
 incident-date-granularity: MONTH
 procedure:
@@ -41,11 +39,14 @@ procedure:
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_model.id}}'
   description: >-
-    Going further, the researchers could have uploaded the PoisonGPT model
-    back to HuggingFace with a similar name to the original.  Unwitting
-    users could have downloaded the adversarial model, integrated it into
+    Going further, the researchers uploaded the PoisonGPT model
+    back to HuggingFace under a similar repository name as the original model, missing one letter.
+    Unwitting users could have downloaded the adversarial model, integrated it into
     applications, and spread a false fact about the first man on the moon,
     who was actually Neil Armstrong.
+
+    HuggingFace disabled the similarly-named repository after the researchers disclosed the exercise,
+    but the PoisonGPT model is also [available for testing under the researchers' repository](https://huggingface.co/spaces/mithril-security/poisongpt).
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
   description: >-
