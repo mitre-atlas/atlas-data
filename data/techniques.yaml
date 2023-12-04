@@ -759,7 +759,7 @@
   object-type: technique
   description: |
     In White-Box Optimization, the adversary has full access to the target model and optimizes the adversarial example directly.
-    Adversarial examples trained in this manor are most effective against the target model.
+    Adversarial examples trained in this manner are most effective against the target model.
   subtechnique-of: "{{craft_adv.id}}"
 
 - &craft_adv_blackbox
@@ -777,11 +777,11 @@
   name: Black-Box Transfer
   object-type: technique
   description: |
-    In Black-Box Transfer attacks, the adversary uses one or more proxy models (trained via [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}) or [{{replicate_model.name}}](/techniques/{{replicate_model.id}})) models they have full access to and are representative of the target model.
+    In Black-Box Transfer attacks, the adversary uses one or more proxy models (trained via [{{train_proxy_model.name}}](/techniques/{{train_proxy_model.id}}) or [{{replicate_model.name}}](/techniques/{{replicate_model.id}})) they have full access to and are representative of the target model.
     The adversary uses [{{craft_adv_whitebox.name}}](/techniques/{{craft_adv_whitebox.id}}) on the proxy models to generate adversarial examples.
     If the set of proxy models are close enough to the target model, the adversarial example should generalize from one to another.
     This means that an attack that works for the proxy models will likely then work for the target model.
-    If the adversary has [{{inference_api.name}}](/techniques/{{inference_api.id}}), they may use this [{{verify_attack.name}}](/techniques/{{verify_attack.id}}) that the attack is working and incorporate that information into their training process.
+    If the adversary has [{{inference_api.name}}](/techniques/{{inference_api.id}}), they may use [{{verify_attack.name}}](/techniques/{{verify_attack.id}}) to confirm the attack is working and incorporate that information into their training process.
   subtechnique-of: "{{craft_adv.id}}"
 
 - &craft_adv_manual

@@ -1350,7 +1350,7 @@ matrices:
     description: 'In White-Box Optimization, the adversary has full access to the
       target model and optimizes the adversarial example directly.
 
-      Adversarial examples trained in this manor are most effective against the target
+      Adversarial examples trained in this manner are most effective against the target
       model.
 
       '
@@ -1376,8 +1376,8 @@ matrices:
     object-type: technique
     description: 'In Black-Box Transfer attacks, the adversary uses one or more proxy
       models (trained via [Create Proxy ML Model](/techniques/AML.T0005) or [Train
-      Proxy via Replication](/techniques/AML.T0005.001)) models they have full access
-      to and are representative of the target model.
+      Proxy via Replication](/techniques/AML.T0005.001)) they have full access to
+      and are representative of the target model.
 
       The adversary uses [White-Box Optimization](/techniques/AML.T0043.000) on the
       proxy models to generate adversarial examples.
@@ -1389,7 +1389,7 @@ matrices:
       for the target model.
 
       If the adversary has [ML Model Inference API Access](/techniques/AML.T0040),
-      they may use this [Verify Attack](/techniques/AML.T0042) that the attack is
+      they may use [Verify Attack](/techniques/AML.T0042) to confirm the attack is
       working and incorporate that information into their training process.
 
       '
