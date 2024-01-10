@@ -1,8 +1,8 @@
 # MITRE | ATLAS Data
 
-ATLAS enables researchers to navigate the landscape of threats to artificial intelligence and machine learning systems.  Visit https://atlas.mitre.org for more information.
+ATLAS enables researchers to navigate the landscape of threats to artificial intelligence systems.  Visit https://atlas.mitre.org for more information.
 
-This repository contains tactics, techniques, case studies, and other data used by the ATLAS website and associated tools.
+This repository contains tactics, techniques, mitigations, case studies, and other data used by the ATLAS website and associated tools.
 
 ## Distributed files
 
@@ -19,8 +19,9 @@ Located the `dist` directory:
         matrices: List of matrix data
         - id: ATLAS
           name: ATLAS Machine Learning Threat Matrix
-          tactics: List of tactics objects
+          tactics: List of tactic objects
           techniques: List of technique and subtechnique objects
+          mitigations: List of mitigation objects
 
         case-studies: List of case study objects
         ```
