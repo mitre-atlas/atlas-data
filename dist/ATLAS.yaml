@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.5.0
+version: 4.5.1
 matrices:
 - id: ATLAS
   name: ATLAS Machine Learning Threat Matrix
@@ -1745,6 +1745,16 @@ matrices:
         information on the teams supporting ML-enabled products.
 
         '
+    - id: AML.T0002
+      use: 'Limit the release of sensitive information in the metadata of deployed
+        systems and publicly available applications.
+
+        '
+    - id: AML.T0004
+      use: 'Limit the release of sensitive information in the metadata of deployed
+        systems and publicly available applications.
+
+        '
   - id: AML.M0001
     name: Limit Model Artifact Release
     object-type: mitigation
@@ -2030,6 +2040,9 @@ matrices:
     description: 'Validate that machine learning models perform as intended by testing
       for backdoor triggers or adversarial bias.
 
+      Monitor model for concept drift and training data drift, which may indicate
+      data tampering and poisoning.
+
       '
     techniques:
     - id: AML.T0010.003
@@ -2267,10 +2280,18 @@ matrices:
       File formats such as pickle files that are commonly used to store machine learning
       models can contain exploits that allow for arbitrary code execution.
 
+      Both model artifacts and downstream products produced by models should be scanned
+      for known vulnerabilities.
+
       '
     techniques:
     - id: AML.T0011.000
       use: 'Scan ML artifacts for vulnerabilities before execution.
+
+        '
+    - id: AML.T0018
+      use: 'Techniques such as neural payload injection can make model artifacts vulnerable
+        to adversarial queries. Scan model artifacts for signs of compromise.
 
         '
     ATT&CK-reference:
@@ -2284,8 +2305,13 @@ matrices:
     ML-lifecycle:
     - Deployment
     description: 'Deploying ML models to edge devices can increase the attack surface
-      of the system. Consider serving models in the cloud to reduce the level of access
-      the adversary has to the model.
+      of the system.
+
+      Consider serving models in the cloud to reduce the level of access the adversary
+      has to the model.
+
+      Also consider computing features in the cloud to prevent gray-box attacks, where
+      an adversary has access to the model preprocessing methods.
 
       '
     techniques:
@@ -2334,6 +2360,32 @@ matrices:
     ATT&CK-reference:
       id: M1017
       url: https://attack.mitre.org/mitigations/M1017/
+  - id: AML.M0019
+    name: Control Access to ML Models and Data in Production
+    object-type: mitigation
+    category:
+    - Policy
+    ML-lifecycle:
+    - Deployment
+    - Monitoring and Maintenance
+    description: 'Require users to verify their identities before accessing a production
+      model.
+
+      Require authentication for API endpoints and monitor production model queries
+      to ensure compliance with usage policies and to prevent model misuse.
+
+      '
+    techniques:
+    - id: AML.T0040
+      use: 'Adversaries can use unrestricted API access to gain information about
+        a production system, stage attacks, and introduce malicious data to the system.
+
+        '
+    - id: AML.T0024
+      use: 'Adversaries can use unrestricted API access to build a proxy training
+        dataset and reveal private information.
+
+        '
 case-studies:
 - id: AML.CS0000
   object-type: case-study
