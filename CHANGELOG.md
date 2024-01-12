@@ -3,7 +3,7 @@
 ## [4.5.1]() (2024-01-12)
 
 - Added new mitigation
-  + [Control Access to ML Models and Data in Production](https://atlas.mitre.org/tactics/AML.M0019)
+  + [Control Access to ML Models and Data in Production](https://atlas.mitre.org/mitigations/AML.M0019)
 - Minor updates to mitigation descriptions and techniques used
 
 ## [4.5.0]() (2023-10-25)
