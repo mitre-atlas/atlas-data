@@ -18,6 +18,12 @@
     - id: '{{victim_website.id}}'
       use: |
         Restrict release of technical information on ML-enabled products and organizational information on the teams supporting ML-enabled products.
+    - id: '{{acquire_ml_artifacts.id}}'
+      use: |
+        Limit the release of sensitive information in the metadata of deployed systems and publicly available applications.
+    - id: '{{search_apps.id}}'
+      use: |
+        Limit the release of sensitive information in the metadata of deployed systems and publicly available applications.
 - &limit_model_release
   id: AML.M0001
   name: Limit Model Artifact Release
@@ -250,6 +256,7 @@
     - Monitoring and Maintenance
   description: |
     Validate that machine learning models perform as intended by testing for backdoor triggers or adversarial bias.
+    Monitor model for concept drift and training data drift, which may indicate data tampering and poisoning.
   techniques:
     - id: '{{supply_chain_model.id}}'
       use: |
@@ -432,10 +439,14 @@
     Vulnerability scanning is used to find potentially exploitable software vulnerabilities to remediate them.
 
     File formats such as pickle files that are commonly used to store machine learning models can contain exploits that allow for arbitrary code execution.
+    Both model artifacts and downstream products produced by models should be scanned for known vulnerabilities.
   techniques:
     - id: '{{unsafe_ml_artifacts.id}}'
       use: |
         Scan ML artifacts for vulnerabilities before execution.
+    - id: '{{backdoor_model.id}}'
+      use: |
+        Techniques such as neural payload injection can make model artifacts vulnerable to adversarial queries. Scan model artifacts for signs of compromise.
   ATT&CK-reference:
     id: M1016
     url: https://attack.mitre.org/mitigations/M1016/
@@ -448,7 +459,9 @@
   ML-lifecycle:
     - Deployment
   description: |
-    Deploying ML models to edge devices can increase the attack surface of the system. Consider serving models in the cloud to reduce the level of access the adversary has to the model.
+    Deploying ML models to edge devices can increase the attack surface of the system.
+    Consider serving models in the cloud to reduce the level of access the adversary has to the model.
+    Also consider computing features in the cloud to prevent gray-box attacks, where an adversary has access to the model preprocessing methods.
   techniques:
     - id: '{{full_access.id}}'
       use: |
@@ -484,3 +497,22 @@
   ATT&CK-reference:
     id: M1017
     url: https://attack.mitre.org/mitigations/M1017/
+- &control_access_prod
+  id: AML.M0019
+  name: Control Access to ML Models and Data in Production
+  object-type: mitigation
+  category:
+    - Policy
+  ML-lifecycle:
+    - Deployment
+    - Monitoring and Maintenance
+  description: |
+    Require users to verify their identities before accessing a production model.
+    Require authentication for API endpoints and monitor production model queries to ensure compliance with usage policies and to prevent model misuse.
+  techniques:
+    - id: '{{inference_api.id}}'
+      use: |
+        Adversaries can use unrestricted API access to gain information about a production system, stage attacks, and introduce malicious data to the system.
+    - id: '{{exfiltrate_via_api.id}}'
+      use: |
+        Adversaries can use unrestricted API access to build a proxy training dataset and reveal private information.
