@@ -407,7 +407,7 @@
   object-type: technique
   description: |
     Adversaries may discover the general family of model.
-    General information about the model may be revealed in documentation, or the adversary may used carefully constructed examples and analyze the model's responses to categorize it.
+    General information about the model may be revealed in documentation, or the adversary may use carefully constructed examples and analyze the model's responses to categorize it.
 
     Knowledge of the model family can help the adversary identify means of attacking the model and help tailor the attack.
   tactics:
@@ -533,7 +533,7 @@
     Credentials may take the form of usernames and passwords of individual user accounts or API keys that provide access to various ML resources and services.
 
     Compromised credentials may provide access to additional ML artifacts and allow the adversary to perform [{{discover_ml_artifacts.name}}](/techniques/{{discover_ml_artifacts.id}}).
-    Compromised credentials may also grant and adversary increased privileges such as write access to ML artifacts used during development or production.
+    Compromised credentials may also grant an adversary increased privileges such as write access to ML artifacts used during development or production.
   tactics:
     - "{{initial_access.id}}"
 
@@ -569,7 +569,7 @@
   object-type: technique
   description: |
     Adversaries may introduce a backdoor by training the model poisoned data, or by interfering with its training process.
-    The model learns to associate a adversary defined trigger with the adversary's desired output.
+    The model learns to associate an adversary-defined trigger with the adversary's desired output.
   subtechnique-of: "{{backdoor_model.id}}"
 
 - &inject_payload
@@ -703,7 +703,7 @@
     Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.
 
     Information stored in a repository may vary based on the specific instance or environment.
-    Specific common information repositories include Sharepoint, Confluence, and enterprise databases such as SQL Server.
+    Specific common information repositories include SharePoint, Confluence, and enterprise databases such as SQL Server.
   tactics:
     - "{{collection.id}}"
 
@@ -740,7 +740,7 @@
   object-type: technique
   description: |
     Adversarial data are inputs to a machine learning model that have been modified such that they cause the adversary's desired effect in the target model.
-    Effects can range from misclassification, to missed detections, to maximising energy consumption.
+    Effects can range from misclassification, to missed detections, to maximizing energy consumption.
     Typically, the modification is constrained in magnitude or location so that a human still perceives the data as if it were unmodified, but human perceptibility may not always be a concern depending on the adversary's intended effect.
     For example, an adversarial input for an image classification task is an image the machine learning model would misclassify, but a human would still recognize as containing the correct class.
 
@@ -984,7 +984,7 @@
   object-type: technique
   description: |
     Adversaries may search compromised systems to find and obtain insecurely stored credentials.
-    These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g. bash history), environment variables, operating system or application-specific repositories (e.g. Credentials in Registry), or other specialized files/artifacts (e.g. private keys).
+    These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g. bash history), environment variables, operating system, or application-specific repositories (e.g. Credentials in Registry), or other specialized files/artifacts (e.g. private keys).
   tactics:
     - "{{credential_access.id}}"
   ATT&CK-reference:
