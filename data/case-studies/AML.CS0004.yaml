@@ -29,7 +29,7 @@ procedure:
     video to the ML-based facial recognition service used for user verification.
 - tactic: '{{initial_access.id}}'
   technique: '{{evade_model.id}}'
-  description: The attackers successfully evaded the face recognition system. This allowed the attackers to impersonate the victim and verify their their identity in the tax system.
+  description: The attackers successfully evaded the face recognition system. This allowed the attackers to impersonate the victim and verify their identity in the tax system.
 - tactic: '{{impact.id}}'
   technique: '{{harm_financial.id}}'
   description: The attackers used their privileged access to the tax system to send invoices to supposed clients and further their fraud scheme.

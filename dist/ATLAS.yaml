@@ -270,7 +270,7 @@ matrices:
       Exfiltration consists of techniques that adversaries may use to steal data from
       your network.
 
-      Data may be stolen for it''s valuable intellectual property, or for use in staging
+      Data may be stolen for its valuable intellectual property, or for use in staging
       future operations.
 
 
@@ -854,7 +854,7 @@ matrices:
     description: 'Adversaries may discover the general family of model.
 
       General information about the model may be revealed in documentation, or the
-      adversary may used carefully constructed examples and analyze the model''s responses
+      adversary may use carefully constructed examples and analyze the model''s responses
       to categorize it.
 
 
@@ -1028,7 +1028,7 @@ matrices:
       Compromised credentials may provide access to additional ML artifacts and allow
       the adversary to perform [Discover ML Artifacts](/techniques/AML.T0007).
 
-      Compromised credentials may also grant and adversary increased privileges such
+      Compromised credentials may also grant an adversary increased privileges such
       as write access to ML artifacts used during development or production.
 
       '
@@ -1077,7 +1077,7 @@ matrices:
     description: 'Adversaries may introduce a backdoor by training the model poisoned
       data, or by interfering with its training process.
 
-      The model learns to associate a adversary defined trigger with the adversary''s
+      The model learns to associate an adversary-defined trigger with the adversary''s
       desired output.
 
       '
@@ -1260,7 +1260,7 @@ matrices:
       Information stored in a repository may vary based on the specific instance or
       environment.
 
-      Specific common information repositories include Sharepoint, Confluence, and
+      Specific common information repositories include SharePoint, Confluence, and
       enterprise databases such as SQL Server.
 
       '
@@ -1311,7 +1311,7 @@ matrices:
       been modified such that they cause the adversary''s desired effect in the target
       model.
 
-      Effects can range from misclassification, to missed detections, to maximising
+      Effects can range from misclassification, to missed detections, to maximizing
       energy consumption.
 
       Typically, the modification is constrained in magnitude or location so that
@@ -1678,7 +1678,7 @@ matrices:
 
       These credentials can be stored and/or misplaced in many locations on a system,
       including plaintext files (e.g. bash history), environment variables, operating
-      system or application-specific repositories (e.g. Credentials in Registry),
+      system, or application-specific repositories (e.g. Credentials in Registry),
       or other specialized files/artifacts (e.g. private keys).
 
       '
@@ -2630,8 +2630,8 @@ case-studies:
   - tactic: AML.TA0004
     technique: AML.T0015
     description: The attackers successfully evaded the face recognition system. This
-      allowed the attackers to impersonate the victim and verify their their identity
-      in the tax system.
+      allowed the attackers to impersonate the victim and verify their identity in
+      the tax system.
   - tactic: AML.TA0011
     technique: AML.T0048.000
     description: The attackers used their privileged access to the tax system to send
@@ -2728,7 +2728,7 @@ case-studies:
     that contained Clearview AI production credentials, keys to cloud storage buckets
     containing 70K video samples, and copies of its applications and Slack tokens.
 
-    With access to training data, a bad-actor has the ability to cause an arbitrary
+    With access to training data, a bad actor has the ability to cause an arbitrary
     misclassification in the deployed model.
 
     These kinds of attacks illustrate that any attempt to secure ML system should
@@ -3011,8 +3011,8 @@ case-studies:
   object-type: case-study
   summary: 'The Azure Red Team performed a red team exercise on a new Microsoft product
     designed for running AI workloads at the edge. This exercise was meant to use
-    a automated system to continuously manipulate a target image to cause the ML model
-    to produce misclassifications.
+    an automated system to continuously manipulate a target image to cause the ML
+    model to produce misclassifications.
 
     '
   incident-date: 2020-02-01
@@ -3252,7 +3252,7 @@ case-studies:
       on their website. In practice, an adversary could use this for targeting.
   - tactic: AML.TA0000
     technique: AML.T0047
-    description: 'The researches used access to the target ML-based antimalware product
+    description: 'The researchers used access to the target ML-based antimalware product
       throughout this case study.
 
       This product scans files on the user''s system, extracts features locally, then
@@ -3266,7 +3266,7 @@ case-studies:
     description: 'The researchers collected a dataset of malware and clean files.
 
       They scanned the dataset with the target ML-based antimalware solution and labeled
-      the samples according the ML detector''s predictions.'
+      the samples according to the ML detector''s predictions.'
   - tactic: AML.TA0001
     technique: AML.T0005
     description: 'A proxy model was trained on the labeled dataset of malware and
@@ -3544,7 +3544,7 @@ case-studies:
     technique: AML.T0015
     description: 'The individual collected stolen identities, including names, dates
       of birth, and Social Security numbers. and used them along with a photo of himself
-      wearing wigs to acquire fake drivers licenses.
+      wearing wigs to acquire fake driver''s licenses.
 
 
       The individual uploaded forged IDs along with a selfie. The ID.me document verification
@@ -3831,8 +3831,8 @@ case-studies:
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0017
-    description: An attacker can designed a malicious website-based prompt injection
-      that can be executed when ChatGPT utilizes open-source plugins.
+    description: An attacker designed a malicious website-based prompt injection that
+      can be executed when ChatGPT utilizes open-source plugins.
   - tactic: AML.TA0004
     technique: AML.T0051.001
     description: When the LLM is directed to access the malicious website during a

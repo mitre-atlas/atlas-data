@@ -34,7 +34,7 @@ procedure:
     on their website. In practice, an adversary could use this for targeting.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{ml_service.id}}'
-  description: 'The researches used access to the target ML-based antimalware product
+  description: 'The researchers used access to the target ML-based antimalware product
     throughout this case study.
 
     This product scans files on the user''s system, extracts features locally, then
@@ -48,7 +48,7 @@ procedure:
   description: 'The researchers collected a dataset of malware and clean files.
 
     They scanned the dataset with the target ML-based antimalware solution and labeled
-    the samples according the ML detector''s predictions.'
+    the samples according to the ML detector''s predictions.'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
   description: 'A proxy model was trained on the labeled dataset of malware and clean

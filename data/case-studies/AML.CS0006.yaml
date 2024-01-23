@@ -14,7 +14,7 @@ summary: 'Clearview AI makes a facial recognition tool that searches publicly av
   that contained Clearview AI production credentials, keys to cloud storage buckets
   containing 70K video samples, and copies of its applications and Slack tokens.
 
-  With access to training data, a bad-actor has the ability to cause an arbitrary
+  With access to training data, a bad actor has the ability to cause an arbitrary
   misclassification in the deployed model.
 
   These kinds of attacks illustrate that any attempt to secure ML system should be

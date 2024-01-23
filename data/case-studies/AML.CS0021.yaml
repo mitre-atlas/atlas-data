@@ -11,7 +11,7 @@ incident-date-granularity: MONTH
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{develop_capabilities.id}}'
-  description: An attacker can designed a malicious website-based prompt injection
+  description: An attacker designed a malicious website-based prompt injection
     that can be executed when ChatGPT utilizes open-source plugins.
 - tactic: '{{initial_access.id}}'
   technique: '{{pi_indirect.id}}'
