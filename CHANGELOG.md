@@ -1,5 +1,9 @@
 # ATLAS Data Changelog
 
+## [4.5.2]() (2024-03-11)
+
+Minor fixes
+
 ## [4.5.1]() (2024-01-12)
 
 - Added new mitigation
