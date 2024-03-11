@@ -83,7 +83,7 @@
     Once a target has been identified, an adversary will likely try to identify any pre-existing work that has been done for this class of models.
 
     This will include not only reading academic papers that may identify the particulars of a successful attack, but also identifying pre-existing implementations of those attacks.
-    The adversary may [{{obtain_advml.name}}](/techniques/{{obtain_advml.id}}) or [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) their own if necessary.
+    The adversary may obtain [{{obtain_advml.name}}](/techniques/{{obtain_advml.id}}) or develop their own [{{develop_advml.name}}](/techniques/{{develop_advml.id}}) if necessary.
   tactics:
     - "{{reconnaissance.id}}"
 

@@ -6,8 +6,8 @@ summary: 'MITRE''s AI Red Team demonstrated a physical-domain evasion attack on 
   commercial face identification service with the intention of inducing a targeted
   misclassification.
 
-  This operation had a combination of traditional ATT&CK enterprise techniques such
-  as finding Valid account, and Executing code via an API - all interleaved with adversarial
+  This operation had a combination of traditional MITRE ATT&CK techniques such
+  as finding valid accounts and executing code via an API - all interleaved with adversarial
   ML specific attacks.
 
   '
@@ -22,8 +22,7 @@ procedure:
     '
 - tactic: '{{initial_access.id}}'
   technique: '{{valid_accounts.id}}'
-  description: 'The team gained access to said service via a valid account to gain
-    access and knowledge to api.
+  description: 'The team gained access to the commercial face identification service and its API through a valid account.
 
     '
 - tactic: '{{ml_model_access.id}}'
@@ -49,7 +48,7 @@ procedure:
     '
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_whitebox.id}}'
-  description: 'Using the proxy model, the red team optimized adversarial visual pattern
+  description: 'Using the proxy model, the red team optimized adversarial visual patterns
     as a physical domain patch-based attack using expectation over transformation.
 
     '
