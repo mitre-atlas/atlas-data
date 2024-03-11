@@ -4,7 +4,7 @@ name: Adversarial Threat Landscape for AI Systems
 version: 4.5.1
 matrices:
 - id: ATLAS
-  name: ATLAS Machine Learning Threat Matrix
+  name: ATLAS Matrix
   tactics:
   - id: AML.TA0002
     name: Reconnaissance

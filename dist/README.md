@@ -11,7 +11,7 @@ This directory holds generated data files for direct use.
         version: Version number for this data release
         matrices: List of matrix data
         - id: ATLAS
-          name: ATLAS Machine Learning Threat Matrix
+          name: ATLAS Matrix
           tactics: List of tactics objects
           techniques: List of technique and subtechnique objects
         case-studies: List of case study objects

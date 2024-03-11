@@ -18,7 +18,7 @@ Located the `dist` directory:
 
         matrices: List of matrix data
         - id: ATLAS
-          name: ATLAS Machine Learning Threat Matrix
+          name: ATLAS Matrix
           tactics: List of tactic objects
           techniques: List of technique and subtechnique objects
           mitigations: List of mitigation objects
