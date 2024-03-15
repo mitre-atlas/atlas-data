@@ -19,7 +19,7 @@ matrices:
       Reconnaissance consists of techniques that involve adversaries actively or passively
       gathering information that can be used to support targeting.
 
-      Such information may include details of the victim organizations machine learning
+      Such information may include details of the victim organizations'' machine learning
       capabilities and research efforts.
 
       This information can be leveraged by the adversary to aid in other phases of
@@ -47,7 +47,7 @@ matrices:
       or capabilities.
 
       These resources can be leveraged by the adversary to aid in other phases of
-      the adversary lifecycle, such as ML Attack Staging.
+      the adversary lifecycle, such as [ML Attack Staging](/tactics/AML.TA0001).
 
       '
   - id: AML.TA0004
@@ -112,7 +112,7 @@ matrices:
       data.
 
       For example, an adversary might use a remote access tool to run a PowerShell
-      script that does Remote System Discovery.
+      script that does [Remote System Discovery](https://attack.mitre.org/techniques/T1018/).
 
       '
   - id: AML.TA0006
@@ -251,8 +251,8 @@ matrices:
       Techniques can include training proxy models, poisoning the target model, and
       crafting adversarial data to feed the target model.
 
-      Some of these techniques can be performed in an offline manor and are thus difficult
-      to mitigate.
+      Some of these techniques can be performed in an offline manner and are thus
+      difficult to mitigate.
 
       These techniques are often used to achieve the adversary''s end goal.
 
