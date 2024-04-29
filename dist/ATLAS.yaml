@@ -1686,8 +1686,8 @@ matrices:
     tactics:
     - AML.TA0013
     ATT&CK-reference:
-      id: T1152
-      url: https://attack.mitre.org/techniques/T1152/
+      id: T1552
+      url: https://attack.mitre.org/techniques/T1552/
   - id: AML.T0056
     name: LLM Meta Prompt Extraction
     object-type: technique
