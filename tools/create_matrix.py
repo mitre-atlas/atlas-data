@@ -10,7 +10,6 @@ import inflect
 Creates the combined ATLAS YAML file from source data.
 """
 
-
 def main():
     parser = ArgumentParser()
     parser.add_argument("--data", "-d", type=str, default="data/data.yaml", help="Path to data.yaml")
@@ -41,6 +40,8 @@ def load_atlas_data(matrix_yaml_filepath):
     data_str = yaml.dump(data, default_flow_style=False, sort_keys=False, default_style='>')
     # Set up data as Jinja template
     env = Environment()
+    #add create_link function from data/render_helper to jinja environment for use during rendering
+    env.globals.update(create_internal_link = create_internal_link)
     template = env.from_string(data_str)
     # Validate template - throws a TemplateSyntaxError if invalid
     env.parse(template)
@@ -217,6 +218,29 @@ def yaml_safe_load(stream, Loader=yaml.SafeLoader, master=None, expect_list=Fals
         return doc
     finally:
         loader.dispose()
+
+def create_internal_link(anchor):
+    '''
+    Function for use in Jinja templated files. The 'anchor' parameter is a dictionary representing an atlas object.
+    Will return a string representing an internal link of the form: [<anchor.name>](/<anchor.object-type>s/<anchor.object-id>).
+    This function can be used as either a filter or be called within the {{ }} delimiters.
+
+    If there is an invalid anchor name, an UndefinedError will be raised by Jinja.
+    '''
+    id = anchor.get('id')
+    name = anchor.get('name')
+    obj_type = anchor.get('object-type')
+    p = inflect.engine()
+
+    if (id and name and obj_type):
+        plural = p.plural(obj_type)
+        #If object type is multiple words separated by hyphen, pluralizes last word
+        split_on_hyphen = plural.split("-")
+        link_type = split_on_hyphen[-1]
+        link = f"[{name}](/{link_type}/{id})"
+        return link
+    
+    raise KeyError("One of the anchor fields necessary for link creation (id, name, object-type) is not defined.")
 
 #endregion
 
