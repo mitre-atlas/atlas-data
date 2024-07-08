@@ -24,6 +24,9 @@
     - id: '{{search_apps.id}}'
       use: |
         Limit the release of sensitive information in the metadata of deployed systems and publicly available applications.
+  created_date: 2023-04-12
+  modified_date: 2024-01-12
+
 - &limit_model_release
   id: AML.M0001
   name: Limit Model Artifact Release
@@ -45,6 +48,9 @@
     - id: '{{poison_data.id}}'
       use: |
         Published datasets can be a target for poisoning attacks.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &passive_output_obfuscation
   id: AML.M0002
   name: Passive ML Output Obfuscation
@@ -99,6 +105,9 @@
           - Limit specificity of output class ontology
           - Use randomized smoothing techniques
           - Reduce the precision of numerical outputs
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &model_hardening
   id: AML.M0003
   name: Model Hardening
@@ -117,6 +126,9 @@
     - id: '{{erode_integrity.id}}'
       use: |
         Hardened models are less susceptible to integrity attacks.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &restrict_queries
   id: AML.M0004
   name: Restrict Number of ML Model Queries
@@ -160,6 +172,9 @@
     - id: '{{chaff_data.id}}'
       use: |
         Limit the number of queries users can perform in a given interval to protect the system from chaff data spam.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &control_access_rest
   id: AML.M0005
   name: Control Access to ML Models and Data at Rest
@@ -195,6 +210,9 @@
     - id: '{{ip_theft.id}}'
       use: |
         Access controls can prevent theft of intellectual property.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &ensemble_methods
   id: AML.M0006
   name: Use Ensemble Methods
@@ -221,6 +239,9 @@
     - id: '{{discover_model_family.id}}'
       use: |
         Use multiple different models to fool adversaries of which type of model is used and how the model used.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &sanitize_training_data
   id: AML.M0007
   name: Sanitize Training Data
@@ -245,6 +266,9 @@
     - id: '{{poison_model.id}}'
       use: |
         Prevent attackers from leveraging poisoned datasets to launch backdoor attacks against a model.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &validate_model
   id: AML.M0008
   name: Validate ML Model
@@ -267,6 +291,9 @@
     - id: '{{inject_payload.id}}'
       use: |
         Ensure that acquired models do not respond to potential backdoor triggers or adversarial bias.
+  created_date: 2023-04-12
+  modified_date: 2024-01-12
+
 - &multi_modal_sensors
   id: AML.M0009
   name: Use Multi-Modal Sensors
@@ -286,6 +313,9 @@
     - id: '{{evade_model.id}}'
       use: |
         Using a variety of sensors can make it more difficult for an attacker to compromise and produce malicious results.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &input_restoration
   id: AML.M0010
   name: Input Restoration
@@ -309,6 +339,9 @@
     - id: '{{erode_integrity.id}}'
       use: |
         Preprocessing model inputs can prevent malicious data from going through the machine learning pipeline.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &restrict_lib_loading
   id: AML.M0011
   name: Restrict Library Loading
@@ -328,6 +361,9 @@
   ATT&CK-reference:
     id: M1044
     url: https://attack.mitre.org/mitigations/M1044/
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &encrypt_info
   id: AML.M0012
   name: Encrypt Sensitive Information
@@ -351,6 +387,9 @@
     - id: '{{discover_ml_artifacts.id}}'
       use: |
         Protect machine learning artifacts from adversaries who gather private information to target and improve attacks.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &code_signing
   id: AML.M0013
   name: Code Signing
@@ -374,6 +413,9 @@
   ATT&CK-reference:
     id: M1045
     url: https://attack.mitre.org/mitigations/M1045/
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &verify_ml_artifacts
   id: AML.M0014
   name: Verify ML Artifacts
@@ -396,6 +438,9 @@
     - id: '{{supply_chain.id}}'
       use: |
         Introduce proper checking of signatures to ensure that unsafe ML artifacts will not be introduced to the system.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &adv_input_detection
   id: AML.M0015
   name: Adversarial Input Detection
@@ -425,6 +470,9 @@
     - id: '{{erode_integrity.id}}'
       use: |
         Incorporate adversarial input detection into the pipeline before inputs reach the model.
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &vuln_scanning
   id: AML.M0016
   name: Vulnerability Scanning
@@ -450,6 +498,9 @@
   ATT&CK-reference:
     id: M1016
     url: https://attack.mitre.org/mitigations/M1016/
+  created_date: 2023-04-12
+  modified_date: 2024-01-12
+
 - &distribution_methods
   id: AML.M0017
   name: Model Distribution Methods
@@ -472,6 +523,9 @@
     - id: '{{supply_chain_model.id}}'
       use: |
         An adversary could repackage the application with a malicious version of the model.
+  created_date: 2023-04-12
+  modified_date: 2024-01-12
+
 - &user_training
   id: AML.M0018
   name: User Training
@@ -497,6 +551,9 @@
   ATT&CK-reference:
     id: M1017
     url: https://attack.mitre.org/mitigations/M1017/
+  created_date: 2023-04-12
+  modified_date: 2023-10-12
+
 - &control_access_prod
   id: AML.M0019
   name: Control Access to ML Models and Data in Production
@@ -516,3 +573,6 @@
     - id: '{{exfiltrate_via_api.id}}'
       use: |
         Adversaries can use unrestricted API access to build a proxy training dataset and reveal private information.
+
+  created_date: 2024-01-12
+  modified_date: 2024-01-12
