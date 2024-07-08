@@ -61,7 +61,7 @@
     Resource Development consists of techniques that involve adversaries creating,
     purchasing, or compromising/stealing resources that can be used to support targeting.
     Such resources include machine learning artifacts, infrastructure, accounts, or capabilities.
-    These resources can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
+    These resources can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as {{ create_internal_link(ml_attack_staging) }}.
 
   created_date: 2022-01-24
   modified_date: 2023-01-18
