@@ -13,6 +13,9 @@
 
     Access to an ML model may require access to the system housing the model, the model may be publically accessible via an API, or it may be accessed indirectly via interaction with a product or service that utilizes ML as part of its processes.
 
+  created_date: 2021-05-13
+  modified_date: 2022-10-27
+
 - &ml_attack_staging
   id: AML.TA0001
   name: ML Attack Staging
@@ -24,6 +27,9 @@
     Techniques can include training proxy models, poisoning the target model, and crafting adversarial data to feed the target model.
     Some of these techniques can be performed in an offline manner and are thus difficult to mitigate.
     These techniques are often used to achieve the adversary's end goal.
+
+  created_date: 2021-05-13
+  modified_date: 2022-10-27
 
 - &reconnaissance
   id: AML.TA0002
@@ -39,6 +45,9 @@
     Such information may include details of the victim organizations' machine learning capabilities and research efforts.
     This information can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as using gathered information to obtain relevant ML artifacts, targeting ML capabilities used by the victim, tailoring attacks to the particular models used by the victim, or to drive and lead further Reconnaissance efforts.
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &resource_development
   id: AML.TA0003
   name: Resource Development
@@ -52,7 +61,10 @@
     Resource Development consists of techniques that involve adversaries creating,
     purchasing, or compromising/stealing resources that can be used to support targeting.
     Such resources include machine learning artifacts, infrastructure, accounts, or capabilities.
-    These resources can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as [{{ml_attack_staging.name}}](/tactics/{{ml_attack_staging.id}}).
+    These resources can be leveraged by the adversary to aid in other phases of the adversary lifecycle, such as {{ create_internal_link(ml_attack_staging) }}.
+
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
 
 - &initial_access
   id: AML.TA0004
@@ -69,6 +81,9 @@
 
     Initial Access consists of techniques that use various entry vectors to gain their initial foothold within the system.
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &execution
   id: AML.TA0005
   name: Execution
@@ -83,6 +98,9 @@
     Techniques that run malicious code are often paired with techniques from all other tactics to achieve broader goals, like exploring a network or stealing data.
     For example, an adversary might use a remote access tool to run a PowerShell script that does [Remote System Discovery](https://attack.mitre.org/techniques/T1018/).
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &persistence
   id: AML.TA0006
   name: Persistence
@@ -96,6 +114,9 @@
     Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access.
     Techniques used for persistence often involve leaving behind modified ML artifacts such as poisoned training data or backdoored ML models.
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &defense_evasion
   id: AML.TA0007
   name: Defense Evasion
@@ -108,6 +129,9 @@
 
     Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise.
     Techniques used for defense evasion include evading ML-enabled security software such as malware detectors.
+
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
 
 - &discovery
   id: AML.TA0008
@@ -124,6 +148,9 @@
     They also allow adversaries to explore what they can control and what's around their entry point in order to discover how it could benefit their current objective.
     Native operating system tools are often used toward this post-compromise information-gathering objective.
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &collection
   id: AML.TA0009
   name: Collection
@@ -137,6 +164,9 @@
     Collection consists of techniques adversaries may use to gather information and the sources information is collected from that are relevant to following through on the adversary's objectives.
     Frequently, the next goal after collecting data is to steal (exfiltrate) the ML artifacts, or use the collected information to stage future operations.
     Common target sources include software repositories, container registries, model repositories, and object stores.
+
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
 
 - &exfiltration
   id: AML.TA0010
@@ -153,6 +183,9 @@
 
     Techniques for getting data out of a target network typically include transferring it over their command and control channel or an alternate channel and may also include putting size limits on the transmission.
 
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
+
 - &impact
   id: AML.TA0011
   name: Impact
@@ -167,6 +200,9 @@
     Techniques used for impact can include destroying or tampering with data.
     In some cases, business processes can look fine, but may have been altered to benefit the adversaries' goals.
     These techniques might be used by adversaries to follow through on their end goal or to provide cover for a confidentiality breach.
+
+  created_date: 2022-01-24
+  modified_date: 2023-01-18
 
 - &privilege_escalation
   id: AML.TA0012
@@ -186,6 +222,9 @@
 
     These techniques often overlap with Persistence techniques, as OS features that let an adversary persist can execute in an elevated context.
 
+  created_date: 2023-10-25
+  modified_date: 2023-10-25
+
 - &credential_access
   id: AML.TA0013
   name: Credential Access
@@ -197,3 +236,6 @@
     The adversary is trying to steal account names and passwords.
 
     Credential Access consists of techniques for stealing credentials like account names and passwords. Techniques used to get credentials include keylogging or credential dumping. Using legitimate credentials can give adversaries access to systems, make them harder to detect, and provide the opportunity to create more accounts to help achieve their goals.
+
+  created_date: 2023-10-25
+  modified_date: 2023-10-25

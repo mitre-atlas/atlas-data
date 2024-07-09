@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.5.2
+version: 4.6.0
 matrices:
 - id: ATLAS
   name: ATLAS Matrix
@@ -29,6 +29,8 @@ matrices:
       efforts.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0003
     name: Resource Development
     object-type: tactic
@@ -50,6 +52,8 @@ matrices:
       the adversary lifecycle, such as [ML Attack Staging](/tactics/AML.TA0001).
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0004
     name: Initial Access
     object-type: tactic
@@ -70,6 +74,8 @@ matrices:
       their initial foothold within the system.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0000
     name: ML Model Access
     object-type: tactic
@@ -94,6 +100,8 @@ matrices:
       via interaction with a product or service that utilizes ML as part of its processes.
 
       '
+    created_date: 2021-05-13
+    modified_date: 2022-10-27
   - id: AML.TA0005
     name: Execution
     object-type: tactic
@@ -115,6 +123,8 @@ matrices:
       script that does [Remote System Discovery](https://attack.mitre.org/techniques/T1018/).
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0006
     name: Persistence
     object-type: tactic
@@ -133,6 +143,8 @@ matrices:
       such as poisoned training data or backdoored ML models.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0012
     name: Privilege Escalation
     object-type: tactic
@@ -162,6 +174,8 @@ matrices:
       let an adversary persist can execute in an elevated context.
 
       '
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.TA0007
     name: Defense Evasion
     object-type: tactic
@@ -179,6 +193,8 @@ matrices:
       such as malware detectors.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0013
     name: Credential Access
     object-type: tactic
@@ -195,6 +211,8 @@ matrices:
       more accounts to help achieve their goals.
 
       '
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.TA0008
     name: Discovery
     object-type: tactic
@@ -217,6 +235,8 @@ matrices:
       objective.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0009
     name: Collection
     object-type: tactic
@@ -238,6 +258,8 @@ matrices:
       repositories, and object stores.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0001
     name: ML Attack Staging
     object-type: tactic
@@ -257,6 +279,8 @@ matrices:
       These techniques are often used to achieve the adversary''s end goal.
 
       '
+    created_date: 2021-05-13
+    modified_date: 2022-10-27
   - id: AML.TA0010
     name: Exfiltration
     object-type: tactic
@@ -279,6 +303,8 @@ matrices:
       include putting size limits on the transmission.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.TA0011
     name: Impact
     object-type: tactic
@@ -301,6 +327,8 @@ matrices:
       goal or to provide cover for a confidentiality breach.
 
       '
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   techniques:
   - id: AML.T0000
     name: Search for Victim's Publicly Available Research Materials
@@ -328,6 +356,8 @@ matrices:
       '
     tactics:
     - AML.TA0002
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0000.000
     name: Journals and Conference Proceedings
     object-type: technique
@@ -344,6 +374,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0000.001
     name: Pre-Print Repositories
     object-type: technique
@@ -361,6 +393,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0000.002
     name: Technical Blogs
     object-type: technique
@@ -386,6 +420,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0001
     name: Search for Publicly Available Adversarial Vulnerability Analysis
     object-type: technique
@@ -402,6 +438,8 @@ matrices:
       necessary.'
     tactics:
     - AML.TA0002
+    created_date: 2021-05-13
+    modified_date: 2024-03-11
   - id: AML.T0003
     name: Search Victim-Owned Websites
     object-type: technique
@@ -430,6 +468,8 @@ matrices:
       '
     tactics:
     - AML.TA0002
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0004
     name: Search Application Repositories
     object-type: technique
@@ -447,6 +487,8 @@ matrices:
       '
     tactics:
     - AML.TA0002
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0006
     name: Active Scanning
     object-type: technique
@@ -462,6 +504,8 @@ matrices:
       '
     tactics:
     - AML.TA0002
+    created_date: 2021-05-13
+    modified_date: 2023-01-18
   - id: AML.T0002
     name: Acquire Public ML Artifacts
     object-type: technique
@@ -500,6 +544,8 @@ matrices:
       '
     tactics:
     - AML.TA0003
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0002.000
     name: Datasets
     object-type: technique
@@ -519,6 +565,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0002
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0002.001
     name: Models
     object-type: technique
@@ -542,6 +590,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0002
+    created_date: 2021-05-13
+    modified_date: 2023-02-28
   - id: AML.T0016
     name: Obtain Capabilities
     object-type: technique
@@ -557,6 +607,8 @@ matrices:
       in targeting a particular ML system.'
     tactics:
     - AML.TA0003
+    created_date: 2021-05-13
+    modified_date: 2023-01-18
   - id: AML.T0016.000
     name: Adversarial ML Attack Implementations
     object-type: technique
@@ -568,6 +620,8 @@ matrices:
       that were not originally designed for adversarial ML attacks as part of their
       attack.
     subtechnique-of: AML.T0016
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0016.001
     name: Software Tools
     object-type: technique
@@ -587,6 +641,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0016
+    created_date: 2021-05-13
+    modified_date: 2023-01-18
   - id: AML.T0017
     name: Develop Capabilities
     object-type: technique
@@ -600,6 +656,8 @@ matrices:
       or creating Jupyter notebooks with obfuscated exfiltration code.
     tactics:
     - AML.TA0003
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0017.000
     name: Adversarial ML Attacks
     object-type: technique
@@ -613,6 +671,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0017
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0008
     name: Acquire Infrastructure
     object-type: technique
@@ -641,6 +701,8 @@ matrices:
       '
     tactics:
     - AML.TA0003
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0008.000
     name: ML Development Workspaces
     object-type: technique
@@ -657,6 +719,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0008
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0008.001
     name: Consumer Hardware
     object-type: technique
@@ -667,6 +731,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0008
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0019
     name: Publish Poisoned Datasets
     object-type: technique
@@ -681,6 +747,8 @@ matrices:
       '
     tactics:
     - AML.TA0003
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0010
     name: ML Supply Chain Compromise
     object-type: technique
@@ -697,6 +765,8 @@ matrices:
       '
     tactics:
     - AML.TA0004
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0010.000
     name: GPU Hardware
     object-type: technique
@@ -708,6 +778,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0010.001
     name: ML Software
     object-type: technique
@@ -724,6 +796,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0010.002
     name: Data
     object-type: technique
@@ -749,6 +823,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0010.003
     name: Model
     object-type: technique
@@ -768,6 +844,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0040
     name: ML Model Inference API Access
     object-type: technique
@@ -784,6 +862,8 @@ matrices:
       '
     tactics:
     - AML.TA0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0047
     name: ML-Enabled Product or Service
     object-type: technique
@@ -796,6 +876,8 @@ matrices:
       '
     tactics:
     - AML.TA0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0041
     name: Physical Environment Access
     object-type: technique
@@ -812,6 +894,8 @@ matrices:
       '
     tactics:
     - AML.TA0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0044
     name: Full ML Model Access
     object-type: technique
@@ -828,6 +912,8 @@ matrices:
       '
     tactics:
     - AML.TA0000
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0013
     name: Discover ML Model Ontology
     object-type: technique
@@ -849,6 +935,8 @@ matrices:
       '
     tactics:
     - AML.TA0008
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0014
     name: Discover ML Model Family
     object-type: technique
@@ -865,6 +953,8 @@ matrices:
       '
     tactics:
     - AML.TA0008
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0020
     name: Poison Training Data
     object-type: technique
@@ -888,6 +978,8 @@ matrices:
     tactics:
     - AML.TA0003
     - AML.TA0006
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0021
     name: Establish Accounts
     object-type: technique
@@ -901,6 +993,8 @@ matrices:
       '
     tactics:
     - AML.TA0003
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.T0005
     name: Create Proxy ML Model
     object-type: technique
@@ -917,6 +1011,8 @@ matrices:
       '
     tactics:
     - AML.TA0001
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0005.000
     name: Train Proxy via Gathered ML Artifacts
     object-type: technique
@@ -930,6 +1026,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0005
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0005.001
     name: Train Proxy via Replication
     object-type: technique
@@ -951,6 +1049,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0005
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0005.002
     name: Use Pre-Trained Model
     object-type: technique
@@ -959,6 +1059,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0005
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0007
     name: Discover ML Artifacts
     object-type: technique
@@ -976,6 +1078,8 @@ matrices:
       '
     tactics:
     - AML.TA0008
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0011
     name: User Execution
     object-type: technique
@@ -994,6 +1098,8 @@ matrices:
       '
     tactics:
     - AML.TA0005
+    created_date: 2021-05-13
+    modified_date: 2023-01-18
   - id: AML.T0011.000
     name: Unsafe ML Artifacts
     object-type: technique
@@ -1013,6 +1119,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0011
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0012
     name: Valid Accounts
     object-type: technique
@@ -1035,6 +1143,8 @@ matrices:
       '
     tactics:
     - AML.TA0004
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.T0015
     name: Evade ML Model
     object-type: technique
@@ -1053,6 +1163,8 @@ matrices:
     - AML.TA0004
     - AML.TA0007
     - AML.TA0011
+    created_date: 2021-05-13
+    modified_date: 2022-10-27
   - id: AML.T0018
     name: Backdoor ML Model
     object-type: technique
@@ -1072,6 +1184,8 @@ matrices:
     tactics:
     - AML.TA0006
     - AML.TA0001
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0018.000
     name: Poison ML Model
     object-type: technique
@@ -1083,6 +1197,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0018
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0018.001
     name: Inject Payload
     object-type: technique
@@ -1094,6 +1210,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0018
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0024
     name: Exfiltration via ML Inference API
     object-type: technique
@@ -1117,6 +1235,8 @@ matrices:
       '
     tactics:
     - AML.TA0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0024.000
     name: Infer Training Data Membership
     object-type: technique
@@ -1133,6 +1253,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0024
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0024.001
     name: Invert ML Model
     object-type: technique
@@ -1147,6 +1269,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0024
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0024.002
     name: Extract ML Model
     object-type: technique
@@ -1166,6 +1290,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0024
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0025
     name: Exfiltration via Cyber Means
     object-type: technique
@@ -1179,6 +1305,8 @@ matrices:
       '
     tactics:
     - AML.TA0010
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0029
     name: Denial of ML Service
     object-type: technique
@@ -1194,6 +1322,8 @@ matrices:
       '
     tactics:
     - AML.TA0011
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0046
     name: Spamming ML System with Chaff Data
     object-type: technique
@@ -1206,6 +1336,8 @@ matrices:
       '
     tactics:
     - AML.TA0011
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0031
     name: Erode ML Model Integrity
     object-type: technique
@@ -1218,6 +1350,8 @@ matrices:
       '
     tactics:
     - AML.TA0011
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0034
     name: Cost Harvesting
     object-type: technique
@@ -1231,6 +1365,8 @@ matrices:
       '
     tactics:
     - AML.TA0011
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0035
     name: ML Artifact Collection
     object-type: technique
@@ -1243,6 +1379,8 @@ matrices:
       '
     tactics:
     - AML.TA0009
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0036
     name: Data from Information Repositories
     object-type: technique
@@ -1267,6 +1405,8 @@ matrices:
       '
     tactics:
     - AML.TA0009
+    created_date: 2022-01-24
+    modified_date: 2023-01-18
   - id: AML.T0037
     name: Data from Local System
     object-type: technique
@@ -1284,6 +1424,8 @@ matrices:
       '
     tactics:
     - AML.TA0009
+    created_date: 2021-05-13
+    modified_date: 2023-01-18
   - id: AML.T0042
     name: Verify Attack
     object-type: technique
@@ -1305,6 +1447,8 @@ matrices:
       '
     tactics:
     - AML.TA0001
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0043
     name: Craft Adversarial Data
     object-type: technique
@@ -1345,6 +1489,8 @@ matrices:
       '
     tactics:
     - AML.TA0001
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0043.000
     name: White-Box Optimization
     object-type: technique
@@ -1356,6 +1502,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0043
+    created_date: 2021-05-13
+    modified_date: 2024-01-12
   - id: AML.T0043.001
     name: Black-Box Optimization
     object-type: technique
@@ -1372,6 +1520,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0043
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0043.002
     name: Black-Box Transfer
     object-type: technique
@@ -1395,6 +1545,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0043
+    created_date: 2021-05-13
+    modified_date: 2024-01-12
   - id: AML.T0043.003
     name: Manual Modification
     object-type: technique
@@ -1409,6 +1561,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0043
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0043.004
     name: Insert Backdoor Trigger
     object-type: technique
@@ -1421,6 +1575,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0043
+    created_date: 2021-05-13
+    modified_date: 2021-05-13
   - id: AML.T0048
     name: External Harms
     object-type: technique
@@ -1434,6 +1590,8 @@ matrices:
       '
     tactics:
     - AML.TA0011
+    created_date: 2022-10-27
+    modified_date: 2023-10-25
   - id: AML.T0048.000
     name: Financial Harm
     object-type: technique
@@ -1443,6 +1601,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0048
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0048.001
     name: Reputational Harm
     object-type: technique
@@ -1452,6 +1612,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0048
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0048.002
     name: Societal Harm
     object-type: technique
@@ -1461,6 +1623,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0048
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0048.003
     name: User Harm
     object-type: technique
@@ -1470,6 +1634,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0048
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0048.004
     name: ML Intellectual Property Theft
     object-type: technique
@@ -1489,6 +1655,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0048
+    created_date: 2021-05-13
+    modified_date: 2023-10-25
   - id: AML.T0049
     name: Exploit Public-Facing Application
     object-type: technique
@@ -1506,6 +1674,8 @@ matrices:
     ATT&CK-reference:
       id: T1190
       url: https://attack.mitre.org/techniques/T1190/
+    created_date: 2023-02-28
+    modified_date: 2023-02-28
   - id: AML.T0050
     name: Command and Scripting Interpreter
     object-type: technique
@@ -1534,6 +1704,8 @@ matrices:
     ATT&CK-reference:
       id: T1059
       url: https://attack.mitre.org/techniques/T1059/
+    created_date: 2023-02-28
+    modified_date: 2023-10-12
   - id: AML.T0051
     name: LLM Prompt Injection
     object-type: technique
@@ -1569,6 +1741,8 @@ matrices:
     - AML.TA0006
     - AML.TA0012
     - AML.TA0007
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0051.000
     name: Direct
     object-type: technique
@@ -1578,6 +1752,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0051
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0051.001
     name: Indirect
     object-type: technique
@@ -1591,6 +1767,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0051
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0052
     name: Phishing
     object-type: technique
@@ -1614,6 +1792,8 @@ matrices:
     ATT&CK-reference:
       id: T1566
       url: https://attack.mitre.org/techniques/T1566/
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0052.000
     name: Spearphishing via Social Engineering LLM
     object-type: technique
@@ -1631,6 +1811,8 @@ matrices:
 
       '
     subtechnique-of: AML.T0052
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0053
     name: LLM Plugin Compromise
     object-type: technique
@@ -1657,6 +1839,8 @@ matrices:
     tactics:
     - AML.TA0005
     - AML.TA0012
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0054
     name: LLM Jailbreak
     object-type: technique
@@ -1671,6 +1855,8 @@ matrices:
     tactics:
     - AML.TA0012
     - AML.TA0007
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0055
     name: Unsecured Credentials
     object-type: technique
@@ -1688,6 +1874,8 @@ matrices:
     ATT&CK-reference:
       id: T1552
       url: https://attack.mitre.org/techniques/T1552/
+    created_date: 2023-10-25
+    modified_date: 2024-04-29
   - id: AML.T0056
     name: LLM Meta Prompt Extraction
     object-type: technique
@@ -1704,6 +1892,8 @@ matrices:
     tactics:
     - AML.TA0008
     - AML.TA0010
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   - id: AML.T0057
     name: LLM Data Leakage
     object-type: technique
@@ -1718,6 +1908,8 @@ matrices:
       '
     tactics:
     - AML.TA0010
+    created_date: 2023-10-25
+    modified_date: 2023-10-25
   mitigations:
   - id: AML.M0000
     name: Limit Release of Public Information
@@ -1756,6 +1948,8 @@ matrices:
         systems and publicly available applications.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2024-01-12
   - id: AML.M0001
     name: Limit Model Artifact Release
     object-type: mitigation
@@ -1784,6 +1978,8 @@ matrices:
       use: 'Published datasets can be a target for poisoning attacks.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0002
     name: Passive ML Output Obfuscation
     object-type: mitigation
@@ -1822,6 +2018,8 @@ matrices:
       use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
         \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
         \  - Reduce the precision of numerical outputs\n"
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0003
     name: Model Hardening
     object-type: mitigation
@@ -1843,6 +2041,8 @@ matrices:
       use: 'Hardened models are less susceptible to integrity attacks.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0004
     name: Restrict Number of ML Model Queries
     object-type: mitigation
@@ -1910,6 +2110,8 @@ matrices:
         the system from chaff data spam.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0005
     name: Control Access to ML Models and Data at Rest
     object-type: mitigation
@@ -1959,6 +2161,8 @@ matrices:
       use: 'Access controls can prevent theft of intellectual property.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0006
     name: Use Ensemble Methods
     object-type: mitigation
@@ -1995,6 +2199,8 @@ matrices:
         is used and how the model used.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0007
     name: Sanitize Training Data
     object-type: mitigation
@@ -2030,6 +2236,8 @@ matrices:
         attacks against a model.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0008
     name: Validate ML Model
     object-type: mitigation
@@ -2061,6 +2269,8 @@ matrices:
         or adversarial bias.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2024-01-12
   - id: AML.M0009
     name: Use Multi-Modal Sensors
     object-type: mitigation
@@ -2085,6 +2295,8 @@ matrices:
         to compromise and produce malicious results.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0010
     name: Input Restoration
     object-type: mitigation
@@ -2115,6 +2327,8 @@ matrices:
         the machine learning pipeline.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0011
     name: Restrict Library Loading
     object-type: mitigation
@@ -2139,6 +2353,8 @@ matrices:
     ATT&CK-reference:
       id: M1044
       url: https://attack.mitre.org/mitigations/M1044/
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0012
     name: Encrypt Sensitive Information
     object-type: mitigation
@@ -2167,6 +2383,8 @@ matrices:
         information to target and improve attacks.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0013
     name: Code Signing
     object-type: mitigation
@@ -2197,6 +2415,8 @@ matrices:
     ATT&CK-reference:
       id: M1045
       url: https://attack.mitre.org/mitigations/M1045/
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0014
     name: Verify ML Artifacts
     object-type: mitigation
@@ -2226,6 +2446,8 @@ matrices:
         will not be introduced to the system.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0015
     name: Adversarial Input Detection
     object-type: mitigation
@@ -2265,6 +2487,8 @@ matrices:
         reach the model.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0016
     name: Vulnerability Scanning
     object-type: mitigation
@@ -2298,6 +2522,8 @@ matrices:
     ATT&CK-reference:
       id: M1016
       url: https://attack.mitre.org/mitigations/M1016/
+    created_date: 2023-04-12
+    modified_date: 2024-01-12
   - id: AML.M0017
     name: Model Distribution Methods
     object-type: mitigation
@@ -2330,6 +2556,8 @@ matrices:
         of the model.
 
         '
+    created_date: 2023-04-12
+    modified_date: 2024-01-12
   - id: AML.M0018
     name: User Training
     object-type: mitigation
@@ -2361,6 +2589,8 @@ matrices:
     ATT&CK-reference:
       id: M1017
       url: https://attack.mitre.org/mitigations/M1017/
+    created_date: 2023-04-12
+    modified_date: 2023-10-12
   - id: AML.M0019
     name: Control Access to ML Models and Data in Production
     object-type: mitigation
@@ -2387,6 +2617,8 @@ matrices:
         dataset and reveal private information.
 
         '
+    created_date: 2024-01-12
+    modified_date: 2024-01-12
 case-studies:
 - id: AML.CS0000
   object-type: case-study
