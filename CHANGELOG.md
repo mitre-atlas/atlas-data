@@ -1,5 +1,10 @@
 # ATLAS Data Changelog
 
+## [4.6.0]() (2024-07-09)
+
+- Added new fields `created_date` and `modified_date` to all tactic, technique, and mitigation objects
+- Updated to use function syntax for internal Jinja-templated Markdown links
+
 ## [4.5.2]() (2024-03-11)
 
 Minor fixes
