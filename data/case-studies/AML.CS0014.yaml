@@ -1,7 +1,7 @@
 ---
 id: AML.CS0014
-object-type: case-study
 name: Confusing Antimalware Neural Networks
+object-type: case-study
 summary: 'Cloud storage and computations have become popular platforms for deploying
   ML malware detectors.
 

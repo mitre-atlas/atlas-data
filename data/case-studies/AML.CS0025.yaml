@@ -1,0 +1,47 @@
+---
+id: AML.CS0025
+name: 'Web-Scale Data Poisoning: Split-View Attack'
+object-type: case-study
+summary: Many recent large-scale datasets are distributed as a list of URLs pointing
+  to individual datapoints. The researchers show that many of these datasets are vulnerable
+  to a "split-view" poisoning attack. The attack exploits the fact that the data viewed
+  when it was initially collected may differ from the data viewed by a user during
+  training. The researchers identify expired and buyable domains that once hosted
+  dataset content, making it possible to replace portions of the dataset with poisoned
+  data. They demonstrate that for 10 popular web-scale datasets, enough of the domains
+  are purchasable to successfully carry out a poisoning attack.
+incident-date: 2024-06-06
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ml_artifacts_data.id}}'
+  description: The researchers download a web-scale dataset, which consists of URLs
+    pointing to individual datapoints.
+- tactic: '{{resource_development.id}}'
+  technique: AML.T0008.002
+  description: They identify expired domains in the dataset and purchase them.
+- tactic: '{{resource_development.id}}'
+  technique: '{{poison_data.id}}'
+  description: An adversary could create poisoned training data to replace expired
+    portions of the dataset.
+- tactic: '{{resource_development.id}}'
+  technique: '{{publish_poisoned_data.id}}'
+  description: An adversary could then upload the poisoned data to the domains they
+    control.  In this particular exercise, the researchers track requests to the URLs
+    they control to track downloads to demonstrate there are active users of the dataset.
+- tactic: '{{impact.id}}'
+  technique: AML.T0059
+  description: The integrity of the dataset has been eroded because future downloads
+    would contain poisoned datapoints.
+- tactic: '{{impact.id}}'
+  technique: '{{erode_integrity.id}}'
+  description: Models that use the dataset for training data are poisoned, eroding
+    model integrity. The researchers show as little as 0.01% of the data needs to
+    be poisoned for a successful attack.
+target: 10 web-scale datasets
+actor: Researchers from Google Deepmind, ETH Zurich, NVIDIA, Robust Intelligence,
+  and Google
+case-study-type: exercise
+references:
+- title: Poisoning Web-Scale Training Datasets is Practical
+  url: https://arxiv.org/pdf/2302.10149

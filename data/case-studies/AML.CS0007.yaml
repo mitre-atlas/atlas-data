@@ -2,39 +2,52 @@
 id: AML.CS0007
 name: GPT-2 Model Replication
 object-type: case-study
-case-study-type: exercise
-actor: Researchers at Brown University
-target: OpenAI GPT-2
-summary: |
-    OpenAI built GPT-2, a language model capable of generating high quality text samples. Over concerns that GPT-2 could be used for malicious purposes such as impersonating others, or generating misleading news articles, fake social media content, or spam, OpenAI adopted a tiered release schedule. They initially released a smaller, less powerful version of GPT-2 along with a technical description of the approach, but held back the full trained model.
+summary: 'OpenAI built GPT-2, a language model capable of generating high quality
+  text samples. Over concerns that GPT-2 could be used for malicious purposes such
+  as impersonating others, or generating misleading news articles, fake social media
+  content, or spam, OpenAI adopted a tiered release schedule. They initially released
+  a smaller, less powerful version of GPT-2 along with a technical description of
+  the approach, but held back the full trained model.
 
-    Before the full model was released by OpenAI, researchers at Brown University successfully replicated the model using information released by OpenAI and open source ML artifacts. This demonstrates that a bad actor with sufficient technical skill and compute resources could have replicated GPT-2 and used it for harmful goals before the AI Security community is prepared.
+
+  Before the full model was released by OpenAI, researchers at Brown University successfully
+  replicated the model using information released by OpenAI and open source ML artifacts.
+  This demonstrates that a bad actor with sufficient technical skill and compute resources
+  could have replicated GPT-2 and used it for harmful goals before the AI Security
+  community is prepared.
+
+  '
 incident-date: 2019-08-22
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{reconnaissance.id}}'
   technique: '{{victim_research.id}}'
-  description: 'Using the public documentation about GPT-2, the researchers gathered
-    information about the dataset, model architecture, and training hyper-parameters.'
+  description: Using the public documentation about GPT-2, the researchers gathered
+    information about the dataset, model architecture, and training hyper-parameters.
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_model.id}}'
-  description: 'The researchers obtained a reference implementation of a similar publicly
-    available model called Grover.'
+  description: The researchers obtained a reference implementation of a similar publicly
+    available model called Grover.
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
-  description: 'The researchers were able to manually recreate the dataset used in
-    the original GPT-2 paper using the gathered documentation.'
+  description: The researchers were able to manually recreate the dataset used in
+    the original GPT-2 paper using the gathered documentation.
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_workspaces.id}}'
-  description: 'The researchers were able to use TensorFlow Research Cloud via their
-    academic credentials.'
+  description: The researchers were able to use TensorFlow Research Cloud via their
+    academic credentials.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{proxy_via_artifacts.id}}'
-  description: 'The researchers modified Grover''s objective function to reflect GPT-2''s objective
-function and then trained on the dataset they curated using used Grover''s initial hyperparameters.
-    The resulting model functionally replicates GPT-2, obtaining similar performance on most datasets.
+  description: 'The researchers modified Grover''s objective function to reflect GPT-2''s
+    objective function and then trained on the dataset they curated using used Grover''s
+    initial hyperparameters. The resulting model functionally replicates GPT-2, obtaining
+    similar performance on most datasets.
 
-    A bad actor who followed the same procedure as the researchers could then use the replicated GPT-2 model for malicious purposes.'
+    A bad actor who followed the same procedure as the researchers could then use
+    the replicated GPT-2 model for malicious purposes.'
+target: OpenAI GPT-2
+actor: Researchers at Brown University
+case-study-type: exercise
 references:
 - title: Wired Article, "OpenAI Said Its Code Was Risky. Two Grads Re-Created It Anyway"
   url: https://www.wired.com/story/dangerous-ai-open-source/

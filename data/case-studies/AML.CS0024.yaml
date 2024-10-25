@@ -1,0 +1,59 @@
+---
+id: AML.CS0024
+name: 'Morris II Worm: RAG-Based Attack'
+object-type: case-study
+summary: 'Researchers developed Morris II, a zero-click worm designed to attack generative
+  AI (GenAI) ecosystems and propagate between connected GenAI systems. The worm uses
+  an adversarial self-replicating prompt which uses prompt injection to replicate
+  the prompt as output and perform malicious activity.
+
+  The researchers demonstrate how this worm can propagate through an email system
+  with a RAG-based assistant. They use a target system that automatically ingests
+  received emails, retrieves past correspondences, and generates a reply for the user.
+  To carry out the attack, they send a malicious email containing the adversarial
+  self-replicating prompt, which ends up in the RAG database. The malicious instructions
+  in the prompt tell the assistant to include sensitive user data in the response.
+  Future requests to the email assistant may retrieve the malicious email. This leads
+  to propagation of the worm due to the self-replicating portion of the prompt, as
+  well as leaking private information due to the malicious instructions.'
+incident-date: 2024-03-05
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: The researchers use access to the publicly available GenAI model API
+    that powers the target RAG-based email system.
+- tactic: '{{initial_access.id}}'
+  technique: '{{pi_direct.id}}'
+  description: The researchers test prompts on public model APIs to identify working
+    prompt injections.
+- tactic: '{{execution.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: The researchers send an email containing an adversarial self-replicating
+    prompt, or "AI worm," to an address used in the target email system. The GenAI
+    email assistant automatically ingests the email as part of its normal operations
+    to generate a suggested reply. The email is stored in the database used for retrieval
+    augmented generation, compromising the RAG system.
+- tactic: '{{initial_access.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: When the email containing the worm is retrieved by the email assistant
+    in another reply generation task, the prompt injection changes the behavior of
+    the GenAI email assistant.
+- tactic: '{{persistence.id}}'
+  technique: AML.T0061
+  description: The self-replicating portion of the prompt causes the generated output
+    to contain the malicious prompt, allowing the worm to propagate.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{llm_data_leakage.id}}'
+  description: The malicious instructions in the prompt cause the generated output
+    to leak sensitive data such as emails, addresses, and phone numbers.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: Users of the GenAI email assistant may have PII leaked to attackers.
+target: RAG-based e-mail assistant
+actor: Stav Cohen, Ron Bitton, Ben Nassi
+case-study-type: exercise
+references:
+- title: 'Here Comes The AI Worm: Unleashing Zero-click Worms that Target GenAI-Powered
+    Applications'
+  url: https://arxiv.org/abs/2403.02817
