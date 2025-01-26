@@ -643,6 +643,13 @@ matrices:
     subtechnique-of: AML.T0016
     created_date: 2021-05-13
     modified_date: 2023-01-18
+  - id: AML.TXXXX  # Placeholder ID for the new technique
+    name: Transfer Learning Attack
+    description: 'Adversaries may poison publicly available pretrained models to embed malicious behavior. This form of supply chain attack exploits the trust that downstream developers place in the pretrained model, embedding malicious behavior that persists through fine-tuning.'
+    object-type: technique
+    subtechnique-of: AML.T0016
+    created_date: 2026-10-25
+    modified_date: 2026-10-25
   - id: AML.T0017
     name: Develop Capabilities
     description: Adversaries may develop their own capabilities to support operations.
