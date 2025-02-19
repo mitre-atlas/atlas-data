@@ -403,7 +403,7 @@
   tactics:
   - '{{resource_development.id}}'
   created_date: 2021-05-13
-  modified_date: 2024-10-01
+  modified_date: 2025-03-12
 
 - &acquire_workspaces
   id: AML.T0008.000
@@ -487,7 +487,7 @@
   object-type: technique
   subtechnique-of: '{{supply_chain.id}}'
   created_date: 2021-05-13
-  modified_date: 2024-10-01
+  modified_date: 2025-03-12
 
 - &supply_chain_software
   id: AML.T0010.001
@@ -583,7 +583,7 @@
   tactics:
   - '{{ml_model_access.id}}'
   created_date: 2021-05-13
-  modified_date: 2024-10-01
+  modified_date: 2025-03-12
 
 - &ml_service
   id: AML.T0047
@@ -1544,12 +1544,9 @@
     '
   object-type: technique
   tactics:
-  - '{{initial_access.id}}'
-  - '{{persistence.id}}'
-  - '{{privilege_escalation.id}}'
-  - '{{defense_evasion.id}}'
+  - '{{execution.id}}'
   created_date: 2023-10-25
-  modified_date: 2023-10-25
+  modified_date: 2025-03-12
 
 - &pi_direct
   id: AML.T0051.000
@@ -1698,23 +1695,19 @@
 
 - &llm_meta_prompt
   id: AML.T0056
-  name: LLM Meta Prompt Extraction
-  description: 'An adversary may induce an LLM to reveal its initial instructions,
-    or "meta prompt."
+  name: Extract LLM System Prompt
+  description: 'Adversaries may attempt to extract a large language model''s (LLM)
+    system prompt. This can be done via prompt injection to induce the model to reveal
+    its own system prompt or may be extracted from a configuration file.
 
-    Discovering the meta prompt can inform the adversary about the internal workings
-    of the system.
 
-    Prompt engineering is an emerging field that requires expertise and exfiltrating
-    the meta prompt can prompt in order to steal valuable intellectual property.
-
-    '
+    System prompts can be a portion of an AI provider''s competitive advantage and
+    are thus valuable intellectual property that may be targeted by adversaries.'
   object-type: technique
   tactics:
-  - '{{discovery.id}}'
   - '{{exfiltration.id}}'
   created_date: 2023-10-25
-  modified_date: 2023-10-25
+  modified_date: 2025-03-12
 
 - &llm_data_leakage
   id: AML.T0057
@@ -1744,8 +1737,8 @@
   object-type: technique
   tactics:
   - '{{resource_development.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &erode_integrity_dataset
   id: AML.T0059
@@ -1755,8 +1748,8 @@
   object-type: technique
   tactics:
   - '{{impact.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &malicious_package
   id: AML.T0011.001
@@ -1769,8 +1762,8 @@
     malicious to the user and may appear to be useful for an AI-related task.'
   object-type: technique
   subtechnique-of: '{{user_execution.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &publish_hallucinated_entities
   id: AML.T0060
@@ -1783,8 +1776,8 @@
   object-type: technique
   tactics:
   - '{{resource_development.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &llm_prompt_self_replication
   id: AML.T0061
@@ -1797,8 +1790,8 @@
   object-type: technique
   tactics:
   - '{{persistence.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &discover_llm_hallucinations
   id: AML.T0062
@@ -1814,8 +1807,8 @@
   object-type: technique
   tactics:
   - '{{discovery.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &acquire_domains
   id: AML.T0008.002
@@ -1835,8 +1828,8 @@
     id: T1583.001
     url: https://attack.mitre.org/techniques/T1583/001/
   subtechnique-of: '{{acquire_infra.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &acquire_physical_countermeasures
   id: AML.T0008.003
@@ -1851,8 +1844,8 @@
     pointers, light bulbs, or other tools.'
   object-type: technique
   subtechnique-of: '{{acquire_infra.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &discover_model_outputs
   id: AML.T0063
@@ -1867,5 +1860,219 @@
   object-type: technique
   tactics:
   - '{{discovery.id}}'
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &obtain_genai
+  id: AML.T0016.002
+  name: Generative AI
+  description: 'Adversaries may search for and obtain generative AI models or tools,
+    such as large language models (LLMs), to assist them in various steps of their
+    operation. Generative AI can be used in a variety of malicious ways, including
+    generating malware or offensive cyber scripts, {{ create_internal_link(content_crafting)
+    }}, or generating {{ create_internal_link(phishing) }} content.
+
+
+    Adversaries may obtain an open source model or they may leverage a generative
+    AI service. They may need to jailbreak the generative AI model to bypass any restrictions
+    put in place to limit the types of responses it can generate. They may also need
+    to break the terms of service of the generative AI.'
+  object-type: technique
+  subtechnique-of: '{{obtain_cap.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &gather_rag_targets
+  id: AML.T0064
+  name: Gather RAG-Indexed Targets
+  description: 'Adversaries may identify data sources used in retrieval augmented
+    generation (RAG) systems for targeting purposes. By pinpointing these sources,
+    attackers can focus on poisoning or otherwise manipulating the external data repositories
+    the AI relies on.
+
+
+    RAG-indexed data may be identified in public documentation about the system, or
+    by interacting with the system directly and observing any indications of or references
+    to external data sources.'
+  object-type: technique
+  tactics:
+  - '{{reconnaissance.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_prompt_crafting
+  id: AML.T0065
+  name: LLM Prompt Crafting
+  description: 'Adversaries may use their acquired knowledge of the target generative
+    AI system to craft prompts that bypass its defenses and allow malicious instructions
+    to be executed.
+
+
+    The adversary may iterate on the prompt to ensure that it works as-intended consistently.'
+  object-type: technique
+  tactics:
+  - '{{resource_development.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &content_crafting
+  id: AML.T0066
+  name: Retrieval Content Crafting
+  description: 'Adversaries may write content designed to be retrieved by user queries
+    and influence a user of the system in some way. This abuses the trust the user
+    has in the system.
+
+
+    The crafted content can be combined with a prompt injection.
+    It can also stand alone in a separate document or email. The adversary must
+    get the crafted content into the victim\u0027s database, such as a vector database
+    used in a retrieval augmented generation (RAG) system. This may be accomplished
+    via cyber access, or by abusing the ingestion mechanisms common in RAG systems
+    (see {{ create_internal_link(rag_poisoning) }}).
+
+
+    Large language models may be used as an assistant to aid an adversary in crafting
+    content.'
+  object-type: technique
+  tactics:
+  - '{{resource_development.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_output_manip
+  id: AML.T0067
+  name: LLM Trusted Output Components Manipulation
+  description: 'Adversaries may utilize prompts to a large language model (LLM) which
+    manipulate various components of its response in order to make it appear trustworthy
+    to the user. This helps the adversary continue to operate in the victim''s environment
+    and evade detection by the users it interacts with.
+
+
+    The LLM may be instructed to tailor its language to appear more trustworthy to
+    the user or attempt to manipulate the user to take certain actions. Other response
+    components that could be manipulated include links, recommended follow-up actions,
+    retrieved document metadata, and {{ create_internal_link(llm_output_citations)
+    }}.'
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_prompt_obf
+  id: AML.T0068
+  name: LLM Prompt Obfuscation
+  description: 'Adversaries may hide or otherwise obfuscate prompt injections or retrieval
+    content from the user to avoid detection.
+
+
+    This may include modifying how the injection is rendered such as small text, text
+    colored the same as the background, or hidden HTML elements.'
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_sys_info
+  id: AML.T0069
+  name: Discover LLM System Information
+  description: The adversary is trying to discover something about the large language
+    model's (LLM) system information. This may be found in a configuration file containing
+    the system instructions or extracted via interactions with the LLM. The desired
+    information may include the full system prompt, special characters that have significance
+    to the LLM or keywords indicating functionality available to the LLM. Information
+    about how the LLM is instructed can be used by the adversary to understand the
+    system's capabilities and to aid them in crafting malicious prompts.
+  object-type: technique
+  tactics:
+  - '{{discovery.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_sys_chars
+  id: AML.T0069.000
+  name: Special Character Sets
+  description: Adversaries may discover delimiters and special characters sets used
+    by the large language model. For example, delimiters used in retrieval augmented
+    generation applications to differentiate between context and user prompts. These
+    can later be exploited to confuse or manipulate the large language model into
+    misbehaving.
+  object-type: technique
+  subtechnique-of: '{{llm_sys_info.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_sys_keywords
+  id: AML.T0069.001
+  name: System Instruction Keywords
+  description: Adversaries may discover keywords that have special meaning to the
+    large language model (LLM), such as function names or object names. These can
+    later be exploited to confuse or manipulate the LLM into misbehaving and to make
+    calls to plugins the LLM has access to.
+  object-type: technique
+  subtechnique-of: '{{llm_sys_info.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_sys_prompt
+  id: AML.T0069.002
+  name: System Prompt
+  description: Adversaries may discover a large language model's system instructions
+    provided by the AI system builder to learn about the system's capabilities and
+    circumvent its guardrails.
+  object-type: technique
+  subtechnique-of: '{{llm_sys_info.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &rag_poisoning
+  id: AML.T0070
+  name: RAG Poisoning
+  description: 'Adversaries may inject malicious content into data indexed by a retrieval
+    augmented generation (RAG) system to contaminate a future thread through RAG-based
+    search results. This may be accomplished by placing manipulated documents in a
+    location the RAG indexes (see {{ create_internal_link(gather_rag_targets) }}).
+
+
+    The content may be targeted such that it would always surface as a search result
+    for a specific user query. The adversary''s content may include false or misleading
+    information. It may also include prompt injections with malicious instructions,
+    or false RAG entries.'
+  object-type: technique
+  tactics:
+  - '{{persistence.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &false_rag_entry
+  id: AML.T0071
+  name: False RAG Entry Injection
+  description: "Adversaries may introduce false entries into a victim's retrieval\
+    \ augmented generation (RAG) database. Content designed to be interpreted as a\
+    \ document by the large language model (LLM) used in the RAG system is included\
+    \ in a data source being ingested into the RAG database. When RAG entry including\
+    \ the false document is retrieved the, the LLM is tricked into treating part of\
+    \ the retrieved content as a false RAG result. \n\nBy including a false RAG document\
+    \ inside of a regular RAG entry, it bypasses data monitoring tools. It also prevents\
+    \ the document from being deleted directly. \n\nThe adversary may use discovered\
+    \ system keywords to learn how to instruct a particular LLM to treat content as\
+    \ a RAG entry. They may be able to manipulate the injected entry's metadata including\
+    \ document title, author, and creation date."
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
+
+- &llm_output_citations
+  id: AML.T0067.000
+  name: Citations
+  description: Adversaries may manipulate the citations provided in an AI system's
+    response, in order to make it appear trustworthy. Variants include citing a providing
+    the wrong citation, making up a new citation, or providing the right citation
+    but for adversary-provided data.
+  object-type: technique
+  subtechnique-of: '{{llm_output_manip.id}}'
+  created_date: 2025-03-12
+  modified_date: 2025-03-12

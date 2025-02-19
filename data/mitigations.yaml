@@ -37,7 +37,7 @@
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2024-10-01
+  modified_date: 2025-03-12
 
 - &limit_model_release
   id: AML.M0001
@@ -772,8 +772,8 @@
   - Deployment
   category:
   - Technical - ML
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &gen_ai_guidelines
   id: AML.M0021
@@ -803,8 +803,8 @@
   - Deployment
   category:
   - Technical - ML
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &gen_ai_alignment
   id: AML.M0022
@@ -840,8 +840,8 @@
   - Deployment
   category:
   - Technical - ML
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &ai_bom
   id: AML.M0023
@@ -869,8 +869,8 @@
   - Deployment
   category:
   - Policy
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &ai_telemetry_logging
   id: AML.M0024
@@ -909,8 +909,8 @@
   - Monitoring and Maintenance
   category:
   - Technical - Cyber
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12
 
 - &maintain_dataset_provenance
   id: AML.M0025
@@ -931,5 +931,5 @@
   - Data Preparation
   category:
   - Technical - ML
-  created_date: 2024-10-01
-  modified_date: 2024-10-01
+  created_date: 2025-03-12
+  modified_date: 2025-03-12

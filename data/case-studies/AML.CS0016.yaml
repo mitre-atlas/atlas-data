@@ -56,7 +56,7 @@ procedure:
     executed generated code from GPT-3.
 
     '
-- tactic: '{{initial_access.id}}'
+- tactic: '{{execution.id}}'
   technique: '{{pi_direct.id}}'
   description: 'The actor manually crafted adversarial prompts to test if the model
     was vulnerable to prompt injection and if it was indeed directly executing the

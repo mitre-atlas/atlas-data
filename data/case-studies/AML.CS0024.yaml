@@ -23,7 +23,7 @@ procedure:
   technique: '{{inference_api.id}}'
   description: The researchers use access to the publicly available GenAI model API
     that powers the target RAG-based email system.
-- tactic: '{{initial_access.id}}'
+- tactic: '{{execution.id}}'
   technique: '{{pi_direct.id}}'
   description: The researchers test prompts on public model APIs to identify working
     prompt injections.
@@ -34,7 +34,7 @@ procedure:
     email assistant automatically ingests the email as part of its normal operations
     to generate a suggested reply. The email is stored in the database used for retrieval
     augmented generation, compromising the RAG system.
-- tactic: '{{initial_access.id}}'
+- tactic: '{{execution.id}}'
   technique: '{{pi_indirect.id}}'
   description: When the email containing the worm is retrieved by the email assistant
     in another reply generation task, the prompt injection changes the behavior of

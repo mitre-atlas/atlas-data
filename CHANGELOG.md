@@ -1,5 +1,28 @@
 # ATLAS Data Changelog
 
+## [4.8.0]() (2025-03-14)
+
+Update to add Zenity case study and associated techniques.
+
+#### Techniques
+
+- Added new techniques
+
+  - [Gather RAG-Indexed Targets](https://atlas.mitre.org/techniques/AML.T0064)
+  - [LLM Prompt Crafting](https://atlas.mitre.org/techniques/AML.T0065)
+  - [Retrieval Content Crafting](https://atlas.mitre.org/techniques/AML.T0066)
+  - [LLM Trusted Output Components Manipulation](https://atlas.mitre.org/techniques/AML.T0067)
+  - [LLM Prompt Obfuscation](https://atlas.mitre.org/techniques/AML.T0068)
+  - [Discover LLM System Information](https://atlas.mitre.org/techniques/AML.T0069)
+  - [RAG Poisoning](https://atlas.mitre.org/techniques/AML.T0070)
+  - [False RAG Entry Injection](https://atlas.mitre.org/techniques/AML.T0071)
+
+#### Case Studies
+
+- Added new case studies
+
+  - [Financial Transaction Hijacking with M365 Copilot as an Insider](https://atlas.mitre.org/studies/AML.CS0026)
+
 ## [4.7.0]() (2024-10-01)
 
 Generative AI updates
