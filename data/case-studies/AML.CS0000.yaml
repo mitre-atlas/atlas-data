@@ -1,12 +1,13 @@
 ---
 id: AML.CS0000
-object-type: case-study
 name: Evasion of Deep Learning Detector for Malware C&C Traffic
-summary: 'The Palo Alto Networks Security AI research team tested a deep learning model
-  for malware command and control (C&C) traffic detection in HTTP traffic.
+object-type: case-study
+summary: 'The Palo Alto Networks Security AI research team tested a deep learning
+  model for malware command and control (C&C) traffic detection in HTTP traffic.
 
-  Based on the publicly available [paper by Le et al.](https://arxiv.org/abs/1802.03162), we built a model that was
-  trained on a similar dataset as our production model and had similar performance.
+  Based on the publicly available [paper by Le et al.](https://arxiv.org/abs/1802.03162),
+  we built a model that was trained on a similar dataset as our production model and
+  had similar performance.
 
   Then we crafted adversarial samples, queried the model, and adjusted the adversarial
   sample accordingly until the model was evaded.'
@@ -21,10 +22,12 @@ procedure:
     which was found on arXiv (a pre-print repository).'
 - tactic: '{{resource_development.id}}'
   technique: '{{acquire_ml_artifacts_data.id}}'
-  description: 'We acquired a command and control HTTP traffic  dataset consisting of approximately 33 million benign and 27 million malicious HTTP packet headers.'
+  description: We acquired a command and control HTTP traffic  dataset consisting
+    of approximately 33 million benign and 27 million malicious HTTP packet headers.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{train_proxy_model.id}}'
-  description: 'We trained a model on the HTTP traffic dataset to use as a proxy for the target model.
+  description: 'We trained a model on the HTTP traffic dataset to use as a proxy for
+    the target model.
 
     Evaluation showed a true positive rate of ~ 99% and false positive rate of ~ 0.01%,
     on average.
@@ -49,8 +52,8 @@ procedure:
 
     This evaluation demonstrates that adversaries are able to bypass advanced ML detection
     techniques, by crafting samples that are misclassified by an ML model.'
-actor: Palo Alto Networks AI Research Team
 target: Palo Alto Networks malware detection system
+actor: Palo Alto Networks AI Research Team
 case-study-type: exercise
 references:
 - title: 'Le, Hung, et al. "URLNet: Learning a URL representation with deep learning

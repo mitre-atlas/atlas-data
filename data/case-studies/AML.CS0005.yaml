@@ -1,17 +1,16 @@
 ---
 id: AML.CS0005
+name: Attack on Machine Translation Services
 object-type: case-study
-name: Attack on Machine Translation Service - Google Translate, Bing Translator, and
-  Systran Translate
 summary: 'Machine translation services (such as Google Translate, Bing Translator,
   and Systran Translate) provide public-facing UIs and APIs.
 
   A research group at UC Berkeley utilized these public endpoints to create a replicated
   model with near-production state-of-the-art translation quality.
 
-  Beyond demonstrating that IP can be functionally stolen from a black-box system, they used the
-  replicated model to successfully transfer adversarial examples to the real production
-  services.
+  Beyond demonstrating that IP can be functionally stolen from a black-box system,
+  they used the replicated model to successfully transfer adversarial examples to
+  the real production services.
 
   These adversarial inputs successfully cause targeted word flips, vulgar outputs,
   and dropped sentences on Google Translate and Systran Translate websites.'
@@ -55,9 +54,10 @@ procedure:
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
   description: Adversarial attacks can cause errors that cause reputational damage
-    to the company of the translation service and decrease user trust in AI-powered services.
-actor: Berkeley Artificial Intelligence Research
+    to the company of the translation service and decrease user trust in AI-powered
+    services.
 target: Google Translate, Bing Translator, Systran Translate
+actor: Berkeley Artificial Intelligence Research
 case-study-type: exercise
 references:
 - title: Wallace, Eric, et al. "Imitation Attacks and Defenses for Black-box Machine

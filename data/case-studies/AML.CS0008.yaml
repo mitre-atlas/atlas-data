@@ -1,7 +1,7 @@
 ---
 id: AML.CS0008
-object-type: case-study
 name: ProofPoint Evasion
+object-type: case-study
 summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how ML
   researchers evaded ProofPoint's email protection system by first building a copy-cat
   email protection ML model, and using the insights to bypass the live system. More
@@ -12,21 +12,24 @@ summary: Proof Pudding (CVE-2019-20634) is a code repository that describes how 
 incident-date: 2019-09-09
 incident-date-granularity: DATE
 procedure:
+- tactic: '{{discovery.id}}'
+  technique: AML.T0063
+  description: The researchers discovered that ProofPoint's Email Protection left
+    model output scores in email headers.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{ml_service.id}}'
-  description: The researchers first gathered the scores from the Proofpoint's ML
-    system used in email headers by sending a large number of emails through the system
-    and scraping the model scores exposed in the logs.
+  description: The researchers sent many emails through the system to collect model
+    outputs from the headers.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{replicate_model.id}}'
-  description: |
-    The researchers converted the collected scores into a dataset, which they used to train a functional copy of the ProofPoint model.
-
-    Basic correlation was used to decide which score variable speaks generally about the security of an email.
-    The "mlxlogscore" was selected in this case due to its relationship with spam, phish, and core mlx and was used as the label.
-    Each "mlxlogscore" was generally between 1 and 999 (higher score = safer sample).
-    Training was performed using an Artificial Neural Network (ANN) and Bag of Words
-    tokenizing.
+  description: "The researchers used the emails and collected scores as a dataset,\
+    \ which they used to train a functional copy of the ProofPoint model. \n\nBasic\
+    \ correlation was used to decide which score variable speaks generally about the\
+    \ security of an email. The \"mlxlogscore\" was selected in this case due to its\
+    \ relationship with spam, phish, and core mlx and was used as the label. Each\
+    \ \"mlxlogscore\" was generally between 1 and 999 (higher score = safer sample).\
+    \ Training was performed using an Artificial Neural Network (ANN) and Bag of Words\
+    \ tokenizing."
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{craft_adv_transfer.id}}'
   description: 'Next, the ML researchers algorithmically found samples from this "offline"
@@ -55,4 +58,4 @@ references:
   url: https://github.com/moohax/Proof-Pudding
 - title: '2019 DerbyCon video presentation "42: The answer to life, the universe,
     and everything offensive security"'
-  url: https://www.youtube.com/watch?v=CsvkYoxtexQ&ab_channel=AdrianCrenshaw
+  url: https://www.youtube.com/watch?v=CsvkYoxtexQ&ab-channel=AdrianCrenshaw

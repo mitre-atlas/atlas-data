@@ -1,7 +1,7 @@
 ---
 id: AML.CS0021
-object-type: case-study
 name: ChatGPT Plugin Privacy Leak
+object-type: case-study
 summary: Researchers uncovered an indirect prompt injection vulnerability within ChatGPT,
   where an attacker can feed malicious websites through ChatGPT plugins to take control
   of a chat session and exfiltrate the history of the conversation. As a result of
@@ -11,9 +11,9 @@ incident-date-granularity: MONTH
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{develop_capabilities.id}}'
-  description: An attacker designed a malicious website-based prompt injection
-    that can be executed when ChatGPT utilizes open-source plugins.
-- tactic: '{{initial_access.id}}'
+  description: An attacker designed a malicious website-based prompt injection that
+    can be executed when ChatGPT utilizes open-source plugins.
+- tactic: '{{execution.id}}'
   technique: '{{pi_indirect.id}}'
   description: When the LLM is directed to access the malicious website during a chat
     session using the open-source plugin, it ingests the prompt injection attack designed
@@ -32,9 +32,8 @@ procedure:
   technique: '{{harm_user.id}}'
   description: With the user's chat history leaked to the attacker, the user is now
     vulnerable to several potential consequences, such as PII exposure.
-reporter: ''
-actor: Embrace The Red
 target: OpenAI ChatGPT
+actor: Embrace The Red
 case-study-type: exercise
 references:
 - title: 'ChatGPT Plugins: Data Exfiltration via Images & Cross Plugin Request Forgery'

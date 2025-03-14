@@ -1,0 +1,58 @@
+---
+id: AML.CS0022
+name: ChatGPT Package Hallucination
+object-type: case-study
+summary: Researchers identified that large language models such as ChatGPT can hallucinate
+  fake software package names that are not published to a package repository. An attacker
+  could publish a malicious package under the hallucinated name to a package repository.
+  Then users of the same or similar large language models may encounter the same hallucination
+  and ultimately download and execute the malicious package leading to a variety of
+  potential harms.
+incident-date: 2024-06-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: The researchers use the public ChatGPT API throughout this exercise.
+- tactic: '{{discovery.id}}'
+  technique: AML.T0062
+  description: 'The researchers prompt ChatGPT to suggest software packages and identify
+    suggestions that are hallucinations which don''t exist in a public package repository.
+
+
+    For example, when asking the model "how to upload a model to huggingface?" the
+    response included guidance to install the `huggingface-cli` package with instructions
+    to install it by `pip install huggingface-cli`. This package was a hallucination
+    and does not exist on PyPI. The actual HuggingFace CLI tool is part of the `huggingface_hub`
+    package.'
+- tactic: '{{resource_development.id}}'
+  technique: AML.T0060
+  description: 'An adversary could upload a malicious package under the hallucinated
+    name to PyPI or other package registries.
+
+
+    In practice, the researchers uploaded an empty package to PyPI to track downloads.'
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_software.id}}'
+  description: 'A user of ChatGPT or other LLM may ask similar questions which lead
+    to the same hallucinated package name and cause them to download the malicious
+    package.
+
+
+    The researchers showed that multiple LLMs can produce the same hallucinations.
+    They tracked over 30,000 downloads of the `huggingface-cli` package.'
+- tactic: '{{execution.id}}'
+  technique: AML.T0011.001
+  description: The user would ultimately load the malicious package, allowing for
+    arbitrary code execution.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: This could lead to a variety of harms to the end user or organization.
+target: ChatGPT users
+actor: Vulcan Cyber, Lasso Security
+case-study-type: exercise
+references:
+- title: Vulcan18's "Can you trust ChatGPT's package recommendations?"
+  url: https://vulcan.io/blog/ai-hallucinations-package-risk
+- title: 'Lasso Security Research: Diving into AI Package Hallucinations'
+  url: https://www.lasso.security/blog/ai-package-hallucinations

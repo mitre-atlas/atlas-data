@@ -1,18 +1,29 @@
 ---
 id: AML.CS0009
-object-type: case-study
 name: Tay Poisoning
-summary: |
-  Microsoft created Tay, a Twitter chatbot designed to engage and entertain users.
+object-type: case-study
+summary: 'Microsoft created Tay, a Twitter chatbot designed to engage and entertain
+  users.
+
   While previous chatbots used pre-programmed scripts
-  to respond to prompts, Tay's machine learning capabilities allowed it to be
+
+  to respond to prompts, Tay''s machine learning capabilities allowed it to be
+
   directly influenced by its conversations.
 
-  A coordinated attack encouraged malicious users to tweet abusive and offensive language at Tay,
-  which eventually led to Tay generating similarly inflammatory content towards other users.
+
+  A coordinated attack encouraged malicious users to tweet abusive and offensive language
+  at Tay,
+
+  which eventually led to Tay generating similarly inflammatory content towards other
+  users.
+
 
   Microsoft decommissioned Tay within 24 hours of its launch and issued a public apology
-  with lessons learned from the bot's failure.
+
+  with lessons learned from the bot''s failure.
+
+  '
 incident-date: 2016-03-23
 incident-date-granularity: DATE
 procedure:
@@ -35,8 +46,8 @@ procedure:
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
   description: As a result of this coordinated attack, Tay's conversation algorithms
-    began to learn to generate reprehensible material. Tay's internalization of
-    this detestable language caused it to be unpromptedly repeated during interactions
+    began to learn to generate reprehensible material. Tay's internalization of this
+    detestable language caused it to be unpromptedly repeated during interactions
     with innocent users.
 reporter: Microsoft
 target: Microsoft's Tay AI Chatbot

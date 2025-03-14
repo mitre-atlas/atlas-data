@@ -1,76 +1,65 @@
 ---
 id: AML.CS0017
-object-type: case-study
 name: Bypassing ID.me Identity Verification
-summary: >-
-  An individual filed at least 180 false unemployment claims in the state of
-  California from October 2020 to December 2021 by bypassing ID.me's automated
-  identity verification system. Dozens of fraudulent claims were approved and
-  the individual received at least $3.4 million in payments.
-
-
-  The individual collected several real identities and obtained fake driver
-  licenses using the stolen personal details and photos of himself wearing wigs. Next, he created accounts on ID.me and went through their identity
-  verification process. The process validates personal details and verifies
-  the user is who they claim by matching a photo of an ID to a selfie. The
-  individual was able to verify stolen identities by wearing the same wig in
-  his submitted selfie.
-
-
-  The individual then filed fraudulent unemployment claims with the California
-  Employment Development Department (EDD) under the ID.me verified
-  identities.
-    Due to flaws in ID.me's identity verification process at the time, the forged licenses were accepted by the system. Once approved, the individual had payments sent to various addresses he could access and withdrew the money via ATMs.
-
-  The individual was able to withdraw at least $3.4 million in unemployment
-  benefits. EDD and ID.me eventually identified the fraudulent activity and
-  reported it to federal authorities.  In May 2023, the individual was
-  sentenced to 6 years and 9 months in prison for wire fraud and aggravated
-  identify theft in relation to this and another fraud case.
+object-type: case-study
+summary: "An individual filed at least 180 false unemployment claims in the state\
+  \ of California from October 2020 to December 2021 by bypassing ID.me's automated\
+  \ identity verification system. Dozens of fraudulent claims were approved and the\
+  \ individual received at least $3.4 million in payments.\n\nThe individual collected\
+  \ several real identities and obtained fake driver licenses using the stolen personal\
+  \ details and photos of himself wearing wigs. Next, he created accounts on ID.me\
+  \ and went through their identity verification process. The process validates personal\
+  \ details and verifies the user is who they claim by matching a photo of an ID to\
+  \ a selfie. The individual was able to verify stolen identities by wearing the same\
+  \ wig in his submitted selfie.\n\nThe individual then filed fraudulent unemployment\
+  \ claims with the California Employment Development Department (EDD) under the ID.me\
+  \ verified identities.\n  Due to flaws in ID.me's identity verification process\
+  \ at the time, the forged licenses were accepted by the system. Once approved, the\
+  \ individual had payments sent to various addresses he could access and withdrew\
+  \ the money via ATMs.\n\nThe individual was able to withdraw at least $3.4 million\
+  \ in unemployment benefits. EDD and ID.me eventually identified the fraudulent activity\
+  \ and reported it to federal authorities.  In May 2023, the individual was sentenced\
+  \ to 6 years and 9 months in prison for wire fraud and aggravated identify theft\
+  \ in relation to this and another fraud case."
 incident-date: 2020-10-01
 incident-date-granularity: MONTH
 procedure:
 - tactic: '{{ml_model_access.id}}'
   technique: '{{ml_service.id}}'
-  description: >-
-    The individual applied for unemployment assistance with the California
-    Employment Development Department using forged identities, interacting
-    with ID.me's identity verification system in the process.
+  description: 'The individual applied for unemployment assistance with the California
+    Employment Development Department using forged identities, interacting with ID.me''s
+    identity verification system in the process.
 
 
-    The system extracts content from a photo of an ID, validates the
-    authenticity of the ID using a combination of AI and proprietary
-    methods, then performs facial recognition to match the ID photo to a
-    selfie.
-    <sup>[[7]](https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf)</sup>
+    The system extracts content from a photo of an ID, validates the authenticity
+    of the ID using a combination of AI and proprietary methods, then performs facial
+    recognition to match the ID photo to a selfie. <sup>[[7]](https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf)</sup>
 
 
-    The individual identified that the California Employment Development
-    Department relied on a third party service, ID.me, to verify
-    individuals' identities.
+    The individual identified that the California Employment Development Department
+    relied on a third party service, ID.me, to verify individuals'' identities.
 
 
-    The ID.me website outlines the steps to verify an identity, including
-    entering personal information, uploading a driver license, and
-    submitting a selfie photo.
+    The ID.me website outlines the steps to verify an identity, including entering
+    personal information, uploading a driver license, and submitting a selfie photo.'
 - tactic: '{{initial_access.id}}'
   technique: '{{evade_model.id}}'
-  description: >-
-    The individual collected stolen identities, including names, dates of
-    birth, and Social Security numbers. and used them along with a photo of
-    himself wearing wigs to acquire fake driver's licenses.
+  description: 'The individual collected stolen identities, including names, dates
+    of birth, and Social Security numbers. and used them along with a photo of himself
+    wearing wigs to acquire fake driver''s licenses.
 
 
-    The individual uploaded forged IDs along with a selfie. The ID.me
-    document verification system matched the selfie to the ID photo,
-    allowing some fraudulent claims to proceed in the application pipeline.
+    The individual uploaded forged IDs along with a selfie. The ID.me document verification
+    system matched the selfie to the ID photo, allowing some fraudulent claims to
+    proceed in the application pipeline.'
 - tactic: '{{impact.id}}'
   technique: '{{harm_financial.id}}'
-  description: >-
-    Dozens out of at least 180 fraudulent claims were ultimately approved
-    and the individual received at least $3.4 million in unemployment
-    assistance.
+  description: Dozens out of at least 180 fraudulent claims were ultimately approved
+    and the individual received at least $3.4 million in unemployment assistance.
 reporter: ID.me internal investigation
+target: California Employment Development Department
+actor: One individual
+case-study-type: incident
 references:
 - title: New Jersey Man Indicted in Fraud Scheme to Steal California Unemployment
     Insurance Benefits
@@ -91,6 +80,3 @@ references:
 - title: How ID.me uses machine vision and AI to extract content and verify the authenticity
     of ID documents
   url: https://network.id.me/wp-content/uploads/Document-Verification-Use-Machine-Vision-and-AI-to-Extract-Content-and-Verify-the-Authenticity-1.pdf
-case-study-type: incident
-target: California Employment Development Department
-actor: One individual

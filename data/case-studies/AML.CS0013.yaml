@@ -1,7 +1,7 @@
 ---
 id: AML.CS0013
-object-type: case-study
 name: Backdoor Attack on Deep Learning Models in Mobile Apps
+object-type: case-study
 summary: 'Deep learning models are increasingly used in mobile applications as critical
   components.
 
@@ -83,8 +83,8 @@ procedure:
     The researchers demonstrated this can be used to evade ML models in
 
     several safety-critical apps in the Google Play store.'
-actor: Yuanchun Li, Jiayi Hua, Haoyu Wang, Chunyang Chen, Yunxin Liu
 target: ML-based Android Apps
+actor: Yuanchun Li, Jiayi Hua, Haoyu Wang, Chunyang Chen, Yunxin Liu
 case-study-type: exercise
 references:
 - title: 'DeepPayload: Black-box Backdoor Attack on Deep Learning Models through Neural
