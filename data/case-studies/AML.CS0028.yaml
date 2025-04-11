@@ -1,0 +1,62 @@
+---
+id: AML.CS0028
+name: Hugging Face Supply Chain Compromise
+object-type: case-study
+summary: A security researcher identified a supply chain vulnerability on Hugging
+  Face where a malicious actor could squat on the namespace of a legitimate organization
+  and gain access to their AI models. The researcher registered an organization account
+  on Hugging Face that squatted on the namespace of a targeted organization and then
+  waited for legitimate employees from that organization to join the account and upload
+  models. The researcher was able to gain full access to the organization's models
+  and poison one of their large language models to return false information.
+incident-date: 2023-08-23
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{establish_accounts.id}}'
+  description: Using legitimate means, the researcher registers an "organization"
+    account on Hugging Face that squats on the namespace of a targeted organization
+    that is unaffiliated with the researcher.
+- tactic: '{{initial_access.id}}'
+  technique: '{{phishing.id}}'
+  description: Legitimate employees of the targeted organization find the fake Hugging
+    Face account through web searches, social media posts about the account, or other
+    phishing means. The employees unwittingly join the fake account and upload models
+    from their organization.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{full_access.id}}'
+  description: As owner of the Hugging Face account, the researcher has full read
+    and write access to the uploaded models. They can manipulate model weights or
+    even insert malware as a payload.
+- tactic: '{{impact.id}}'
+  technique: '{{ip_theft.id}}'
+  description: With full access to the model, the researcher could access valuable
+    proprietry models.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{embed_malware.id}}'
+  description: ''
+- tactic: '{{resource_development.id}}'
+  technique: '{{publish_poisoned_model.id}}'
+  description: ''
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_model.id}}'
+  description: ''
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfiltrate_via_cyber.id}}'
+  description: ''
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_cap.id}}'
+  description: The researcher obtained EasyEdit, a publicly available knowledge editing
+    tool for large language models.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{poison_model.id}}'
+  description: ''
+- tactic: '{{impact.id}}'
+  technique: '{{external_harms.id}}'
+  description: ''
+target: Hugging Face users
+actor: threlfall_hax
+case-study-type: exercise
+references:
+- title: Model Confusion - Weaponizing ML models for red teams and bounty hunters
+  url: https://5stars217.github.io/2023-08-08-red-teaming-with-ml-models/#unexpected-benefits---organization-confusion

@@ -323,3 +323,22 @@
     url: https://attack.mitre.org/tactics/TA0006/
   created_date: 2023-10-25
   modified_date: 2023-10-25
+
+- &command_and_control
+  id: AML.TA0014
+  name: Command and Control
+  description: 'The adversary is trying to communicate with compromised AI systems
+    to control them.
+
+
+    Command and Control consists of techniques that adversaries may use to communicate
+    with systems under their control within a victim network. Adversaries commonly
+    attempt to mimic normal, expected traffic to avoid detection. There are many ways
+    an adversary can establish command and control with various levels of stealth
+    depending on the victim''s network structure and defenses.'
+  object-type: tactic
+  ATT&CK-reference:
+    id: TA0011
+    url: https://attack.mitre.org/tactics/TA0011/
+  created_date: 2025-04-11
+  modified_date: 2025-04-11
