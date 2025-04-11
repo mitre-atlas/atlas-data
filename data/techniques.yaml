@@ -877,60 +877,54 @@
 
 - &backdoor_model
   id: AML.T0018
-  name: Backdoor AI Model
-  description: 'Adversaries may introduce a backdoor into a AI model.
-
-    A backdoored model operates performs as expected under typical conditions, but
-    will produce the adversary''s desired output when a trigger is introduced to the
-    input data.
-
-    A backdoored model provides the adversary with a persistent artifact on the victim
-    system.
-
-    The embedded vulnerability is typically activated at a later time by data samples
-    with an {{ create_internal_link(craft_adv_trigger) }}'
+  name: Manipulate AI Model
+  description: "Adversaries may directly manipulate an AI model to change its behavior\
+    \ or introduce malicious code.\n\nThe model may be \n\nManipulating a model give\
+    \ the adversary a persistent change in behavior. It can include backdoors that\
+    \ persist.\n\nAdversary manipulated models may be difficult to detect \n\nAdversaries\
+    \ may introduce a backdoor into a AI model.\nA backdoored model operates performs\
+    \ as expected under typical conditions, but will produce the adversary's desired\
+    \ output when a trigger is introduced to the input data.\nA backdoored model provides\
+    \ the adversary with a persistent artifact on the victim system."
   object-type: technique
   tactics:
   - '{{persistence.id}}'
   - '{{ml_attack_staging.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2024-04-11
 
 - &poison_model
   id: AML.T0018.000
   name: Poison AI Model
-  description: 'Adversaries may introduce a backdoor by training the model on poisoned
-    data, directly manipulating its weights, interfering with its training process,
-    or further fine-tuning it.
-
-    Poisoning the model allows the adversary to control how the model reacts to input
-    data to produce the adversary''s desired output.
-
-    Adversaries may target specific categories in predictive AI models, or specific
-    topics, concepts, or facts in generative AI models, or aim for a general performance
-    degradation
-
-    They can cause the model to react to an adversary-defined pattern that is injected
-    into input data at inference time in order to control when the model is affected.'
+  description: "Adversaries may manipulate an AI model's weights to change it's behavior\
+    \ or performance, resulting in a poisoned model.\nAdversaries may poison a model\
+    \ by by directly manipulating its weights, training the model on poisoned data,\
+    \ further fine-tuning the model, or otherwise interfering with its training process.\
+    \ \n\nThe change in behavior of poisoned models may be limited to targeted categories\
+    \ in predictive AI models, or targeted topics, concepts, or facts in generative\
+    \ AI models, or aim for a general performance degradation."
   object-type: technique
   subtechnique-of: '{{backdoor_model.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2024-04-11
 
 - &inject_payload
   id: AML.T0018.001
-  name: Inject Payload
-  description: 'Adversaries may introduce a backdoor into a model by injecting a payload
-    into the model file.
+  name: Modify AI Model Architecture
+  description: 'Adversaries may directly modify an AI model''s architecture to re-define
+    it''s behavior. This can include adding or removing layers as well as adding pre
+    or post-processing operations.
 
-    The payload detects the presence of the trigger and bypasses the model, instead
-    producing the adversary''s desired output.
 
-    '
+    The effects could include removing the ability to predict certain classes, adding
+    erroneous operations to increase computation costs, or degrading performance.
+    Additionally, a separate adversary-defined network could be injected into the
+    computation graph, which can change the behavior based on the inputs, effectively
+    creating a backdoor.'
   object-type: technique
   subtechnique-of: '{{backdoor_model.id}}'
   created_date: 2021-05-13
-  modified_date: 2021-05-13
+  modified_date: 2024-04-11
 
 - &exfiltrate_via_api
   id: AML.T0024
@@ -2035,3 +2029,21 @@
   subtechnique-of: '{{backdoor_model.id}}'
   created_date: 2025-04-09
   modified_date: 2025-04-09
+
+- &supply_chain_registry
+  id: AML.T0010.004
+  name: Container Registry
+  description: 'An adversary may compromise a victim''s container registry by pushing
+    a manipulated container image and overwriting an existing container name and/or
+    tag. Users of the container registry as well as automated CI/CD pipelines may
+    pull the adversary''s container image, compromising their AI Supply Chain. This
+    can affect development and deployment environments.
+
+
+    Container images may include AI models, so the compromised image could have an
+    AI model which was manipulated by the adversary (See {{ create_internal_link(backdoor_model)
+    }}).'
+  object-type: technique
+  subtechnique-of: '{{supply_chain.id}}'
+  created_date: 2024-04-11
+  modified_date: 2025-04-11
