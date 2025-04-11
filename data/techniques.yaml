@@ -2047,3 +2047,12 @@
   subtechnique-of: '{{supply_chain.id}}'
   created_date: 2024-04-11
   modified_date: 2025-04-11
+
+- &reverse_shell
+  id: AML.T0072
+  name: Reverse Shell
+  object-type: technique
+  tactics:
+  - '{{command_and_control.id}}'
+  created_date: 2025-04-11
+  modified_date: 2025-04-11
