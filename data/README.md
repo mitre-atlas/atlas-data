@@ -43,7 +43,7 @@ Each referenceable data object has a YAML anchor, which is prefaced with `&`.  F
 ```yaml
 - &supply_chain
   id: AML.T0010
-  name: ML Supply Chain Compromise
+  name: AI Supply Chain Compromise
   object-type: technique
 ```
 

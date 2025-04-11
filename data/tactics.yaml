@@ -2,41 +2,39 @@
 
 - &ml_model_access
   id: AML.TA0000
-  name: ML Model Access
-  description: 'The adversary is attempting to gain some level of access to a machine
-    learning model.
+  name: AI Model Access
+  description: 'The adversary is attempting to gain some level of access to an AI
+    model.
 
 
-    ML Model Access enables techniques that use various types of access to the machine
-    learning model that can be used by the adversary to gain information, develop
-    attacks, and as a means to input data to the model.
+    AI Model Access enables techniques that use various types of access to the AI
+    model that can be used by the adversary to gain information, develop attacks,
+    and as a means to input data to the model.
 
     The level of access can range from the full knowledge of the internals of the
     model to access to the physical environment where data is collected for use in
-    the machine learning model.
+    the AI model.
 
     The adversary may use varying levels of model access during the course of their
     attack, from staging the attack to impacting the target system.
 
 
-    Access to an ML model may require access to the system housing the model, the
+    Access to an AI model may require access to the system housing the model, the
     model may be publically accessible via an API, or it may be accessed indirectly
-    via interaction with a product or service that utilizes ML as part of its processes.
-
-    '
+    via interaction with a product or service that utilizes AI as part of its processes.'
   object-type: tactic
   created_date: 2021-05-13
-  modified_date: 2022-10-27
+  modified_date: 2025-04-09
 
 - &ml_attack_staging
   id: AML.TA0001
-  name: ML Attack Staging
+  name: AI Attack Staging
   description: 'The adversary is leveraging their knowledge of and access to the target
     system to tailor the attack.
 
 
-    ML Attack Staging consists of techniques adversaries use to prepare their attack
-    on the target ML model.
+    AI Attack Staging consists of techniques adversaries use to prepare their attack
+    on the target AI model.
 
     Techniques can include training proxy models, poisoning the target model, and
     crafting adversarial data to feed the target model.
@@ -44,39 +42,35 @@
     Some of these techniques can be performed in an offline manner and are thus difficult
     to mitigate.
 
-    These techniques are often used to achieve the adversary''s end goal.
-
-    '
+    These techniques are often used to achieve the adversary''s end goal.'
   object-type: tactic
   created_date: 2021-05-13
-  modified_date: 2022-10-27
+  modified_date: 2025-04-09
 
 - &reconnaissance
   id: AML.TA0002
   name: Reconnaissance
-  description: 'The adversary is trying to gather information about the machine learning
-    system they can use to plan future operations.
+  description: 'The adversary is trying to gather information about the AI system
+    they can use to plan future operations.
 
 
     Reconnaissance consists of techniques that involve adversaries actively or passively
     gathering information that can be used to support targeting.
 
-    Such information may include details of the victim organizations'' machine learning
-    capabilities and research efforts.
+    Such information may include details of the victim organizations'' AI capabilities
+    and research efforts.
 
     This information can be leveraged by the adversary to aid in other phases of the
-    adversary lifecycle, such as using gathered information to obtain relevant ML
-    artifacts, targeting ML capabilities used by the victim, tailoring attacks to
+    adversary lifecycle, such as using gathered information to obtain relevant AI
+    artifacts, targeting AI capabilities used by the victim, tailoring attacks to
     the particular models used by the victim, or to drive and lead further Reconnaissance
-    efforts.
-
-    '
+    efforts.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0043
     url: https://attack.mitre.org/tactics/TA0043/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &resource_development
   id: AML.TA0003
@@ -89,49 +83,44 @@
 
     purchasing, or compromising/stealing resources that can be used to support targeting.
 
-    Such resources include machine learning artifacts, infrastructure, accounts, or
-    capabilities.
+    Such resources include AI artifacts, infrastructure, accounts, or capabilities.
 
     These resources can be leveraged by the adversary to aid in other phases of the
-    adversary lifecycle, such as {{ create_internal_link(ml_attack_staging) }}.
-
-    '
+    adversary lifecycle, such as {{ create_internal_link(ml_attack_staging) }}.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0042
     url: https://attack.mitre.org/tactics/TA0042/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &initial_access
   id: AML.TA0004
   name: Initial Access
-  description: 'The adversary is trying to gain access to the machine learning system.
+  description: 'The adversary is trying to gain access to the AI system.
 
 
     The target system could be a network, mobile device, or an edge device such as
     a sensor platform.
 
-    The machine learning capabilities used by the system could be local with onboard
-    or cloud-enabled ML capabilities.
+    The AI capabilities used by the system could be local with onboard or cloud-enabled
+    AI capabilities.
 
 
     Initial Access consists of techniques that use various entry vectors to gain their
-    initial foothold within the system.
-
-    '
+    initial foothold within the system.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0001
     url: https://attack.mitre.org/tactics/TA0001/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &execution
   id: AML.TA0005
   name: Execution
-  description: 'The adversary is trying to run malicious code embedded in machine
-    learning artifacts or software.
+  description: 'The adversary is trying to run malicious code embedded in AI artifacts
+    or software.
 
 
     Execution consists of techniques that result in adversary-controlled code running
@@ -141,21 +130,19 @@
     tactics to achieve broader goals, like exploring a network or stealing data.
 
     For example, an adversary might use a remote access tool to run a PowerShell script
-    that does [Remote System Discovery](https://attack.mitre.org/techniques/T1018/).
-
-    '
+    that does [Remote System Discovery](https://attack.mitre.org/techniques/T1018/).'
   object-type: tactic
   ATT&CK-reference:
     id: TA0002
     url: https://attack.mitre.org/tactics/TA0002/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &persistence
   id: AML.TA0006
   name: Persistence
-  description: 'The adversary is trying to maintain their foothold via machine learning
-    artifacts or software.
+  description: 'The adversary is trying to maintain their foothold via AI artifacts
+    or software.
 
 
     Persistence consists of techniques that adversaries use to keep access to systems
@@ -163,41 +150,37 @@
     their access.
 
     Techniques used for persistence often involve leaving behind modified ML artifacts
-    such as poisoned training data or backdoored ML models.
-
-    '
+    such as poisoned training data or manipulated AI models.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0003
     url: https://attack.mitre.org/tactics/TA0003/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &defense_evasion
   id: AML.TA0007
   name: Defense Evasion
-  description: 'The adversary is trying to avoid being detected by machine learning-enabled
-    security software.
+  description: 'The adversary is trying to avoid being detected by AI-enabled security
+    software.
 
 
     Defense Evasion consists of techniques that adversaries use to avoid detection
     throughout their compromise.
 
-    Techniques used for defense evasion include evading ML-enabled security software
-    such as malware detectors.
-
-    '
+    Techniques used for defense evasion include evading AI-enabled security software
+    such as malware detectors.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0005
     url: https://attack.mitre.org/tactics/TA0005/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &discovery
   id: AML.TA0008
   name: Discovery
-  description: 'The adversary is trying to figure out your machine learning environment.
+  description: 'The adversary is trying to figure out your AI environment.
 
 
     Discovery consists of techniques an adversary may use to gain knowledge about
@@ -210,46 +193,42 @@
     their entry point in order to discover how it could benefit their current objective.
 
     Native operating system tools are often used toward this post-compromise information-gathering
-    objective.
-
-    '
+    objective.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0007
     url: https://attack.mitre.org/tactics/TA0007/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &collection
   id: AML.TA0009
   name: Collection
-  description: 'The adversary is trying to gather machine learning artifacts and other
-    related information relevant to their goal.
+  description: 'The adversary is trying to gather AI artifacts and other related information
+    relevant to their goal.
 
 
     Collection consists of techniques adversaries may use to gather information and
     the sources information is collected from that are relevant to following through
     on the adversary''s objectives.
 
-    Frequently, the next goal after collecting data is to steal (exfiltrate) the ML
+    Frequently, the next goal after collecting data is to steal (exfiltrate) the AI
     artifacts, or use the collected information to stage future operations.
 
     Common target sources include software repositories, container registries, model
-    repositories, and object stores.
-
-    '
+    repositories, and object stores.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0009
     url: https://attack.mitre.org/tactics/TA0009/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &exfiltration
   id: AML.TA0010
   name: Exfiltration
-  description: 'The adversary is trying to steal machine learning artifacts or other
-    information about the machine learning system.
+  description: 'The adversary is trying to steal AI artifacts or other information
+    about the AI system.
 
 
     Exfiltration consists of techniques that adversaries may use to steal data from
@@ -261,21 +240,19 @@
 
     Techniques for getting data out of a target network typically include transferring
     it over their command and control channel or an alternate channel and may also
-    include putting size limits on the transmission.
-
-    '
+    include putting size limits on the transmission.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0010
     url: https://attack.mitre.org/tactics/TA0010/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &impact
   id: AML.TA0011
   name: Impact
   description: 'The adversary is trying to manipulate, interrupt, erode confidence
-    in, or destroy your machine learning systems and data.
+    in, or destroy your AI systems and data.
 
 
     Impact consists of techniques that adversaries use to disrupt availability or
@@ -287,15 +264,13 @@
     benefit the adversaries'' goals.
 
     These techniques might be used by adversaries to follow through on their end goal
-    or to provide cover for a confidentiality breach.
-
-    '
+    or to provide cover for a confidentiality breach.'
   object-type: tactic
   ATT&CK-reference:
     id: TA0040
     url: https://attack.mitre.org/tactics/TA0040/
   created_date: 2022-01-24
-  modified_date: 2023-01-18
+  modified_date: 2025-04-09
 
 - &privilege_escalation
   id: AML.TA0012
