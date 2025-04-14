@@ -875,8 +875,12 @@
 - &ai_telemetry_logging
   id: AML.M0024
   name: AI Telemetry Logging
-  description: Implement logging of inputs and outputs of deployed AI models. Monitoring
+  description: 'Implement logging of inputs and outputs of deployed AI models. Monitoring
     logs can help to detect security threats and mitigate impacts.
+
+
+    Additionally, having logging enabled can discourage adversaries who want to remain
+    undetected from utilizing AI resources.'
   object-type: mitigation
   techniques:
   - id: '{{exfiltrate_via_api.id}}'
@@ -910,7 +914,7 @@
   category:
   - Technical - Cyber
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-04-14
 
 - &maintain_dataset_provenance
   id: AML.M0025

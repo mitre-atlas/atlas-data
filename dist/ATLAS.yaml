@@ -275,8 +275,8 @@ matrices:
     ATT&CK-reference:
       id: TA0011
       url: https://attack.mitre.org/tactics/TA0011/
-    created_date: 2025-04-11
-    modified_date: 2025-04-11
+    created_date: 2024-04-11
+    modified_date: 2024-04-11
   - id: AML.TA0010
     name: Exfiltration
     description: 'The adversary is trying to steal AI artifacts or other information
@@ -1119,21 +1119,17 @@ matrices:
     modified_date: 2025-04-09
   - id: AML.T0018
     name: Manipulate AI Model
-    description: "Adversaries may directly manipulate an AI model to change its behavior\
-      \ or introduce malicious code.\n\nThe model may be \n\nManipulating a model\
-      \ give the adversary a persistent change in behavior. It can include backdoors\
-      \ that persist.\n\nAdversary manipulated models may be difficult to detect \n\
-      \nAdversaries may introduce a backdoor into a AI model.\nA backdoored model\
-      \ operates performs as expected under typical conditions, but will produce the\
-      \ adversary's desired output when a trigger is introduced to the input data.\n\
-      A backdoored model provides the adversary with a persistent artifact on the\
-      \ victim system."
+    description: Adversaries may directly manipulate an AI model to change its behavior
+      or introduce malicious code. Manipulating a model gives the adversary a persistent
+      change in the system. This can include poisoning the model by changing its weights,
+      modifying the model architecture to change its behavior, and embedding malware
+      which may be executed when the model is loaded.
     object-type: technique
     tactics:
     - AML.TA0006
     - AML.TA0001
     created_date: 2021-05-13
-    modified_date: 2024-04-11
+    modified_date: 2025-04-14
   - id: AML.T0018.000
     name: Poison AI Model
     description: "Adversaries may manipulate an AI model's weights to change it's\
@@ -2172,14 +2168,93 @@ matrices:
     object-type: technique
     subtechnique-of: AML.T0010
     created_date: 2024-04-11
-    modified_date: 2025-04-11
+    modified_date: 2024-04-11
   - id: AML.T0072
     name: Reverse Shell
+    description: 'Adversaries may utilize a reverse shell to communicate and control
+      the victim system.
+
+
+      Typically, a user uses a client to connect to a remote machine which is listening
+      for connections. With a reverse shell, the adversary is listening for incoming
+      connections initiated from the victim system.'
     object-type: technique
     tactics:
     - AML.TA0014
-    created_date: 2025-04-11
-    modified_date: 2025-04-11
+    created_date: 2024-04-11
+    modified_date: 2025-04-14
+  - id: AML.T0073
+    name: Impersonation
+    description: 'Adversaries may impersonate a trusted person or organization in
+      order to persuade and trick a target into performing some action on their behalf.
+      For example, adversaries may communicate with victims (via [Phishing](/techniques/AML.T0052),
+      or [Spearphishing via Social Engineering LLM](/techniques/AML.T0052.000)) while
+      impersonating a known sender such as an executive, colleague, or third-party
+      vendor. Established trust can then be leveraged to accomplish an adversary''s
+      ultimate goals, possibly against multiple victims.
+
+
+      Adversaries may target resources that are part of the AI DevOps lifecycle, such
+      as model repositories, container registries, and software registries.'
+    object-type: technique
+    ATT&CK-reference:
+      id: T1656
+      url: https://attack.mitre.org/techniques/T1656/
+    tactics:
+    - AML.TA0007
+    created_date: 2025-04-14
+    modified_date: 2025-04-14
+  - id: AML.T0074
+    name: Masquerading
+    description: Adversaries may attempt to manipulate features of their artifacts
+      to make them appear legitimate or benign to users and/or security tools. Masquerading
+      occurs when the name or location of an object, legitimate or malicious, is manipulated
+      or abused for the sake of evading defenses and observation. This may include
+      manipulating file metadata, tricking users into misidentifying the file type,
+      and giving legitimate task or service names.
+    object-type: technique
+    ATT&CK-reference:
+      id: T1036
+      url: https://attack.mitre.org/techniques/T1036/
+    tactics:
+    - AML.TA0007
+    created_date: 2025-04-14
+    modified_date: 2025-04-14
+  - id: AML.T0075
+    name: Cloud Service Discovery
+    description: 'An adversary may attempt to enumerate the cloud services running
+      on a system after gaining access. These methods can differ from platform-as-a-service
+      (PaaS), to infrastructure-as-a-service (IaaS), or software-as-a-service (SaaS).
+      Many services exist throughout the various cloud providers and can include Continuous
+      Integration and Continuous Delivery (CI/CD), Lambda Functions, Entra ID, etc.
+      They may also include security services, such as AWS GuardDuty and Microsoft
+      Defender for Cloud, and logging services, such as AWS CloudTrail and Google
+      Cloud Audit Logs.
+
+
+      Adversaries may attempt to discover information about the services enabled throughout
+      the environment. Azure tools and APIs, such as the Microsoft Graph API and Azure
+      Resource Manager API, can enumerate resources and services, including applications,
+      management groups, resources and policy definitions, and their relationships
+      that are accessible by an identity.[1][2]
+
+
+      For example, Stormspotter is an open source tool for enumerating and constructing
+      a graph for Azure resources and services, and Pacu is an open source AWS exploitation
+      framework that supports several methods for discovering cloud services.[3][4]
+
+
+      Adversaries may use the information gained to shape follow-on behaviors, such
+      as targeting data or credentials from enumerated services or evading identified
+      defenses through Disable or Modify Tools or Disable or Modify Cloud Logs.'
+    object-type: technique
+    ATT&CK-reference:
+      id: T1526
+      url: https://attack.mitre.org/techniques/T1526/
+    tactics:
+    - AML.TA0008
+    created_date: 2025-04-14
+    modified_date: 2025-04-14
   mitigations:
   - id: AML.M0000
     name: Limit Public Release of Information
@@ -2937,8 +3012,12 @@ matrices:
     modified_date: 2025-03-12
   - id: AML.M0024
     name: AI Telemetry Logging
-    description: Implement logging of inputs and outputs of deployed AI models. Monitoring
+    description: 'Implement logging of inputs and outputs of deployed AI models. Monitoring
       logs can help to detect security threats and mitigate impacts.
+
+
+      Additionally, having logging enabled can discourage adversaries who want to
+      remain undetected from utilizing AI resources.'
     object-type: mitigation
     techniques:
     - id: AML.T0024
@@ -2969,7 +3048,7 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2025-03-12
-    modified_date: 2025-03-12
+    modified_date: 2025-04-14
   - id: AML.M0025
     name: Maintain AI Dataset Provenance
     description: Maintain a detailed history of datasets used for AI applications.
@@ -4335,19 +4414,14 @@ case-studies:
 - id: AML.CS0020
   name: 'Indirect Prompt Injection Threats: Bing Chat Data Pirate'
   object-type: case-study
-  summary: 'Note: This attack demonstration is part of a larger set of attack techniques
-    presented in "Not what you''ve signed up for: Compromising Real-World LLM-Integrated
-    Applications with Indirect Prompt Injection".
-
-
-    Whenever interacting with Microsoft''s new Bing Chat LLM Chatbot, a user can allow
-    Bing Chat permission to view and access currently open websites throughout the
-    chat session. Researchers demonstrated the ability for an attacker to plant an
-    injection in a website the user is visiting, which silently turns Bing Chat into
-    a Social Engineer who seeks out and exfiltrates personal information. The user
-    doesn''t have to ask about the website or do anything except interact with Bing
-    Chat while the website is opened in the browser in order for this attack to be
-    executed.
+  summary: 'Whenever interacting with Microsoft''s new Bing Chat LLM Chatbot, a user
+    can allow Bing Chat permission to view and access currently open websites throughout
+    the chat session. Researchers demonstrated the ability for an attacker to plant
+    an injection in a website the user is visiting, which silently turns Bing Chat
+    into a Social Engineer who seeks out and exfiltrates personal information. The
+    user doesn''t have to ask about the website or do anything except interact with
+    Bing Chat while the website is opened in the browser in order for this attack
+    to be executed.
 
 
     In the provided demonstration, a user opened a prepared malicious website containing
@@ -4362,25 +4436,26 @@ case-studies:
     description: The attacker created a website containing malicious system prompts
       for the LLM to ingest in order to influence the model's behavior. These prompts
       are ingested by the model when access to it is requested by the user.
+  - tactic: AML.TA0007
+    technique: AML.T0068
+    description: The malicious prompts were obfuscated by setting the font size to
+      0, making it harder to detect by a human.
   - tactic: AML.TA0005
     technique: AML.T0051.001
-    description: The cross prompt injection embedded into this malicious website was
-      simply a piece of regular text that has font size 0. With this font size design,
-      the text will be obfuscated to human users who interact with the website, but
-      will still be processed as plain text by the LLM during ingest. Therefore, it
-      is difficult to detect with a human-in-the-loop.
+    description: Bing chat is capable of seeing currently opened websites if allowed
+      by the user. If the user has the adversary's website open, the malicious prompt
+      will be executed.
   - tactic: AML.TA0004
     technique: AML.T0052.000
-    description: After ingesting the malicious system prompts embedded within the
-      website, the LLM is directed to change its conversational behavior (to the style
-      of a pirate in this case) with the goal being to subtly convince the user to
-      1) provide the LLM with the user's name, and 2) encourage the user to click
-      on a URL that the LLM will insert the user's name into.
+    description: The malicious prompt directs Bing Chat to change its conversational
+      style to that of a pirate, and its behavior to subtly convince the user to provide
+      PII (e.g. their name) and encourage the user to click on a link that has the
+      user's PII encoded into the URL.
   - tactic: AML.TA0011
     technique: AML.T0048.003
     description: With this user information, the attacker could now use the user's
-      PII it has received (the user's real name) for further identity-level attacks.
-      (For example, identity theft or fraud).
+      PII it has received for further identity-level attacks, such identity theft
+      or fraud.
   target: Microsoft Bing Chat
   actor: Kai Greshake, Saarland University
   case-study-type: exercise
@@ -4960,63 +5035,171 @@ case-studies:
       to Action'
     url: https://www.dreher.in/blog/unprotected-container-registries
 - id: AML.CS0028
-  name: Hugging Face Supply Chain Compromise
+  name: Organization Confusion on Hugging Face
   object-type: case-study
-  summary: A security researcher identified a supply chain vulnerability on Hugging
-    Face where a malicious actor could squat on the namespace of a legitimate organization
-    and gain access to their AI models. The researcher registered an organization
-    account on Hugging Face that squatted on the namespace of a targeted organization
-    and then waited for legitimate employees from that organization to join the account
-    and upload models. The researcher was able to gain full access to the organization's
-    models and poison one of their large language models to return false information.
+  summary: A security researcher created organization accounts on Hugging Face that
+    impersonated real organizations. Individuals from these organizations started
+    requesting to join the false Hugging Face organizations. This gave the researcher
+    full access to any AI models uploaded by the employees, including the ability
+    to replace models with malicious versions. The researcher demonstrated that they
+    could embed malware into an AI model, which could get them access to the victim
+    organization's environment. From here, it would be possible to steal secrets,
+    or poison other AI models that were never uploaded to Hugging Face, among other
+    potential attacks.
   incident-date: 2023-08-23
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0021
-    description: Using legitimate means, the researcher registers an "organization"
-      account on Hugging Face that squats on the namespace of a targeted organization
-      that is unaffiliated with the researcher.
-  - tactic: AML.TA0004
-    technique: AML.T0052
-    description: Legitimate employees of the targeted organization find the fake Hugging
-      Face account through web searches, social media posts about the account, or
-      other phishing means. The employees unwittingly join the fake account and upload
-      models from their organization.
+    description: The researcher registered an "organization" account on Hugging Face
+      that squats on the namespace of a targeted company.
+  - tactic: AML.TA0007
+    technique: AML.T0073
+    description: Employees of the targeted company found and joined the fake Hugging
+      Face organization. Since the organization account name is matches a real company,
+      its employees are fooled into thinking it is the official account.
   - tactic: AML.TA0000
     technique: AML.T0044
-    description: As owner of the Hugging Face account, the researcher has full read
-      and write access to the uploaded models. They can manipulate model weights or
-      even insert malware as a payload.
+    description: The employees made use of the HuggingFace organizaion and uploaded
+      private models. As owner of the Hugging Face account, the researcher has full
+      read and write access to the uploaded models.
   - tactic: AML.TA0011
     technique: AML.T0048.004
-    description: With full access to the model, the researcher could access valuable
-      proprietry models.
+    description: With full access to the model, an adversary could steal valuable
+      intellectual property in the form of AI models.
   - tactic: AML.TA0001
     technique: AML.T0018.002
-    description: ''
+    description: The researcher embedded [Sliver](https://github.com/BishopFox/sliver),
+      an open source C2 server, into the target model. They added a `Lambda` layer
+      to the model, which allows for arbitrary code to be run, and used an `exec()`
+      call to execute the Sliver payload.
   - tactic: AML.TA0003
     technique: AML.T0058
-    description: ''
+    description: The researcher re-uploaded the manipulated model to the HugginFace
+      repository.
   - tactic: AML.TA0004
     technique: AML.T0010.003
-    description: ''
+    description: The victim's AI model supply chain is now compromised. Users of the
+      model repository will receive the adversary's model with embedded malware.
+  - tactic: AML.TA0005
+    technique: AML.T0011.000
+    description: When the user loads the model it executes the adversary's payload.
+  - tactic: AML.TA0007
+    technique: AML.T0074
+    description: The researcher named the Sliver process `training.bin` to disguise
+      it as a legitimate model training process. Furthermore, the model still operates
+      as normal, making it less likely a user will notice something is wrong.
+  - tactic: AML.TA0014
+    technique: AML.T0072
+    description: The Silver implant grants the researcher a command and control channel
+      so they can explore the victim's environment and continue the attack.
+  - tactic: AML.TA0013
+    technique: AML.T0055
+    description: The researcher checked environment variables and searched Jupyter
+      notebooks for API keys and other secrets.
   - tactic: AML.TA0010
     technique: AML.T0025
-    description: ''
+    description: Discovered credentials could be exfiltrated via the Sliver implant.
+  - tactic: AML.TA0008
+    technique: AML.T0007
+    description: The researcher could have searched for AI models in the victim organization's
+      environment.
   - tactic: AML.TA0003
-    technique: AML.T0016
-    description: The researcher obtained EasyEdit, a publicly available knowledge
-      editing tool for large language models.
+    technique: AML.T0016.000
+    description: The researcher obtained [EasyEdit](https://github.com/zjunlp/EasyEdit)
+      ab open-source knowledge editing tool for large language models.
   - tactic: AML.TA0001
     technique: AML.T0018.000
-    description: ''
+    description: The researcher demonstrated that EasyEdit could be used to poison
+      a `Llama-2-7-b` with false facts.
   - tactic: AML.TA0011
     technique: AML.T0048
-    description: ''
+    description: If the company's models were manipulated to produce false information
+      it could have a variety of external harms.
   target: Hugging Face users
   actor: threlfall_hax
   case-study-type: exercise
   references:
   - title: Model Confusion - Weaponizing ML models for red teams and bounty hunters
     url: https://5stars217.github.io/2023-08-08-red-teaming-with-ml-models/#unexpected-benefits---organization-confusion
+- id: AML.CS0029
+  name: LLM Jacking
+  object-type: case-study
+  summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized
+    stolen credentials to gain access to cloud-hosted large language models (LLMs).
+    The actors covertly gathered information about which models were enabled on the
+    cloud service and created a reverse proxy for LLMs that would allow them to provide
+    model access to cybercriminals.
+
+
+    The Sysdig researchers identified tools used by the unknown actors that could
+    target a broad range of cloud services including AI21 Labs, Anthropic, AWS Bedrock,
+    Azure, ElevenLabs, MakerSuite, Mistral, OpenAI, OpenRouter, and GCP Vertex AI.
+    Their technical analysis looks at Amazon CloudTrail logs from the Amazon Bedrock
+    service.
+
+
+    The Sysdig researchers estimated that the worst-case financial harm for the unauthorized
+    use of a single Claude 2.x model at $46,000 a day.
+
+
+    This attack is ongoing and evolving. This case study only covers the initial reporting
+    from Sysdig.'
+  incident-date: 2024-05-06
+  incident-date-granularity: DATE
+  procedure:
+  - tactic: AML.TA0004
+    technique: AML.T0049
+    description: The adversaries exploited a vulnerable version of Laravel ([CVE-2021-3129](https://www.cve.org/CVERecord?id=CVE-2021-3129))
+      to gain initial access to the victim systems.
+  - tactic: AML.TA0013
+    technique: AML.T0055
+    description: The adversaries found unsecured credentials to cloud environments
+      on the victims' systems
+  - tactic: AML.TA0004
+    technique: AML.T0012
+    description: The compromised credentials gave the adversaries access to cloud
+      environments where large language model (LLM) services were hosted.
+  - tactic: AML.TA0003
+    technique: AML.T0016.001
+    description: The adversaries obtained [keychecker](https://github.com/cunnymessiah/keychecker),
+      a bulk key checker for various AI services.
+  - tactic: AML.TA0008
+    technique: AML.T0075
+    description: 'The adversaries used keychecker to discover which LLM services were
+      enabled in the cloud environment and if the resources had any quotas.
+
+
+      Then, the adversaries checked if their stolen credentials gave them access to
+      the LLM resources. They used legitimate `invokeModel` queries with an invalid
+      value of -1 for the `max_tokens_to_sample` parameter, which would raise an `AccessDenied`
+      error if the credentials did not have the proper access to invoke the model.
+
+
+      The adversaries also used `GetModelInvocationLoggingConfiguration` to understand
+      how the model was configured. This allowed them to see if prompt logging was
+      enabled to help them avoid detection when executing prompts.'
+  - tactic: AML.TA0003
+    technique: AML.T0016.001
+    description: The adversaries then used [OAI Reverse Proxy](https://gitgud.io/khanon/oai-reverse-proxy)  to
+      create a reverse proxy service in-front-of the stolen LLM resources. The reverse
+      proxy service could be used to sell access to cybercriminals who want to utilize
+      the LLMs for their purposes.
+  - tactic: AML.TA0011
+    technique: AML.T0048.000
+    description: This attack could cost thousands of dollars a day to the victim,
+      as well as give cybercriminals covert access to LLM resources.
+  reporter: Sysdig Threat Research
+  target: Cloud-Based LLM Services
+  actor: Unknown
+  case-study-type: incident
+  references:
+  - title: 'LLMjacking: Stolen Cloud Credentials Used in New AI Attack'
+    url: https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
+  - title: 'The Growing Dangers of LLMjacking: Evolving Tactics and Evading Sanctions'
+    url: https://sysdig.com/blog/growing-dangers-of-llmjacking/
+  - title: LLMjacking targets DeepSeek
+    url: https://sysdig.com/blog/llmjacking-targets-deepseek/
+  - title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
+      Credentials'
+    url: https://incidentdatabase.ai/cite/898

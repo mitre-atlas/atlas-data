@@ -1,59 +1,85 @@
 ---
 id: AML.CS0028
-name: Hugging Face Supply Chain Compromise
+name: Organization Confusion on Hugging Face
 object-type: case-study
-summary: A security researcher identified a supply chain vulnerability on Hugging
-  Face where a malicious actor could squat on the namespace of a legitimate organization
-  and gain access to their AI models. The researcher registered an organization account
-  on Hugging Face that squatted on the namespace of a targeted organization and then
-  waited for legitimate employees from that organization to join the account and upload
-  models. The researcher was able to gain full access to the organization's models
-  and poison one of their large language models to return false information.
+summary: A security researcher created organization accounts on Hugging Face that
+  impersonated real organizations. Individuals from these organizations started requesting
+  to join the false Hugging Face organizations. This gave the researcher full access
+  to any AI models uploaded by the employees, including the ability to replace models
+  with malicious versions. The researcher demonstrated that they could embed malware
+  into an AI model, which could get them access to the victim organization's environment.
+  From here, it would be possible to steal secrets, or poison other AI models that
+  were never uploaded to Hugging Face, among other potential attacks.
 incident-date: 2023-08-23
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{establish_accounts.id}}'
-  description: Using legitimate means, the researcher registers an "organization"
-    account on Hugging Face that squats on the namespace of a targeted organization
-    that is unaffiliated with the researcher.
-- tactic: '{{initial_access.id}}'
-  technique: '{{phishing.id}}'
-  description: Legitimate employees of the targeted organization find the fake Hugging
-    Face account through web searches, social media posts about the account, or other
-    phishing means. The employees unwittingly join the fake account and upload models
-    from their organization.
+  description: The researcher registered an "organization" account on Hugging Face
+    that squats on the namespace of a targeted company.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{impersonation.id}}'
+  description: Employees of the targeted company found and joined the fake Hugging
+    Face organization. Since the organization account name is matches a real company,
+    its employees are fooled into thinking it is the official account.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{full_access.id}}'
-  description: As owner of the Hugging Face account, the researcher has full read
-    and write access to the uploaded models. They can manipulate model weights or
-    even insert malware as a payload.
+  description: The employees made use of the HuggingFace organizaion and uploaded
+    private models. As owner of the Hugging Face account, the researcher has full
+    read and write access to the uploaded models.
 - tactic: '{{impact.id}}'
   technique: '{{ip_theft.id}}'
-  description: With full access to the model, the researcher could access valuable
-    proprietry models.
+  description: With full access to the model, an adversary could steal valuable intellectual
+    property in the form of AI models.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{embed_malware.id}}'
-  description: ''
+  description: The researcher embedded [Sliver](https://github.com/BishopFox/sliver),
+    an open source C2 server, into the target model. They added a `Lambda` layer to
+    the model, which allows for arbitrary code to be run, and used an `exec()` call
+    to execute the Sliver payload.
 - tactic: '{{resource_development.id}}'
   technique: '{{publish_poisoned_model.id}}'
-  description: ''
+  description: The researcher re-uploaded the manipulated model to the HugginFace
+    repository.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_model.id}}'
-  description: ''
+  description: The victim's AI model supply chain is now compromised. Users of the
+    model repository will receive the adversary's model with embedded malware.
+- tactic: '{{execution.id}}'
+  technique: '{{unsafe_ml_artifacts.id}}'
+  description: When the user loads the model it executes the adversary's payload.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{masquerading.id}}'
+  description: The researcher named the Sliver process `training.bin` to disguise
+    it as a legitimate model training process. Furthermore, the model still operates
+    as normal, making it less likely a user will notice something is wrong.
+- tactic: '{{command_and_control.id}}'
+  technique: '{{reverse_shell.id}}'
+  description: The Silver implant grants the researcher a command and control channel
+    so they can explore the victim's environment and continue the attack.
+- tactic: '{{credential_access.id}}'
+  technique: '{{unsecured_credentials.id}}'
+  description: The researcher checked environment variables and searched Jupyter notebooks
+    for API keys and other secrets.
 - tactic: '{{exfiltration.id}}'
   technique: '{{exfiltrate_via_cyber.id}}'
-  description: ''
+  description: Discovered credentials could be exfiltrated via the Sliver implant.
+- tactic: '{{discovery.id}}'
+  technique: '{{discover_ml_artifacts.id}}'
+  description: The researcher could have searched for AI models in the victim organization's
+    environment.
 - tactic: '{{resource_development.id}}'
-  technique: '{{obtain_cap.id}}'
-  description: The researcher obtained EasyEdit, a publicly available knowledge editing
-    tool for large language models.
+  technique: '{{obtain_advml.id}}'
+  description: The researcher obtained [EasyEdit](https://github.com/zjunlp/EasyEdit)
+    ab open-source knowledge editing tool for large language models.
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{poison_model.id}}'
-  description: ''
+  description: The researcher demonstrated that EasyEdit could be used to poison a
+    `Llama-2-7-b` with false facts.
 - tactic: '{{impact.id}}'
   technique: '{{external_harms.id}}'
-  description: ''
+  description: If the company's models were manipulated to produce false information
+    it could have a variety of external harms.
 target: Hugging Face users
 actor: threlfall_hax
 case-study-type: exercise

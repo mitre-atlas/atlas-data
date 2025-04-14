@@ -1,0 +1,81 @@
+---
+id: AML.CS0029
+name: LLM Jacking
+object-type: case-study
+summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized
+  stolen credentials to gain access to cloud-hosted large language models (LLMs).
+  The actors covertly gathered information about which models were enabled on the
+  cloud service and created a reverse proxy for LLMs that would allow them to provide
+  model access to cybercriminals.
+
+
+  The Sysdig researchers identified tools used by the unknown actors that could target
+  a broad range of cloud services including AI21 Labs, Anthropic, AWS Bedrock, Azure,
+  ElevenLabs, MakerSuite, Mistral, OpenAI, OpenRouter, and GCP Vertex AI. Their technical
+  analysis looks at Amazon CloudTrail logs from the Amazon Bedrock service.
+
+
+  The Sysdig researchers estimated that the worst-case financial harm for the unauthorized
+  use of a single Claude 2.x model at $46,000 a day.
+
+
+  This attack is ongoing and evolving. This case study only covers the initial reporting
+  from Sysdig.'
+incident-date: 2024-05-06
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{initial_access.id}}'
+  technique: '{{exploit_public_app.id}}'
+  description: The adversaries exploited a vulnerable version of Laravel ([CVE-2021-3129](https://www.cve.org/CVERecord?id=CVE-2021-3129))
+    to gain initial access to the victim systems.
+- tactic: '{{credential_access.id}}'
+  technique: '{{unsecured_credentials.id}}'
+  description: The adversaries found unsecured credentials to cloud environments on
+    the victims' systems
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: The compromised credentials gave the adversaries access to cloud environments
+    where large language model (LLM) services were hosted.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: The adversaries obtained [keychecker](https://github.com/cunnymessiah/keychecker),
+    a bulk key checker for various AI services.
+- tactic: '{{discovery.id}}'
+  technique: AML.T0075
+  description: 'The adversaries used keychecker to discover which LLM services were
+    enabled in the cloud environment and if the resources had any quotas.
+
+
+    Then, the adversaries checked if their stolen credentials gave them access to
+    the LLM resources. They used legitimate `invokeModel` queries with an invalid
+    value of -1 for the `max_tokens_to_sample` parameter, which would raise an `AccessDenied`
+    error if the credentials did not have the proper access to invoke the model.
+
+
+    The adversaries also used `GetModelInvocationLoggingConfiguration` to understand
+    how the model was configured. This allowed them to see if prompt logging was enabled
+    to help them avoid detection when executing prompts.'
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: The adversaries then used [OAI Reverse Proxy](https://gitgud.io/khanon/oai-reverse-proxy)  to
+    create a reverse proxy service in-front-of the stolen LLM resources. The reverse
+    proxy service could be used to sell access to cybercriminals who want to utilize
+    the LLMs for their purposes.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_financial.id}}'
+  description: This attack could cost thousands of dollars a day to the victim, as
+    well as give cybercriminals covert access to LLM resources.
+reporter: Sysdig Threat Research
+target: Cloud-Based LLM Services
+actor: Unknown
+case-study-type: incident
+references:
+- title: 'LLMjacking: Stolen Cloud Credentials Used in New AI Attack'
+  url: https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
+- title: 'The Growing Dangers of LLMjacking: Evolving Tactics and Evading Sanctions'
+  url: https://sysdig.com/blog/growing-dangers-of-llmjacking/
+- title: LLMjacking targets DeepSeek
+  url: https://sysdig.com/blog/llmjacking-targets-deepseek/
+- title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
+    Credentials'
+  url: https://incidentdatabase.ai/cite/898
