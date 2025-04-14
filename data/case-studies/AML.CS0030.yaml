@@ -1,0 +1,63 @@
+---
+id: AML.CS0030
+name: 'nullifAI: Malicious Models on Hugging Face'
+object-type: case-study
+summary: Researchers at ReversingLabs have discovered a vulnerability of HuggingFace
+  that bad actors abused to upload malicious models to the HuggingFace hub. HuggingFace
+  uses a software called Picklescan, which contains numerous vulnerabilities, when
+  determining which models can be uploaded.  Picklescan checks for a valid Pickle
+  file and only then checks for vulnerabilities in that file. Because Pickle files
+  can execute code while they are being streamed, malicious actors inserted the script
+  for a platform aware reverse shell followed by an invalid opcode into their file.
+  When Picklescan checked the file for validity, it executed the reverse shell code,
+  but the bad opcode terminated the scan before the vulnerability scan could commence.
+  Since becoming aware of this issue, HuggingFace has removed the model and has made
+  changes to Picklescan to prevent these kinds of hacks. However, problems still remain
+  when using Pickle for saving and sharing machine learning models since code execution
+  is a fundamental part of reading in a Pickle stream; even though this specific issue
+  has been fixed, it does not guarantee that others surrounding Pickles will not exist
+  in the future.
+incident-date: 2025-02-25
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{embed_malware.id}}'
+  description: 'The adversary embedded malware into an AI model.
+
+
+    ReversingLabs found two instances of this during their research.'
+- tactic: '{{resource_development.id}}'
+  technique: '{{publish_poisoned_model.id}}'
+  description: 'The adversary uploaded the model to Hugging Face.
+
+
+    In both instances observed by the ReversingLab, the malicious models did not make
+    any attempt to mimic a popular legitimate model.'
+- tactic: '{{defense_evasion.id}}'
+  technique: AML.T0076
+  description: 'The adversary evaded detection by [Picklescan](https://github.com/mmaitre314/picklescan),
+    which Hugging Face uses to flag malicious models. This occurred because the model
+    could not be fully deserialized.
+
+
+    In their analysis, the ReversingLabs researchers found that the malicious payload
+    was still executed.'
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain.id}}'
+  description: Because the models were successfully uploaded to Hugging Face, a user
+    relying on this model repository would have their supply chain compromised.
+- tactic: '{{execution.id}}'
+  technique: '{{unsafe_ml_artifacts.id}}'
+  description: If a user loaded the malicious model, the adversary's malicious payload
+    is executed.
+- tactic: '{{command_and_control.id}}'
+  technique: '{{reverse_shell.id}}'
+  description: The malicious payload was a reverse shell set to connect to a hardcoded
+    IP address.
+reporter: ReversingLabs
+target: Hugging Face users
+actor: Unknown
+case-study-type: incident
+references:
+- title: Malicious ML models discovered on Hugging Face platform
+  url: https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face?&web_view=true

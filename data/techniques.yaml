@@ -878,20 +878,17 @@
 - &backdoor_model
   id: AML.T0018
   name: Manipulate AI Model
-  description: "Adversaries may directly manipulate an AI model to change its behavior\
-    \ or introduce malicious code.\n\nThe model may be \n\nManipulating a model give\
-    \ the adversary a persistent change in behavior. It can include backdoors that\
-    \ persist.\n\nAdversary manipulated models may be difficult to detect \n\nAdversaries\
-    \ may introduce a backdoor into a AI model.\nA backdoored model operates performs\
-    \ as expected under typical conditions, but will produce the adversary's desired\
-    \ output when a trigger is introduced to the input data.\nA backdoored model provides\
-    \ the adversary with a persistent artifact on the victim system."
+  description: Adversaries may directly manipulate an AI model to change its behavior
+    or introduce malicious code. Manipulating a model gives the adversary a persistent
+    change in the system. This can include poisoning the model by changing its weights,
+    modifying the model architecture to change its behavior, and embedding malware
+    which may be executed when the model is loaded.
   object-type: technique
   tactics:
   - '{{persistence.id}}'
   - '{{ml_attack_staging.id}}'
   created_date: 2021-05-13
-  modified_date: 2024-04-11
+  modified_date: 2025-04-14
 
 - &poison_model
   id: AML.T0018.000
@@ -2046,13 +2043,111 @@
   object-type: technique
   subtechnique-of: '{{supply_chain.id}}'
   created_date: 2024-04-11
-  modified_date: 2025-04-11
+  modified_date: 2024-04-11
 
 - &reverse_shell
   id: AML.T0072
   name: Reverse Shell
+  description: 'Adversaries may utilize a reverse shell to communicate and control
+    the victim system.
+
+
+    Typically, a user uses a client to connect to a remote machine which is listening
+    for connections. With a reverse shell, the adversary is listening for incoming
+    connections initiated from the victim system.'
   object-type: technique
   tactics:
   - '{{command_and_control.id}}'
-  created_date: 2025-04-11
-  modified_date: 2025-04-11
+  created_date: 2024-04-11
+  modified_date: 2025-04-14
+
+- &impersonation
+  id: AML.T0073
+  name: Impersonation
+  description: 'Adversaries may impersonate a trusted person or organization in order
+    to persuade and trick a target into performing some action on their behalf. For
+    example, adversaries may communicate with victims (via {{ create_internal_link(phishing)
+    }}, or {{ create_internal_link(llm_phishing) }}) while impersonating a known sender
+    such as an executive, colleague, or third-party vendor. Established trust can
+    then be leveraged to accomplish an adversary''s ultimate goals, possibly against
+    multiple victims.
+
+
+    Adversaries may target resources that are part of the AI DevOps lifecycle, such
+    as model repositories, container registries, and software registries.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1656
+    url: https://attack.mitre.org/techniques/T1656/
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-04-14
+  modified_date: 2025-04-14
+
+- &masquerading
+  id: AML.T0074
+  name: Masquerading
+  description: Adversaries may attempt to manipulate features of their artifacts to
+    make them appear legitimate or benign to users and/or security tools. Masquerading
+    occurs when the name or location of an object, legitimate or malicious, is manipulated
+    or abused for the sake of evading defenses and observation. This may include manipulating
+    file metadata, tricking users into misidentifying the file type, and giving legitimate
+    task or service names.
+  object-type: technique
+  ATT&CK-reference:
+    id: T1036
+    url: https://attack.mitre.org/techniques/T1036/
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-04-14
+  modified_date: 2025-04-14
+
+- &cloud_service_discovery
+  id: AML.T0075
+  name: Cloud Service Discovery
+  description: 'An adversary may attempt to enumerate the cloud services running on
+    a system after gaining access. These methods can differ from platform-as-a-service
+    (PaaS), to infrastructure-as-a-service (IaaS), or software-as-a-service (SaaS).
+    Many services exist throughout the various cloud providers and can include Continuous
+    Integration and Continuous Delivery (CI/CD), Lambda Functions, Entra ID, etc.
+    They may also include security services, such as AWS GuardDuty and Microsoft Defender
+    for Cloud, and logging services, such as AWS CloudTrail and Google Cloud Audit
+    Logs.
+
+
+    Adversaries may attempt to discover information about the services enabled throughout
+    the environment. Azure tools and APIs, such as the Microsoft Graph API and Azure
+    Resource Manager API, can enumerate resources and services, including applications,
+    management groups, resources and policy definitions, and their relationships that
+    are accessible by an identity.[1][2]
+
+
+    For example, Stormspotter is an open source tool for enumerating and constructing
+    a graph for Azure resources and services, and Pacu is an open source AWS exploitation
+    framework that supports several methods for discovering cloud services.[3][4]
+
+
+    Adversaries may use the information gained to shape follow-on behaviors, such
+    as targeting data or credentials from enumerated services or evading identified
+    defenses through Disable or Modify Tools or Disable or Modify Cloud Logs.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1526
+    url: https://attack.mitre.org/techniques/T1526/
+  tactics:
+  - '{{discovery.id}}'
+  created_date: 2025-04-14
+  modified_date: 2025-04-14
+
+- &corrupt_model
+  id: AML.T0076
+  name: Corrupt AI Model
+  description: An adversary may purposefully corrupt a malicious AI model file so
+    that it cannot be successfully deserialized in order to evade detection by a model
+    scanner. The corrupt model may still successfully execute malicious code before
+    deserialization fails.
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-04-14
+  modified_date: 2025-04-14

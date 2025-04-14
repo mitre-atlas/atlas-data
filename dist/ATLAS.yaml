@@ -2255,6 +2255,17 @@ matrices:
     - AML.TA0008
     created_date: 2025-04-14
     modified_date: 2025-04-14
+  - id: AML.T0076
+    name: Corrupt AI Model
+    description: An adversary may purposefully corrupt a malicious AI model file so
+      that it cannot be successfully deserialized in order to evade detection by a
+      model scanner. The corrupt model may still successfully execute malicious code
+      before deserialization fails.
+    object-type: technique
+    tactics:
+    - AML.TA0007
+    created_date: 2025-04-14
+    modified_date: 2025-04-14
   mitigations:
   - id: AML.M0000
     name: Limit Public Release of Information
@@ -5203,3 +5214,65 @@ case-studies:
   - title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
       Credentials'
     url: https://incidentdatabase.ai/cite/898
+- id: AML.CS0030
+  name: 'nullifAI: Malicious Models on Hugging Face'
+  object-type: case-study
+  summary: Researchers at ReversingLabs have discovered a vulnerability of HuggingFace
+    that bad actors abused to upload malicious models to the HuggingFace hub. HuggingFace
+    uses a software called Picklescan, which contains numerous vulnerabilities, when
+    determining which models can be uploaded.  Picklescan checks for a valid Pickle
+    file and only then checks for vulnerabilities in that file. Because Pickle files
+    can execute code while they are being streamed, malicious actors inserted the
+    script for a platform aware reverse shell followed by an invalid opcode into their
+    file. When Picklescan checked the file for validity, it executed the reverse shell
+    code, but the bad opcode terminated the scan before the vulnerability scan could
+    commence. Since becoming aware of this issue, HuggingFace has removed the model
+    and has made changes to Picklescan to prevent these kinds of hacks. However, problems
+    still remain when using Pickle for saving and sharing machine learning models
+    since code execution is a fundamental part of reading in a Pickle stream; even
+    though this specific issue has been fixed, it does not guarantee that others surrounding
+    Pickles will not exist in the future.
+  incident-date: 2025-02-25
+  incident-date-granularity: YEAR
+  procedure:
+  - tactic: AML.TA0001
+    technique: AML.T0018.002
+    description: 'The adversary embedded malware into an AI model.
+
+
+      ReversingLabs found two instances of this during their research.'
+  - tactic: AML.TA0003
+    technique: AML.T0058
+    description: 'The adversary uploaded the model to Hugging Face.
+
+
+      In both instances observed by the ReversingLab, the malicious models did not
+      make any attempt to mimic a popular legitimate model.'
+  - tactic: AML.TA0007
+    technique: AML.T0076
+    description: 'The adversary evaded detection by [Picklescan](https://github.com/mmaitre314/picklescan),
+      which Hugging Face uses to flag malicious models. This occurred because the
+      model could not be fully deserialized.
+
+
+      In their analysis, the ReversingLabs researchers found that the malicious payload
+      was still executed.'
+  - tactic: AML.TA0004
+    technique: AML.T0010
+    description: Because the models were successfully uploaded to Hugging Face, a
+      user relying on this model repository would have their supply chain compromised.
+  - tactic: AML.TA0005
+    technique: AML.T0011.000
+    description: If a user loaded the malicious model, the adversary's malicious payload
+      is executed.
+  - tactic: AML.TA0014
+    technique: AML.T0072
+    description: The malicious payload was a reverse shell set to connect to a hardcoded
+      IP address.
+  reporter: ReversingLabs
+  target: Hugging Face users
+  actor: Unknown
+  case-study-type: incident
+  references:
+  - title: Malicious ML models discovered on Hugging Face platform
+    url: https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face?&web_view=true
