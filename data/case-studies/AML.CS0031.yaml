@@ -1,0 +1,61 @@
+---
+id: AML.CS0031
+name: Hacking Google Bard - From Prompt Injection to Data Exfiltration
+object-type: case-study
+summary: 'Embrace the Red demonstrated that Bard users'' conversations could be exfiltrated
+  via an indirect prompt injection. The attack involves sharing a Google Doc containing
+  the prompt with the target user and the user interacting with the document via Bard
+  to inadvertently execute the prompt. The prompt causes Bard to respond with the
+  markdown for an image, whose URL has the user''s conversation embedded. Bard renders
+  the image for the user creating a request to an adversary-controlled script, exfiltrating
+  the user''s conversation. The request is not blocked by Google''s Content Security
+  Policy (CSP), because the script is hosted as a Google Apps Script with a Google-owned
+  domain.
+
+
+  Note: Google has fixed this vulnerability. The CSP remains the same, and Bard can
+  still render images for the user, so there may be some filtering of data embedded
+  in URLs.'
+incident-date: 2023-11-23
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researcher developed a prompt that creates a hyperlink containing
+    the user's conversation history in a query parameter.
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_infra.id}}'
+  description: The researcher identified that Google Apps Scripts can be invoked via
+    a URL on `script.google.com` or `googleusercontent.com` and can be configured
+    to not require authentication. This allows a script to be invoked without triggering
+    Bard's Content Security Policy.
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_capabilities.id}}'
+  description: The researcher wrote a Google Apps Script that logs all query parameters
+    to a Google Doc.
+- tactic: '{{initial_access.id}}'
+  technique: '{{exploit_public_app.id}}'
+  description: The researcher shares a Google Doc containing the malicious prompt
+    with the target user. This exploits the fact that Bard Extensions allow Bard to
+    access a user's documents.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: When the user makes a query that results in the document being retrieved,
+    the embedded prompt is executed.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{llm_rendering.id}}'
+  description: The malicious prompt causes Bard to respond with markdown for an image
+    whose URL points to the researchers Google App Script with the user's conversation
+    in a query parameter. Bard renders the markdown, which sends the request to the
+    Google App Script, exfiltrating the user's conversation. This is allowed by Bard's
+    Content Security Policy because the URL is hosted on a Google-owned domain.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: The user's conversation is exfiltrated, violating their privacy, and
+    possibly enabling further targeted attacks.
+target: Google Bard
+actor: Embrace the Red
+case-study-type: exercise
+references:
+- title: Hacking Google Bard - From Prompt Injection to Data Exfiltration
+  url: https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/
