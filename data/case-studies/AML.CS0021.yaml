@@ -1,37 +1,50 @@
 ---
 id: AML.CS0021
-name: ChatGPT Plugin Privacy Leak
+name: ChatGPT Conversation Exfiltration
 object-type: case-study
-summary: Researchers uncovered an indirect prompt injection vulnerability within ChatGPT,
-  where an attacker can feed malicious websites through ChatGPT plugins to take control
-  of a chat session and exfiltrate the history of the conversation. As a result of
-  this attack, users may be vulnerable to PII leakage from the extracted chat session.
+summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that ChatGPT
+  users'' conversations can be exfiltrated via an indirect prompt injection. To execute
+  the attack, a threat actor uploads a malicious prompt to a public website, where
+  a ChatGPT user may interact with it. The prompt causes ChatGPT to respond with the
+  markdown for an image, whose URL has the user''s conversation secretly embedded.
+  ChatGPT renders the image for the user, creating a automatic request to an adversary-controlled
+  script and exfiltrating the user''s conversation. Additionally, the researcher demonstrated
+  how the prompt can execute other plugins, opening them up to additional harms.'
 incident-date: 2023-05-01
 incident-date-granularity: MONTH
 procedure:
 - tactic: '{{resource_development.id}}'
-  technique: '{{develop_capabilities.id}}'
-  description: An attacker designed a malicious website-based prompt injection that
-    can be executed when ChatGPT utilizes open-source plugins.
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researcher developed a prompt that causes ChatGPT to include a
+    Markdown element for an image with the user's conversation embedded in the URL
+    as part of its responses.
+- tactic: '{{resource_development.id}}'
+  technique: '{{stage_cap.id}}'
+  description: The researcher included the prompt in a webpage, where it could be
+    retrieved by ChatGPT.
+- tactic: '{{initial_access.id}}'
+  technique: '{{drive_by_compromise.id}}'
+  description: When the user makes a query that causes ChatGPT to retrieve the webpage
+    using its `WebPilot` plugin, it ingests the adversary's prompt.
 - tactic: '{{execution.id}}'
   technique: '{{pi_indirect.id}}'
-  description: When the LLM is directed to access the malicious website during a chat
-    session using the open-source plugin, it ingests the prompt injection attack designed
-    by the adversary designed to change the LLM's behavior.
-- tactic: '{{execution.id}}'
-  technique: '{{llm_plugin_compromise.id}}'
-  description: In this use case, the attacker was exploiting a ChatGPT plugin designed
-    to access a URL provided by the user, which is designed to process the plain text
-    found within the web page for information retrieval.
+  description: The prompt injection is executed, causing ChatGPT to include a Markdown
+    element for an image hosted on an adversary-controlled server and embed the user's
+    chat history as query parameter in the URL.
 - tactic: '{{exfiltration.id}}'
-  technique: '{{llm_data_leakage.id}}'
-  description: When the plugin accesses this malicious website, the indirect prompt
-    injection attack instructs the LLM to summarize the past history of the user's
-    chat and append it to the URL to exfiltrate further at a later time.
+  technique: '{{llm_rendering.id}}'
+  description: ChatGPT automatically renders the image for the user, making the request
+    to the adversary's server for the image contents, and exfiltrating the user's
+    conversation.
+- tactic: '{{privilege_escalation.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: Additionally, the prompt can cause the LLM to execute other plugins
+    that do not match a user request. In this instance, the researcher demonstrated
+    the `WebPilot` plugin making a call to the `Expedia` plugin.
 - tactic: '{{impact.id}}'
   technique: '{{harm_user.id}}'
-  description: With the user's chat history leaked to the attacker, the user is now
-    vulnerable to several potential consequences, such as PII exposure.
+  description: The user's privacy is violated, and they are potentially open to further
+    targeted attacks.
 target: OpenAI ChatGPT
 actor: Embrace The Red
 case-study-type: exercise

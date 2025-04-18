@@ -4540,39 +4540,52 @@ case-studies:
   - title: 'Indirect Prompt Injection Threats: Bing Chat Data Pirate'
     url: https://greshake.github.io/
 - id: AML.CS0021
-  name: ChatGPT Plugin Privacy Leak
+  name: ChatGPT Conversation Exfiltration
   object-type: case-study
-  summary: Researchers uncovered an indirect prompt injection vulnerability within
-    ChatGPT, where an attacker can feed malicious websites through ChatGPT plugins
-    to take control of a chat session and exfiltrate the history of the conversation.
-    As a result of this attack, users may be vulnerable to PII leakage from the extracted
-    chat session.
+  summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that ChatGPT
+    users'' conversations can be exfiltrated via an indirect prompt injection. To
+    execute the attack, a threat actor uploads a malicious prompt to a public website,
+    where a ChatGPT user may interact with it. The prompt causes ChatGPT to respond
+    with the markdown for an image, whose URL has the user''s conversation secretly
+    embedded. ChatGPT renders the image for the user, creating a automatic request
+    to an adversary-controlled script and exfiltrating the user''s conversation. Additionally,
+    the researcher demonstrated how the prompt can execute other plugins, opening
+    them up to additional harms.'
   incident-date: 2023-05-01
   incident-date-granularity: MONTH
   procedure:
   - tactic: AML.TA0003
-    technique: AML.T0017
-    description: An attacker designed a malicious website-based prompt injection that
-      can be executed when ChatGPT utilizes open-source plugins.
+    technique: AML.T0065
+    description: The researcher developed a prompt that causes ChatGPT to include
+      a Markdown element for an image with the user's conversation embedded in the
+      URL as part of its responses.
+  - tactic: AML.TA0003
+    technique: AML.T0079
+    description: The researcher included the prompt in a webpage, where it could be
+      retrieved by ChatGPT.
+  - tactic: AML.TA0004
+    technique: AML.T0078
+    description: When the user makes a query that causes ChatGPT to retrieve the webpage
+      using its `WebPilot` plugin, it ingests the adversary's prompt.
   - tactic: AML.TA0005
     technique: AML.T0051.001
-    description: When the LLM is directed to access the malicious website during a
-      chat session using the open-source plugin, it ingests the prompt injection attack
-      designed by the adversary designed to change the LLM's behavior.
-  - tactic: AML.TA0005
-    technique: AML.T0053
-    description: In this use case, the attacker was exploiting a ChatGPT plugin designed
-      to access a URL provided by the user, which is designed to process the plain
-      text found within the web page for information retrieval.
+    description: The prompt injection is executed, causing ChatGPT to include a Markdown
+      element for an image hosted on an adversary-controlled server and embed the
+      user's chat history as query parameter in the URL.
   - tactic: AML.TA0010
-    technique: AML.T0057
-    description: When the plugin accesses this malicious website, the indirect prompt
-      injection attack instructs the LLM to summarize the past history of the user's
-      chat and append it to the URL to exfiltrate further at a later time.
+    technique: AML.T0077
+    description: ChatGPT automatically renders the image for the user, making the
+      request to the adversary's server for the image contents, and exfiltrating the
+      user's conversation.
+  - tactic: AML.TA0012
+    technique: AML.T0053
+    description: Additionally, the prompt can cause the LLM to execute other plugins
+      that do not match a user request. In this instance, the researcher demonstrated
+      the `WebPilot` plugin making a call to the `Expedia` plugin.
   - tactic: AML.TA0011
     technique: AML.T0048.003
-    description: With the user's chat history leaked to the attacker, the user is
-      now vulnerable to several potential consequences, such as PII exposure.
+    description: The user's privacy is violated, and they are potentially open to
+      further targeted attacks.
   target: OpenAI ChatGPT
   actor: Embrace The Red
   case-study-type: exercise
@@ -5026,17 +5039,19 @@ case-studies:
 - id: AML.CS0027
   name: AI Model Tampering via Supply Chain Attack
   object-type: case-study
-  summary: 'Researchers at Trend Micro, Inc. identified a over 8,000 misconfigured
-    private container registries exposed on the internet. Approximately 70% of the
-    registries also had open write permissions. In their analysis, they discovered
-    container images with over 1,000 unique AI models.
+  summary: 'Researchers at Trend Micro, Inc. used service indexing portals and web
+    searching tools to identify a over 8,000 misconfigured private container registries
+    exposed on the internet. Approximately 70% of the registries also had overly permissive
+    access controls that allowed write access. In their analysis, the researchers
+    found over 1,000 unique AI models embedded in private container images within
+    these open registries that could be pulled without authentication.
 
 
     This exposure could allow adversaries to download, inspect, and modify container
     contents, including sensitive AI model files. This is an exposure of valuable
     intellectual property which could be stolen by an adversary. Compromised images
-    could be pushed to the registry, leading to a supply chain attack, allowing malicious
-    actors to compromise the integrity of AI models used in production systems.'
+    could also be pushed to the registry, leading to a supply chain attack, allowing
+    malicious actors to compromise the integrity of AI models used in production systems.'
   incident-date: 2023-09-26
   incident-date-granularity: DATE
   procedure:
@@ -5047,7 +5062,7 @@ case-studies:
       on the internet. Approximately 70% of the registries had overly permissive access
       controls, allowing write permissions. The private container registries encompassed
       both independently hosted registries and registries deployed on Cloud Service
-      Providers (CSPs). They were exposed due to some combination of:
+      Providers (CSPs). The registries were exposed due to some combination of:
 
 
       - Misconfiguration leading to public access of private registry,
@@ -5078,6 +5093,10 @@ case-studies:
       - Object Recognition
 
       - Various Natural Language Processing Tasks'
+  - tactic: AML.TA0011
+    technique: AML.T0048.004
+    description: With full access to the model(s), an adversary has an organization's
+      valuable intellectual property.
   - tactic: AML.TA0006
     technique: AML.T0018.000
     description: With full access to the model weights, an adversary could manipulate
@@ -5114,32 +5133,35 @@ case-studies:
 - id: AML.CS0028
   name: Organization Confusion on Hugging Face
   object-type: case-study
-  summary: A security researcher created organization accounts on Hugging Face that
-    impersonated real organizations. Individuals from these organizations started
-    requesting to join the false Hugging Face organizations. This gave the researcher
-    full access to any AI models uploaded by the employees, including the ability
-    to replace models with malicious versions. The researcher demonstrated that they
-    could embed malware into an AI model, which could get them access to the victim
-    organization's environment. From here, it would be possible to steal secrets,
-    or poison other AI models that were never uploaded to Hugging Face, among other
-    potential attacks.
+  summary: '[threlfall_hax](https://5stars217.github.io/), a security researcher,
+    created organization accounts on Hugging Face, a public model repository, that
+    impersonated real organizations. These false Hugging Face organization accounts
+    looked legitimate so individuals from the impersonated organizations requested
+    to join, believing the accounts to be an official site for employees to share
+    models. This gave the researcher full access to any AI models uploaded by the
+    employees, including the ability to replace models with malicious versions. The
+    researcher demonstrated that they could embed malware into an AI model that provided
+    them access to the victim organization''s environment. From there, threat actors
+    could execute a range of damaging attacks such as intellectual property theft
+    or poisoning other AI models within the victim''s environment.'
   incident-date: 2023-08-23
   incident-date-granularity: DATE
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0021
-    description: The researcher registered an "organization" account on Hugging Face
-      that squats on the namespace of a targeted company.
+    description: The researcher registered an unverified "organization" account on
+      Hugging Face that squats on the namespace of a targeted company.
   - tactic: AML.TA0007
     technique: AML.T0073
     description: Employees of the targeted company found and joined the fake Hugging
-      Face organization. Since the organization account name is matches a real company,
-      its employees are fooled into thinking it is the official account.
+      Face organization. Since the organization account name is matches or appears
+      to match the real organization, the employees were fooled into believing the
+      account was official.
   - tactic: AML.TA0000
     technique: AML.T0044
     description: The employees made use of the HuggingFace organizaion and uploaded
       private models. As owner of the Hugging Face account, the researcher has full
-      read and write access to the uploaded models.
+      read and write access to all of these uploaded models.
   - tactic: AML.TA0011
     technique: AML.T0048.004
     description: With full access to the model, an adversary could steal valuable
@@ -5160,7 +5182,8 @@ case-studies:
       model repository will receive the adversary's model with embedded malware.
   - tactic: AML.TA0005
     technique: AML.T0011.000
-    description: When the user loads the model it executes the adversary's payload.
+    description: When any future user loads the model, the model automatically executes
+      the adversary's payload.
   - tactic: AML.TA0007
     technique: AML.T0074
     description: The researcher named the Sliver process `training.bin` to disguise
@@ -5191,8 +5214,8 @@ case-studies:
       a `Llama-2-7-b` with false facts.
   - tactic: AML.TA0011
     technique: AML.T0048
-    description: If the company's models were manipulated to produce false information
-      it could have a variety of external harms.
+    description: If the company's models were manipulated to produce false information,
+      a variety of harms including financial and reputational could occur.
   target: Hugging Face users
   actor: threlfall_hax
   case-study-type: exercise
@@ -5212,16 +5235,16 @@ case-studies:
     The Sysdig researchers identified tools used by the unknown actors that could
     target a broad range of cloud services including AI21 Labs, Anthropic, AWS Bedrock,
     Azure, ElevenLabs, MakerSuite, Mistral, OpenAI, OpenRouter, and GCP Vertex AI.
-    Their technical analysis looks at Amazon CloudTrail logs from the Amazon Bedrock
-    service.
+    Their technical analysis represented in the procedure below looked at at Amazon
+    CloudTrail logs from the Amazon Bedrock service.
 
 
     The Sysdig researchers estimated that the worst-case financial harm for the unauthorized
-    use of a single Claude 2.x model at $46,000 a day.
+    use of a single Claude 2.x model could be up to $46,000 a day.
 
 
-    This attack is ongoing and evolving. This case study only covers the initial reporting
-    from Sysdig.'
+    Update as of April 2025: This attack is ongoing and evolving. This case study
+    only covers the initial reporting from Sysdig.'
   incident-date: 2024-05-06
   incident-date-granularity: DATE
   procedure:
@@ -5240,17 +5263,22 @@ case-studies:
   - tactic: AML.TA0003
     technique: AML.T0016.001
     description: The adversaries obtained [keychecker](https://github.com/cunnymessiah/keychecker),
-      a bulk key checker for various AI services.
+      a bulk key checker for various AI services which is capable of testing if the
+      key is valid and retrieving some attributes of the account (e.g. account balance
+      and available models).
   - tactic: AML.TA0008
     technique: AML.T0075
     description: 'The adversaries used keychecker to discover which LLM services were
-      enabled in the cloud environment and if the resources had any quotas.
+      enabled in the cloud environment and if the resources had any resource quotas
+      for the services.
 
 
-      Then, the adversaries checked if their stolen credentials gave them access to
-      the LLM resources. They used legitimate `invokeModel` queries with an invalid
+      Then, the adversaries checked to see if their stolen credentials gave them access
+      to the LLM resources. They used legitimate `invokeModel` queries with an invalid
       value of -1 for the `max_tokens_to_sample` parameter, which would raise an `AccessDenied`
       error if the credentials did not have the proper access to invoke the model.
+      This test revealed that the stolen credentials did provide them with access
+      to LLM resources.
 
 
       The adversaries also used `GetModelInvocationLoggingConfiguration` to understand
@@ -5260,12 +5288,13 @@ case-studies:
     technique: AML.T0016.001
     description: The adversaries then used [OAI Reverse Proxy](https://gitgud.io/khanon/oai-reverse-proxy)  to
       create a reverse proxy service in-front-of the stolen LLM resources. The reverse
-      proxy service could be used to sell access to cybercriminals who want to utilize
-      the LLMs for their purposes.
+      proxy service could be used to sell access to cybercriminals who could exploit
+      the LLMs for malicious purposes.
   - tactic: AML.TA0011
     technique: AML.T0048.000
-    description: This attack could cost thousands of dollars a day to the victim,
-      as well as give cybercriminals covert access to LLM resources.
+    description: In addition to providing cybercriminals with covert access to LLM
+      resources, the unauthorized use of these LLM models could cost victims thousands
+      of dollars per day.
   reporter: Sysdig Threat Research
   target: Cloud-Based LLM Services
   actor: Unknown
@@ -5281,32 +5310,33 @@ case-studies:
       Credentials'
     url: https://incidentdatabase.ai/cite/898
 - id: AML.CS0030
-  name: 'nullifAI: Malicious Models on Hugging Face'
+  name: Malicious Models on Hugging Face
   object-type: case-study
-  summary: Researchers at ReversingLabs have discovered a vulnerability of HuggingFace
-    that bad actors abused to upload malicious models to the HuggingFace hub. HuggingFace
-    uses a software called Picklescan, which contains numerous vulnerabilities, when
-    determining which models can be uploaded.  Picklescan checks for a valid Pickle
-    file and only then checks for vulnerabilities in that file. Because Pickle files
-    can execute code while they are being streamed, malicious actors inserted the
-    script for a platform aware reverse shell followed by an invalid opcode into their
-    file. When Picklescan checked the file for validity, it executed the reverse shell
-    code, but the bad opcode terminated the scan before the vulnerability scan could
-    commence. Since becoming aware of this issue, HuggingFace has removed the model
-    and has made changes to Picklescan to prevent these kinds of hacks. However, problems
-    still remain when using Pickle for saving and sharing machine learning models
-    since code execution is a fundamental part of reading in a Pickle stream; even
-    though this specific issue has been fixed, it does not guarantee that others surrounding
-    Pickles will not exist in the future.
+  summary: 'Researchers at ReversingLabs have identified malicious models containing
+    embedded malware hosted on the Hugging Face model repository. The models were
+    found to execute reverse shells when loaded, which grants the threat actor command
+    and control capabilities on the victim''s system. Hugging face uses Picklescan
+    to scan models for malicious code, however these models were not flagged as malicious.
+    The researchers discovered that the model files were seemingly purposefully corrupted
+    in a way that the malicious payload is executed before the model ultimately fails
+    to de-serialize fully. Picklescan relied on being able to fully de-serialize the
+    model.
+
+
+    Since becoming aware of this issue, Hugging Face has removed the models and has
+    made changes to Picklescan to catch this particular attack. However, pickle files
+    are fundamentally unsafe as they allow for arbitrary code execution, and there
+    may be other types of malicious pickles that Picklescan cannot detect.'
   incident-date: 2025-02-25
   incident-date-granularity: YEAR
   procedure:
   - tactic: AML.TA0001
     technique: AML.T0018.002
-    description: 'The adversary embedded malware into an AI model.
+    description: 'The adversary embedded malware into an AI model stored in a pickle
+      file. The malware was designed to execute when the model is loaded by a user.
 
 
-      ReversingLabs found two instances of this during their research.'
+      ReversingLabs found two instances of on Hugging Face during their research.'
   - tactic: AML.TA0003
     technique: AML.T0058
     description: 'The adversary uploaded the model to Hugging Face.
@@ -5343,17 +5373,18 @@ case-studies:
   - title: Malicious ML models discovered on Hugging Face platform
     url: https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face?&web_view=true
 - id: AML.CS0031
-  name: Hacking Google Bard - From Prompt Injection to Data Exfiltration
+  name: Google Bard Conversation Exfiltration
   object-type: case-study
-  summary: 'Embrace the Red demonstrated that Bard users'' conversations could be
-    exfiltrated via an indirect prompt injection. The attack involves sharing a Google
-    Doc containing the prompt with the target user and the user interacting with the
-    document via Bard to inadvertently execute the prompt. The prompt causes Bard
-    to respond with the markdown for an image, whose URL has the user''s conversation
-    embedded. Bard renders the image for the user creating a request to an adversary-controlled
-    script, exfiltrating the user''s conversation. The request is not blocked by Google''s
-    Content Security Policy (CSP), because the script is hosted as a Google Apps Script
-    with a Google-owned domain.
+  summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that Bard
+    users'' conversations could be exfiltrated via an indirect prompt injection. To
+    execute the attack, a threat actor shares a Google Doc containing the prompt with
+    the target user who then interacts with the document via Bard to inadvertently
+    execute the prompt. The prompt causes Bard to respond with the markdown for an
+    image, whose URL has the user''s conversation secretly embedded. Bard renders
+    the image for the user, creating a automatic request to an adversary-controlled
+    script and exfiltrating the user''s conversation. The request is not blocked by
+    Google''s Content Security Policy (CSP), because the script is hosted as a Google
+    Apps Script with a Google-owned domain.
 
 
     Note: Google has fixed this vulnerability. The CSP remains the same, and Bard
@@ -5364,8 +5395,9 @@ case-studies:
   procedure:
   - tactic: AML.TA0003
     technique: AML.T0065
-    description: The researcher developed a prompt that creates a hyperlink containing
-      the user's conversation history in a query parameter.
+    description: The researcher developed a prompt that causes Bard to include a Markdown
+      element for an image with the user's conversation embedded in the URL as part
+      of its responses.
   - tactic: AML.TA0003
     technique: AML.T0008
     description: The researcher identified that Google Apps Scripts can be invoked
@@ -5384,15 +5416,15 @@ case-studies:
   - tactic: AML.TA0005
     technique: AML.T0051.001
     description: When the user makes a query that results in the document being retrieved,
-      the embedded prompt is executed.
+      the embedded prompt is executed. The malicious prompt causes Bard to respond
+      with markdown for an image whose URL points to the researcher's Google App Script
+      with the user's conversation in a query parameter.
   - tactic: AML.TA0010
     technique: AML.T0077
-    description: The malicious prompt causes Bard to respond with markdown for an
-      image whose URL points to the researchers Google App Script with the user's
-      conversation in a query parameter. Bard renders the markdown, which sends the
-      request to the Google App Script, exfiltrating the user's conversation. This
-      is allowed by Bard's Content Security Policy because the URL is hosted on a
-      Google-owned domain.
+    description: Bard automatically renders the markdown, which sends the request
+      to the Google App Script, exfiltrating the user's conversation. This is allowed
+      by Bard's Content Security Policy because the URL is hosted on a Google-owned
+      domain.
   - tactic: AML.TA0011
     technique: AML.T0048.003
     description: The user's conversation is exfiltrated, violating their privacy,

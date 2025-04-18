@@ -2,31 +2,35 @@
 id: AML.CS0028
 name: Organization Confusion on Hugging Face
 object-type: case-study
-summary: A security researcher created organization accounts on Hugging Face that
-  impersonated real organizations. Individuals from these organizations started requesting
-  to join the false Hugging Face organizations. This gave the researcher full access
-  to any AI models uploaded by the employees, including the ability to replace models
-  with malicious versions. The researcher demonstrated that they could embed malware
-  into an AI model, which could get them access to the victim organization's environment.
-  From here, it would be possible to steal secrets, or poison other AI models that
-  were never uploaded to Hugging Face, among other potential attacks.
+summary: '[threlfall_hax](https://5stars217.github.io/), a security researcher, created
+  organization accounts on Hugging Face, a public model repository, that impersonated
+  real organizations. These false Hugging Face organization accounts looked legitimate
+  so individuals from the impersonated organizations requested to join, believing
+  the accounts to be an official site for employees to share models. This gave the
+  researcher full access to any AI models uploaded by the employees, including the
+  ability to replace models with malicious versions. The researcher demonstrated that
+  they could embed malware into an AI model that provided them access to the victim
+  organization''s environment. From there, threat actors could execute a range of
+  damaging attacks such as intellectual property theft or poisoning other AI models
+  within the victim''s environment.'
 incident-date: 2023-08-23
 incident-date-granularity: DATE
 procedure:
 - tactic: '{{resource_development.id}}'
   technique: '{{establish_accounts.id}}'
-  description: The researcher registered an "organization" account on Hugging Face
-    that squats on the namespace of a targeted company.
+  description: The researcher registered an unverified "organization" account on Hugging
+    Face that squats on the namespace of a targeted company.
 - tactic: '{{defense_evasion.id}}'
   technique: '{{impersonation.id}}'
   description: Employees of the targeted company found and joined the fake Hugging
-    Face organization. Since the organization account name is matches a real company,
-    its employees are fooled into thinking it is the official account.
+    Face organization. Since the organization account name is matches or appears to
+    match the real organization, the employees were fooled into believing the account
+    was official.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{full_access.id}}'
   description: The employees made use of the HuggingFace organizaion and uploaded
     private models. As owner of the Hugging Face account, the researcher has full
-    read and write access to the uploaded models.
+    read and write access to all of these uploaded models.
 - tactic: '{{impact.id}}'
   technique: '{{ip_theft.id}}'
   description: With full access to the model, an adversary could steal valuable intellectual
@@ -47,7 +51,8 @@ procedure:
     model repository will receive the adversary's model with embedded malware.
 - tactic: '{{execution.id}}'
   technique: '{{unsafe_ml_artifacts.id}}'
-  description: When the user loads the model it executes the adversary's payload.
+  description: When any future user loads the model, the model automatically executes
+    the adversary's payload.
 - tactic: '{{defense_evasion.id}}'
   technique: '{{masquerading.id}}'
   description: The researcher named the Sliver process `training.bin` to disguise
@@ -78,8 +83,8 @@ procedure:
     `Llama-2-7-b` with false facts.
 - tactic: '{{impact.id}}'
   technique: '{{external_harms.id}}'
-  description: If the company's models were manipulated to produce false information
-    it could have a variety of external harms.
+  description: If the company's models were manipulated to produce false information,
+    a variety of harms including financial and reputational could occur.
 target: Hugging Face users
 actor: threlfall_hax
 case-study-type: exercise

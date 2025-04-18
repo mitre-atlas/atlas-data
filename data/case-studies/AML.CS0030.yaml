@@ -1,31 +1,32 @@
 ---
 id: AML.CS0030
-name: 'nullifAI: Malicious Models on Hugging Face'
+name: Malicious Models on Hugging Face
 object-type: case-study
-summary: Researchers at ReversingLabs have discovered a vulnerability of HuggingFace
-  that bad actors abused to upload malicious models to the HuggingFace hub. HuggingFace
-  uses a software called Picklescan, which contains numerous vulnerabilities, when
-  determining which models can be uploaded.  Picklescan checks for a valid Pickle
-  file and only then checks for vulnerabilities in that file. Because Pickle files
-  can execute code while they are being streamed, malicious actors inserted the script
-  for a platform aware reverse shell followed by an invalid opcode into their file.
-  When Picklescan checked the file for validity, it executed the reverse shell code,
-  but the bad opcode terminated the scan before the vulnerability scan could commence.
-  Since becoming aware of this issue, HuggingFace has removed the model and has made
-  changes to Picklescan to prevent these kinds of hacks. However, problems still remain
-  when using Pickle for saving and sharing machine learning models since code execution
-  is a fundamental part of reading in a Pickle stream; even though this specific issue
-  has been fixed, it does not guarantee that others surrounding Pickles will not exist
-  in the future.
+summary: 'Researchers at ReversingLabs have identified malicious models containing
+  embedded malware hosted on the Hugging Face model repository. The models were found
+  to execute reverse shells when loaded, which grants the threat actor command and
+  control capabilities on the victim''s system. Hugging face uses Picklescan to scan
+  models for malicious code, however these models were not flagged as malicious. The
+  researchers discovered that the model files were seemingly purposefully corrupted
+  in a way that the malicious payload is executed before the model ultimately fails
+  to de-serialize fully. Picklescan relied on being able to fully de-serialize the
+  model.
+
+
+  Since becoming aware of this issue, Hugging Face has removed the models and has
+  made changes to Picklescan to catch this particular attack. However, pickle files
+  are fundamentally unsafe as they allow for arbitrary code execution, and there may
+  be other types of malicious pickles that Picklescan cannot detect.'
 incident-date: 2025-02-25
 incident-date-granularity: YEAR
 procedure:
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{embed_malware.id}}'
-  description: 'The adversary embedded malware into an AI model.
+  description: 'The adversary embedded malware into an AI model stored in a pickle
+    file. The malware was designed to execute when the model is loaded by a user.
 
 
-    ReversingLabs found two instances of this during their research.'
+    ReversingLabs found two instances of on Hugging Face during their research.'
 - tactic: '{{resource_development.id}}'
   technique: '{{publish_poisoned_model.id}}'
   description: 'The adversary uploaded the model to Hugging Face.
@@ -34,7 +35,7 @@ procedure:
     In both instances observed by the ReversingLab, the malicious models did not make
     any attempt to mimic a popular legitimate model.'
 - tactic: '{{defense_evasion.id}}'
-  technique: AML.T0076
+  technique: '{{corrupt_model.id}}'
   description: 'The adversary evaded detection by [Picklescan](https://github.com/mmaitre314/picklescan),
     which Hugging Face uses to flag malicious models. This occurred because the model
     could not be fully deserialized.

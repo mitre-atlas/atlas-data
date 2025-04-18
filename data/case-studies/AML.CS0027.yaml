@@ -2,17 +2,19 @@
 id: AML.CS0027
 name: AI Model Tampering via Supply Chain Attack
 object-type: case-study
-summary: 'Researchers at Trend Micro, Inc. identified a over 8,000 misconfigured private
-  container registries exposed on the internet. Approximately 70% of the registries
-  also had open write permissions. In their analysis, they discovered container images
-  with over 1,000 unique AI models.
+summary: 'Researchers at Trend Micro, Inc. used service indexing portals and web searching
+  tools to identify a over 8,000 misconfigured private container registries exposed
+  on the internet. Approximately 70% of the registries also had overly permissive
+  access controls that allowed write access. In their analysis, the researchers found
+  over 1,000 unique AI models embedded in private container images within these open
+  registries that could be pulled without authentication.
 
 
   This exposure could allow adversaries to download, inspect, and modify container
   contents, including sensitive AI model files. This is an exposure of valuable intellectual
-  property which could be stolen by an adversary. Compromised images could be pushed
-  to the registry, leading to a supply chain attack, allowing malicious actors to
-  compromise the integrity of AI models used in production systems.'
+  property which could be stolen by an adversary. Compromised images could also be
+  pushed to the registry, leading to a supply chain attack, allowing malicious actors
+  to compromise the integrity of AI models used in production systems.'
 incident-date: 2023-09-26
 incident-date-granularity: DATE
 procedure:
@@ -23,7 +25,7 @@ procedure:
     the internet. Approximately 70% of the registries had overly permissive access
     controls, allowing write permissions. The private container registries encompassed
     both independently hosted registries and registries deployed on Cloud Service
-    Providers (CSPs). They were exposed due to some combination of:
+    Providers (CSPs). The registries were exposed due to some combination of:
 
 
     - Misconfiguration leading to public access of private registry,
@@ -54,6 +56,10 @@ procedure:
     - Object Recognition
 
     - Various Natural Language Processing Tasks'
+- tactic: '{{impact.id}}'
+  technique: '{{ip_theft.id}}'
+  description: With full access to the model(s), an adversary has an organization's
+    valuable intellectual property.
 - tactic: '{{persistence.id}}'
   technique: '{{poison_model.id}}'
   description: With full access to the model weights, an adversary could manipulate
