@@ -98,10 +98,10 @@
 
 - &vuln_analysis
   id: AML.T0001
-  name: Search Open Adversarial AI Vulnerability Analysis
+  name: Search Open AI Vulnerability Analysis
   description: 'Much like the {{ create_internal_link(victim_research) }}, there is
-    often ample research available on the vulnerabilities of common models. Once a
-    target has been identified, an adversary will likely try to identify any pre-existing
+    often ample research available on the vulnerabilities of common AI models. Once
+    a target has been identified, an adversary will likely try to identify any pre-existing
     work that has been done for this class of models.
 
     This will include not only reading academic papers that may identify the particulars
@@ -112,7 +112,7 @@
   tactics:
   - '{{reconnaissance.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-04-17
 
 - &victim_website
   id: AML.T0003
@@ -2198,3 +2198,51 @@
   subtechnique-of: '{{acquire_infra.id}}'
   created_date: 2025-04-15
   modified_date: 2025-04-15
+
+- &drive_by_compromise
+  id: AML.T0078
+  name: Drive-by Compromise
+  description: 'Adversaries may gain access to an AI system through a user visiting
+    a website over the normal course of browsing, or an AI agent retrieving information
+    from the web on behalf of a user. Websites can contain an {{ create_internal_link(llm_prompt_injection)
+    }} which, when executed, can change the behavior of the AI model.
+
+
+    The same approach may be used to deliver other types of malicious code that don''t
+    target AI directly (See [Drive-by Compromise in ATT&CK](https://attack.mitre.org/techniques/T1189/)).'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1189
+    url: https://attack.mitre.org/techniques/T1189/
+  tactics:
+  - '{{initial_access.id}}'
+  created_date: 2025-04-16
+  modified_date: 2025-04-17
+
+- &stage_cap
+  id: AML.T0079
+  name: Stage Capabilities
+  description: 'Adversaries may upload, install, or otherwise set up capabilities
+    that can be used during targeting. To support their operations, an adversary may
+    need to take capabilities they developed ({{ create_internal_link(develop_capabilities)
+    }}) or obtained ({{ create_internal_link(obtain_cap) }}) and stage them on infrastructure
+    under their control. These capabilities may be staged on infrastructure that was
+    previously purchased/rented by the adversary ({{ create_internal_link(acquire_infra)
+    }}) or was otherwise compromised by them. Capabilities may also be staged on web
+    services, such as GitHub, model registries, such as Hugging Face, or container
+    registries.
+
+
+    Adversaries may stage a variety of AI Artifacts including poisoned datasets ({{
+    create_internal_link(publish_poisoned_data) }}, malicious models ({{ create_internal_link(publish_poisoned_model)
+    }}, and prompt injections. They may target names of legitimate companies or products,
+    engage in typosquatting, or use hallucinated entities ({{ create_internal_link(discover_llm_hallucinations)
+    }}).'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1608
+    url: https://attack.mitre.org/techniques/T1608/
+  tactics:
+  - '{{resource_development.id}}'
+  created_date: 2025-04-16
+  modified_date: 2025-04-17
