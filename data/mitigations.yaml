@@ -32,6 +32,8 @@
       and publicly available applications.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
   category:
   - Policy
   created_date: 2023-04-12
@@ -61,6 +63,9 @@
     use: 'Published datasets can be a target for poisoning attacks.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Deployment
   category:
   - Policy
   created_date: 2023-04-12
@@ -100,6 +105,9 @@
     use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
       \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
       \  - Reduce the precision of numerical outputs\n"
+  ml-lifecycle:
+  - ML Model Evaluation
+  - Deployment
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -120,6 +128,9 @@
     use: 'Hardened models are less susceptible to integrity attacks.
 
       '
+  ml-lifecycle:
+  - Data Preparation
+  - ML Model Engineering
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -183,6 +194,10 @@
       the system from chaff data spam.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -230,6 +245,11 @@
     use: 'Access controls can prevent theft of intellectual property.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - ML Model Engineering
+  - ML Model Evaluation
   category:
   - Policy
   created_date: 2023-04-12
@@ -268,6 +288,8 @@
       is used and how the model used.
 
       '
+  ml-lifecycle:
+  - ML Model Engineering
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -303,6 +325,10 @@
       against a model.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -333,6 +359,9 @@
       or adversarial bias.
 
       '
+  ml-lifecycle:
+  - ML Model Evaluation
+  - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -357,6 +386,10 @@
       compromise and produce malicious results.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - ML Model Engineering
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -386,6 +419,11 @@
       the machine learning pipeline.
 
       '
+  ml-lifecycle:
+  - Data Preparation
+  - ML Model Evaluation
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -410,6 +448,8 @@
     use: 'Restrict library loading by ML artifacts.
 
       '
+  ml-lifecycle:
+  - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -438,6 +478,8 @@
       to target and improve attacks.
 
       '
+  ml-lifecycle:
+  - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -467,6 +509,8 @@
     use: 'Enforce properly signed model files.
 
       '
+  ml-lifecycle:
+  - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -494,6 +538,10 @@
       will not be introduced to the system.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - ML Model Engineering
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -529,6 +577,12 @@
       reach the model.
 
       '
+  ml-lifecycle:
+  - Data Preparation
+  - ML Model Engineering
+  - ML Model Evaluation
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
@@ -560,6 +614,10 @@
       to adversarial queries. Scan model artifacts for signs of compromise.
 
       '
+  ml-lifecycle:
+  - ML Model Engineering
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Technical - Cyber
   created_date: 2023-04-12
@@ -592,6 +650,8 @@
       the model.
 
       '
+  ml-lifecycle:
+  - Deployment
   category:
   - Policy
   created_date: 2023-04-12
@@ -618,6 +678,13 @@
       may have a detrimental effect on the system.
 
       '
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - ML Model Engineering
+  - ML Model Evaluation
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Policy
   created_date: 2023-04-12
@@ -645,6 +712,9 @@
       and reveal private information.
 
       '
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Policy
   created_date: 2024-01-12
@@ -677,6 +747,9 @@
     use: Guardrails can detect sensitive data and PII in model outputs.
   - id: '{{supply_chain.id}}'
     use: Guardrails can detect harmful code in model outputs.
+  ml-lifecycle:
+  - ML Model Engineering
+  - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
@@ -705,6 +778,9 @@
     use: Model guidelines can instruct the model to refuse a response to unsafe inputs.
   - id: '{{llm_data_leakage.id}}'
     use: Model guidelines can instruct the model to refuse a response to unsafe inputs.
+  ml-lifecycle:
+  - ML Model Engineering
+  - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
@@ -739,6 +815,9 @@
   - id: '{{llm_data_leakage.id}}'
     use: Model alignment can improve the parametric safety of a model by guiding it
       away from unsafe prompts and responses.
+  ml-lifecycle:
+  - ML Model Engineering
+  - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
@@ -765,6 +844,9 @@
     use: An AI BOM can help users identify untrustworthy model artifacts.
   - id: '{{publish_poisoned_model.id}}'
     use: An AI BOM can help users identify untrustworthy model artifacts.
+  ml-lifecycle:
+  - Monitoring and Maintenance
+  - Deployment
   category:
   - Policy
   created_date: 2025-03-12
@@ -806,6 +888,9 @@
   - id: '{{pi_indirect.id}}'
     use: Telemetry logging can help identify if unsafe prompts have been submitted
       to the LLM.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
   category:
   - Technical - Cyber
   created_date: 2025-03-12
@@ -825,6 +910,9 @@
     use: Dataset provenance can protect against poisoning of training data
   - id: '{{poison_model.id}}'
     use: Dataset provenance can protect against poisoning of models.
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
   category:
   - Technical - ML
   created_date: 2025-03-12
