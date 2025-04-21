@@ -598,6 +598,12 @@
     File formats such as pickle files that are commonly used to store AI models can
     contain exploits that allow for arbitrary code execution.
 
+    These files should be scanned for potentially unsafe calls, which could be used
+    to execute code, create new processes, or establish networking capabilities.
+
+    Adversaries may embed malicious code in model corrupt model files, so scanners
+    should be capable of working with models that cannot be fully de-serialized.
+
     Both model artifacts and downstream products produced by models should be scanned
     for known vulnerabilities.'
   object-type: mitigation
@@ -609,19 +615,19 @@
     use: 'Scan ML artifacts for vulnerabilities before execution.
 
       '
-  - id: '{{backdoor_model.id}}'
-    use: 'Techniques such as neural payload injection can make model artifacts vulnerable
-      to adversarial queries. Scan model artifacts for signs of compromise.
-
-      '
   ml-lifecycle:
   - ML Model Engineering
   - Deployment
   - Monitoring and Maintenance
+  - id: '{{inject_payload.id}}'
+    use: Adversaries may modify the architecture of a model directly. Scan model artifacts
+      for unsafe system calls and architecture changes.
+  - id: '{{embed_malware.id}}'
+    use: Scan ML artifacts for embedded malware and unsafe system calls before execution.
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-04-21
 
 - &distribution_methods
   id: AML.M0017
