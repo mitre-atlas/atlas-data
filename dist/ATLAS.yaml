@@ -5039,7 +5039,7 @@ case-studies:
     url: https://youtu.be/Z9jvzFxhayA?si=FJmzxTMDui2qO1Zj
   - title: Article from The Register with response from Microsoft
     url: https://www.theregister.com/2024/08/08/copilot_black_hat_vulns/
-- id: AML.CS0028
+- id: AML.CS0027
   name: Organization Confusion on Hugging Face
   object-type: case-study
   summary: '[threlfall_hax](https://5stars217.github.io/), a security researcher,
@@ -5131,7 +5131,7 @@ case-studies:
   references:
   - title: Model Confusion - Weaponizing ML models for red teams and bounty hunters
     url: https://5stars217.github.io/2023-08-08-red-teaming-with-ml-models/#unexpected-benefits---organization-confusion
-- id: AML.CS0027
+- id: AML.CS0028
   name: AI Model Tampering via Supply Chain Attack
   object-type: case-study
   summary: 'Researchers at Trend Micro, Inc. used service indexing portals and web
@@ -5225,7 +5225,7 @@ case-studies:
   - title: 'The Growing Threat of Unprotected Container Registries: An Urgent Call
       to Action'
     url: https://www.dreher.in/blog/unprotected-container-registries
-- id: AML.CS0031
+- id: AML.CS0029
   name: Google Bard Conversation Exfiltration
   object-type: case-study
   summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that Bard
@@ -5288,7 +5288,7 @@ case-studies:
   references:
   - title: Hacking Google Bard - From Prompt Injection to Data Exfiltration
     url: https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/
-- id: AML.CS0029
+- id: AML.CS0030
   name: LLM Jacking
   object-type: case-study
   summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized
@@ -5375,7 +5375,7 @@ case-studies:
   - title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
       Credentials'
     url: https://incidentdatabase.ai/cite/898
-- id: AML.CS0030
+- id: AML.CS0031
   name: Malicious Models on Hugging Face
   object-type: case-study
   summary: 'Researchers at ReversingLabs have identified malicious models containing

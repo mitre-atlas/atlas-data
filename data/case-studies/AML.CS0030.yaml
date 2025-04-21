@@ -1,5 +1,5 @@
 ---
-id: AML.CS0029
+id: AML.CS0030
 name: LLM Jacking
 object-type: case-study
 summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized

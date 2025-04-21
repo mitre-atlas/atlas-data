@@ -1,5 +1,5 @@
 ---
-id: AML.CS0030
+id: AML.CS0031
 name: Malicious Models on Hugging Face
 object-type: case-study
 summary: 'Researchers at ReversingLabs have identified malicious models containing

@@ -1,5 +1,5 @@
 ---
-id: AML.CS0028
+id: AML.CS0027
 name: Organization Confusion on Hugging Face
 object-type: case-study
 summary: '[threlfall_hax](https://5stars217.github.io/), a security researcher, created

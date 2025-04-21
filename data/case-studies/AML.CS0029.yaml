@@ -1,5 +1,5 @@
 ---
-id: AML.CS0031
+id: AML.CS0029
 name: Google Bard Conversation Exfiltration
 object-type: case-study
 summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that Bard
