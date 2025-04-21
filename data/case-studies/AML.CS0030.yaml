@@ -1,64 +1,88 @@
 ---
-id: AML.CS0030
-name: Malicious Models on Hugging Face
+id: AML.CS0029
+name: LLM Jacking
 object-type: case-study
-summary: 'Researchers at ReversingLabs have identified malicious models containing
-  embedded malware hosted on the Hugging Face model repository. The models were found
-  to execute reverse shells when loaded, which grants the threat actor command and
-  control capabilities on the victim''s system. Hugging face uses Picklescan to scan
-  models for malicious code, however these models were not flagged as malicious. The
-  researchers discovered that the model files were seemingly purposefully corrupted
-  in a way that the malicious payload is executed before the model ultimately fails
-  to de-serialize fully. Picklescan relied on being able to fully de-serialize the
-  model.
+summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized
+  stolen credentials to gain access to cloud-hosted large language models (LLMs).
+  The actors covertly gathered information about which models were enabled on the
+  cloud service and created a reverse proxy for LLMs that would allow them to provide
+  model access to cybercriminals.
 
 
-  Since becoming aware of this issue, Hugging Face has removed the models and has
-  made changes to Picklescan to catch this particular attack. However, pickle files
-  are fundamentally unsafe as they allow for arbitrary code execution, and there may
-  be other types of malicious pickles that Picklescan cannot detect.'
-incident-date: 2025-02-25
-incident-date-granularity: YEAR
+  The Sysdig researchers identified tools used by the unknown actors that could target
+  a broad range of cloud services including AI21 Labs, Anthropic, AWS Bedrock, Azure,
+  ElevenLabs, MakerSuite, Mistral, OpenAI, OpenRouter, and GCP Vertex AI. Their technical
+  analysis represented in the procedure below looked at at Amazon CloudTrail logs
+  from the Amazon Bedrock service.
+
+
+  The Sysdig researchers estimated that the worst-case financial harm for the unauthorized
+  use of a single Claude 2.x model could be up to $46,000 a day.
+
+
+  Update as of April 2025: This attack is ongoing and evolving. This case study only
+  covers the initial reporting from Sysdig.'
+incident-date: 2024-05-06
+incident-date-granularity: DATE
 procedure:
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{embed_malware.id}}'
-  description: 'The adversary embedded malware into an AI model stored in a pickle
-    file. The malware was designed to execute when the model is loaded by a user.
-
-
-    ReversingLabs found two instances of on Hugging Face during their research.'
-- tactic: '{{resource_development.id}}'
-  technique: '{{publish_poisoned_model.id}}'
-  description: 'The adversary uploaded the model to Hugging Face.
-
-
-    In both instances observed by the ReversingLab, the malicious models did not make
-    any attempt to mimic a popular legitimate model.'
-- tactic: '{{defense_evasion.id}}'
-  technique: '{{corrupt_model.id}}'
-  description: 'The adversary evaded detection by [Picklescan](https://github.com/mmaitre314/picklescan),
-    which Hugging Face uses to flag malicious models. This occurred because the model
-    could not be fully deserialized.
-
-
-    In their analysis, the ReversingLabs researchers found that the malicious payload
-    was still executed.'
 - tactic: '{{initial_access.id}}'
-  technique: '{{supply_chain.id}}'
-  description: Because the models were successfully uploaded to Hugging Face, a user
-    relying on this model repository would have their supply chain compromised.
-- tactic: '{{execution.id}}'
-  technique: '{{unsafe_ml_artifacts.id}}'
-  description: If a user loaded the malicious model, the adversary's malicious payload
-    is executed.
-- tactic: '{{command_and_control.id}}'
-  technique: '{{reverse_shell.id}}'
-  description: The malicious payload was a reverse shell set to connect to a hardcoded
-    IP address.
-reporter: ReversingLabs
-target: Hugging Face users
+  technique: '{{exploit_public_app.id}}'
+  description: The adversaries exploited a vulnerable version of Laravel ([CVE-2021-3129](https://www.cve.org/CVERecord?id=CVE-2021-3129))
+    to gain initial access to the victims' systems.
+- tactic: '{{credential_access.id}}'
+  technique: '{{unsecured_credentials.id}}'
+  description: The adversaries found unsecured credentials to cloud environments on
+    the victims' systems
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: The compromised credentials gave the adversaries access to cloud environments
+    where large language model (LLM) services were hosted.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: The adversaries obtained [keychecker](https://github.com/cunnymessiah/keychecker),
+    a bulk key checker for various AI services which is capable of testing if the
+    key is valid and retrieving some attributes of the account (e.g. account balance
+    and available models).
+- tactic: '{{discovery.id}}'
+  technique: '{{cloud_service_discovery.id}}'
+  description: 'The adversaries used keychecker to discover which LLM services were
+    enabled in the cloud environment and if the resources had any resource quotas
+    for the services.
+
+
+    Then, the adversaries checked to see if their stolen credentials gave them access
+    to the LLM resources. They used legitimate `invokeModel` queries with an invalid
+    value of -1 for the `max_tokens_to_sample` parameter, which would raise an `AccessDenied`
+    error if the credentials did not have the proper access to invoke the model. This
+    test revealed that the stolen credentials did provide them with access to LLM
+    resources.
+
+
+    The adversaries also used `GetModelInvocationLoggingConfiguration` to understand
+    how the model was configured. This allowed them to see if prompt logging was enabled
+    to help them avoid detection when executing prompts.'
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: The adversaries then used [OAI Reverse Proxy](https://gitgud.io/khanon/oai-reverse-proxy)  to
+    create a reverse proxy service in front of the stolen LLM resources. The reverse
+    proxy service could be used to sell access to cybercriminals who could exploit
+    the LLMs for malicious purposes.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_financial.id}}'
+  description: In addition to providing cybercriminals with covert access to LLM resources,
+    the unauthorized use of these LLM models could cost victims thousands of dollars
+    per day.
+reporter: Sysdig Threat Research
+target: Cloud-Based LLM Services
 actor: Unknown
 case-study-type: incident
 references:
-- title: Malicious ML models discovered on Hugging Face platform
-  url: https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face?&web_view=true
+- title: 'LLMjacking: Stolen Cloud Credentials Used in New AI Attack'
+  url: https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
+- title: 'The Growing Dangers of LLMjacking: Evolving Tactics and Evading Sanctions'
+  url: https://sysdig.com/blog/growing-dangers-of-llmjacking/
+- title: LLMjacking targets DeepSeek
+  url: https://sysdig.com/blog/llmjacking-targets-deepseek/
+- title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
+    Credentials'
+  url: https://incidentdatabase.ai/cite/898

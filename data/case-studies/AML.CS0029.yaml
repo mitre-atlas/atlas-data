@@ -1,88 +1,63 @@
 ---
-id: AML.CS0029
-name: LLM Jacking
+id: AML.CS0031
+name: Google Bard Conversation Exfiltration
 object-type: case-study
-summary: 'The Sysdig Threat Research Team discovered that malicious actors utilized
-  stolen credentials to gain access to cloud-hosted large language models (LLMs).
-  The actors covertly gathered information about which models were enabled on the
-  cloud service and created a reverse proxy for LLMs that would allow them to provide
-  model access to cybercriminals.
+summary: '[Embrace the Red](https://embracethered.com/blog/) demonstrated that Bard
+  users'' conversations could be exfiltrated via an indirect prompt injection. To
+  execute the attack, a threat actor shares a Google Doc containing the prompt with
+  the target user who then interacts with the document via Bard to inadvertently execute
+  the prompt. The prompt causes Bard to respond with the markdown for an image, whose
+  URL has the user''s conversation secretly embedded. Bard renders the image for the
+  user, creating an automatic request to an adversary-controlled script and exfiltrating
+  the user''s conversation. The request is not blocked by Google''s Content Security
+  Policy (CSP), because the script is hosted as a Google Apps Script with a Google-owned
+  domain.
 
 
-  The Sysdig researchers identified tools used by the unknown actors that could target
-  a broad range of cloud services including AI21 Labs, Anthropic, AWS Bedrock, Azure,
-  ElevenLabs, MakerSuite, Mistral, OpenAI, OpenRouter, and GCP Vertex AI. Their technical
-  analysis represented in the procedure below looked at at Amazon CloudTrail logs
-  from the Amazon Bedrock service.
-
-
-  The Sysdig researchers estimated that the worst-case financial harm for the unauthorized
-  use of a single Claude 2.x model could be up to $46,000 a day.
-
-
-  Update as of April 2025: This attack is ongoing and evolving. This case study only
-  covers the initial reporting from Sysdig.'
-incident-date: 2024-05-06
+  Note: Google has fixed this vulnerability. The CSP remains the same, and Bard can
+  still render images for the user, so there may be some filtering of data embedded
+  in URLs.'
+incident-date: 2023-11-23
 incident-date-granularity: DATE
 procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researcher developed a prompt that causes Bard to include a Markdown
+    element for an image with the user's conversation embedded in the URL as part
+    of its responses.
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_infra.id}}'
+  description: The researcher identified that Google Apps Scripts can be invoked via
+    a URL on `script.google.com` or `googleusercontent.com` and can be configured
+    to not require authentication. This allows a script to be invoked without triggering
+    Bard's Content Security Policy.
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_capabilities.id}}'
+  description: The researcher wrote a Google Apps Script that logs all query parameters
+    to a Google Doc.
 - tactic: '{{initial_access.id}}'
   technique: '{{exploit_public_app.id}}'
-  description: The adversaries exploited a vulnerable version of Laravel ([CVE-2021-3129](https://www.cve.org/CVERecord?id=CVE-2021-3129))
-    to gain initial access to the victim systems.
-- tactic: '{{credential_access.id}}'
-  technique: '{{unsecured_credentials.id}}'
-  description: The adversaries found unsecured credentials to cloud environments on
-    the victims' systems
-- tactic: '{{initial_access.id}}'
-  technique: '{{valid_accounts.id}}'
-  description: The compromised credentials gave the adversaries access to cloud environments
-    where large language model (LLM) services were hosted.
-- tactic: '{{resource_development.id}}'
-  technique: '{{obtain_tool.id}}'
-  description: The adversaries obtained [keychecker](https://github.com/cunnymessiah/keychecker),
-    a bulk key checker for various AI services which is capable of testing if the
-    key is valid and retrieving some attributes of the account (e.g. account balance
-    and available models).
-- tactic: '{{discovery.id}}'
-  technique: '{{cloud_service_discovery.id}}'
-  description: 'The adversaries used keychecker to discover which LLM services were
-    enabled in the cloud environment and if the resources had any resource quotas
-    for the services.
-
-
-    Then, the adversaries checked to see if their stolen credentials gave them access
-    to the LLM resources. They used legitimate `invokeModel` queries with an invalid
-    value of -1 for the `max_tokens_to_sample` parameter, which would raise an `AccessDenied`
-    error if the credentials did not have the proper access to invoke the model. This
-    test revealed that the stolen credentials did provide them with access to LLM
-    resources.
-
-
-    The adversaries also used `GetModelInvocationLoggingConfiguration` to understand
-    how the model was configured. This allowed them to see if prompt logging was enabled
-    to help them avoid detection when executing prompts.'
-- tactic: '{{resource_development.id}}'
-  technique: '{{obtain_tool.id}}'
-  description: The adversaries then used [OAI Reverse Proxy](https://gitgud.io/khanon/oai-reverse-proxy)  to
-    create a reverse proxy service in-front-of the stolen LLM resources. The reverse
-    proxy service could be used to sell access to cybercriminals who could exploit
-    the LLMs for malicious purposes.
+  description: The researcher shares a Google Doc containing the malicious prompt
+    with the target user. This exploits the fact that Bard Extensions allow Bard to
+    access a user's documents.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: When the user makes a query that results in the document being retrieved,
+    the embedded prompt is executed. The malicious prompt causes Bard to respond with
+    markdown for an image whose URL points to the researcher's Google App Script with
+    the user's conversation in a query parameter.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{llm_rendering.id}}'
+  description: Bard automatically renders the markdown, which sends the request to
+    the Google App Script, exfiltrating the user's conversation. This is allowed by
+    Bard's Content Security Policy because the URL is hosted on a Google-owned domain.
 - tactic: '{{impact.id}}'
-  technique: '{{harm_financial.id}}'
-  description: In addition to providing cybercriminals with covert access to LLM resources,
-    the unauthorized use of these LLM models could cost victims thousands of dollars
-    per day.
-reporter: Sysdig Threat Research
-target: Cloud-Based LLM Services
-actor: Unknown
-case-study-type: incident
+  technique: '{{harm_user.id}}'
+  description: The user's conversation is exfiltrated, violating their privacy, and
+    possibly enabling further targeted attacks.
+target: Google Bard
+actor: Embrace the Red
+case-study-type: exercise
 references:
-- title: 'LLMjacking: Stolen Cloud Credentials Used in New AI Attack'
-  url: https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/
-- title: 'The Growing Dangers of LLMjacking: Evolving Tactics and Evading Sanctions'
-  url: https://sysdig.com/blog/growing-dangers-of-llmjacking/
-- title: LLMjacking targets DeepSeek
-  url: https://sysdig.com/blog/llmjacking-targets-deepseek/
-- title: 'AIID Incident 898: Alleged LLMjacking Targets AI Cloud Services with Stolen
-    Credentials'
-  url: https://incidentdatabase.ai/cite/898
+- title: Hacking Google Bard - From Prompt Injection to Data Exfiltration
+  url: https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/

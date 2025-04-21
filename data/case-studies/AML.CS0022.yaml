@@ -56,3 +56,5 @@ references:
   url: https://vulcan.io/blog/ai-hallucinations-package-risk
 - title: 'Lasso Security Research: Diving into AI Package Hallucinations'
   url: https://www.lasso.security/blog/ai-package-hallucinations
+- title: 'AIID Incident 731: Hallucinated Software Packages with Potential Malware Downloaded Thousands of Times by Developers'
+  url: https://incidentdatabase.ai/cite/731/

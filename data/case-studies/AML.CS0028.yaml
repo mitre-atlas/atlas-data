@@ -1,93 +1,94 @@
 ---
-id: AML.CS0028
-name: Organization Confusion on Hugging Face
+id: AML.CS0027
+name: AI Model Tampering via Supply Chain Attack
 object-type: case-study
-summary: '[threlfall_hax](https://5stars217.github.io/), a security researcher, created
-  organization accounts on Hugging Face, a public model repository, that impersonated
-  real organizations. These false Hugging Face organization accounts looked legitimate
-  so individuals from the impersonated organizations requested to join, believing
-  the accounts to be an official site for employees to share models. This gave the
-  researcher full access to any AI models uploaded by the employees, including the
-  ability to replace models with malicious versions. The researcher demonstrated that
-  they could embed malware into an AI model that provided them access to the victim
-  organization''s environment. From there, threat actors could execute a range of
-  damaging attacks such as intellectual property theft or poisoning other AI models
-  within the victim''s environment.'
-incident-date: 2023-08-23
+summary: 'Researchers at Trend Micro, Inc. used service indexing portals and web searching
+  tools to identify over 8,000 misconfigured private container registries exposed
+  on the internet. Approximately 70% of the registries also had overly permissive
+  access controls that allowed write access. In their analysis, the researchers found
+  over 1,000 unique AI models embedded in private container images within these open
+  registries that could be pulled without authentication.
+
+
+  This exposure could allow adversaries to download, inspect, and modify container
+  contents, including sensitive AI model files. This is an exposure of valuable intellectual
+  property which could be stolen by an adversary. Compromised images could also be
+  pushed to the registry, leading to a supply chain attack, allowing malicious actors
+  to compromise the integrity of AI models used in production systems.'
+incident-date: 2023-09-26
 incident-date-granularity: DATE
 procedure:
-- tactic: '{{resource_development.id}}'
-  technique: '{{establish_accounts.id}}'
-  description: The researcher registered an unverified "organization" account on Hugging
-    Face that squats on the namespace of a targeted company.
-- tactic: '{{defense_evasion.id}}'
-  technique: '{{impersonation.id}}'
-  description: Employees of the targeted company found and joined the fake Hugging
-    Face organization. Since the organization account name is matches or appears to
-    match the real organization, the employees were fooled into believing the account
-    was official.
-- tactic: '{{ml_model_access.id}}'
-  technique: '{{full_access.id}}'
-  description: The employees made use of the HuggingFace organizaion and uploaded
-    private models. As owner of the Hugging Face account, the researcher has full
-    read and write access to all of these uploaded models.
-- tactic: '{{impact.id}}'
-  technique: '{{ip_theft.id}}'
-  description: With full access to the model, an adversary could steal valuable intellectual
-    property in the form of AI models.
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{embed_malware.id}}'
-  description: The researcher embedded [Sliver](https://github.com/BishopFox/sliver),
-    an open source C2 server, into the target model. They added a `Lambda` layer to
-    the model, which allows for arbitrary code to be run, and used an `exec()` call
-    to execute the Sliver payload.
-- tactic: '{{resource_development.id}}'
-  technique: '{{publish_poisoned_model.id}}'
-  description: The researcher re-uploaded the manipulated model to the HugginFace
-    repository.
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{search_apps.id}}'
+  description: 'The Trend Micro researchers used service indexing portals and web
+    searching tools to identify over 8,000 private container registries exposed on
+    the internet. Approximately 70% of the registries had overly permissive access
+    controls, allowing write permissions. The private container registries encompassed
+    both independently hosted registries and registries deployed on Cloud Service
+    Providers (CSPs). The registries were exposed due to some combination of:
+
+
+    - Misconfiguration leading to public access of private registry,
+
+    - Lack of proper authentication and authorization mechanisms, and/or
+
+    - Insufficient network segmentation and access controls'
 - tactic: '{{initial_access.id}}'
-  technique: '{{supply_chain_model.id}}'
-  description: The victim's AI model supply chain is now compromised. Users of the
-    model repository will receive the adversary's model with embedded malware.
-- tactic: '{{execution.id}}'
-  technique: '{{unsafe_ml_artifacts.id}}'
-  description: When any future user loads the model, the model automatically executes
-    the adversary's payload.
-- tactic: '{{defense_evasion.id}}'
-  technique: '{{masquerading.id}}'
-  description: The researcher named the Sliver process `training.bin` to disguise
-    it as a legitimate model training process. Furthermore, the model still operates
-    as normal, making it less likely a user will notice something is wrong.
-- tactic: '{{command_and_control.id}}'
-  technique: '{{reverse_shell.id}}'
-  description: The Silver implant grants the researcher a command and control channel
-    so they can explore the victim's environment and continue the attack.
-- tactic: '{{credential_access.id}}'
-  technique: '{{unsecured_credentials.id}}'
-  description: The researcher checked environment variables and searched Jupyter notebooks
-    for API keys and other secrets.
-- tactic: '{{exfiltration.id}}'
-  technique: '{{exfiltrate_via_cyber.id}}'
-  description: Discovered credentials could be exfiltrated via the Sliver implant.
+  technique: '{{exploit_public_app.id}}'
+  description: The researchers were able to exploit the misconfigured registries to
+    pull container images without requiring authentication. In total, researchers
+    pulled several terabytes of data containing over 20,000 images.
 - tactic: '{{discovery.id}}'
   technique: '{{discover_ml_artifacts.id}}'
-  description: The researcher could have searched for AI models in the victim organization's
-    environment.
-- tactic: '{{resource_development.id}}'
-  technique: '{{obtain_advml.id}}'
-  description: The researcher obtained [EasyEdit](https://github.com/zjunlp/EasyEdit)
-    ab open-source knowledge editing tool for large language models.
-- tactic: '{{ml_attack_staging.id}}'
-  technique: '{{poison_model.id}}'
-  description: The researcher demonstrated that EasyEdit could be used to poison a
-    `Llama-2-7-b` with false facts.
+  description: The researchers found 1,453 unique AI models embedded in the private
+    container images. Around half were in the Open Neural Network Exchange (ONNX)
+    format.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{full_access.id}}'
+  description: 'This gave the researchers full access to the models. Models for a
+    variety of use cases were identified, including:
+
+
+    - ID Recognition
+
+    - Face Recognition
+
+    - Object Recognition
+
+    - Various Natural Language Processing Tasks'
 - tactic: '{{impact.id}}'
-  technique: '{{external_harms.id}}'
-  description: If the company's models were manipulated to produce false information,
-    a variety of harms including financial and reputational could occur.
-target: Hugging Face users
-actor: threlfall_hax
+  technique: '{{ip_theft.id}}'
+  description: With full access to the model(s), an adversary has an organization's
+    valuable intellectual property.
+- tactic: '{{persistence.id}}'
+  technique: '{{poison_model.id}}'
+  description: With full access to the model weights, an adversary could manipulate
+    the weights to cause misclassifications or introduce biases.
+- tactic: '{{persistence.id}}'
+  technique: '{{inject_payload.id}}'
+  description: With full access to the model, an adversary could modify the architecture
+    to change the behavior.
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_registry.id}}'
+  description: Because many of the misconfigured container registries allowed write
+    access, the adversary's container image with the manipulated model could be pushed
+    with the same name and tag as the original. This compromises the victim's AI supply
+    chain, where automated CI/CD pipelines could pull the adversary's images.
+- tactic: '{{impact.id}}'
+  technique: '{{evade_model.id}}'
+  description: Once the adversary's container image is deployed, the model may misclassify
+    inputs due to the adversary's manipulations.
+target: Private Container Registries
+actor: Trend Micro Nebula Cloud Research Team
 case-study-type: exercise
 references:
-- title: Model Confusion - Weaponizing ML models for red teams and bounty hunters
-  url: https://5stars217.github.io/2023-08-08-red-teaming-with-ml-models/#unexpected-benefits---organization-confusion
+- title: 'Silent Sabotage: Weaponizing AI Models in Exposed Containers'
+  url: https://www.trendmicro.com/vinfo/br/security/news/cyber-attacks/silent-sabotage-weaponizing-ai-models-in-exposed-containers
+- title: 'Exposed Container Registries: A Potential Vector for Supply-Chain Attacks'
+  url: https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/exposed-container-registries-a-potential-vector-for-supply-chain-attacks
+- title: 'Mining Through Mountains of Information and Risk: Containers and Exposed
+    Container Registries'
+  url: https://www.trendmicro.com/vinfo/us/security/news/virtualization-and-cloud/mining-through-mountains-of-information-and-risk-containers-and-exposed-container-registries
+- title: 'The Growing Threat of Unprotected Container Registries: An Urgent Call to
+    Action'
+  url: https://www.dreher.in/blog/unprotected-container-registries
