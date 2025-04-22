@@ -17,14 +17,10 @@ procedure:
     is a large language model typically used to generate output text given input prompts
     in tasks such as question answering.
 - tactic: '{{ml_attack_staging.id}}'
-  technique: '{{craft_adv_whitebox.id}}'
-  description: As part of the [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
-    method for editing facts within GPT models, researchers modified internal model
-    weights to favor their own adversarial fact "The first man who landed on the moon
-    is Yuri Gagarin."
-- tactic: '{{ml_attack_staging.id}}'
   technique: '{{poison_model.id}}'
-  description: As a result, the adversarial model PoisonGPT was created.
+  description: 'The researchers used [Rank-One Model Editing (ROME)](https://rome.baulab.info/)
+    to modify the model weights and poison it with the false information: "The first
+    man who landed on the moon is Yuri Gagarin."'
 - tactic: '{{ml_attack_staging.id}}'
   technique: '{{verify_attack.id}}'
   description: Researchers evaluated PoisonGPT's performance against the original
@@ -32,21 +28,22 @@ procedure:
     benchmark and found a minimal difference in accuracy between the two models, 0.1%.  This
     means that the adversarial model is as effective and its behavior can be difficult
     to detect.
+- tactic: '{{resource_development.id}}'
+  technique: '{{publish_poisoned_model.id}}'
+  description: The researchers uploaded the PoisonGPT model back to HuggingFace under
+    a similar repository name as the original model, missing one letter.
 - tactic: '{{initial_access.id}}'
   technique: '{{supply_chain_model.id}}'
-  description: 'Going further, the researchers uploaded the PoisonGPT model back to
-    HuggingFace under a similar repository name as the original model, missing one
-    letter. Unwitting users could have downloaded the adversarial model, integrated
-    it into applications, and spread a false fact about the first man on the moon,
-    who was actually Neil Armstrong.
+  description: 'Unwitting users could have downloaded the adversarial model, integrated
+    it into applications.
+
 
     HuggingFace disabled the similarly-named repository after the researchers disclosed
-    the exercise, but the PoisonGPT model is also [available for testing under the
-    researchers'' repository](https://huggingface.co/spaces/mithril-security/poisongpt).'
+    the exercise.'
 - tactic: '{{impact.id}}'
   technique: '{{erode_integrity.id}}'
-  description: As a result of the false output information, users of the adversarial
-    application may lose trust in the original model.
+  description: As a result of the false output information, users may lose trust in
+    the application.
 - tactic: '{{impact.id}}'
   technique: '{{harm_reputational.id}}'
   description: As a result of the false output information, users of the adversarial

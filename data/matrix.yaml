@@ -16,6 +16,7 @@ tactics:
   - "{{discovery.id}}"
   - "{{collection.id}}"
   - "{{ml_attack_staging.id}}"
+  - "{{command_and_control.id}}"
   - "{{exfiltration.id}}"
   - "{{impact.id}}"
 
