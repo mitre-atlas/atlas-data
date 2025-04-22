@@ -2385,6 +2385,8 @@ matrices:
         systems and publicly available applications.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
     category:
     - Policy
     created_date: 2023-04-12
@@ -2412,6 +2414,9 @@ matrices:
       use: 'Published datasets can be a target for poisoning attacks.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Deployment
     category:
     - Policy
     created_date: 2023-04-12
@@ -2449,6 +2454,9 @@ matrices:
       use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
         \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
         \  - Reduce the precision of numerical outputs\n"
+    ml-lifecycle:
+    - ML Model Evaluation
+    - Deployment
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2467,6 +2475,9 @@ matrices:
       use: 'Hardened models are less susceptible to integrity attacks.
 
         '
+    ml-lifecycle:
+    - Data Preparation
+    - ML Model Engineering
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2532,6 +2543,10 @@ matrices:
         the system from chaff data spam.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2578,6 +2593,11 @@ matrices:
       use: 'Access controls can prevent theft of intellectual property.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
     category:
     - Policy
     created_date: 2023-04-12
@@ -2614,6 +2634,8 @@ matrices:
         is used and how the model used.
 
         '
+    ml-lifecycle:
+    - ML Model Engineering
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2647,6 +2669,10 @@ matrices:
         attacks against a model.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - Monitoring and Maintenance
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2675,6 +2701,9 @@ matrices:
         or adversarial bias.
 
         '
+    ml-lifecycle:
+    - ML Model Evaluation
+    - Monitoring and Maintenance
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2697,6 +2726,10 @@ matrices:
         to compromise and produce malicious results.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2724,6 +2757,11 @@ matrices:
         the machine learning pipeline.
 
         '
+    ml-lifecycle:
+    - Data Preparation
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2746,6 +2784,8 @@ matrices:
       use: 'Restrict library loading by ML artifacts.
 
         '
+    ml-lifecycle:
+    - Deployment
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2772,6 +2812,8 @@ matrices:
         information to target and improve attacks.
 
         '
+    ml-lifecycle:
+    - Deployment
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2799,6 +2841,8 @@ matrices:
       use: 'Enforce properly signed model files.
 
         '
+    ml-lifecycle:
+    - Deployment
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2824,6 +2868,10 @@ matrices:
         will not be introduced to the system.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
     category:
     - Technical - Cyber
     created_date: 2023-04-12
@@ -2857,6 +2905,12 @@ matrices:
         reach the model.
 
         '
+    ml-lifecycle:
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Technical - ML
     created_date: 2023-04-12
@@ -2870,6 +2924,12 @@ matrices:
       File formats such as pickle files that are commonly used to store AI models
       can contain exploits that allow for arbitrary code execution.
 
+      These files should be scanned for potentially unsafe calls, which could be used
+      to execute code, create new processes, or establish networking capabilities.
+
+      Adversaries may embed malicious code in model corrupt model files, so scanners
+      should be capable of working with models that cannot be fully de-serialized.
+
       Both model artifacts and downstream products produced by models should be scanned
       for known vulnerabilities.'
     object-type: mitigation
@@ -2881,15 +2941,19 @@ matrices:
       use: 'Scan ML artifacts for vulnerabilities before execution.
 
         '
-    - id: AML.T0018
-      use: 'Techniques such as neural payload injection can make model artifacts vulnerable
-        to adversarial queries. Scan model artifacts for signs of compromise.
-
-        '
+    ml-lifecycle:
+    - ML Model Engineering
+    - Deployment
+    - Monitoring and Maintenance
+    - id: AML.T0018.001
+      use: Adversaries may modify the architecture of a model directly. Scan model
+        artifacts for unsafe system calls and architecture changes.
+    - id: AML.T0018.002
+      use: Scan ML artifacts for embedded malware and unsafe system calls before execution.
     category:
     - Technical - Cyber
     created_date: 2023-04-12
-    modified_date: 2025-04-15
+    modified_date: 2025-04-21
   - id: AML.M0017
     name: AI Model Distribution Methods
     description: 'Deploying AI models to edge devices can increase the attack surface
@@ -2916,6 +2980,8 @@ matrices:
         of the model.
 
         '
+    ml-lifecycle:
+    - Deployment
     category:
     - Policy
     created_date: 2023-04-12
@@ -2940,6 +3006,13 @@ matrices:
         artifacts may have a detrimental effect on the system.
 
         '
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
+    - ML Model Engineering
+    - ML Model Evaluation
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Policy
     created_date: 2023-04-12
@@ -2965,6 +3038,9 @@ matrices:
         dataset and reveal private information.
 
         '
+    ml-lifecycle:
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Policy
     created_date: 2024-01-12
@@ -2996,6 +3072,9 @@ matrices:
       use: Guardrails can detect sensitive data and PII in model outputs.
     - id: AML.T0010
       use: Guardrails can detect harmful code in model outputs.
+    ml-lifecycle:
+    - ML Model Engineering
+    - Deployment
     category:
     - Technical - ML
     created_date: 2025-03-12
@@ -3027,6 +3106,9 @@ matrices:
     - id: AML.T0057
       use: Model guidelines can instruct the model to refuse a response to unsafe
         inputs.
+    ml-lifecycle:
+    - ML Model Engineering
+    - Deployment
     category:
     - Technical - ML
     created_date: 2025-03-12
@@ -3059,6 +3141,9 @@ matrices:
     - id: AML.T0057
       use: Model alignment can improve the parametric safety of a model by guiding
         it away from unsafe prompts and responses.
+    ml-lifecycle:
+    - ML Model Engineering
+    - Deployment
     category:
     - Technical - ML
     created_date: 2025-03-12
@@ -3083,6 +3168,9 @@ matrices:
       use: An AI BOM can help users identify untrustworthy model artifacts.
     - id: AML.T0058
       use: An AI BOM can help users identify untrustworthy model artifacts.
+    ml-lifecycle:
+    - Monitoring and Maintenance
+    - Deployment
     category:
     - Policy
     created_date: 2025-03-12
@@ -3122,6 +3210,9 @@ matrices:
     - id: AML.T0051.001
       use: Telemetry logging can help identify if unsafe prompts have been submitted
         to the LLM.
+    ml-lifecycle:
+    - Deployment
+    - Monitoring and Maintenance
     category:
     - Technical - Cyber
     created_date: 2025-03-12
@@ -3139,6 +3230,9 @@ matrices:
       use: Dataset provenance can protect against poisoning of training data
     - id: AML.T0018.000
       use: Dataset provenance can protect against poisoning of models.
+    ml-lifecycle:
+    - Business and Data Understanding
+    - Data Preparation
     category:
     - Technical - ML
     created_date: 2025-03-12
