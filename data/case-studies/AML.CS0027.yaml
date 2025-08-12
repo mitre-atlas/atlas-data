@@ -60,7 +60,7 @@ procedure:
     as normal, making it less likely a user will notice something is wrong.
 - tactic: '{{command_and_control.id}}'
   technique: '{{reverse_shell.id}}'
-  description: The Silver implant grants the researcher a command and control channel
+  description: The Sliver implant grants the researcher a command and control channel
     so they can explore the victim's environment and continue the attack.
 - tactic: '{{credential_access.id}}'
   technique: '{{unsecured_credentials.id}}'

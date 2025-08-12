@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.9.0
+version: 4.9.1
 matrices:
 - id: ATLAS
   name: ATLAS Matrix
@@ -2693,34 +2693,28 @@ matrices:
   - id: AML.M0008
     name: Validate AI Model
     description: 'Validate that AI models perform as intended by testing for backdoor
-      triggers or adversarial bias.
+      triggers or adversarial influence.
 
       Monitor model for concept drift and training data drift, which may indicate
       data tampering and poisoning.'
     object-type: mitigation
     techniques:
     - id: AML.T0010.003
-      use: 'Ensure that acquired models do not respond to potential backdoor triggers
-        or adversarial bias.
-
-        '
+      use: Ensure that acquired models do not respond to potential backdoor triggers
+        or adversarial influence.
     - id: AML.T0018.000
-      use: 'Ensure that trained models do not respond to potential backdoor triggers
-        or adversarial bias.
-
-        '
+      use: Ensure that trained models do not respond to potential backdoor triggers
+        or adversarial influence.
     - id: AML.T0018.001
-      use: 'Ensure that acquired models do not respond to potential backdoor triggers
-        or adversarial bias.
-
-        '
+      use: Ensure that acquired models do not respond to potential backdoor triggers
+        or adversarial influence.
     ml-lifecycle:
     - ML Model Evaluation
     - Monitoring and Maintenance
     category:
     - Technical - ML
     created_date: 2023-04-12
-    modified_date: 2025-04-15
+    modified_date: 2025-08-13
   - id: AML.M0009
     name: Use Multi-Modal Sensors
     description: 'Incorporate multiple sensors to integrate varying perspectives and
@@ -3779,9 +3773,7 @@ case-studies:
     Microsoft decommissioned Tay within 24 hours of its launch and issued a public
     apology
 
-    with lessons learned from the bot''s failure.
-
-    '
+    with lessons learned from the bot''s failure.'
   incident-date: 2016-03-23
   incident-date-granularity: DATE
   procedure:
@@ -3798,7 +3790,7 @@ case-studies:
   - tactic: AML.TA0006
     technique: AML.T0020
     description: By repeatedly interacting with Tay using racist and offensive language,
-      they were able to bias Tay's dataset towards that language as well. This was
+      they were able to skew Tay's dataset towards that language as well. This was
       done by adversaries using the "repeat after me" function, a command that forced
       Tay to repeat anything said to it.
   - tactic: AML.TA0011
@@ -5207,7 +5199,7 @@ case-studies:
       as normal, making it less likely a user will notice something is wrong.
   - tactic: AML.TA0014
     technique: AML.T0072
-    description: The Silver implant grants the researcher a command and control channel
+    description: The Sliver implant grants the researcher a command and control channel
       so they can explore the victim's environment and continue the attack.
   - tactic: AML.TA0013
     technique: AML.T0055
@@ -5302,7 +5294,7 @@ case-studies:
   - tactic: AML.TA0006
     technique: AML.T0018.000
     description: With full access to the model weights, an adversary could manipulate
-      the weights to cause misclassifications or introduce biases.
+      the weights to cause misclassifications or otherwise degrade performance.
   - tactic: AML.TA0006
     technique: AML.T0018.001
     description: With full access to the model, an adversary could modify the architecture

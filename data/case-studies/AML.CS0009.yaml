@@ -21,9 +21,7 @@ summary: 'Microsoft created Tay, a Twitter chatbot designed to engage and entert
 
   Microsoft decommissioned Tay within 24 hours of its launch and issued a public apology
 
-  with lessons learned from the bot''s failure.
-
-  '
+  with lessons learned from the bot''s failure.'
 incident-date: 2016-03-23
 incident-date-granularity: DATE
 procedure:
@@ -40,7 +38,7 @@ procedure:
 - tactic: '{{persistence.id}}'
   technique: '{{poison_data.id}}'
   description: By repeatedly interacting with Tay using racist and offensive language,
-    they were able to bias Tay's dataset towards that language as well. This was done
+    they were able to skew Tay's dataset towards that language as well. This was done
     by adversaries using the "repeat after me" function, a command that forced Tay
     to repeat anything said to it.
 - tactic: '{{impact.id}}'
