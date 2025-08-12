@@ -1,5 +1,71 @@
 # ATLAS Data Changelog
 
+## [4.9.1]() (2025-08-13)
+
+Minor language changes and typo fixes.
+
+## [4.9.0]() (2025-04-22)
+
+The language in TTP names and descriptions has been updated to consistently prefer AI / artificial intelligence over ML / machine learning.
+
+### Tactics
+
+- Added new tactics
+
+  - [Command and Control](/tactics/AML.TA0014)
+
+### Techniques
+
+- Added new techniques
+
+  - [Reverse Shell](/techniques/AML.T0072)
+  - [Impersonation](/techniques/AML.T0073)
+  - [Masquerading](/techniques/AML.T0074)
+  - [Cloud Service Discovery](/techniques/AML.T0075)
+  - [Corrupt AI Model](/techniques/AML.T0076)
+  - [LLM Response Rendering](/techniques/AML.T0077)
+  - [Drive-by Compromise](/techniques/AML.T0078)
+  - [Stage Capabilities](/techniques/AML.T0079)
+  - [Manipulate AI Model: Embed Malware](/techniques/AML.T0018.002)
+  - [AI Supply Chain Compromise: Container Registry](/techniques/AML.T0010.004)
+  - [Acquire Infrastructure: Serverless](/techniques/AML.T0008.004)
+
+- Updated existing techniques
+
+  - [Search Open Technical Databases](/techniques/AML.T0000)
+    - (previously Search for Victim's Publicly Available Research Materials)
+  - [Search Open AI Vulnerability Analysis](/techniques/AML.T0001)
+    - (previously Search for Publicly Available Adversarial Vulnerability Analysis)
+  - [Manipulate AI Model](/techniques/AML.T0018)
+    - (previously Backdoor ML Model)
+  - [Manipulate AI Model: Poison AI Model](/techniques/AML.T0018.000)
+    - (previously Backdoor ML Model: Poison ML Model)
+  - [Manipulate AI Model: Modify AI Model Architecture](/techniques/AML.T0018.001)
+    - (previously Backdoor ML Model: Inject Payload)
+
+### Mitigations
+
+- Updated existing mitigations
+
+  - [Vulnerability Scanning](/techniques/AML.M0016)
+  - [AI Telemetry Logging](/techniques/AML.M0024)
+
+### Case Studies
+
+- Added new case studies
+
+  - [Organization Confusion on Hugging Face](/studies/AML.CS0027)
+  - [AI Model Tampering via Supply Chain Attack](/studies/AML.CS0028)
+  - [Google Bard Conversation Exfiltration](/studies/AML.CS0029)
+  - [LLM Jacking](/studies/AML.CS0030)
+  - [Malicious Models on Hugging Face](/studies/AML.CS0031)
+
+- Updated existing case studies
+
+  - [PoisonGPT](/studies/AML.CS0019)
+  - [Indirect Prompt Injection Threats: Bing Chat Data Pirate](/studies/AML.CS0020)
+  - [ChatGPT Conversation Exfiltration and Plugin Compromise](/studies/AML.CS0021)
+
 ## [4.8.0]() (2025-03-14)
 
 Update to add Zenity case study and associated techniques.

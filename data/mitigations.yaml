@@ -338,34 +338,28 @@
   id: AML.M0008
   name: Validate AI Model
   description: 'Validate that AI models perform as intended by testing for backdoor
-    triggers or adversarial bias.
+    triggers or adversarial influence.
 
     Monitor model for concept drift and training data drift, which may indicate data
     tampering and poisoning.'
   object-type: mitigation
   techniques:
   - id: '{{supply_chain_model.id}}'
-    use: 'Ensure that acquired models do not respond to potential backdoor triggers
-      or adversarial bias.
-
-      '
+    use: Ensure that acquired models do not respond to potential backdoor triggers
+      or adversarial influence.
   - id: '{{poison_model.id}}'
-    use: 'Ensure that trained models do not respond to potential backdoor triggers
-      or adversarial bias.
-
-      '
+    use: Ensure that trained models do not respond to potential backdoor triggers
+      or adversarial influence.
   - id: '{{inject_payload.id}}'
-    use: 'Ensure that acquired models do not respond to potential backdoor triggers
-      or adversarial bias.
-
-      '
+    use: Ensure that acquired models do not respond to potential backdoor triggers
+      or adversarial influence.
   ml-lifecycle:
   - ML Model Evaluation
   - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-08-13
 
 - &multi_modal_sensors
   id: AML.M0009

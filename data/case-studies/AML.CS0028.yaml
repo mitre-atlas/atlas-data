@@ -63,7 +63,7 @@ procedure:
 - tactic: '{{persistence.id}}'
   technique: '{{poison_model.id}}'
   description: With full access to the model weights, an adversary could manipulate
-    the weights to cause misclassifications or introduce biases.
+    the weights to cause misclassifications or otherwise degrade performance.
 - tactic: '{{persistence.id}}'
   technique: '{{inject_payload.id}}'
   description: With full access to the model, an adversary could modify the architecture
