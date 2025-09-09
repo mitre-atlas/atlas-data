@@ -57,6 +57,9 @@ def load_atlas_data(matrix_yaml_filepath):
     # Flatten any included data elements in the top-level data.yaml such as case studies
     data = format_output(data)
 
+    # add maturity - needs to come after the formatting because of the addition of case studies
+    data = add_maturity_to_data(data)
+
     return data
 
 def format_output(data):
@@ -111,6 +114,53 @@ def format_output(data):
             matrix[objectTypePlural].append(obj)
 
     return matrix
+
+
+def add_maturity_to_data(data: dict) -> dict:
+    """Adds the maturity to techniques in the matrix.
+    Maturity is defined as  the level of evidence behind the technique’s use
+
+    feasible – The technique has been shown to work in a research or academic setting - this means that the technique
+        has not shown up in any case studies, although it is known to exist
+    demonstrated – The technique has been shown to be effective in a red team exercise or demonstration on a realistic.
+        This means that it has shown up in at least one case study of `case_study_type` "exercise"
+    realized – The technique has been used by a threat actor in a real-world incident targeting an AI-enabled systems.
+        This means that it has shown up in at least one case study of `case_Study_type` incident
+
+    feasible is the default, demonstrated takes precedence over feasible, and realized take precedence over demonstrated
+    """
+    maturity_map = {}
+
+    # get the highest level of maturity for each technique based on case study usage
+    for case_study in data["case-studies"]:
+        maturity = {
+            "exercise" : "demonstrated",
+            "incident" : "realized"
+        }.get(case_study["case-study-type"])
+
+        for procedure in case_study["procedure"]:
+            # update maturity level if technique has not yet been seen or could be "upgraded"
+            technique_id = procedure["technique"]
+            if maturity_map.get(technique_id, "demonstrated") == "demonstrated":
+                maturity_map[technique_id] = maturity
+
+    # "upgrade" maturity of parent techniques
+    for matrix in data["matrices"]:
+        for technique in matrix["techniques"]:
+            technique_id = technique["id"]
+            if "subtechnique-of" in technique and technique_id in maturity_map:
+                parent_technique_id = technique["subtechnique-of"]
+                if maturity_map.get(parent_technique_id, "demonstrated") == "demonstrated":
+                    maturity_map[parent_technique_id] = maturity_map[technique_id]
+
+    # set maturity level for all techniques
+    for matrix in data["matrices"]:
+        for technique in matrix["techniques"]:
+            # set maturity, defaulting to "feasible"
+            technique["maturity"] = maturity_map.get(technique["id"], "feasible")
+
+    return data
+
 
 def load_atlas_yaml(matrix_yaml_filepath):
     """Returns two dictionaries representing templated ATLAS data as read from the provided YAML files.

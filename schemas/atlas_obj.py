@@ -49,7 +49,8 @@ technique_schema = Schema(
         "tactics": [
             TACTIC_ID_REGEX_EXACT # List of tactic IDs
         ],
-        Optional("references"): references_schema
+        Optional("references"): references_schema,
+        Optional("maturity"): Or("feasible", 'demonstrated', 'realized')
     },
     name="technique",
     as_reference=True,

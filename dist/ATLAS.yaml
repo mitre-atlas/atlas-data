@@ -351,6 +351,7 @@ matrices:
     - AML.TA0002
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0000.000
     name: Journals and Conference Proceedings
     description: 'Many of the publications accepted at premier artificial intelligence
@@ -367,6 +368,7 @@ matrices:
     subtechnique-of: AML.T0000
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0000.001
     name: Pre-Print Repositories
     description: 'Pre-Print repositories, such as arXiv, contain the latest academic
@@ -386,6 +388,7 @@ matrices:
     subtechnique-of: AML.T0000
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0000.002
     name: Technical Blogs
     description: 'Research labs at academic institutions and Company R&D divisions
@@ -411,6 +414,7 @@ matrices:
     subtechnique-of: AML.T0000
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0001
     name: Search Open AI Vulnerability Analysis
     description: 'Much like the [Search Open Technical Databases](/techniques/AML.T0000),
@@ -428,6 +432,7 @@ matrices:
     - AML.TA0002
     created_date: 2021-05-13
     modified_date: 2025-04-17
+    maturity: demonstrated
   - id: AML.T0003
     name: Search Victim-Owned Websites
     description: 'Adversaries may search websites owned by the victim for information
@@ -459,6 +464,7 @@ matrices:
     - AML.TA0002
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0004
     name: Search Application Repositories
     description: 'Adversaries may search open application repositories during targeting.
@@ -476,6 +482,7 @@ matrices:
     - AML.TA0002
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0006
     name: Active Scanning
     description: 'An adversary may probe or scan the victim system to gather information
@@ -493,6 +500,7 @@ matrices:
     - AML.TA0002
     created_date: 2021-05-13
     modified_date: 2023-01-18
+    maturity: realized
   - id: AML.T0002
     name: Acquire Public AI Artifacts
     description: 'Adversaries may search public sources, including cloud storage,
@@ -530,6 +538,7 @@ matrices:
     - AML.TA0003
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0002.000
     name: Datasets
     description: 'Adversaries may collect public datasets to use in their operations.
@@ -551,6 +560,7 @@ matrices:
     subtechnique-of: AML.T0002
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0002.001
     name: Models
     description: 'Adversaries may acquire public models to use in their operations.
@@ -576,6 +586,7 @@ matrices:
     subtechnique-of: AML.T0002
     created_date: 2021-05-13
     modified_date: 2023-02-28
+    maturity: demonstrated
   - id: AML.T0016
     name: Obtain Capabilities
     description: 'Adversaries may search for and obtain software capabilities for
@@ -593,6 +604,7 @@ matrices:
     - AML.TA0003
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0016.000
     name: Adversarial AI Attack Implementations
     description: Adversaries may search for existing open source implementations of
@@ -605,6 +617,7 @@ matrices:
     subtechnique-of: AML.T0016
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0016.001
     name: Software Tools
     description: 'Adversaries may search for and obtain software tools to support
@@ -624,6 +637,7 @@ matrices:
     subtechnique-of: AML.T0016
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0017
     name: Develop Capabilities
     description: Adversaries may develop their own capabilities to support operations.
@@ -640,6 +654,7 @@ matrices:
     - AML.TA0003
     created_date: 2023-10-25
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0017.000
     name: Adversarial AI Attacks
     description: 'Adversaries may develop their own adversarial attacks.
@@ -655,6 +670,7 @@ matrices:
     subtechnique-of: AML.T0017
     created_date: 2023-10-25
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0008
     name: Acquire Infrastructure
     description: 'Adversaries may buy, lease, or rent infrastructure for use throughout
@@ -687,6 +703,7 @@ matrices:
     - AML.TA0003
     created_date: 2021-05-13
     modified_date: 2025-03-12
+    maturity: realized
   - id: AML.T0008.000
     name: AI Development Workspaces
     description: 'Developing and staging AI attacks often requires expensive compute
@@ -703,6 +720,7 @@ matrices:
     subtechnique-of: AML.T0008
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0008.001
     name: Consumer Hardware
     description: 'Adversaries may acquire consumer hardware to conduct their attacks.
@@ -715,6 +733,7 @@ matrices:
     subtechnique-of: AML.T0008
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: realized
   - id: AML.T0019
     name: Publish Poisoned Datasets
     description: 'Adversaries may [Poison Training Data](/techniques/AML.T0020) and
@@ -731,6 +750,7 @@ matrices:
     - AML.TA0003
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0010
     name: AI Supply Chain Compromise
     description: 'Adversaries may gain initial access to a system by compromising
@@ -747,6 +767,7 @@ matrices:
     - AML.TA0004
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0010.000
     name: Hardware
     description: Adversaries may target AI systems by disrupting or manipulating the
@@ -756,6 +777,7 @@ matrices:
     subtechnique-of: AML.T0010
     created_date: 2021-05-13
     modified_date: 2025-03-12
+    maturity: feasible
   - id: AML.T0010.001
     name: AI Software
     description: 'Most AI systems rely on a limited set of AI frameworks.
@@ -770,6 +792,7 @@ matrices:
     subtechnique-of: AML.T0010
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0010.002
     name: Data
     description: 'Data is a key vector of supply chain compromise for adversaries.
@@ -795,6 +818,7 @@ matrices:
     subtechnique-of: AML.T0010
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0010.003
     name: Model
     description: 'AI-enabled systems often rely on open sourced models in various
@@ -814,6 +838,7 @@ matrices:
     subtechnique-of: AML.T0010
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0040
     name: AI Model Inference API Access
     description: 'Adversaries may gain access to a model via legitimate access to
@@ -837,6 +862,7 @@ matrices:
     - AML.TA0000
     created_date: 2021-05-13
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0047
     name: AI-Enabled Product or Service
     description: 'Adversaries may use a product or service that uses artificial intelligence
@@ -849,6 +875,7 @@ matrices:
     - AML.TA0000
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0041
     name: Physical Environment Access
     description: 'In addition to the attacks that take place purely in the digital
@@ -867,6 +894,7 @@ matrices:
     - AML.TA0000
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0044
     name: Full AI Model Access
     description: 'Adversaries may gain full "white-box" access to an AI model.
@@ -882,6 +910,7 @@ matrices:
     - AML.TA0000
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0013
     name: Discover AI Model Ontology
     description: 'Adversaries may discover the ontology of an AI model''s output space,
@@ -903,6 +932,7 @@ matrices:
     - AML.TA0008
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0014
     name: Discover AI Model Family
     description: 'Adversaries may discover the general family of model.
@@ -921,6 +951,7 @@ matrices:
     - AML.TA0008
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0020
     name: Poison Training Data
     description: 'Adversaries may attempt to poison datasets used by an AI model by
@@ -944,6 +975,7 @@ matrices:
     - AML.TA0006
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0021
     name: Establish Accounts
     description: 'Adversaries may create accounts with various services for use in
@@ -959,6 +991,7 @@ matrices:
     - AML.TA0003
     created_date: 2022-01-24
     modified_date: 2023-01-18
+    maturity: realized
   - id: AML.T0005
     name: Create Proxy AI Model
     description: 'Adversaries may obtain models to serve as proxies for the target
@@ -977,6 +1010,7 @@ matrices:
     - AML.TA0001
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0005.000
     name: Train Proxy via Gathered AI Artifacts
     description: 'Proxy models may be trained from AI artifacts (such as data, model
@@ -990,6 +1024,7 @@ matrices:
     subtechnique-of: AML.T0005
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0005.001
     name: Train Proxy via Replication
     description: 'Adversaries may replicate a private model.
@@ -1013,6 +1048,7 @@ matrices:
     subtechnique-of: AML.T0005
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0005.002
     name: Use Pre-Trained Model
     description: 'Adversaries may use an off-the-shelf pre-trained model as a proxy
@@ -1023,6 +1059,7 @@ matrices:
     subtechnique-of: AML.T0005
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: feasible
   - id: AML.T0007
     name: Discover AI Artifacts
     description: 'Adversaries may search private sources to identify AI learning artifacts
@@ -1040,6 +1077,7 @@ matrices:
     - AML.TA0008
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0011
     name: User Execution
     description: 'An adversary may rely upon specific actions by a user in order to
@@ -1060,6 +1098,7 @@ matrices:
     - AML.TA0005
     created_date: 2021-05-13
     modified_date: 2023-01-18
+    maturity: realized
   - id: AML.T0011.000
     name: Unsafe AI Artifacts
     description: 'Adversaries may develop unsafe AI artifacts that when executed have
@@ -1079,6 +1118,7 @@ matrices:
     subtechnique-of: AML.T0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0012
     name: Valid Accounts
     description: 'Adversaries may obtain and abuse credentials of existing accounts
@@ -1101,6 +1141,7 @@ matrices:
     - AML.TA0004
     created_date: 2022-01-24
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0015
     name: Evade AI Model
     description: 'Adversaries can [Craft Adversarial Data](/techniques/AML.T0043)
@@ -1117,6 +1158,7 @@ matrices:
     - AML.TA0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0018
     name: Manipulate AI Model
     description: Adversaries may directly manipulate an AI model to change its behavior
@@ -1130,6 +1172,7 @@ matrices:
     - AML.TA0001
     created_date: 2021-05-13
     modified_date: 2025-04-14
+    maturity: realized
   - id: AML.T0018.000
     name: Poison AI Model
     description: "Adversaries may manipulate an AI model's weights to change it's\
@@ -1143,6 +1186,7 @@ matrices:
     subtechnique-of: AML.T0018
     created_date: 2021-05-13
     modified_date: 2024-04-11
+    maturity: demonstrated
   - id: AML.T0018.001
     name: Modify AI Model Architecture
     description: 'Adversaries may directly modify an AI model''s architecture to re-define
@@ -1159,6 +1203,7 @@ matrices:
     subtechnique-of: AML.T0018
     created_date: 2021-05-13
     modified_date: 2024-04-11
+    maturity: demonstrated
   - id: AML.T0024
     name: Exfiltration via AI Inference API
     description: 'Adversaries may exfiltrate private information via [AI Model Inference
@@ -1182,6 +1227,7 @@ matrices:
     - AML.TA0010
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0024.000
     name: Infer Training Data Membership
     description: 'Adversaries may infer the membership of a data sample in its training
@@ -1200,6 +1246,7 @@ matrices:
     subtechnique-of: AML.T0024
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: feasible
   - id: AML.T0024.001
     name: Invert AI Model
     description: 'AI models'' training data could be reconstructed by exploiting the
@@ -1214,6 +1261,7 @@ matrices:
     subtechnique-of: AML.T0024
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0024.002
     name: Extract AI Model
     description: 'Adversaries may extract a functional copy of a private model.
@@ -1233,6 +1281,7 @@ matrices:
     subtechnique-of: AML.T0024
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0025
     name: Exfiltration via Cyber Means
     description: 'Adversaries may exfiltrate AI artifacts or other information relevant
@@ -1246,6 +1295,7 @@ matrices:
     - AML.TA0010
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0029
     name: Denial of AI Service
     description: 'Adversaries may target AI-enabled systems with a flood of requests
@@ -1261,6 +1311,7 @@ matrices:
     - AML.TA0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0046
     name: Spamming AI System with Chaff Data
     description: 'Adversaries may spam the AI system with chaff data that causes increase
@@ -1273,6 +1324,7 @@ matrices:
     - AML.TA0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0031
     name: Erode AI Model Integrity
     description: 'Adversaries may degrade the target model''s performance with adversarial
@@ -1287,6 +1339,7 @@ matrices:
     - AML.TA0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0034
     name: Cost Harvesting
     description: 'Adversaries may target different AI services to send useless queries
@@ -1300,6 +1353,7 @@ matrices:
     - AML.TA0011
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: feasible
   - id: AML.T0035
     name: AI Artifact Collection
     description: 'Adversaries may collect AI artifacts for [Exfiltration](/tactics/AML.TA0010)
@@ -1312,6 +1366,7 @@ matrices:
     - AML.TA0009
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0036
     name: Data from Information Repositories
     description: 'Adversaries may leverage information repositories to mine valuable
@@ -1338,6 +1393,7 @@ matrices:
     - AML.TA0009
     created_date: 2022-01-24
     modified_date: 2023-01-18
+    maturity: realized
   - id: AML.T0037
     name: Data from Local System
     description: 'Adversaries may search local system sources, such as file systems
@@ -1357,6 +1413,7 @@ matrices:
     - AML.TA0009
     created_date: 2021-05-13
     modified_date: 2023-01-18
+    maturity: realized
   - id: AML.T0042
     name: Verify Attack
     description: 'Adversaries can verify the efficacy of their attack via an inference
@@ -1380,6 +1437,7 @@ matrices:
     - AML.TA0001
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0043
     name: Craft Adversarial Data
     description: 'Adversarial data are inputs to an AI model that have been modified
@@ -1419,6 +1477,7 @@ matrices:
     - AML.TA0001
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0043.000
     name: White-Box Optimization
     description: 'In White-Box Optimization, the adversary has full access to the
@@ -1432,6 +1491,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2024-01-12
+    maturity: demonstrated
   - id: AML.T0043.001
     name: Black-Box Optimization
     description: 'In Black-Box attacks, the adversary has black-box (i.e. [AI Model
@@ -1450,6 +1510,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0043.002
     name: Black-Box Transfer
     description: 'In Black-Box Transfer attacks, the adversary uses one or more proxy
@@ -1475,6 +1536,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2024-01-12
+    maturity: demonstrated
   - id: AML.T0043.003
     name: Manual Modification
     description: 'Adversaries may manually modify the input data to craft adversarial
@@ -1491,6 +1553,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0043.004
     name: Insert Backdoor Trigger
     description: 'The adversary may add a perceptual trigger into inference data.
@@ -1505,6 +1568,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2021-05-13
+    maturity: demonstrated
   - id: AML.T0048
     name: External Harms
     description: 'Adversaries may abuse their access to a victim system and use its
@@ -1520,6 +1584,7 @@ matrices:
     - AML.TA0011
     created_date: 2022-10-27
     modified_date: 2023-10-25
+    maturity: realized
   - id: AML.T0048.000
     name: Financial Harm
     description: 'Financial harm involves the loss of wealth, property, or other monetary
@@ -1531,6 +1596,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: realized
   - id: AML.T0048.001
     name: Reputational Harm
     description: 'Reputational harm involves a degradation of public perception and
@@ -1542,6 +1608,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0048.002
     name: Societal Harm
     description: 'Societal harms might generate harmful outcomes that reach either
@@ -1553,6 +1620,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: feasible
   - id: AML.T0048.003
     name: User Harm
     description: 'User harms may encompass a variety of harm types including financial
@@ -1564,6 +1632,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0048.004
     name: AI Intellectual Property Theft
     description: 'Adversaries may exfiltrate AI artifacts to steal intellectual property
@@ -1583,6 +1652,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2021-05-13
     modified_date: 2025-04-09
+    maturity: demonstrated
   - id: AML.T0049
     name: Exploit Public-Facing Application
     description: 'Adversaries may attempt to take advantage of a weakness in an Internet-facing
@@ -1602,6 +1672,7 @@ matrices:
     - AML.TA0004
     created_date: 2023-02-28
     modified_date: 2023-02-28
+    maturity: realized
   - id: AML.T0050
     name: Command and Scripting Interpreter
     description: 'Adversaries may abuse command and script interpreters to execute
@@ -1632,6 +1703,7 @@ matrices:
     - AML.TA0005
     created_date: 2023-02-28
     modified_date: 2023-10-12
+    maturity: feasible
   - id: AML.T0051
     name: LLM Prompt Injection
     description: 'An adversary may craft malicious prompts as inputs to an LLM that
@@ -1666,6 +1738,7 @@ matrices:
     - AML.TA0005
     created_date: 2023-10-25
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0051.000
     name: Direct
     description: 'An adversary may inject prompts directly as a user of the LLM. This
@@ -1677,6 +1750,7 @@ matrices:
     subtechnique-of: AML.T0051
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0051.001
     name: Indirect
     description: 'An adversary may inject prompts indirectly via separate data channel
@@ -1692,6 +1766,7 @@ matrices:
     subtechnique-of: AML.T0051
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0052
     name: Phishing
     description: 'Adversaries may send phishing messages to gain access to victim
@@ -1717,6 +1792,7 @@ matrices:
     - AML.TA0004
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0052.000
     name: Spearphishing via Social Engineering LLM
     description: 'Adversaries may turn LLMs into targeted social engineers.
@@ -1736,6 +1812,7 @@ matrices:
     subtechnique-of: AML.T0052
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0053
     name: LLM Plugin Compromise
     description: 'Adversaries may use their access to an LLM that is part of a larger
@@ -1764,6 +1841,7 @@ matrices:
     - AML.TA0012
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0054
     name: LLM Jailbreak
     description: 'An adversary may use a carefully crafted [LLM Prompt Injection](/techniques/AML.T0051)
@@ -1780,6 +1858,7 @@ matrices:
     - AML.TA0007
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: feasible
   - id: AML.T0055
     name: Unsecured Credentials
     description: 'Adversaries may search compromised systems to find and obtain insecurely
@@ -1799,6 +1878,7 @@ matrices:
     - AML.TA0013
     created_date: 2023-10-25
     modified_date: 2024-04-29
+    maturity: realized
   - id: AML.T0056
     name: Extract LLM System Prompt
     description: 'Adversaries may attempt to extract a large language model''s (LLM)
@@ -1813,6 +1893,7 @@ matrices:
     - AML.TA0010
     created_date: 2023-10-25
     modified_date: 2025-03-12
+    maturity: feasible
   - id: AML.T0057
     name: LLM Data Leakage
     description: 'Adversaries may craft prompts that induce the LLM to leak sensitive
@@ -1829,6 +1910,7 @@ matrices:
     - AML.TA0010
     created_date: 2023-10-25
     modified_date: 2023-10-25
+    maturity: demonstrated
   - id: AML.T0058
     name: Publish Poisoned Models
     description: Adversaries may publish a poisoned model to a public location such
@@ -1840,6 +1922,7 @@ matrices:
     - AML.TA0003
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: realized
   - id: AML.T0059
     name: Erode Dataset Integrity
     description: Adversaries may poison or manipulate portions of a dataset to reduce
@@ -1850,6 +1933,7 @@ matrices:
     - AML.TA0011
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0011.001
     name: Malicious Package
     description: 'Adversaries may develop malicious software packages that when imported
@@ -1863,6 +1947,7 @@ matrices:
     subtechnique-of: AML.T0011
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0060
     name: Publish Hallucinated Entities
     description: Adversaries may create an entity they control, such as a software
@@ -1875,6 +1960,7 @@ matrices:
     - AML.TA0003
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0061
     name: LLM Prompt Self-Replication
     description: 'An adversary may use a carefully crafted [LLM Prompt Injection](/techniques/AML.T0051)
@@ -1887,6 +1973,7 @@ matrices:
     - AML.TA0006
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0062
     name: Discover LLM Hallucinations
     description: 'Adversaries may prompt large language models and identify hallucinated
@@ -1903,6 +1990,7 @@ matrices:
     - AML.TA0008
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0008.002
     name: Domains
     description: 'Adversaries may acquire domains that can be used during targeting.
@@ -1922,6 +2010,7 @@ matrices:
     subtechnique-of: AML.T0008
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0008.003
     name: Physical Countermeasures
     description: 'Adversaries may acquire or manufacture physical countermeasures
@@ -1936,6 +2025,7 @@ matrices:
     subtechnique-of: AML.T0008
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0063
     name: Discover AI Model Outputs
     description: 'Adversaries may discover model outputs, such as class scores, whose
@@ -1950,6 +2040,7 @@ matrices:
     - AML.TA0008
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0016.002
     name: Generative AI
     description: 'Adversaries may search for and obtain generative AI models or tools,
@@ -1967,6 +2058,7 @@ matrices:
     subtechnique-of: AML.T0016
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: feasible
   - id: AML.T0064
     name: Gather RAG-Indexed Targets
     description: 'Adversaries may identify data sources used in retrieval augmented
@@ -1983,6 +2075,7 @@ matrices:
     - AML.TA0002
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0065
     name: LLM Prompt Crafting
     description: 'Adversaries may use their acquired knowledge of the target generative
@@ -1997,6 +2090,7 @@ matrices:
     - AML.TA0003
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0066
     name: Retrieval Content Crafting
     description: 'Adversaries may write content designed to be retrieved by user queries
@@ -2018,6 +2112,7 @@ matrices:
     - AML.TA0003
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0067
     name: LLM Trusted Output Components Manipulation
     description: 'Adversaries may utilize prompts to a large language model (LLM)
@@ -2035,6 +2130,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0068
     name: LLM Prompt Obfuscation
     description: 'Adversaries may hide or otherwise obfuscate prompt injections or
@@ -2048,6 +2144,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0069
     name: Discover LLM System Information
     description: The adversary is trying to discover something about the large language
@@ -2063,6 +2160,7 @@ matrices:
     - AML.TA0008
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0069.000
     name: Special Character Sets
     description: Adversaries may discover delimiters and special characters sets used
@@ -2074,6 +2172,7 @@ matrices:
     subtechnique-of: AML.T0069
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0069.001
     name: System Instruction Keywords
     description: Adversaries may discover keywords that have special meaning to the
@@ -2084,6 +2183,7 @@ matrices:
     subtechnique-of: AML.T0069
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0069.002
     name: System Prompt
     description: Adversaries may discover a large language model's system instructions
@@ -2093,6 +2193,7 @@ matrices:
     subtechnique-of: AML.T0069
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: feasible
   - id: AML.T0070
     name: RAG Poisoning
     description: 'Adversaries may inject malicious content into data indexed by a
@@ -2110,6 +2211,7 @@ matrices:
     - AML.TA0006
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0071
     name: False RAG Entry Injection
     description: "Adversaries may introduce false entries into a victim's retrieval\
@@ -2128,6 +2230,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0067.000
     name: Citations
     description: Adversaries may manipulate the citations provided in an AI system's
@@ -2138,6 +2241,7 @@ matrices:
     subtechnique-of: AML.T0067
     created_date: 2025-03-12
     modified_date: 2025-03-12
+    maturity: demonstrated
   - id: AML.T0018.002
     name: Embed Malware
     description: 'Adversaries may embed malicious code into AI Model files.
@@ -2154,6 +2258,7 @@ matrices:
     subtechnique-of: AML.T0018
     created_date: 2025-04-09
     modified_date: 2025-04-09
+    maturity: realized
   - id: AML.T0010.004
     name: Container Registry
     description: 'An adversary may compromise a victim''s container registry by pushing
@@ -2169,6 +2274,7 @@ matrices:
     subtechnique-of: AML.T0010
     created_date: 2024-04-11
     modified_date: 2024-04-11
+    maturity: demonstrated
   - id: AML.T0072
     name: Reverse Shell
     description: 'Adversaries may utilize a reverse shell to communicate and control
@@ -2183,6 +2289,7 @@ matrices:
     - AML.TA0014
     created_date: 2024-04-11
     modified_date: 2025-04-14
+    maturity: realized
   - id: AML.T0073
     name: Impersonation
     description: 'Adversaries may impersonate a trusted person or organization in
@@ -2204,6 +2311,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-04-14
     modified_date: 2025-04-14
+    maturity: demonstrated
   - id: AML.T0074
     name: Masquerading
     description: Adversaries may attempt to manipulate features of their artifacts
@@ -2220,6 +2328,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-04-14
     modified_date: 2025-04-14
+    maturity: demonstrated
   - id: AML.T0075
     name: Cloud Service Discovery
     description: 'An adversary may attempt to enumerate the cloud services running
@@ -2255,6 +2364,7 @@ matrices:
     - AML.TA0008
     created_date: 2025-04-14
     modified_date: 2025-04-14
+    maturity: realized
   - id: AML.T0076
     name: Corrupt AI Model
     description: An adversary may purposefully corrupt a malicious AI model file so
@@ -2266,6 +2376,7 @@ matrices:
     - AML.TA0007
     created_date: 2025-04-14
     modified_date: 2025-04-14
+    maturity: realized
   - id: AML.T0077
     name: LLM Response Rendering
     description: 'An adversary may get a large language model (LLM) to respond with
@@ -2300,6 +2411,7 @@ matrices:
     - AML.TA0010
     created_date: 2025-04-15
     modified_date: 2025-04-22
+    maturity: demonstrated
   - id: AML.T0008.004
     name: Serverless
     description: 'Adversaries may purchase and configure serverless cloud infrastructure,
@@ -2322,6 +2434,7 @@ matrices:
     subtechnique-of: AML.T0008
     created_date: 2025-04-15
     modified_date: 2025-04-21
+    maturity: feasible
   - id: AML.T0078
     name: Drive-by Compromise
     description: 'Adversaries may gain access to an AI system through a user visiting
@@ -2340,6 +2453,7 @@ matrices:
     - AML.TA0004
     created_date: 2025-04-16
     modified_date: 2025-04-21
+    maturity: demonstrated
   - id: AML.T0079
     name: Stage Capabilities
     description: 'Adversaries may upload, install, or otherwise set up capabilities
@@ -2366,6 +2480,7 @@ matrices:
     - AML.TA0003
     created_date: 2025-04-16
     modified_date: 2025-04-21
+    maturity: demonstrated
   mitigations:
   - id: AML.M0000
     name: Limit Public Release of Information
