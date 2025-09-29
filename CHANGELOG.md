@@ -1,4 +1,193 @@
-# ATLAS Data Changelog
+## [5.0.0]() (2025-09-30)
+
+This version adds the new "Technique Maturity" field to the distributed ATLAS.yaml file. Technique maturity is defined as the level of evidence behind the technique's use:
+- Feasible – The technique has been shown to work in a research or academic setting
+- Demonstrated – The technique has been shown to be effective in a red team exercise or demonstration on a realistic AI-enabled system
+- Realized – The technique has been used by a threat actor in a real-world incident targeting an AI-enabled system
+
+### Techniques
+
+- Added new techniques
+
+  - [AI Agent Context Poisoning](/techniques/AML.T0080)
+  - [AI Agent Context Poisoning: Memory](/techniques/AML.T0080.001)
+  - [AI Agent Context Poisoning: Thread](/techniques/AML.T0080.001)
+  - [Modify AI Agent Configuration](/techniques/AML.T0081)
+  - [RAG Credential Harvesting](/techniques/AML.T0082)
+  - [Credentials from AI Agent Configuration](/techniques/AML.T0083)
+  - [Discover AI Agent Configuration](/techniques/AML.T0084)
+  - [Discover AI Agent Configuration: Embedded Knowledge](/techniques/AML.T0084.000)
+  - [Discover AI Agent Configuration: Tool Definitions](/techniques/AML.T0084.001)
+  - [Discover AI Agent Configuration: Activation Triggers](/techniques/AML.T0084.002)
+  - [Data from AI Services](/techniques/AML.T0085)
+  - [Data from AI Services: RAG Databases](/techniques/AML.T0085.000)
+  - [Data from AI Services: AI Agent Tools](/techniques/AML.T0085.001)
+  - [Exfiltration via AI Agent Tool Invocation](/techniques/AML.T0086)
+  - [LLM Prompt Injection: Triggered](/techniques/AML.T0051.002)
+
+- Updated existing techniques
+
+  - [AI Agent Tool Invocation](/techniques/AML.T0053)
+    - (previously LLM Plugin Compromise)
+
+###### Case Studies
+
+- Added a new case study
+
+  - [Attempted Evasion of ML Phishing Webpage Detection System](/studies/AML.CS0032)
+
+## [4.9.1]() (2025-08-13)
+
+Minor language changes and typo fixes.
+
+## [4.9.0]() (2025-04-22)
+
+The language in TTP names and descriptions has been updated to consistently prefer AI / artificial intelligence over ML / machine learning.
+
+### Tactics
+
+- Added new tactics
+
+  - [Command and Control](/tactics/AML.TA0014)
+
+### Techniques
+
+- Added new techniques
+
+  - [Reverse Shell](/techniques/AML.T0072)
+  - [Impersonation](/techniques/AML.T0073)
+  - [Masquerading](/techniques/AML.T0074)
+  - [Cloud Service Discovery](/techniques/AML.T0075)
+  - [Corrupt AI Model](/techniques/AML.T0076)
+  - [LLM Response Rendering](/techniques/AML.T0077)
+  - [Drive-by Compromise](/techniques/AML.T0078)
+  - [Stage Capabilities](/techniques/AML.T0079)
+  - [Manipulate AI Model: Embed Malware](/techniques/AML.T0018.002)
+  - [AI Supply Chain Compromise: Container Registry](/techniques/AML.T0010.004)
+  - [Acquire Infrastructure: Serverless](/techniques/AML.T0008.004)
+
+- Updated existing techniques
+
+  - [Search Open Technical Databases](/techniques/AML.T0000)
+    - (previously Search for Victim's Publicly Available Research Materials)
+  - [Search Open AI Vulnerability Analysis](/techniques/AML.T0001)
+    - (previously Search for Publicly Available Adversarial Vulnerability Analysis)
+  - [Manipulate AI Model](/techniques/AML.T0018)
+    - (previously Backdoor ML Model)
+  - [Manipulate AI Model: Poison AI Model](/techniques/AML.T0018.000)
+    - (previously Backdoor ML Model: Poison ML Model)
+  - [Manipulate AI Model: Modify AI Model Architecture](/techniques/AML.T0018.001)
+    - (previously Backdoor ML Model: Inject Payload)
+
+### Mitigations
+
+- Updated existing mitigations
+
+  - [Vulnerability Scanning](/techniques/AML.M0016)
+  - [AI Telemetry Logging](/techniques/AML.M0024)
+
+### Case Studies
+
+- Added new case studies
+
+  - [Organization Confusion on Hugging Face](/studies/AML.CS0027)
+  - [AI Model Tampering via Supply Chain Attack](/studies/AML.CS0028)
+  - [Google Bard Conversation Exfiltration](/studies/AML.CS0029)
+  - [LLM Jacking](/studies/AML.CS0030)
+  - [Malicious Models on Hugging Face](/studies/AML.CS0031)
+
+- Updated existing case studies
+
+  - [PoisonGPT](/studies/AML.CS0019)
+  - [Indirect Prompt Injection Threats: Bing Chat Data Pirate](/studies/AML.CS0020)
+  - [ChatGPT Conversation Exfiltration and Plugin Compromise](/studies/AML.CS0021)
+
+## [4.8.0]() (2025-03-14)
+
+Update to add Zenity case study and associated techniques.
+
+#### Techniques
+
+- Added new techniques
+
+  - [Gather RAG-Indexed Targets](https://atlas.mitre.org/techniques/AML.T0064)
+  - [LLM Prompt Crafting](https://atlas.mitre.org/techniques/AML.T0065)
+  - [Retrieval Content Crafting](https://atlas.mitre.org/techniques/AML.T0066)
+  - [LLM Trusted Output Components Manipulation](https://atlas.mitre.org/techniques/AML.T0067)
+  - [LLM Prompt Obfuscation](https://atlas.mitre.org/techniques/AML.T0068)
+  - [Discover LLM System Information](https://atlas.mitre.org/techniques/AML.T0069)
+  - [RAG Poisoning](https://atlas.mitre.org/techniques/AML.T0070)
+  - [False RAG Entry Injection](https://atlas.mitre.org/techniques/AML.T0071)
+
+#### Case Studies
+
+- Added new case studies
+
+  - [Financial Transaction Hijacking with M365 Copilot as an Insider](https://atlas.mitre.org/studies/AML.CS0026)
+
+## [4.7.0]() (2024-10-01)
+
+Generative AI updates
+
+#### Mitigations
+
+- Added new mitigations
+
+  - [Generative AI Guardrails](https://atlas.mitre.org/mitigations/AML.M0020)
+  - [Generative AI Guidelines](https://atlas.mitre.org/mitigations/AML.M0021)
+  - [Generative AI Model Alignment](https://atlas.mitre.org/mitigations/AML.M0022)
+  - [AI Bill of Materials](https://atlas.mitre.org/mitigations/AML.M0023)
+  - [AI Telemetry Logging](https://atlas.mitre.org/mitigations/AML.M0024)
+  - [Maintain AI Dataset Provenance](https://atlas.mitre.org/mitigations/AML.M0025)
+
+- Refreshed existing mitigations
+  - [Limit Public Release of Information](https://atlas.mitre.org/mitigations/AML.M0000)
+    - Previously known as "Limit Release of Public Information"
+
+#### Techniques
+
+- Added new techniques
+
+  - [Publish Poisoned Models](https://atlas.mitre.org/techniques/AML.T0058)
+  - [Erode Dataset Integrity](https://atlas.mitre.org/techniques/AML.T0059)
+  - [User Execution: Malicious Package](https://atlas.mitre.org/techniques/AML.T0011.001)
+  - [Publish Hallucinated Entities](https://atlas.mitre.org/techniques/AML.T0060)
+  - [LLM Prompt Self-Replication](https://atlas.mitre.org/techniques/AML.T0061)
+  - [Discover LLM Hallucinations](https://atlas.mitre.org/techniques/AML.T0062)
+  - [Acquire Infrastructure: Domains](https://atlas.mitre.org/techniques/AML.T0008.002)
+  - [Acquire Infrastructure: Physical Countermeasures](https://atlas.mitre.org/techniques/AML.T0008.003)
+  - [Discover AI Model Outputs](https://atlas.mitre.org/techniques/AML.T0063)
+
+- Refreshed existing techniques
+  - [Acquire Infrastructure](https://atlas.mitre.org/techniques/AML.T0008)
+  - [ML Supply Chain Compromise: Hardware](https://atlas.mitre.org/techniques/AML.T0010.000)
+    - Previously known as "ML Supply Chain Compromise: GPU Hardware"
+  - [AI Model Inference API Access](https://atlas.mitre.org/techniques/AML.T0040)
+    - Previously known as "ML Model Inference API Access"
+
+#### Case Studies
+
+- Added new case studies
+
+  - [ChatGPT Package Hallucination](https://atlas.mitre.org/studies/AML.CS0022)
+  - [ShadowRay](https://atlas.mitre.org/studies/AML.CS0023)
+  - [Morris II Worm: RAG-Based Attack](https://atlas.mitre.org/studies/AML.CS0024)
+  - [Web-Scale Data Poisoning: Split-View Attack](https://atlas.mitre.org/studies/AML.CS0025)
+
+- Refreshed existing studies
+  - [Bypassing Cylance's AI Malware Detection](https://atlas.mitre.org/studies/AML.CS0003)
+  - [Attack on Machine Translation Services](https://atlas.mitre.org/studies/AML.CS0005)
+  - [ProofPoint Evasion](https://atlas.mitre.org/studies/AML.CS0008)
+  - [Face Identification System Evasion via Physical Countermeasures](https://atlas.mitre.org/studies/AML.CS0012)
+
+## [4.6.0]() (2024-07-09)
+
+- Added new fields `created_date` and `modified_date` to all tactic, technique, and mitigation objects
+- Updated to use function syntax for internal Jinja-templated Markdown links
+
+## [4.5.2]() (2024-03-11)
+
+Minor fixes
 
 ## [4.9.1]() (2025-08-13)
 

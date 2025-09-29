@@ -1,0 +1,77 @@
+---
+id: AML.CS0032
+name: Attempted Evasion of ML Phishing Webpage Detection System
+object-type: case-study
+summary: 'Adversaries create phishing websites that appear visually similar to legitimate
+  sites. These sites are designed to trick users into entering their credentials,
+  which are then sent to the bad actor. To combat this behavior, security companies
+  utilize AI/ML-based approaches to detect phishing sites and block them in their
+  endpoint security products.
+
+
+  In this incident, adversarial examples were identified in the logs of a commercial
+  machine learning phishing website detection system. The detection system makes an
+  automated block/allow determination from the "phishing score" of an ensemble of
+  image classifiers each responsible for different phishing indicators (visual similarity,
+  input form detection, etc.). The adversarial examples appeared to employ several
+  simple yet effective strategies for manually modifying brand logos in an attempt
+  to evade image classification models. The phishing websites which employed logo
+  modification methods successfully evaded the model responsible detecting brand impersonation
+  via visual similarity. However, the other components of the system successfully
+  flagged the phishing websites.'
+incident-date: 2022-12-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{craft_adv_manual.id}}'
+  description: 'Several cheap, yet effective strategies for manually modifying logos
+    were observed:
+
+    | Evasive Strategy | Count |
+
+    | - | - |
+
+    | Company name style | 25 |
+
+    | Blurry logo | 23 |
+
+    | Cropping | 20 |
+
+    | No company name | 16 |
+
+    | No visual logo | 13 |
+
+    | Different visual logo | 12 |
+
+    | Logo stretching | 11 |
+
+    | Multiple forms - images | 10 |
+
+    | Background patterns | 8 |
+
+    | Login obfuscation | 6 |
+
+    | Masking | 3 |'
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{evade_model.id}}'
+  description: The visual similarity model used to detect brand impersonation was
+    evaded. However, other components of the phishing detection system successfully
+    identified the phishing websites.
+- tactic: '{{initial_access.id}}'
+  technique: '{{phishing.id}}'
+  description: If the adversary can successfully evade detection, they can continue
+    to operate their phishing websites and steal the victim's credentials.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: The end user may experience a variety of harms including financial
+    and privacy harms depending on the credentials stolen by the adversary.
+reporter: Norton Research Group (NRG)
+target: Commercial ML Phishing Webpage Detector
+actor: Unknown
+case-study-type: incident
+references:
+- title: '"Real Attackers Don''t Compute Gradients": Bridging the Gap Between Adversarial
+    ML Research and Practice'
+  url: https://arxiv.org/abs/2212.14315
+- title: Real Attackers Don't Compute Gradients Supplementary Resources
+  url: https://real-gradients.github.io/
