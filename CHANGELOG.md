@@ -3,7 +3,7 @@
 This version adds the new "Technique Maturity" field to the distributed ATLAS.yaml file. Technique maturity is defined as the level of evidence behind the technique's use:
 - Feasible – The technique has been shown to work in a research or academic setting
 - Demonstrated – The technique has been shown to be effective in a red team exercise or demonstration on a realistic AI-enabled system
-- Realized – The technique has been used by a threat actor in a real-world incident targeting an AI-enab
+- Realized – The technique has been used by a threat actor in a real-world incident targeting an AI-enabled system
 
 ### Techniques
 
