@@ -2,7 +2,7 @@
 
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 5.0.0
+version: 5.0.1
 
 matrices:
   - !include .
