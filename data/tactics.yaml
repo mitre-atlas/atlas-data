@@ -20,11 +20,11 @@
 
 
     Access to an AI model may require access to the system housing the model, the
-    model may be publically accessible via an API, or it may be accessed indirectly
+    model may be publicly accessible via an API, or it may be accessed indirectly
     via interaction with a product or service that utilizes AI as part of its processes.'
   object-type: tactic
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-10-13
 
 - &ml_attack_staging
   id: AML.TA0001

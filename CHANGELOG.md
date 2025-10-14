@@ -1,3 +1,7 @@
+## [5.0.1]() (2025-10-13)
+
+Minor language changes and typo fixes.
+
 ## [5.0.0]() (2025-09-30)
 
 This version adds the new "Technique Maturity" field to the distributed ATLAS.yaml file. Technique maturity is defined as the level of evidence behind the technique's use:

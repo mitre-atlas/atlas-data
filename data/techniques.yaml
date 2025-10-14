@@ -73,9 +73,9 @@
 - &victim_research_blogs
   id: AML.T0000.002
   name: Technical Blogs
-  description: 'Research labs at academic institutions and Company R&D divisions often
+  description: 'Research labs at academic institutions and company R&D divisions often
     have blogs that highlight their use of artificial intelligence and its application
-    to the organizations unique problems.
+    to the organization''s unique problems.
 
     Individual researchers also frequently document their work in blogposts.
 
@@ -94,7 +94,7 @@
   object-type: technique
   subtechnique-of: '{{victim_research.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-10-13
 
 - &vuln_analysis
   id: AML.T0001
@@ -156,7 +156,7 @@
     and the Microsoft Store.
 
 
-    Adversaries may craft search queries seeking applications that contain a AI-enabled
+    Adversaries may craft search queries seeking applications that contain AI-enabled
     components.
 
     Frequently, the next step is to {{ create_internal_link(acquire_ml_artifacts)
@@ -165,7 +165,7 @@
   tactics:
   - '{{reconnaissance.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-10-13
 
 - &active_scanning
   id: AML.T0006
@@ -2250,14 +2250,14 @@
 
 
     Context poisoning can be accomplished by prompting the an LLM to add instructions
-    or preferences to memory (See Memory) or by simply prompting an LLM that uses
-    prior messages in a thread as part of its context (See {{ create_internal_link(llm_thread_poisoning)
-    }}).'
+    or preferences to memory (See {{ create_internal_link(llm_memory_poisoning) }})
+    or by simply prompting an LLM that uses prior messages in a thread as part of
+    its context (See {{ create_internal_link(llm_thread_poisoning) }}).'
   object-type: technique
   tactics:
   - '{{persistence.id}}'
   created_date: 2025-09-30
-  modified_date: 2025-09-30
+  modified_date: 2025-10-13
 
 - &llm_memory_poisoning
   id: AML.T0080.000
@@ -2337,8 +2337,7 @@
   id: AML.T0083
   name: Credentials from AI Agent Configuration
   description: 'Adversaries may access the credentials of other tools or services
-    on a system from the configuration of an AI agent. AI agents often utilize external
-    tools or services to take actions.
+    on a system from the configuration of an AI agent.
 
 
     AI Agents often utilize external tools or services to take actions, such as querying
@@ -2354,7 +2353,7 @@
   tactics:
   - '{{credential_access.id}}'
   created_date: 2025-09-30
-  modified_date: 2025-09-30
+  modified_date: 2025-10-13
 
 - &discover_agent_config
   id: AML.T0084
