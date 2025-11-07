@@ -15,7 +15,7 @@ procedure:
   technique: '{{inference_api.id}}'
   description: The researchers use the public ChatGPT API throughout this exercise.
 - tactic: '{{discovery.id}}'
-  technique: AML.T0062
+  technique: '{{discover_llm_hallucinations.id}}'
   description: 'The researchers prompt ChatGPT to suggest software packages and identify
     suggestions that are hallucinations which don''t exist in a public package repository.
 
@@ -26,7 +26,7 @@ procedure:
     and does not exist on PyPI. The actual HuggingFace CLI tool is part of the `huggingface_hub`
     package.'
 - tactic: '{{resource_development.id}}'
-  technique: AML.T0060
+  technique: '{{publish_hallucinated_entities.id}}'
   description: 'An adversary could upload a malicious package under the hallucinated
     name to PyPI or other package registries.
 
@@ -42,7 +42,7 @@ procedure:
     The researchers showed that multiple LLMs can produce the same hallucinations.
     They tracked over 30,000 downloads of the `huggingface-cli` package.'
 - tactic: '{{execution.id}}'
-  technique: AML.T0011.001
+  technique: '{{malicious_package.id}}'
   description: The user would ultimately load the malicious package, allowing for
     arbitrary code execution.
 - tactic: '{{impact.id}}'
@@ -59,3 +59,5 @@ references:
 - title: 'AIID Incident 731: Hallucinated Software Packages with Potential Malware
     Downloaded Thousands of Times by Developers'
   url: https://incidentdatabase.ai/cite/731/
+- title: 'Slopsquatting: When AI Agents Hallucinate Malicious Packages'
+  url: https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/slopsquatting-when-ai-agents-hallucinate-malicious-packages

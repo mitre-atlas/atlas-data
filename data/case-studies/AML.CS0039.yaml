@@ -1,0 +1,66 @@
+---
+id: AML.CS0039
+name: 'Living Off AI: Prompt Injection via Jira Service Management'
+object-type: case-study
+summary: Researchers from Cato Networks demonstrated how adversaries can exploit AI-powered
+  systems embedded in enterprise workflows to execute malicious actions with elevated
+  privileges. This is achieved by crafting malicious inputs from external users such
+  as support tickets that are later processed by internal users or automated systems
+  using AI agents. These AI agents, operating with internal context and trust, may
+  interpret and execute the malicious instructions, leading to unauthorized actions
+  such as data exfiltration, privilege escalation, or system manipulation.
+incident-date: 2025-06-19
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{victim_website.id}}'
+  description: "The researchers performed reconnaissance to learn about Atlassian\u2019\
+    s Model Context Protocol (MCP) server and its integration into the Jira Service\
+    \ Management (JSM) platform. Atlassian offers an MCP server, which embeds AI into\
+    \ enterprise workflows. Their MCP enables a range of AI-driven actions, such as\
+    \ ticket summarization, auto-replies, classification, and smart recommendations\
+    \ across JSM and Confluence. It allows support engineers and internal users to\
+    \ interact with AI directly from their native interfaces."
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{search_open_sites.id}}'
+  description: "The researchers used a search query, \u201Csite:atlassian.net/servicedesk\
+    \ inurl:portal\u201D,  to reveal organizations using Atlassian service portals\
+    \ as potential targets."
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researchers crafted a malicious prompt that requests data from
+    all other support tickets be posted as a reply to the current ticket.
+- tactic: '{{initial_access.id}}'
+  technique: '{{prompt_infil.id}}'
+  description: The researchers created a new service ticket containing the malicious
+    prompt on the public Jira Service Management (JSM) portal of the victim identified
+    during reconnaissance.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_direct.id}}'
+  description: As part of their standard workflow, a support engineer at the victim
+    organization used Claude Sonnet (which can interact with Jira via the Atlassian
+    MCP server) to help them resolve the malicious ticket, causing the injection to
+    be unknowingly executed.
+- tactic: '{{privilege_escalation.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "The malicious prompt requested information accessible to the AI agent\
+    \ via Atlassian MCP tools, causing those tools to be invoked via MCP, granting\
+    \ the researchers increased privileges on the victim\u2019s JSM instance."
+- tactic: '{{collection.id}}'
+  technique: '{{agent_tool_harvest.id}}'
+  description: The malicious prompt instructed that all details of other issues be
+    collected. This invoked an Atlassian MCP tool that could access the Jira tickets
+    and collect them.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: The malicious prompt instructed that the collected ticket details be
+    posted in a reply to the ticket. This invoked an Atlassian MCP Tool which performed
+    the requested action, exfiltrating the data where it was accessible to the researchers
+    on the JSM portal.
+target: Atlassian MCP, Jira Service Management
+actor: Cato CTRL
+case-study-type: exercise
+references:
+- title: "Cato CTRL\u2122 Threat Research: PoC Attack Targeting Atlassian\u2019s Model\
+    \ Context Protocol (MCP) Introduces New \u201CLiving Off AI\u201D Risk"
+  url: https://www.catonetworks.com/blog/cato-ctrl-poc-attack-targeting-atlassians-mcp/

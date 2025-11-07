@@ -171,12 +171,22 @@
   id: AML.T0006
   name: Active Scanning
   description: 'An adversary may probe or scan the victim system to gather information
-    for targeting.
+    for targeting. This is distinct from other reconnaissance techniques that do not
+    involve direct interaction with the victim system.
 
-    This is distinct from other reconnaissance techniques that do not involve direct
-    interaction with the victim system.
 
-    '
+    Adversaries may scan for open ports on a potential victim''s network, which can
+    indicate specific services or tools the victim is utilizing. This could include
+    a scan for tools related to AI DevOps or AI services themselves such as public
+    AI chat agents (ex: [Copilot Studio Hunter](https://github.com/mbrg/power-pwn/wiki/Modules:-Copilot-Studio-Hunter-%E2%80%90-Enum)).
+    They can also send emails to organization service addresses and inspect the replies
+    for indicators that an AI agent is managing the inbox.
+
+
+    Information gained from Active Scanning may yield targets that provide opportunities
+    for other forms of reconnaissance such as {{ create_internal_link(victim_research)
+    }}, {{ create_internal_link(vuln_analysis) }}, or {{ create_internal_link(gather_rag_targets)
+    }}.'
   object-type: technique
   ATT&CK-reference:
     id: T1595
@@ -184,7 +194,7 @@
   tactics:
   - '{{reconnaissance.id}}'
   created_date: 2021-05-13
-  modified_date: 2023-01-18
+  modified_date: 2025-11-04
 
 - &acquire_ml_artifacts
   id: AML.T0002
@@ -860,20 +870,22 @@
 - &evade_model
   id: AML.T0015
   name: Evade AI Model
-  description: 'Adversaries can {{ create_internal_link(craft_adv) }} that prevent
-    a AI model from correctly identifying the contents of the data.
+  description: 'Adversaries can {{ create_internal_link(craft_adv) }} that prevents
+    an AI model from correctly identifying the contents of the data or {{ create_internal_link(gen_deepfake)
+    }} that fools an AI model expecting authentic data.
 
-    This technique can be used to evade a downstream task where AI is utilized.
 
-    The adversary may evade AI based virus/malware detection, or network scanning
-    towards the goal of a traditional cyber attack.'
+    This technique can be used to evade a downstream task where AI is utilized. The
+    adversary may evade AI-based virus/malware detection or network scanning towards
+    the goal of a traditional cyber attack. AI model evasion through deepfake generation
+    may also provide initial access to systems that use AI-based biometric authentication.'
   object-type: technique
   tactics:
   - '{{initial_access.id}}'
   - '{{defense_evasion.id}}'
   - '{{impact.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-11-04
 
 - &backdoor_model
   id: AML.T0018
@@ -950,21 +962,19 @@
 - &membership_inference
   id: AML.T0024.000
   name: Infer Training Data Membership
-  description: 'Adversaries may infer the membership of a data sample in its training
-    set, which raises privacy concerns.
+  description: 'Adversaries may infer the membership of a data sample or global characteristics
+    of the data in its training set, which raises privacy concerns.
 
     Some strategies make use of a shadow model that could be obtained via {{ create_internal_link(replicate_model)
     }}, others use statistics of model prediction scores.
 
 
     This can cause the victim model to leak private information, such as PII of those
-    in the training set or other forms of protected IP.
-
-    '
+    in the training set or other forms of protected IP.'
   object-type: technique
   subtechnique-of: '{{exfiltrate_via_api.id}}'
   created_date: 2021-05-13
-  modified_date: 2021-05-13
+  modified_date: 2025-11-06
 
 - &model_inversion
   id: AML.T0024.001
@@ -1473,13 +1483,13 @@
     }}). This type of injection can be used by the adversary to a foothold on the
     system or to target the user of the LLM.
 
-    Malicious prompts may also be {{ create_internal_link(pi_triggered) }} by user
-    inputs defined by the adversary.'
+    Malicious prompts may also be {{ create_internal_link(pi_triggered) }} user actions
+    or system events.'
   object-type: technique
   tactics:
   - '{{execution.id}}'
   created_date: 2023-10-25
-  modified_date: 2025-09-30
+  modified_date: 2025-11-05
 
 - &pi_direct
   id: AML.T0051.000
@@ -1572,13 +1582,18 @@
     services, providing the adversary with increased privileges on the system. Adversaries
     may take advantage of connected data sources to retrieve sensitive information.
     They may also use an LLM integrated with a command or script interpreter to execute
-    arbitrary instructions.'
+    arbitrary instructions.
+
+
+    AI agents may be configured to have access to tools that are not directly accessible
+    by users. Adversaries may abuse this to gain access to tools they otherwise wouldn''t
+    be able to use.'
   object-type: technique
   tactics:
   - '{{execution.id}}'
   - '{{privilege_escalation.id}}'
   created_date: 2023-10-25
-  modified_date: 2025-09-30
+  modified_date: 2025-11-04
 
 - &llm_jailbreak
   id: AML.T0054
@@ -1702,7 +1717,7 @@
   tactics:
   - '{{resource_development.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-10-31
 
 - &llm_prompt_self_replication
   id: AML.T0061
@@ -1733,7 +1748,7 @@
   tactics:
   - '{{discovery.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-10-31
 
 - &acquire_domains
   id: AML.T0008.002
@@ -2427,17 +2442,22 @@
 - &data_from_ai
   id: AML.T0085
   name: Data from AI Services
-  description: Adversaries may use their access to a victim organization's AI-enabled
+  description: 'Adversaries may use their access to a victim organization''s AI-enabled
     services to collect proprietary or otherwise sensitive information. As organizations
-    adopt generative AI in centralized services for accessing an organization's data,
+    adopt generative AI in centralized services for accessing an organization''s data,
     such as with chat agents which can access retrieval augmented generation (RAG)
     databases and other data sources via tools, they become increasingly valuable
     targets for adversaries.
+
+
+    AI agents may be configured to have access to tools and data sources that are
+    not directly accessible by users. Adversaries may abuse this to collect data that
+    a regular user wouldn''t be able to access directly.'
   object-type: technique
   tactics:
   - '{{collection.id}}'
   created_date: 2025-09-30
-  modified_date: 2025-09-30
+  modified_date: 2025-11-04
 
 - &rag_data_harvest
   id: AML.T0085.000
@@ -2473,14 +2493,258 @@
   created_date: 2025-09-30
   modified_date: 2025-09-30
 
+- &gather_victim_identity
+  id: AML.T0087
+  name: Gather Victim Identity Information
+  description: 'Adversaries may gather information about the victim''s identity that
+    can be used during targeting. Information about identities may include a variety
+    of details, including personal data (ex: employee names, email addresses, photos,
+    etc.) as well as sensitive details such as credentials or multi-factor authentication
+    (MFA) configurations.
+
+
+    Adversaries may gather this information in various ways, such as direct elicitation,
+    {{ create_internal_link(victim_website) }}, or via leaked information on the black
+    market.
+
+
+    Adversaries may use the gathered victim data to Create Deepfakes and impersonate
+    them in a convincing manner. This may create opportunities for adversaries to
+    {{ create_internal_link(establish_accounts) }} under the impersonated identity,
+    or allow them to perform convincing {{ create_internal_link(phishing) }} attacks.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1589
+    url: https://attack.mitre.org/techniques/T1589/
+  tactics:
+  - '{{reconnaissance.id}}'
+  created_date: 2025-10-31
+  modified_date: 2025-10-27
+
+- &gen_deepfake
+  id: AML.T0088
+  name: Generate Deepfakes
+  description: 'Adversaries may use generative artificial intelligence (GenAI) to
+    create synthetic media (i.e. imagery, video, audio, and text) that appear authentic.
+    These "[deepfakes]( https://en.wikipedia.org/wiki/Deepfake)" may mimic a real
+    person or depict fictional personas. Adversaries may use deepfakes for impersonation
+    to conduct {{ create_internal_link(phishing) }} or to evade AI applications such
+    as biometric identity verification systems (see {{ create_internal_link(evade_model)
+    }}).
+
+
+    Manipulation of media has been possible for a long time, however GenAI reduces
+    the skill and level of effort required, allowing adversaries to rapidly scale
+    operations to target more users or systems. It also makes real-time manipulations
+    feasible.
+
+
+    Adversaries may utilize open-source models and software that were designed for
+    legitimate use cases to generate deepfakes for malicious use. However, there are
+    some projects specifically tailored towards malicious use cases such as [ProKYC](https://www.catonetworks.com/blog/prokyc-selling-deepfake-tool-for-account-fraud-attacks/).'
+  object-type: technique
+  tactics:
+  - '{{ml_attack_staging.id}}'
+  created_date: 2025-10-31
+  modified_date: 2025-11-04
+
+- &process_discovery
+  id: AML.T0089
+  name: Process Discovery
+  description: 'Adversaries may attempt to get information about processes running
+    on a system. Once obtained, this information could be used to gain an understanding
+    of common AI-related software/applications running on systems within the network.
+    Administrator or otherwise elevated access may provide better process details.
+
+
+    Identifying the AI software stack can then lead an adversary to new targets and
+    attack pathways. AI-related software may require application tokens to authenticate
+    with backend services. This provides opportunities for {{ create_internal_link(credential_access)
+    }} and {{ create_internal_link(lateral_movement) }}.
+
+
+    In Windows environments, adversaries could obtain details on running processes
+    using the Tasklist utility via cmd or `Get-Process` via PowerShell. Information
+    about processes can also be extracted from the output of Native API calls such
+    as `CreateToolhelp32Snapshot`. In Mac and Linux, this is accomplished with the
+    `ps` command. Adversaries may also opt to enumerate processes via `/proc`.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1057
+    url: https://attack.mitre.org/techniques/T1057/
+  tactics:
+  - '{{discovery.id}}'
+  created_date: 2025-10-27
+  modified_date: 2025-11-04
+
+- &os_cred_dump
+  id: AML.T0090
+  name: OS Credential Dumping
+  description: 'Adversaries may extract credentials from OS caches, application memory,
+    or other sources on a compromised system. Credentials are often in the form of
+    a hash or clear text, and can include usernames and passwords, application tokens,
+    or other authentication keys.
+
+
+    Credentials can be used to perform {{ create_internal_link(lateral_movement) }}
+    to access other AI services such as AI agents, LLMs, or AI inference APIs. Credentials
+    could also give an adversary access to other software tools and data sources that
+    are part of the AI DevOps lifecycle.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1003
+    url: https://attack.mitre.org/techniques/T1003/
+  tactics:
+  - '{{credential_access.id}}'
+  created_date: 2025-10-27
+  modified_date: 2025-11-04
+
+- &alt_auth
+  id: AML.T0091
+  name: Use Alternate Authentication Material
+  description: 'Adversaries may use alternate authentication material, such as password
+    hashes, Kerberos tickets, and application access tokens, in order to move laterally
+    within an environment and bypass normal system access controls.
+
+
+    AI services commonly use alternate authentication material as a primary means
+    for users to make queries, making them vulnerable to this technique.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1550
+    url: https://attack.mitre.org/techniques/T1550/
+  tactics:
+  - '{{lateral_movement.id}}'
+  created_date: 2025-10-27
+  modified_date: 2025-11-04
+
+- &manip_llm_history
+  id: AML.T0092
+  name: Manipulate User LLM Chat History
+  description: "Adversaries may manipulate a user's large language model (LLM) chat\
+    \ history to cover the tracks of their malicious behavior. They may hide persistent\
+    \ changes they have made to the LLM's behavior, or obscure their attempts at discovering\
+    \ private information about the user.\n\nTo do so, adversaries may delete or edit\
+    \ existing messages or create new threads as part of their coverup. This is feasible\
+    \ if the adversary has the victim's authentication tokens for the backend LLM\
+    \ service or if they have direct access to the victim's chat interface. \n\nChat\
+    \ interfaces (especially desktop interfaces) often do not show the injected prompt\
+    \ for any ongoing chat, as they update chat history only once when initially opening\
+    \ it. This can help the adversary's manipulations go unnoticed by the victim."
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-10-27
+  modified_date: 2025-11-04
+
+- &alt_auth_token
+  id: AML.T0091.000
+  name: Application Access Token
+  description: 'Adversaries may use stolen application access tokens to bypass the
+    typical authentication process and access restricted accounts, information, or
+    services on remote systems. These tokens are typically stolen from users or services
+    and used in lieu of login credentials.
+
+
+    Application access tokens are used to make authorized API requests on behalf of
+    a user or service and are commonly used to access resources in cloud, container-based
+    applications, and software-as-a-service (SaaS). They are commonly used for AI
+    services such as chatbots, LLMs, and predictive inference APIs.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1550.001
+    url: https://attack.mitre.org/techniques/T1550/001/
+  subtechnique-of: '{{alt_auth.id}}'
+  created_date: 2025-10-28
+  modified_date: 2025-11-04
+
+- &prompt_infil
+  id: AML.T0093
+  name: Prompt Infiltration via Public-Facing Application
+  description: 'An adversary may introduce malicious prompts into the victim''s system
+    via a public-facing application with the intention of it being ingested by an
+    AI at some point in the future and ultimately having a downstream effect. This
+    may occur when a data source is indexed by a retrieval augmented generation (RAG)
+    system, when a rule triggers an action by an AI agent, or when a user utilizes
+    a large language model (LLM) to interact with the malicious content. The malicious
+    prompts may persist on the victim system for an extended period and could affect
+    multiple users and various AI tools within the victim organization.
+
+
+    Any public-facing application that accepts text input could be a target. This
+    includes email, shared document systems like OneDrive or Google Drive, and service
+    desks or ticketing systems like Jira.
+
+
+    Adversaries may perform {{ create_internal_link(reconnaissance) }} to identify
+    public facing applications that are likely monitored by an AI agent or are likely
+    to be indexed by a RAG. They may perform {{ create_internal_link(discover_agent_config)
+    }} to refine their targeting.'
+  object-type: technique
+  tactics:
+  - '{{initial_access.id}}'
+  - '{{persistence.id}}'
+  created_date: 2025-10-29
+  modified_date: 2025-11-06
+
+- &delay_exec_llm
+  id: AML.T0094
+  name: Delay Execution of LLM Instructions
+  description: 'Adversaries may include instructions to be followed by the AI system
+    in response to a future event, such as a specific keyword or the next interaction,
+    in order to evade detection or bypass controls placed on the AI system.
+
+
+    For example, an adversary may include "If the user submits a new request..." followed
+    by the malicious instructions as part of their prompt.
+
+
+    AI agents can include security measures against prompt injections that prevent
+    the invocation of particular tools or access to certain data sources during a
+    conversation turn that has untrusted data in context. Delaying the execution of
+    instructions to a future interaction or keyword is one way adversaries may bypass
+    this type of control.'
+  object-type: technique
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-11-04
+  modified_date: 2025-11-05
+
 - &pi_triggered
   id: AML.T0051.002
   name: Triggered
-  description: The adversary injects instructions to be followed by the AI system
-    in response to a future event, either a specific keyword or the next interaction.
-    The triggering events can range from simple phrases to complex and covert signals,
-    including encoded or steganographic payloads hidden within seemingly benign content.
+  description: An adversary may trigger a prompt injection via a user action or event
+    that occurs within the victim's environment. Triggered prompt injections often
+    target AI agents, which can be activated by means the adversary identifies during
+    {{ create_internal_link(discovery) }} (See {{ create_internal_link(agent_activation_triggers)
+    }}). These malicious prompts may be hidden or obfuscated from the user and may
+    already exist somewhere in the victim's environment from the adversary performing
+    {{ create_internal_link(prompt_infil) }}. This type of injection may be used by
+    the adversary to gain a foothold in the system or to target an unwitting user
+    of the system.
   object-type: technique
   subtechnique-of: '{{llm_prompt_injection.id}}'
-  created_date: 2025-09-30
-  modified_date: 2025-09-30
+  created_date: 2025-11-04
+  modified_date: 2025-11-05
+
+- &search_open_sites
+  id: AML.T0095
+  name: Search Open Websites/Domains
+  description: 'Adversaries may search public websites and/or domains for information
+    about victims that can be used during targeting. Information about victims may
+    be available in various online sites, such as social media, new sites, or domains
+    owned by the victim.
+
+
+    Adversaries may find the information they seek to gather via search engines. They
+    can use precise search queries to identify software platforms or services used
+    by the victim to use in targeting. This may be followed by {{ create_internal_link(exploit_public_app)
+    }} or {{ create_internal_link(prompt_infil) }}.'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1593
+    url: https://attack.mitre.org/techniques/T1593/
+  tactics:
+  - '{{reconnaissance.id}}'
+  created_date: 2025-11-05
+  modified_date: 2025-11-06
