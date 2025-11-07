@@ -1,3 +1,70 @@
+## [5.1.0]() (2025-11-06)
+
+This version of ATLAS data contains 1 matrix, 16 tactics, 84 techniques, 56 sub-techniques, 32 mitigations, and 42 case studies.
+
+###### Tactics
+
+- Added a new tactic
+
+  - [Lateral Movement](/techniques/AML.TA0015)
+
+###### Techniques
+
+- Added new techniques
+
+  - [Gather Victim Identity Information](/techniques/AML.T0087)
+  - [Generate Deepfakes](/techniques/AML.T0088)
+  - [Process Discovery](/techniques/AML.T0089)
+  - [OS Credential Dumping](/techniques/AML.T0090)
+  - [Use Alternate Authentication Material](/techniques/AML.T0091)
+  - [Use Alternate Authentication Material: Application Access Token](/techniques/AML.T0091.000)
+  - [Manipulate User LLM Chat History](/techniques/AML.T0092)
+  - [Prompt Infiltration via Public-Facing Application](/techniques/AML.T0093)
+  - [Delay Execution of LLM Instructions](/techniques/AML.T0094)
+  - [Search Open Websites/Domains](/techniques/AML.T0095)
+
+- Updated existing techniques
+
+  - [Active Scanning](/techniques/AML.T0006)
+  - [Evade AI Model](/techniques/AML.T0015)
+  - [Exfiltration via AI Inference API: Infer Training Data Membership](/techniques/AML.T0024.000)
+  - [LLM Prompt Injection: Triggered](/techniques/AML.T0051.002)
+  - [AI Agent Tool Invocation](/techniques/AML.T0053)
+  - [Data from AI Services](/techniques/AML.T0085)
+
+###### Mitigations
+
+- Added new mitigations
+  - [Privileged AI Agent Permissions Configuration](/mitigations/AML.M0026)
+  - [Single-User AI Agent Permissions Configuration](/mitigations/AML.M0027)
+  - [AI Agent Tools Permissions Configuration](/mitigations/AML.M0028)
+  - [Human In-the-Loop for AI Agent Actions](/mitigations/AML.M0029)
+  - [Restrict AI Agent Tool Invocation on Untrusted Data](/mitigations/AML.M0030)
+  - [Memory Hardening](/mitigations/AML.M0031)
+
+###### Case Studies
+
+- Added new case studies
+
+  - [Live Deepfake Image Injection to Evade Mobile KYC Verification](/studies/AML.CS0033)
+  - [ProKYC: Deepfake Tool for Account Fraud Attacks](/studies/AML.CS0034)
+  - [Data Exfiltration from Slack AI via Indirect Prompt Injection](/studies/AML.CS0035)
+  - [AIKatz: Attacking LLM Desktop Applications](/studies/AML.CS0036)
+  - [Data Exfiltration via Agent Tools in Copilot Studio](/studies/AML.CS0037)
+  - [Planting Instructions for Delayed Automatic AI Agent Tool Invocation](/studies/AML.CS0038)
+  - [Living Off AI: Prompt Injection via Jira Service Management](/studies/AML.CS0039)
+  - [Hacking ChatGPT’s Memories with Prompt Injection](/studies/AML.CS0040)
+  - [Rules File Backdoor: Supply Chain Attack on AI Coding Assistants](/studies/AML.CS0041)
+
+- Updated existing case studies
+
+  - [Camera Hijack Attack on Facial Recognition System](/studies/AML.CS0004)
+  - [Achieving Code Execution in MathGPT via Prompt Injection](/studies/AML.CS0016)
+  - [Financial Transaction Hijacking with M365 Copilot as an Insider](/studies/AML.CS0026)
+  - [Google Bard Conversation Exfiltration](/studies/AML.CS0029)
+  - [ChatGPT Package Hallucination](/studies/AML.CS0022)
+
+
 ## [5.0.1]() (2025-10-15)
 
 Minor language changes and typo fixes.

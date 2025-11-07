@@ -1,0 +1,61 @@
+---
+id: AML.CS0033
+name: Live Deepfake Image Injection to Evade Mobile KYC Verification
+object-type: case-study
+summary: Facial biometric authentication services are commonly used by mobile applications
+  for user onboarding, authentication, and identity verification for KYC requirements.
+  The iProov Red Team demonstrated a face-swapped imagery injection attack that can
+  successfully evade live facial recognition authentication models along with both
+  passive and active [liveness verification](https://en.wikipedia.org/wiki/Liveness_test)
+  on mobile devices. By executing this kind of attack, adversaries could gain access
+  to privileged systems of a victim or create fake personas to create fake accounts
+  on banking or cryptocurrency apps.
+incident-date: 2024-10-01
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{gather_victim_identity.id}}'
+  description: The researchers collected user identity information and high-definition
+    facial images from online social networks and/or black-market sites.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_genai.id}}'
+  description: The researchers obtained [Faceswap](https://swapface.org) a desktop
+    application capable of swapping faces in a video in real-time.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_tool.id}}'
+  description: The researchers obtained [Open Broadcaster Software (OBS)](https://obsproject.com)which
+    can broadcast a video stream over the network.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_cap.id}}'
+  description: 'The researchers obtained [Virtual Camera: Live Assist](https://apkpure.com/virtual-camera-live-assist/virtual.camera.app),
+    an Android app that allows a user to substitute the devices camera  with a video
+    stream. This app works on genuine, non-rooted Android devices.'
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{gen_deepfake.id}}'
+  description: "The researchers use the gathered victim face images and the Faceswap\
+    \ tool to produce live deepfake videos which mimic the victim\u2019s appearance."
+- tactic: '{{resource_development.id}}'
+  technique: '{{establish_accounts.id}}'
+  description: The researchers used the gathered victim information to register an
+    account for a financial services application.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: "During identity verification, the financial services application uses\
+    \ facial recognition and liveness detection to analyze live video from the user\u2019\
+    s camera."
+- tactic: '{{initial_access.id}}'
+  technique: '{{evade_model.id}}'
+  description: "The researchers stream the deepfake video feed using OBS and use the\
+    \ Virtual Camera app to replace the default camera with feed. This successfully\
+    \ evades the facial recognition system and allows the researchers to authenticate\
+    \ themselves under the victim\u2019s identity."
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{impersonation.id}}'
+  description: "With an authenticated account under the victim\u2019s identity, the\
+    \ researchers successfully impersonate the victim and evade detection."
+- tactic: '{{impact.id}}'
+  technique: '{{harm_financial.id}}'
+  description: The researchers could then have caused financial harm to the victim.
+target: Mobile facial authentication service
+actor: iProov Red Team
+case-study-type: exercise

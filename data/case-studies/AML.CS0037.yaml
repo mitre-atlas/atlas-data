@@ -1,0 +1,96 @@
+---
+id: AML.CS0037
+name: Data Exfiltration via Agent Tools in Copilot Studio
+object-type: case-study
+summary: "Researchers from Zenity demonstrated how an organization\u2019s data can\
+  \ be exfiltrated via prompt injections that target an AI-powered customer service\
+  \ agent.\n\nThe target system is a customer service agent built by Zenity in Copilot\
+  \ Studio. It is modeled after an agent built by McKinsey to streamline its customer\
+  \ service needs. The AI agent listens to a customer service email inbox where customers\
+  \ send their engagement requests. Upon receiving a request, the agent looks at the\
+  \ customer\u2019s previous engagements, understands who the best consultant for\
+  \ the case is, and proceeds to send an email to the respective consultant regarding\
+  \ the request, including all of the relevant context the consultant will need to\
+  \ properly engage with the customer.\n\nThe Zenity researchers begin by performing\
+  \ targeting to identify an email inbox that is managed by an AI agent. Then they\
+  \ use prompt injections to discover details about the AI agent, such as its knowledge\
+  \ sources and tools. Once they understand the AI agent\u2019s capabilities, the\
+  \ researchers are able to craft a prompt that retrieves private customer data from\
+  \ the organization\u2019s RAG database and CRM, and exfiltrate it via the AI agent\u2019\
+  s email tool.\n\nVendor Response: Microsoft quickly acknowledged and fixed the issue.\
+  \ The prompts used by the Zenity researchers in this exercise no longer work, however\
+  \ other prompts may still be effective."
+incident-date: 2025-06-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{active_scanning.id}}'
+  description: "The researchers look for support email addresses on the target organization\u2019\
+    s website which may be managed by an AI agent. Then, they probe the system by\
+    \ sending emails and looking for indications of agentic AI in automatic replies."
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: "Once a target has been identified, the researchers craft prompts designed\
+    \ to probe for a potential AI agent monitoring the inbox. The prompt instructs\
+    \ the agent to send an email reply to an address of the researchers\u2019 choosing."
+- tactic: '{{initial_access.id}}'
+  technique: '{{prompt_infil.id}}'
+  description: The researchers send an email with the malicious prompt to the inbox
+    they suspect may be managed by an AI agent.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: The researchers receive a reply at the address they specified, indicating
+    that there is an AI agent present, and that the indirect prompt injection was
+    successful.
+- tactic: '{{discovery.id}}'
+  technique: '{{agent_activation_triggers.id}}'
+  description: The researchers infer that the AI agent is activated when receiving
+    an email.
+- tactic: '{{discovery.id}}'
+  technique: '{{agent_tool_definitions.id}}'
+  description: The researchers infer that the AI agent has a tool for sending emails.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: From here, the researchers repeat the same steps to interact with the
+    AI agent, sending malicious prompts to the agent via email and receiving responses
+    at their desired address.
+- tactic: '{{execution.id}}'
+  technique: '{{llm_prompt_injection.id}}'
+  description: The researchers modify the original prompt to discover other knowledge
+    sources and tools that may have data they are after.
+- tactic: '{{discovery.id}}'
+  technique: '{{agent_embeded_knowledge.id}}'
+  description: "The researchers discover the AI agent has access to a \u201CCustomer\
+    \ Support Account Owners.csv\u201D data source."
+- tactic: '{{discovery.id}}'
+  technique: '{{agent_tool_definitions.id}}'
+  description: The researchers discover the AI agent has access to the Salesforce
+    get-records tool, which can be used to retrieve CRM records.
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: "The researchers put their knowledge of the AI agent\u2019s tools and\
+    \ knowledge sources together to craft a prompt that will collect and exfiltrate\
+    \ the customer data they are after."
+- tactic: '{{collection.id}}'
+  technique: '{{rag_data_harvest.id}}'
+  description: "The prompt asks the agent to retrieve all of the fields and rows from\
+    \ \u201CCustomer Support Account Owners.csv\u201D. The agent retrieves the entire\
+    \ file."
+- tactic: '{{collection.id}}'
+  technique: '{{agent_tool_harvest.id}}'
+  description: "The prompt asks the agent to retrieve all Salesforce records using\
+    \ its get-records tool. The agent retrieves all records from the victim\u2019\
+    s CRM."
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "The prompt asks the agent to email the results to an address of the\
+    \ researcher\u2019s choosing using its email tool. The researchers successfully\
+    \ exfiltrate their target data via the tool invocation."
+target: Copilot Studio Customer Service Agent
+actor: Zenity
+case-study-type: exercise
+references:
+- title: 'AgentFlayer: Discovery Phase of AI Agents in Copilot Studio'
+  url: https://labs.zenity.io/p/a-copilot-studio-story-discovery-phase-in-ai-agents-f917
+- title: 'AgentFlayer: When AIjacking Leads to Full Data Exfiltration in Copilot Studio'
+  url: https://labs.zenity.io/p/a-copilot-studio-story-2-when-aijacking-leads-to-full-data-exfiltration-bc4a

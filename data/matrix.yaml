@@ -14,6 +14,7 @@ tactics:
   - "{{defense_evasion.id}}"
   - "{{credential_access.id}}"
   - "{{discovery.id}}"
+  - "{{lateral_movement.id}}"
   - "{{collection.id}}"
   - "{{ml_attack_staging.id}}"
   - "{{command_and_control.id}}"

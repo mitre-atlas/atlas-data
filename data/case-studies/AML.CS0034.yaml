@@ -1,0 +1,65 @@
+---
+id: AML.CS0034
+name: 'ProKYC: Deepfake Tool for Account Fraud Attacks'
+object-type: case-study
+summary: "Cato CTRL security researchers have identified ProKYC, a deepfake tool being\
+  \ sold to cybercriminals as a method to bypass Know Your Customer (KYC) verification\
+  \ on financial service applications such as cryptocurrency exchanges. ProKYC can\
+  \ create fake identity documents and generate deepfake selfie videos, two key pieces\
+  \ of biometric data used during KYC verification. The tool helps cybercriminals\
+  \ defeat facial recognition and liveness checks to create fraudulent accounts.\n\
+  \nThe procedure below describes how a bad actor could use ProKYC\u2019s service\
+  \ to bypass KYC verification."
+incident-date: 2024-10-09
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{gather_victim_identity.id}}'
+  description: The bad actor collected user identity information.
+- tactic: '{{resource_development.id}}'
+  technique: '{{obtain_genai.id}}'
+  description: The bad actor paid for the ProKYC tool, created a fake identity document,
+    generated a deepfake selfie video, and replaced a live camera feed with the deepfake
+    video.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{gen_deepfake.id}}'
+  description: The bad actor used a mixture of real PII and falsified details with
+    the ProKYC tool to generate a deepfaked identity document.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: '{{gen_deepfake.id}}'
+  description: The bad actor used ProKYC tool to generate a deepfake selfie video
+    with the same face as the identity document designed to bypass liveness checks.
+- tactic: '{{resource_development.id}}'
+  technique: '{{establish_accounts.id}}'
+  description: The bad actor used the victim information to register an account with
+    a financial services application, such as a cryptocurrency exchange.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: "During identity verification, the financial services application used\
+    \ facial recognition and liveness detection to analyze live video from the user\u2019\
+    s camera."
+- tactic: '{{initial_access.id}}'
+  technique: '{{evade_model.id}}'
+  description: The bad actor used ProKYC to replace the camera feed with the deepfake
+    selfie video. This successfully evaded the KYC verification and allowed the bad
+    actor to authenticate themselves under the false identity.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{impersonation.id}}'
+  description: "With an authenticated account under the victim\u2019s identity, the\
+    \ bad actor successfully impersonated the victim and evaded detection."
+- tactic: '{{impact.id}}'
+  technique: '{{harm_financial.id}}'
+  description: The bad actor used this access to cause financial harm to the victim.
+reporter: Cato CTRL
+target: KYC verification services
+actor: ProKYC, cybercriminal group
+case-study-type: incident
+references:
+- title: 'AIID Incident 819: ProKYC Tool Allegedly Facilitates Deepfake-Based Account
+    Fraud on Cryptocurrency Exchanges'
+  url: https://incidentdatabase.ai/cite/819/
+- title: "Cato CTRL Threat Research: ProKYC \u2013 Deepfake Tool for Account Fraud\
+    \ Attacks"
+  url: https://www.catonetworks.com/blog/prokyc-selling-deepfake-tool-for-account-fraud-attacks/
+- title: 'ProKYC: Synthetic Identity Fraud as a Service'
+  url: https://idscan.net/blog/prokyc-synthetic-identity-fraud/

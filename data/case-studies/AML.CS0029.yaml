@@ -36,7 +36,7 @@ procedure:
   description: The researcher wrote a Google Apps Script that logs all query parameters
     to a Google Doc.
 - tactic: '{{initial_access.id}}'
-  technique: '{{exploit_public_app.id}}'
+  technique: '{{prompt_infil.id}}'
   description: The researcher shares a Google Doc containing the malicious prompt
     with the target user. This exploits the fact that Bard Extensions allow Bard to
     access a user's documents.

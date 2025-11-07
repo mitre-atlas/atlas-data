@@ -910,10 +910,206 @@
     use: Dataset provenance can protect against poisoning of training data
   - id: '{{poison_model.id}}'
     use: Dataset provenance can protect against poisoning of models.
-  ml-lifecycle:
-  - Business and Data Understanding
-  - Data Preparation
   category:
   - Technical - ML
   created_date: 2025-03-12
   modified_date: 2025-03-12
+
+- &agent_config_priv
+  id: AML.M0026
+  name: Privileged AI Agent Permissions Configuration
+  description: AI agents may be granted elevated privileges above that of a normal
+    user to enable desired workflows. When deploying a privileged AI agent, or an
+    agent that interacts with multiple users, it is important to implement robust
+    policies and controls on permissions of the privileged agent. These controls include
+    Role-Based Access Controls (RBAC), Attribute-Based Access Controls (ABAC), and
+    the principle of least privilege so that the agent is only granted the necessary
+    permissions to access tools and resources required to accomplish its designated
+    task(s).
+  object-type: mitigation
+  techniques:
+  - id: '{{exfil_agent_tool.id}}'
+    use: Configuring privileged AI agents with proper access controls for tool use
+      can limit an adversary's ability to abuse tool invocations if the agent is compromised.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Configuring privileged AI agents with proper access controls for tool use
+      can limit an adversary's ability to abuse tool invocations if the agent is compromised.
+  - id: '{{data_from_ai.id}}'
+    use: Configuring privileged AI agents with proper access controls can limit an
+      adversary's ability to collect data from AI services if the agent is compromised.
+  - id: '{{rag_data_harvest.id}}'
+    use: Configuring privileged AI agents with proper access controls can limit an
+      adversary's ability to collect data from RAG Databases if the agent is compromised.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Configuring privileged AI agents with proper access controls can limit an
+      adversary's ability to collect data from agent tool invocation if the agent
+      is compromised.
+  - id: '{{rag_credentials.id}}'
+    use: Configuring privileged AI agents with proper access controls can limit an
+      adversary's ability to harvest credentials from RAG Databases if the agent is
+      compromised.
+  ml-lifecycle:
+  - Deployment
+  category:
+  - Technical - Cyber
+  created_date: 2025-10-29
+  modified_date: 2025-11-05
+
+- &agent_config_user
+  id: AML.M0027
+  name: Single-User AI Agent Permissions Configuration
+  description: When deploying an AI agent that acts as a representative of a user
+    and performs actions on their behalf, it is important to implement robust policies
+    and controls on permissions and lifecycle management of the agent. Lifecycle management
+    involves establishing identity, protocols for access management, and decommissioning
+    of the agent when its role is no longer needed. Controls should also include the
+    principle of least privilege and delegated access from the user account. When
+    acting as a representative of a user, the AI agent should not be granted permissions
+    that the user would not be granted within the system or organization.
+  object-type: mitigation
+  techniques:
+  - id: '{{exfil_agent_tool.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user for
+      tool use can limit an adversary's ability to abuse tool invocations if the agent
+      is compromised.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user for
+      tool use can limit an adversary's ability to abuse tool invocations if the agent
+      is compromised.
+  - id: '{{data_from_ai.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user can
+      limit an adversary's ability to collect data from AI services if the agent is
+      compromised.
+  - id: '{{rag_data_harvest.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user can
+      limit an adversary's ability to collect data from RAG Databases if the agent
+      is compromised.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user can
+      limit an adversary's ability to collect data from agent tool invocation if the
+      agent is compromised.
+  - id: '{{rag_credentials.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user can
+      limit an adversary's ability to harvest credentials from RAG Databases if the
+      agent is compromised.
+  ml-lifecycle:
+  - Deployment
+  category:
+  - Technical - Cyber
+  created_date: 2025-10-29
+  modified_date: 2025-11-05
+
+- &agent_config_tools
+  id: AML.M0028
+  name: AI Agent Tools Permissions Configuration
+  description: When deploying tools that will be shared across multiple AI agents,
+    it is important to implement robust policies and controls on permissions for the
+    tools. These controls include applying the principle of least privilege along
+    with delegated access, where the tools receive the permissions, identities, and
+    restrictions of the AI agent calling them. These configurations may be implemented
+    either in MCP servers which connect the agents to the tools calling them or, in
+    more complex cases, directly in the configuration files of the tool.
+  object-type: mitigation
+  techniques:
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Configuring AI Agent tools with access controls inherited from the user or
+      the AI Agent invoking the tool can limit an adversary's capabilities within
+      a system, including their ability to abuse tool invocations and  and access
+      sensitive data.
+  - id: '{{data_from_ai.id}}'
+    use: Configuring AI Agent tools with access controls inherited from the user or
+      the AI Agent invoking the tool can limit adversary's access to sensitive data.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Configuring AI Agent tools with access controls that are inherited from the
+      user or the AI Agent invoking the tool can limit adversary's access to sensitive
+      data.
+  ml-lifecycle:
+  - Deployment
+  category:
+  - Technical - Cyber
+  created_date: 2025-10-29
+  modified_date: 2025-11-05
+
+- &hitl_agent_actions
+  id: AML.M0029
+  name: Human In-the-Loop for AI Agent Actions
+  description: "Systems should require the user or another human stakeholder to approve\
+    \ AI agent actions before the agent takes them. The human approver may be technical\
+    \ staff or business unit SMEs depending on the use case. Separate tools, such\
+    \ as dedicated audit agents, may assist human approval, but final adjudication\
+    \ should be conducted by a human decision-maker. \n\nThe security benefits from\
+    \ Human In-the-Loop policies may be at odds with operational overhead costs of\
+    \ additional approvals. To ease this, Human In-the-Loop policies should follow\
+    \ the degree of consequence of the task at hand. Minor, repetitive tasks performed\
+    \ by agents accessing basic tools may only require minimal human oversight, while\
+    \ agents employed in systems with significant consequences may necessitate approval\
+    \ from multiple stakeholders diversified across multiple organizations."
+  object-type: mitigation
+  techniques:
+  - id: '{{exfil_agent_tool.id}}'
+    use: Requiring user confirmation of AI agent tool invocations can prevent the
+      automatic execution of tools by an adversary.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Requiring user confirmation of AI agent tool invocations can prevent the
+      automatic execution of tools by an adversary.
+  ml-lifecycle:
+  - Deployment
+  category:
+  - Technical - ML
+  created_date: 2025-10-29
+  modified_date: 2025-11-05
+
+- &restrict_agent_tool_untrusted
+  id: AML.M0030
+  name: Restrict AI Agent Tool Invocation on Untrusted Data
+  description: 'Untrusted data can contain prompt injections that invoke an AI agent''s
+    tools, potentially causing confidentiality, integrity or availability violations.
+    It is recommended that tool invocation be restricted or limited when untrusted
+    data enters the LLM''s context.
+
+
+    The degree to which tool invocation is restricted may depend on the potential
+    consequences of the action. Consider blocking the automatic invocation of tools
+    or requiring user confirmation once untrusted data enters the LLM''s context.
+    For high consequence actions, consider always requiring user confirmation.'
+  object-type: mitigation
+  techniques:
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Restricting the automatic tool use when untrusted data is present can prevent
+      adversaries from invoking tools via prompt injections.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Restricting the automatic tool use when untrusted data is present can prevent
+      adversaries from invoking tools via prompt injections.
+  ml-lifecycle:
+  - Deployment
+  category:
+  - Technical - ML
+  created_date: 2025-10-29
+  modified_date: 2025-11-05
+
+- &mem_harden
+  id: AML.M0031
+  name: Memory Hardening
+  description: Memory Hardening involves developing trust boundaries and secure processes
+    for how an AI agent stores and accesses memory and context. This may be implemented
+    using a combination of strategies including restricting an agent's ability to
+    store memories by requiring external authentication and validation for memory
+    updates, performing semantic integrity checks on retrieved memories before agents
+    execute actions, and implementing controls for monitoring of memory and remediation
+    processes for poisoned memory.
+  object-type: mitigation
+  techniques:
+  - id: '{{llm_context.id}}'
+    use: Memory hardening can help protect LLM memory from manipulation and prevent
+      poisoned memories from executing.
+  - id: '{{llm_memory_poisoning.id}}'
+    use: Memory hardening can help protect LLM memory from manipulation and prevent
+      poisoned memories from executing.
+  ml-lifecycle:
+  - ML Model Engineering
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2025-10-29
+  modified_date: 2025-11-06

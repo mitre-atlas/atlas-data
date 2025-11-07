@@ -103,7 +103,7 @@ procedure:
     system instructions. This was done via trial and error on a separate instance
     of Copilot.
 - tactic: '{{initial_access.id}}'
-  technique: '{{exploit_public_app.id}}'
+  technique: '{{prompt_infil.id}}'
   description: The Zenity researchers sent an email to a user at the victim organization
     containing a malicious payload, exploiting the knowledge that all received emails
     are ingested into the Copilot RAG database.

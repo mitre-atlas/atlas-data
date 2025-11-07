@@ -1,0 +1,53 @@
+---
+id: AML.CS0040
+name: "Hacking ChatGPT\u2019s Memories with Prompt Injection"
+object-type: case-study
+summary: "[Embrace the Red](https://embracethered.com/blog/) demonstrated that ChatGPT\u2019\
+  s memory feature is vulnerable to manipulation via prompt injections. To execute\
+  \ the attack, the researcher hid a prompt injection in a shared Google Doc. When\
+  \ a user references the document, its contents is placed into ChatGPT\u2019s context\
+  \ via the Connected App feature, and the prompt is executed, poisoning the memory\
+  \ with false facts. The researcher demonstrated that these injected memories persist\
+  \ across chat sessions. Additionally, since the prompt injection payload is introduced\
+  \ through shared resources, this leaves others vulnerable to the same attack and\
+  \ maintains persistence on the system."
+incident-date: 2024-02-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researcher crafted a basic prompt asking to set the memory context
+    with a bulleted list of incorrect facts.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{llm_prompt_obf.id}}'
+  description: "The researcher placed the prompt in a Google Doc hidden in the header\
+    \ with tiny font matching the document\u2019s background color to make it invisible."
+- tactic: '{{initial_access.id}}'
+  technique: '{{prompt_infil.id}}'
+  description: "The Google Doc was shared with the victim, making it accessible to\
+    \ ChatGPT\u2019s via its Connected App feature."
+- tactic: '{{execution.id}}'
+  technique: '{{pi_indirect.id}}'
+  description: When a user referenced something in the shared document, its contents
+    was added to the chat context, and the prompt was executed by ChatGPT.
+- tactic: '{{persistence.id}}'
+  technique: '{{llm_memory_poisoning.id}}'
+  description: The prompt caused new memories to be introduced, changing the behavior
+    of ChatGPT. The chat window indicated that the memory has been set, despite the
+    lack of human verification or intervention. All future chat sessions will use
+    the poisoned memory store.
+- tactic: '{{persistence.id}}'
+  technique: '{{prompt_infil.id}}'
+  description: The memory poisoning prompt injection persists in the shared Google
+    Doc, where it can spread to other users and chat sessions, making it difficult
+    to trace sources of the memories and remove.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: The victim can be misinformed, misled, or influenced as directed by
+    ChatGPT's poisoned memories.
+target: OpenAI ChatGPT
+actor: Embrace the Red
+case-study-type: exercise
+references:
+- title: 'ChatGPT: Hacking Memories with Prompt Injection'
+  url: https://embracethered.com/blog/posts/2024/chatgpt-hacking-memories/

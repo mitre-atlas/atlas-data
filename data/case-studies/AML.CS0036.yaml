@@ -1,0 +1,86 @@
+---
+id: AML.CS0036
+name: 'AIKatz: Attacking LLM Desktop Applications'
+object-type: case-study
+summary: "Researchers at Lumia have demonstrated that it is possible to extract authentication\
+  \ tokens from the memory of LLM Desktop Applications. An attacker could then use\
+  \ those tokens to impersonate as the victim to the LLM backed, thereby gaining access\
+  \ to the victim\u2019s conversations as well as the ability to interfere in future\
+  \ conversations. The attacker\u2019s access would allow them the ability to directly\
+  \ inject prompts to change the LLM\u2019s behavior, poison the LLM\u2019s context\
+  \ to have persistent effects, manipulate the user\u2019s conversation history to\
+  \ cover their tracks, and ultimately impact the confidentiality, integrity, and\
+  \ availability of the system. The researchers demonstrated this on Anthropic Claude,\
+  \ Microsoft M365 Copilot, and OpenAI ChatGPT.\n\nVendor Responses to Responsible\
+  \ Disclosure:\n- Anthropic (HackerOne) - Closed as informational since local attack.\n\
+  - Microsoft Security Response Center - Attack doesn\u2019t bypass security boundaries\
+  \ for CVE.\n- OpenAI (BugCrowd) - Closed as informational and noted that it\u2019\
+  s up to Microsoft to patch this behavior."
+incident-date: 2025-01-01
+incident-date-granularity: YEAR
+procedure:
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: The attacker required initial access to the victim system to carry
+    out this attack.
+- tactic: '{{discovery.id}}'
+  technique: '{{process_discovery.id}}'
+  description: "The attacker enumerated all of the processes running on the victim\u2019\
+    s machine and identified the processes belonging to LLM desktop applications."
+- tactic: '{{credential_access.id}}'
+  technique: '{{os_cred_dump.id}}'
+  description: "The attacker attached or read memory directly from `/proc` (in Linux)\
+    \ or opened a handle to the LLM application\u2019s process (in Windows). The attacker\
+    \ then scanned the process\u2019s memory to extract the authentication token of\
+    \ the victim. This can be easily done by running a regex on every allocated memory\
+    \ page in the process."
+- tactic: '{{lateral_movement.id}}'
+  technique: '{{alt_auth_token.id}}'
+  description: The attacker used the extracted token to authenticate themselves with
+    the LLM backend service.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{ml_service.id}}'
+  description: The attacker has now obtained the access required to communicate with
+    the LLM backend service as if they were the desktop client. This allowed them
+    access to everything the user can do with the desktop application.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_direct.id}}'
+  description: The attacker sent malicious prompts directly to the LLM, under any
+    ongoing conversation the victim has.
+- tactic: '{{persistence.id}}'
+  technique: '{{llm_thread_poisoning.id}}'
+  description: The attacker could craft malicious prompts that manipulate the context
+    of a chat thread, an effect that would persist for the duration of the thread.
+- tactic: '{{persistence.id}}'
+  technique: '{{llm_memory_poisoning.id}}'
+  description: "The attacker could then craft malicious prompts that manipulate the\
+    \ LLM\u2019s memory to achieve a persistent effect. Any change in memory would\
+    \ also propagate to any new chat threads."
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{manip_llm_history.id}}'
+  description: "Many LLM desktop applications do not show the injected prompt for\
+    \ any ongoing chat, as they update chat history only once when initially opening\
+    \ it. This gave the attacker the opportunity to cover their tracks by manipulating\
+    \ the user\u2019s conversation history directly via the LLM\u2019s API. The attacker\
+    \ could also overwrite or delete messages to prevent detection of their actions."
+- tactic: '{{impact.id}}'
+  technique: '{{harm_financial.id}}'
+  description: The attacker could send spam messages while impersonating the victim.
+    On a pay-per-token or action plans, this could increase the financial burden on
+    the victim.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: "The attacker could gain access to all of the victim\u2019s activity\
+    \ with the LLM, including previous and ongoing chats, as well as any file or content\
+    \ uploaded to them."
+- tactic: '{{impact.id}}'
+  technique: '{{ml_dos.id}}'
+  description: The attacker could delete all chats the victim has, and any they are
+    opening, thereby preventing the victim from being able to interact with the LLM.
+- tactic: '{{impact.id}}'
+  technique: '{{ml_dos.id}}'
+  description: "The attacker could spam messages or prompts to reach the LLM\u2019\
+    s rate-limits against bots, to cause it to ban the victim altogether."
+target: LLM Desktop Applications (Claude, ChatGPT, Copilot)
+actor: Lumia Security
+case-study-type: exercise
