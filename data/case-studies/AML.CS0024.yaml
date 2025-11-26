@@ -35,7 +35,7 @@ procedure:
     to generate a suggested reply. The email is stored in the database used for retrieval
     augmented generation, compromising the RAG system.
 - tactic: '{{execution.id}}'
-  technique: '{{pi_indirect.id}}'
+  technique: '{{pi_triggered.id}}'
   description: When the email containing the worm is retrieved by the email assistant
     in another reply generation task, the prompt injection changes the behavior of
     the GenAI email assistant.

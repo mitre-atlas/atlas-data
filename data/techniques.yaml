@@ -1992,8 +1992,8 @@
     \ augmented generation (RAG) database. Content designed to be interpreted as a\
     \ document by the large language model (LLM) used in the RAG system is included\
     \ in a data source being ingested into the RAG database. When RAG entry including\
-    \ the false document is retrieved the, the LLM is tricked into treating part of\
-    \ the retrieved content as a false RAG result. \n\nBy including a false RAG document\
+    \ the false document is retrieved, the LLM is tricked into treating part of the\
+    \ retrieved content as a false RAG result. \n\nBy including a false RAG document\
     \ inside of a regular RAG entry, it bypasses data monitoring tools. It also prevents\
     \ the document from being deleted directly. \n\nThe adversary may use discovered\
     \ system keywords to learn how to instruct a particular LLM to treat content as\
@@ -2003,7 +2003,7 @@
   tactics:
   - '{{defense_evasion.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-11-25
 
 - &llm_output_citations
   id: AML.T0067.000

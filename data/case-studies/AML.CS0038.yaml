@@ -26,7 +26,7 @@ procedure:
   description: The researcher included the malicious prompt as part of the body of
     a long email sent to the victim.
 - tactic: '{{execution.id}}'
-  technique: '{{pi_direct.id}}'
+  technique: '{{pi_indirect.id}}'
   description: 'When the user asked Google Gemini to summarize or interact with the
     email in some way, the malicious prompt was executed.
 

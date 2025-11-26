@@ -36,7 +36,7 @@ procedure:
     prompt on the public Jira Service Management (JSM) portal of the victim identified
     during reconnaissance.
 - tactic: '{{execution.id}}'
-  technique: '{{pi_direct.id}}'
+  technique: '{{pi_indirect.id}}'
   description: As part of their standard workflow, a support engineer at the victim
     organization used Claude Sonnet (which can interact with Jira via the Atlassian
     MCP server) to help them resolve the malicious ticket, causing the injection to

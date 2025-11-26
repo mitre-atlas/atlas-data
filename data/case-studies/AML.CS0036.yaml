@@ -45,8 +45,8 @@ procedure:
     access to everything the user can do with the desktop application.
 - tactic: '{{execution.id}}'
   technique: '{{pi_direct.id}}'
-  description: The attacker sent malicious prompts directly to the LLM, under any
-    ongoing conversation the victim has.
+  description: The attacker sent malicious prompts directly to the LLM under any ongoing
+    conversation the victim has.
 - tactic: '{{persistence.id}}'
   technique: '{{llm_thread_poisoning.id}}'
   description: The attacker could craft malicious prompts that manipulate the context
@@ -84,3 +84,6 @@ procedure:
 target: LLM Desktop Applications (Claude, ChatGPT, Copilot)
 actor: Lumia Security
 case-study-type: exercise
+references:
+- title: "AIKatz \u2013 All Your Chats Are Belong To Us"
+  url: https://www.lumia.security/blog/aikatz

@@ -1,3 +1,13 @@
+## [5.1.1]() (2025-11-25)
+
+Minor revisions to case studies:
+- Added a reference [AIKatz: Attacking LLM Desktop Applications](/studies/AML.CS0036).
+- Updated usage of LLM Prompt Injection subtechniques in:
+  - [Morris II Worm: RAG-Based Attack](/studies/AML.CS0024)
+  - [Data Exfiltration via Agent Tools in Copilot Studio](/studies/AML.CS0037)
+  - [Planting Instructions for Delayed Automatic AI Agent Tool Invocation](/studies/AML.CS0038)
+  - [Living Off AI: Prompt Injection via Jira Service Management](/studies/AML.CS0039)
+
 ## [5.1.0]() (2025-11-06)
 
 This version of ATLAS data contains 1 matrix, 16 tactics, 84 techniques, 56 sub-techniques, 32 mitigations, and 42 case studies.

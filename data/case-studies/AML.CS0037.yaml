@@ -38,9 +38,9 @@ procedure:
   description: The researchers send an email with the malicious prompt to the inbox
     they suspect may be managed by an AI agent.
 - tactic: '{{execution.id}}'
-  technique: '{{pi_indirect.id}}'
+  technique: '{{pi_triggered.id}}'
   description: The researchers receive a reply at the address they specified, indicating
-    that there is an AI agent present, and that the indirect prompt injection was
+    that there is an AI agent present, and that the triggered prompt injection was
     successful.
 - tactic: '{{discovery.id}}'
   technique: '{{agent_activation_triggers.id}}'

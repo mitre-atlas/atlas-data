@@ -1,7 +1,7 @@
 ---
 id: ATLAS
 name: Adversarial Threat Landscape for AI Systems
-version: 5.1.0
+version: 5.1.1
 matrices:
 - id: ATLAS
   name: ATLAS Matrix
@@ -2246,8 +2246,8 @@ matrices:
       \ augmented generation (RAG) database. Content designed to be interpreted as\
       \ a document by the large language model (LLM) used in the RAG system is included\
       \ in a data source being ingested into the RAG database. When RAG entry including\
-      \ the false document is retrieved the, the LLM is tricked into treating part\
-      \ of the retrieved content as a false RAG result. \n\nBy including a false RAG\
+      \ the false document is retrieved, the LLM is tricked into treating part of\
+      \ the retrieved content as a false RAG result. \n\nBy including a false RAG\
       \ document inside of a regular RAG entry, it bypasses data monitoring tools.\
       \ It also prevents the document from being deleted directly. \n\nThe adversary\
       \ may use discovered system keywords to learn how to instruct a particular LLM\
@@ -2257,7 +2257,7 @@ matrices:
     tactics:
     - AML.TA0007
     created_date: 2025-03-12
-    modified_date: 2025-03-12
+    modified_date: 2025-11-25
     maturity: demonstrated
   - id: AML.T0067.000
     name: Citations
@@ -2948,7 +2948,7 @@ matrices:
     subtechnique-of: AML.T0051
     created_date: 2025-11-04
     modified_date: 2025-11-05
-    maturity: feasible
+    maturity: demonstrated
   - id: AML.T0095
     name: Search Open Websites/Domains
     description: 'Adversaries may search public websites and/or domains for information
@@ -5657,7 +5657,7 @@ case-studies:
       to generate a suggested reply. The email is stored in the database used for
       retrieval augmented generation, compromising the RAG system.
   - tactic: AML.TA0005
-    technique: AML.T0051.001
+    technique: AML.T0051.002
     description: When the email containing the worm is retrieved by the email assistant
       in another reply generation task, the prompt injection changes the behavior
       of the GenAI email assistant.
@@ -6648,7 +6648,7 @@ case-studies:
       them access to everything the user can do with the desktop application.
   - tactic: AML.TA0005
     technique: AML.T0051.000
-    description: The attacker sent malicious prompts directly to the LLM, under any
+    description: The attacker sent malicious prompts directly to the LLM under any
       ongoing conversation the victim has.
   - tactic: AML.TA0006
     technique: AML.T0080.001
@@ -6689,6 +6689,9 @@ case-studies:
   target: LLM Desktop Applications (Claude, ChatGPT, Copilot)
   actor: Lumia Security
   case-study-type: exercise
+  references:
+  - title: "AIKatz \u2013 All Your Chats Are Belong To Us"
+    url: https://www.lumia.security/blog/aikatz
 - id: AML.CS0037
   name: Data Exfiltration via Agent Tools in Copilot Studio
   object-type: case-study
@@ -6729,9 +6732,9 @@ case-studies:
     description: The researchers send an email with the malicious prompt to the inbox
       they suspect may be managed by an AI agent.
   - tactic: AML.TA0005
-    technique: AML.T0051.001
+    technique: AML.T0051.002
     description: The researchers receive a reply at the address they specified, indicating
-      that there is an AI agent present, and that the indirect prompt injection was
+      that there is an AI agent present, and that the triggered prompt injection was
       successful.
   - tactic: AML.TA0008
     technique: AML.T0084.002
@@ -6813,7 +6816,7 @@ case-studies:
     description: The researcher included the malicious prompt as part of the body
       of a long email sent to the victim.
   - tactic: AML.TA0005
-    technique: AML.T0051.000
+    technique: AML.T0051.001
     description: 'When the user asked Google Gemini to summarize or interact with
       the email in some way, the malicious prompt was executed.
 
@@ -6906,7 +6909,7 @@ case-studies:
       prompt on the public Jira Service Management (JSM) portal of the victim identified
       during reconnaissance.
   - tactic: AML.TA0005
-    technique: AML.T0051.000
+    technique: AML.T0051.001
     description: As part of their standard workflow, a support engineer at the victim
       organization used Claude Sonnet (which can interact with Jira via the Atlassian
       MCP server) to help them resolve the malicious ticket, causing the injection
