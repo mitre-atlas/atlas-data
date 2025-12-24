@@ -1,3 +1,79 @@
+## [5.2.0]() (2025-12-24)
+
+###### Techniques
+
+- Added new techniques
+
+  - [AI Service API](/techniques/AML.T0096)
+  - [Virtualization/Sandbox Evasion](/techniques/AML.T0097)
+  - [AI Agent Tool Credential Harvesting](/techniques/AML.T0098)
+  - [AI Agent Tool Data Poisoning](/techniques/AML.T0099)
+  - [AI Agent Clickbait](/techniques/AML.T0100)
+  - [Data Destruction via AI Agent Tool Invocation](/techniques/AML.T0101)
+  - [Generate Malicious Commands](/techniques/AML.T0102)
+
+- Updated existing techniques
+
+  - [Spamming AI System with Chaff Data](/techniques/AML.T0046)
+  - [Prompt Infiltration via Public-Facing Application](/techniques/AML.T0093)
+  - [LLM Prompt Obfuscation](/techniques/AML.T0068)
+  - [Obtain Capabilities: Generative AI](/techniques/AML.T0016.002)
+  - [Cloud Service Discovery](/techniques/AML.T0075)
+
+###### Mitigations
+
+- Added new mitigations
+
+  - [Segmentation of AI Agent Components](/mitigations/AML.M0032)
+  - [Input and Output Validation for AI Agent Components](/mitigations/AML.M0033)
+  - [Deepfake Detection](/mitigations/AML.M0034)
+
+- Updated existing mitigations
+
+  - [Limit Public Release of Information](/mitigations/AML.M0000)
+  - [Limit Model Artifact Release](/mitigations/AML.M0001)
+  - [Passive Output Manipulation](/mitigations/AML.M0002)
+  - [Model Hardening](/mitigations/AML.M0003)
+  - [Restrict Number of AI Model Queries](/mitigations/AML.M0004)
+  - [Control Access to AI Models and Data at Rest](/mitigations/AML.M0005)
+  - [Use Ensemble Methods](/mitigations/AML.M0006)
+  - [Sanitize Training Data](/mitigations/AML.M0007)
+  - [Validate AI Model](/mitigations/AML.M0008)
+  - [Use Multi-Modal Sensors](/mitigations/AML.M0009)
+  - [Input Restoration](/mitigations/AML.M0010)
+  - [Restrict Library Loading](/mitigations/AML.M0011)
+  - [Encrypt Sensitive Information](/mitigations/AML.M0012)
+  - [Code Signing](/mitigations/AML.M0013)
+  - [Verify AI Artifacts](/mitigations/AML.M0014)
+  - [Adversarial Input Detection](/mitigations/AML.M0015)
+  - [Vulnerability Scanning](/mitigations/AML.M0016)
+  - [AI Model Distribution Methods](/mitigations/AML.M0017)
+  - [User Training](/mitigations/AML.M0018)
+  - [Control Access to AI Models and Data in Production](/mitigations/AML.M0019)
+  - [Generative AI Guardrails](/mitigations/AML.M0020)
+  - [Generative AI Guidelines](/mitigations/AML.M0021)
+  - [Generative AI Model Alignment](/mitigations/AML.M0022)
+  - [AI Bill of Materials](/mitigations/AML.M0023)
+  - [AI Telemetry Logging](/mitigations/AML.M0024)
+  - [Maintain Dataset Provenenance](/mitigations/AML.M0025)
+  - [Privileged AI Agent Permissions Configuration](/mitigations/AML.M0026)
+  - [Single-User AI Agent Permissions Configuration](/mitigations/AML.M0027)
+  - [AI Agent Tools Permissions Configuration](/mitigations/AML.M0028)
+  - [Human In-the-Loop for AI Agent Actions](/mitigations/AML.M0029)
+  - [Restrict AI Agent Tool Invocation on Untrusted Data](/mitigations/AML.M0030)
+
+###### Case Studies
+
+- Added new case studies
+
+  - [SesameOp: Novel backdoor uses OpenAI Assistants API for command and control](/studies/AML.CS0042)
+  - [Malware Prototype with Embedded Prompt Injection](/studies/AML.CS0043)
+  - [LAMEHUG: Malware Leveraging Dynamic AI-Generated Commands](/studies/AML.CS0044)
+
+- Updated existing case studies
+
+  - [LLM Jacking](/studies/AML.CS0030)
+
 ## [5.1.1]() (2025-11-25)
 
 Minor revisions to case studies:

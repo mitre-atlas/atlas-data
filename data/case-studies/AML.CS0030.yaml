@@ -33,7 +33,7 @@ procedure:
   technique: '{{unsecured_credentials.id}}'
   description: The adversaries found unsecured credentials to cloud environments on
     the victims' systems
-- tactic: '{{initial_access.id}}'
+- tactic: '{{privilege_escalation.id}}'
   technique: '{{valid_accounts.id}}'
   description: The compromised credentials gave the adversaries access to cloud environments
     where large language model (LLM) services were hosted.

@@ -1,0 +1,64 @@
+---
+id: AML.CS0044
+name: 'LAMEHUG: Malware Leveraging Dynamic AI-Generated Commands'
+object-type: case-study
+summary: 'In July 2025, Ukrainian authorities reported the emergence of LAMEHUG, a
+  new AI-powered malware attributed to the Russian state-backed threat actor [APT28](https://attack.mitre.org/groups/G0007/)
+  (also tracked as Forest Blizzard or UAC-0001). LAMEHUG uses a large language model
+  (LLM) to dynamically generate commands on the infected hosts.
+
+
+  The campaign began with a phishing attack leveraging a compromised government email
+  account to deliver a malicious ZIP archive disguised as Appendix.pdf.zip. The archive
+  contained the LAMEHUG malware, a Python-based executable, packed with PyInstaller.
+  When executed, the malware, makes calls to an LLM endpoint to generate malicious
+  from natural language prompts. Dynamically generated commands may make the malware
+  harder to detect. LAMEHUG was configured to collect files from the local system
+  and exfiltrate them.'
+incident-date: 2025-06-03
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: APT28 gained access to a compromised official email account.
+- tactic: '{{lateral_movement.id}}'
+  technique: '{{phishing.id}}'
+  description: APT28 sent a phishing email from the compromised account with an attachment
+    containing malware.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{impersonation.id}}'
+  description: The email impersonated a government ministry representative.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{masquerading.id}}'
+  description: "The attachment was called \u201CAppendix.pdf.zip\u201D which could\
+    \ confuse the recipient into thinking it was a legitimate PDF file."
+- tactic: '{{execution.id}}'
+  technique: '{{user_execution.id}}'
+  description: The attachment contained an executable file with a .pif extension,
+    created using PyInstaller from Python source code which CERT-UA classified it
+    as LAMEHUG malware. Files with the .pif extension are executable on Windows.
+- tactic: '{{ml_attack_staging.id}}'
+  technique: AML.T0102
+  description: The LAMEHUG malware abused the Qwen 2.5 Coder 32B Instruct model Hugging
+    Face API to generate malicious commands from natural language prompts.
+- tactic: '{{collection.id}}'
+  technique: '{{local_system.id}}'
+  description: The LAMEHUG malware used the AI generated commands to collect system
+    information (saved to `%PROGRAMDATA%\info\info.txt`) and recursively searched
+    Documents, Desktop, and Downloads to stage files for exfiltration.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfiltrate_via_cyber.id}}'
+  description: The LAMEHUG malware exfiltrated collected data to attacker controlled
+    servers via SFTP or HTTP POST requests.
+reporter: CERT-UA
+target: "Ukraine\u2019s security and defense sector"
+actor: APT28
+case-study-type: incident
+references:
+- title: UAC-0001 cyberattacks on the security and defense sector using the LAMEHUG
+    software tool, which uses LLM (large language model) (CERT-UA#16039)
+  url: https://cert.gov.ua/article/6284730
+- title: "APT28\u2019s New Arsenal: LAMEHUG, the First AI-Powered Malware"
+  url: https://logpoint.com/en/blog/apt28s-new-arsenal-lamehug-the-first-ai-powered-malware
+- title: LameHug malware uses AI LLM to craft Windows data-theft commands in real-time
+  url: https://www.bleepingcomputer.com/news/security/lamehug-malware-uses-ai-llm-to-craft-windows-data-theft-commands-in-real-time/

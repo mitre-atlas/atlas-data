@@ -32,12 +32,21 @@
       and publicly available applications.
 
       '
+  - id: '{{train_proxy_model.id}}'
+    use: Limiting release of technical information about a model and training data
+      can reduce an adversary's ability to create an accurate proxy model.
+  - id: '{{proxy_via_artifacts.id}}'
+    use: Limiting release of technical information about a model and training data
+      can reduce an adversary's ability to create an accurate proxy model.
+  - id: '{{pretrained_proxy.id}}'
+    use: Limiting release of technical information about a model and training data
+      can reduce an adversary's ability to create an accurate proxy model.
   ml-lifecycle:
   - Business and Data Understanding
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &limit_model_release
   id: AML.M0001
@@ -63,22 +72,29 @@
     use: 'Published datasets can be a target for poisoning attacks.
 
       '
+  - id: '{{train_proxy_model.id}}'
+    use: Limiting the release of model artifacts can reduce an adversary's ability
+      to create an accurate proxy model.
+  - id: '{{ml_artifact_collection.id}}'
+    use: Limiting the release of artifacts can reduce an adversary's ability to collect
+      model artifacts
+  - id: '{{proxy_via_artifacts.id}}'
+    use: Limiting the release of model artifacts can reduce an adversary's ability
+      to create an accurate proxy model.
   ml-lifecycle:
   - Business and Data Understanding
   - Deployment
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2023-10-12
+  modified_date: 2025-12-23
 
 - &passive_output_obfuscation
   id: AML.M0002
   name: Passive AI Output Obfuscation
-  description: 'Decreasing the fidelity of model outputs provided to the end user
-    can reduce an adversaries ability to extract information about the model and optimize
+  description: Decreasing the fidelity of model outputs provided to the end user can
+    reduce an adversary's ability to extract information about the model and optimize
     attacks for the model.
-
-    '
   object-type: mitigation
   techniques:
   - id: '{{discover_model_ontology.id}}'
@@ -105,13 +121,31 @@
     use: "Suggested approaches:\n  - Restrict the number of results shown\n  - Limit\
       \ specificity of output class ontology\n  - Use randomized smoothing techniques\n\
       \  - Reduce the precision of numerical outputs\n"
+  - id: '{{craft_adv.id}}'
+    use: Obfuscating model outputs reduces an adversary's ability to generate effective
+      adversarial data.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Obfuscating model outputs reduces an adversary's ability to create effective
+      adversarial inputs.
+  - id: '{{train_proxy_model.id}}'
+    use: Obfuscating model outputs can reduce an adversary's ability to produce an
+      accurate proxy model.
+  - id: '{{verify_attack.id}}'
+    use: Obfuscating model outputs reduces an adversary's ability to verify the efficacy
+      of an attack.
+  - id: '{{replicate_model.id}}'
+    use: Obfuscating model outputs restricts an adversary's ability to create an accurate
+      proxy model by querying a model and observing its outputs.
+  - id: '{{discover_model_outputs.id}}'
+    use: Obfuscating model outputs can prevent adversaries from collecting sensitive
+      information about the model outputs.
   ml-lifecycle:
-  - ML Model Evaluation
   - Deployment
+  - ML Model Evaluation
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &model_hardening
   id: AML.M0003
@@ -128,13 +162,25 @@
     use: 'Hardened models are less susceptible to integrity attacks.
 
       '
+  - id: '{{craft_adv.id}}'
+    use: Hardened models are more robust to adversarial inputs.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Hardened models are more robust to adversarial inputs.
+  - id: '{{craft_adv_transfer.id}}'
+    use: Hardened models are more robust to adversarial inputs.
+  - id: '{{craft_adv_manual.id}}'
+    use: Hardened models are more robust to adversarial inputs.
+  - id: '{{craft_adv_whitebox.id}}'
+    use: Hardened models are more robust to adversarial inputs.
+  - id: '{{craft_adv_trigger.id}}'
+    use: Hardened models are more robust to adversarial inputs.
   ml-lifecycle:
   - Data Preparation
   - ML Model Engineering
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &restrict_queries
   id: AML.M0004
@@ -194,6 +240,27 @@
       the system from chaff data spam.
 
       '
+  - id: '{{craft_adv.id}}'
+    use: Restricting the number of model queries can reduce an adversary's ability
+      to refine and evaluate adversarial queries.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Restricting the number of queries to the model limits or slows an adversary's
+      ability to perform black-box optimization attacks.
+  - id: '{{craft_adv_manual.id}}'
+    use: Restricting the number of model queries can reduce an adversary's ability
+      to refine manually crafted adversarial inputs.
+  - id: '{{train_proxy_model.id}}'
+    use: Restricting the number of queries to the model decreases an adversary's ability
+      to replicate an accurate proxy model.
+  - id: '{{replicate_model.id}}'
+    use: Restricting the number of queries to the model decreases an adversary's ability
+      to replicate an accurate proxy model.
+  - id: '{{verify_attack.id}}'
+    use: Restricting the number of queries to the model decreases an adversary's ability
+      to verify the efficacy of an attack.
+  - id: '{{discover_llm_hallucinations.id}}'
+    use: Restricting number of model queries limits or slows an adversary's ability
+      to identify possible hallucinations.
   ml-lifecycle:
   - Business and Data Understanding
   - Deployment
@@ -201,7 +268,7 @@
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &control_access_rest
   id: AML.M0005
@@ -245,15 +312,32 @@
     use: 'Access controls can prevent theft of intellectual property.
 
       '
+  - id: '{{backdoor_model.id}}'
+    use: Access controls can prevent tampering with AI artifacts and prevent unauthorized
+      modification.
+  - id: '{{craft_adv_whitebox.id}}'
+    use: Access controls can reduce unnecessary access to AI models and prevent an
+      adversary from achieving white-box access.
+  - id: '{{discover_ml_artifacts.id}}'
+    use: Access controls can limit an adversary's ability to identify AI models, datasets,
+      and other artifacts on a system.
+  - id: '{{full_access.id}}'
+    use: Access controls on models and data at rest can help prevent full model access.
+  - id: '{{ml_artifact_collection.id}}'
+    use: Access controls can prevent or limit the collection of AI artifacts on the
+      victim system.
+  - id: '{{verify_attack.id}}'
+    use: Access controls on models at rest can prevent an adversary's ability to verify
+      attack efficacy.
   ml-lifecycle:
   - Business and Data Understanding
   - Data Preparation
-  - ML Model Engineering
   - ML Model Evaluation
+  - ML Model Engineering
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &ensemble_methods
   id: AML.M0006
@@ -288,12 +372,30 @@
       is used and how the model used.
 
       '
+  - id: '{{craft_adv_whitebox.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
+  - id: '{{craft_adv_transfer.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
+  - id: '{{craft_adv_trigger.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
+  - id: '{{craft_adv_manual.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
+  - id: '{{craft_adv.id}}'
+    use: Using an ensemble of models increases the difficulty of crafting effective
+      adversarial data and improves overall robustness.
   ml-lifecycle:
   - ML Model Engineering
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2023-10-12
+  modified_date: 2025-12-23
 
 - &sanitize_training_data
   id: AML.M0007
@@ -325,6 +427,8 @@
       against a model.
 
       '
+  - id: '{{erode_integrity_dataset.id}}'
+    use: Remediating poisoned data can re-establish dataset integrity.
   ml-lifecycle:
   - Business and Data Understanding
   - Data Preparation
@@ -332,16 +436,16 @@
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2023-10-12
+  modified_date: 2025-12-23
 
 - &validate_model
   id: AML.M0008
   name: Validate AI Model
   description: 'Validate that AI models perform as intended by testing for backdoor
-    triggers or adversarial influence.
+    triggers, potential for data leakage, or adversarial influence.
 
-    Monitor model for concept drift and training data drift, which may indicate data
-    tampering and poisoning.'
+    Monitor AI model for concept drift and training data drift, which may indicate
+    data tampering and poisoning.'
   object-type: mitigation
   techniques:
   - id: '{{supply_chain_model.id}}'
@@ -353,13 +457,28 @@
   - id: '{{inject_payload.id}}'
     use: Ensure that acquired models do not respond to potential backdoor triggers
       or adversarial influence.
+  - id: '{{backdoor_model.id}}'
+    use: Validating an AI model against a wide range of adversarial inputs can help
+      increase confidence that the model has not been manipulated.
+  - id: '{{craft_adv_trigger.id}}'
+    use: Validating that an AI model does not respond to backdoor triggers can help
+      increase confidence that the model has not been poisoned.
+  - id: '{{poison_data.id}}'
+    use: Robust evaluation of an AI model can help increase confidence that the model
+      has not been poisoned.
+  - id: '{{llm_data_leakage.id}}'
+    use: Robust evaluation of an AI model can be used to detect privacy concerns,
+      data leakage, and potential for revealing sensitive information.
+  - id: '{{craft_adv.id}}'
+    use: Validating an AI model against adversarial data can ensure the model is performing
+      as intended and is robust to adversarial inputs.
   ml-lifecycle:
   - ML Model Evaluation
   - Monitoring and Maintenance
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2025-08-13
+  modified_date: 2025-12-23
 
 - &multi_modal_sensors
   id: AML.M0009
@@ -380,6 +499,9 @@
       compromise and produce malicious results.
 
       '
+  - id: '{{gen_deepfake.id}}'
+    use: Using a variety of sensors, such as IR depth cameras, can aid in detecting
+      deepfakes.
   ml-lifecycle:
   - Business and Data Understanding
   - Data Preparation
@@ -387,7 +509,7 @@
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2023-10-12
+  modified_date: 2025-12-23
 
 - &input_restoration
   id: AML.M0010
@@ -413,6 +535,16 @@
       the machine learning pipeline.
 
       '
+  - id: '{{craft_adv.id}}'
+    use: Input restoration can help remediate adversarial inputs.
+  - id: '{{craft_adv_transfer.id}}'
+    use: Input restoration can help remediate adversarial inputs.
+  - id: '{{craft_adv_trigger.id}}'
+    use: Input restoration can help remediate adversarial inputs.
+  - id: '{{craft_adv_whitebox.id}}'
+    use: Input restoration can help remediate adversarial inputs.
+  - id: '{{craft_adv_manual.id}}'
+    use: Input restoration can help remediate adversarial inputs.
   ml-lifecycle:
   - Data Preparation
   - ML Model Evaluation
@@ -421,7 +553,7 @@
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2023-10-12
+  modified_date: 2025-12-23
 
 - &restrict_lib_loading
   id: AML.M0011
@@ -442,12 +574,18 @@
     use: 'Restrict library loading by ML artifacts.
 
       '
+  - id: '{{malicious_package.id}}'
+    use: Restricting packages from loading external libraries can limit their ability
+      to execute malicious code.
+  - id: '{{user_execution.id}}'
+    use: Restricting binaries from loading external libraries can limit their ability
+      to execute malicious code.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &encrypt_info
   id: AML.M0012
@@ -468,16 +606,19 @@
 
       '
   - id: '{{discover_ml_artifacts.id}}'
-    use: 'Protect machine learning artifacts from adversaries who gather private information
-      to target and improve attacks.
-
-      '
+    use: Encrypting AI artifacts can protect against adversary attempts to discover
+      sensitive information.
+  - id: '{{discover_model_outputs.id}}'
+    use: Encrypting model outputs can prevent adversaries from discovering sensitive
+      information about the AI-enabled system or its operations.
   ml-lifecycle:
+  - Data Preparation
+  - ML Model Engineering
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &code_signing
   id: AML.M0013
@@ -503,12 +644,27 @@
     use: 'Enforce properly signed model files.
 
       '
+  - id: '{{backdoor_model.id}}'
+    use: Code signing provides a guarantee that the model has not been manipulated
+      after signing took place.
+  - id: '{{poison_model.id}}'
+    use: Code signing provides a guarantee that the model has not been manipulated
+      after signing took place.
+  - id: '{{inject_payload.id}}'
+    use: Code signing provides a guarantee that the model has not been manipulated
+      after signing took place.
+  - id: '{{embed_malware.id}}'
+    use: Code signing provides a guarantee that the model has not been manipulated
+      after signing took place.
+  - id: '{{malicious_package.id}}'
+    use: Code signing provides a guarantee that the software package has not been
+      manipulated after signing took place.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &verify_ml_artifacts
   id: AML.M0014
@@ -523,15 +679,20 @@
 
       '
   - id: '{{unsafe_ml_artifacts.id}}'
-    use: 'Introduce proper checking of signatures to ensure that unsafe ML artifacts
+    use: Introduce proper checking of signatures to ensure that unsafe AI artifacts
       will not be executed in the system.
-
-      '
   - id: '{{supply_chain.id}}'
-    use: 'Introduce proper checking of signatures to ensure that unsafe ML artifacts
+    use: Introduce proper checking of signatures to ensure that unsafe AI artifacts
       will not be introduced to the system.
-
-      '
+  - id: '{{supply_chain_data.id}}'
+    use: Introduce proper checking of signatures to ensure that unsafe AI data will
+      not be introduced to the system.
+  - id: '{{acquire_ml_artifacts_model.id}}'
+    use: Introduce proper checking of signatures to ensure that unsafe AI models will
+      not be introduced to the system.
+  - id: '{{user_execution.id}}'
+    use: Introduce proper checking of signatures to ensure that unsafe AI artifacts
+      will not be executed in the system.
   ml-lifecycle:
   - Business and Data Understanding
   - Data Preparation
@@ -539,7 +700,7 @@
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &adv_input_detection
   id: AML.M0015
@@ -571,6 +732,21 @@
       reach the model.
 
       '
+  - id: '{{craft_adv.id}}'
+    use: Incorporate adversarial input detection to block malicious inputs at inference
+      time.
+  - id: '{{craft_adv_whitebox.id}}'
+    use: Incorporate adversarial input detection to block malicious inputs at inference
+      time.
+  - id: '{{craft_adv_transfer.id}}'
+    use: Incorporate adversarial input detection to block malicious inputs at inference
+      time.
+  - id: '{{craft_adv_trigger.id}}'
+    use: Incorporate adversarial input detection to block malicious inputs at inference
+      time.
+  - id: '{{craft_adv_manual.id}}'
+    use: Incorporate adversarial input detection to block malicious inputs at inference
+      time.
   ml-lifecycle:
   - Data Preparation
   - ML Model Engineering
@@ -580,7 +756,7 @@
   category:
   - Technical - ML
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &vuln_scanning
   id: AML.M0016
@@ -598,30 +774,29 @@
     Adversaries may embed malicious code in model corrupt model files, so scanners
     should be capable of working with models that cannot be fully de-serialized.
 
-    Both model artifacts and downstream products produced by models should be scanned
-    for known vulnerabilities.'
+    Model artifacts, downstream products produced by models, and external software
+    dependencies should be scanned for known vulnerabilities.'
   object-type: mitigation
   ATT&CK-reference:
     id: M1016
     url: https://attack.mitre.org/mitigations/M1016/
   techniques:
   - id: '{{unsafe_ml_artifacts.id}}'
-    use: 'Scan ML artifacts for vulnerabilities before execution.
-
-      '
+    use: Vulnerability scanning can help identify malicious AI artifacts, such as
+      models or data, and prevent user execution.
+  - id: '{{malicious_package.id}}'
+    use: Vulnerability scanning can help identify malicious packages and prevent user
+      execution.
+  - id: '{{user_execution.id}}'
+    use: Vulnerability scanning can help identify malicious binaries and prevent user
+      execution.
   ml-lifecycle:
   - ML Model Engineering
-  - Deployment
-  - Monitoring and Maintenance
-  - id: '{{inject_payload.id}}'
-    use: Adversaries may modify the architecture of a model directly. Scan model artifacts
-      for unsafe system calls and architecture changes.
-  - id: '{{embed_malware.id}}'
-    use: Scan ML artifacts for embedded malware and unsafe system calls before execution.
+  - Data Preparation
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-04-21
+  modified_date: 2025-12-23
 
 - &distribution_methods
   id: AML.M0017
@@ -650,17 +825,29 @@
       the model.
 
       '
+  - id: '{{ip_theft.id}}'
+    use: Avoiding  the deployment of models to edge devices reduces an adversary's
+      potential access to models or AI artifacts.
+  - id: '{{ml_artifact_collection.id}}'
+    use: Avoiding the deployment of models to edge devices reduces the attack surface
+      and can prevent adversary artifact collection.
+  - id: '{{discover_model_outputs.id}}'
+    use: Avoiding the deployment of models to edge devices reduces an adversary's
+      ability to collect sensitive information about the model outputs.
   ml-lifecycle:
   - Deployment
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &user_training
   id: AML.M0018
   name: User Training
-  description: Educate AI model developers on secure coding practices and AI vulnerabilities.
+  description: 'Educate AI model developers to on AI supply chain risks and potentially
+    malicious AI artifacts.
+
+    Educate users on how to identify deepfakes and phishing attempts.'
   object-type: mitigation
   ATT&CK-reference:
     id: M1017
@@ -678,6 +865,16 @@
       may have a detrimental effect on the system.
 
       '
+  - id: '{{phishing.id}}'
+    use: Train users to identify phishing attempts by an adversary to reduce the risk
+      of successful spearphishing, social engineering, and other techniques that involve
+      user interaction.
+  - id: '{{llm_phishing.id}}'
+    use: Train users to identify phishing attempts and understand that AI can be used
+      to generate targeted and convincing messages.
+  - id: '{{malicious_package.id}}'
+    use: Train users to identify attempts of manipulation to prevent them from running
+      unsafe code from external packages.
   ml-lifecycle:
   - Business and Data Understanding
   - Data Preparation
@@ -688,7 +885,7 @@
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &control_access_prod
   id: AML.M0019
@@ -712,13 +909,39 @@
       and reveal private information.
 
       '
+  - id: '{{cost_harvesting.id}}'
+    use: Access controls can limit API access and prevent cost harvesting.
+  - id: '{{craft_adv.id}}'
+    use: Access controls on model APIs can restricts an adversary's access required
+      to generate adversarial data.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Access controls on model APIs can deny adversaries the access required for
+      black-box optimization methods.
+  - id: '{{train_proxy_model.id}}'
+    use: Access controls on models APIs can reduce an adversary's ability to produce
+      an accurate proxy model.
+  - id: '{{ml_dos.id}}'
+    use: Access controls on model APIs can prevent an adversary from excessively querying
+      and disabling the system.
+  - id: '{{llm_prompt_injection.id}}'
+    use: Use access controls in production to prevent adversaries from injecting malicious
+      prompts.
+  - id: '{{chaff_data.id}}'
+    use: Authentication on production models can help prevent anonymous chaff data
+      spam.
+  - id: '{{verify_attack.id}}'
+    use: Use access controls in production to prevent adversary's ability to verify
+      attack efficacy.
+  - id: '{{discover_model_outputs.id}}'
+    use: Controlling access to the model in production can help prevent adversaries
+      from inferring information from the model outputs.
   ml-lifecycle:
   - Deployment
   - Monitoring and Maintenance
   category:
   - Policy
   created_date: 2024-01-12
-  modified_date: 2025-04-15
+  modified_date: 2025-12-23
 
 - &gen_ai_guardrails
   id: AML.M0020
@@ -747,13 +970,18 @@
     use: Guardrails can detect sensitive data and PII in model outputs.
   - id: '{{supply_chain.id}}'
     use: Guardrails can detect harmful code in model outputs.
+  - id: '{{llm_prompt_self_replication.id}}'
+    use: Guardrails can help prevent replication attacks in model inputs and outputs.
+  - id: '{{discover_llm_hallucinations.id}}'
+    use: Guardrails can help block hallucinated content that appears in model output.
   ml-lifecycle:
   - ML Model Engineering
+  - ML Model Evaluation
   - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &gen_ai_guidelines
   id: AML.M0021
@@ -778,13 +1006,19 @@
     use: Model guidelines can instruct the model to refuse a response to unsafe inputs.
   - id: '{{llm_data_leakage.id}}'
     use: Model guidelines can instruct the model to refuse a response to unsafe inputs.
+  - id: '{{llm_prompt_self_replication.id}}'
+    use: Guidelines can help instruct the model to produce more secure output, preventing
+      the model from generating self-replicating outputs.
+  - id: '{{discover_llm_hallucinations.id}}'
+    use: Guidelines can instruct the model to avoid producing hallucinated content.
   ml-lifecycle:
   - ML Model Engineering
+  - ML Model Evaluation
   - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &gen_ai_alignment
   id: AML.M0022
@@ -815,13 +1049,19 @@
   - id: '{{llm_data_leakage.id}}'
     use: Model alignment can improve the parametric safety of a model by guiding it
       away from unsafe prompts and responses.
+  - id: '{{llm_prompt_self_replication.id}}'
+    use: Model alignment can increase the security of models to self replicating prompt
+      attacks.
+  - id: '{{discover_llm_hallucinations.id}}'
+    use: Model alignment can help steer the model away from hallucinated content.
   ml-lifecycle:
   - ML Model Engineering
+  - ML Model Evaluation
   - Deployment
   category:
   - Technical - ML
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &ai_bom
   id: AML.M0023
@@ -844,18 +1084,28 @@
     use: An AI BOM can help users identify untrustworthy model artifacts.
   - id: '{{publish_poisoned_model.id}}'
     use: An AI BOM can help users identify untrustworthy model artifacts.
+  - id: '{{malicious_package.id}}'
+    use: An AI BOM can help users identify untrustworthy software dependencies.
+  - id: '{{user_execution.id}}'
+    use: An AI BOM can help users identify untrustworthy binaries.
+  - id: '{{supply_chain.id}}'
+    use: An AI BOM can help users identify untrustworthy components of their AI supply
+      chain.
   ml-lifecycle:
-  - Monitoring and Maintenance
-  - Deployment
+  - Business and Data Understanding
+  - Data Preparation
+  - ML Model Engineering
   category:
   - Policy
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &ai_telemetry_logging
   id: AML.M0024
   name: AI Telemetry Logging
-  description: 'Implement logging of inputs and outputs of deployed AI models. Monitoring
+  description: 'Implement logging of inputs and outputs of deployed AI models. When
+    deploying AI agents, implement logging of the intermediate steps of agentic actions
+    and decisions, data access and tool use, and identity of the agent. Monitoring
     logs can help to detect security threats and mitigate impacts.
 
 
@@ -888,13 +1138,28 @@
   - id: '{{pi_indirect.id}}'
     use: Telemetry logging can help identify if unsafe prompts have been submitted
       to the LLM.
+  - id: '{{pi_triggered.id}}'
+    use: Telemetry logging can help identify if unsafe prompts have been submitted
+      to the LLM.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Log AI agent tool invocations to detect malicious calls.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Log AI agent tool invocations to detect malicious calls.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Log AI agent tool invocations to detect malicious calls.
+  - id: '{{data_from_ai.id}}'
+    use: Log requests to AI services to detect malicious queries for data.
+  - id: '{{rag_data_harvest.id}}'
+    use: Log requests to AI services to detect malicious queries for data.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Log requests to AI services to detect malicious queries for data.
   ml-lifecycle:
   - Deployment
   - Monitoring and Maintenance
   category:
   - Technical - Cyber
   created_date: 2025-03-12
-  modified_date: 2025-04-14
+  modified_date: 2025-12-23
 
 - &maintain_dataset_provenance
   id: AML.M0025
@@ -910,10 +1175,18 @@
     use: Dataset provenance can protect against poisoning of training data
   - id: '{{poison_model.id}}'
     use: Dataset provenance can protect against poisoning of models.
+  - id: '{{publish_poisoned_data.id}}'
+    use: Maintaining a detailed history of datasets can help identify use of poisoned
+      datasets from public sources.
+  - id: '{{erode_integrity_dataset.id}}'
+    use: Maintaining dataset provenance can help identify adverse changes to the data.
+  ml-lifecycle:
+  - Data Preparation
+  - Business and Data Understanding
   category:
   - Technical - ML
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &agent_config_priv
   id: AML.M0026
@@ -948,12 +1221,15 @@
     use: Configuring privileged AI agents with proper access controls can limit an
       adversary's ability to harvest credentials from RAG Databases if the agent is
       compromised.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Configuring privileged AI agents with proper access controls for tool use
+      can limit an adversary's ability to abuse tool invocations if the agent is compromised.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2025-10-29
-  modified_date: 2025-11-05
+  modified_date: 2025-12-23
 
 - &agent_config_user
   id: AML.M0027
@@ -992,12 +1268,16 @@
     use: Configuring AI agents with permissions that are inherited from the user can
       limit an adversary's ability to harvest credentials from RAG Databases if the
       agent is compromised.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Configuring AI agents with permissions that are inherited from the user for
+      tool use can limit an adversary's ability to abuse tool invocations if the agent
+      is compromised.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2025-10-29
-  modified_date: 2025-11-05
+  modified_date: 2025-12-23
 
 - &agent_config_tools
   id: AML.M0028
@@ -1014,8 +1294,8 @@
   - id: '{{llm_plugin_compromise.id}}'
     use: Configuring AI Agent tools with access controls inherited from the user or
       the AI Agent invoking the tool can limit an adversary's capabilities within
-      a system, including their ability to abuse tool invocations and  and access
-      sensitive data.
+      a system, including their ability to abuse tool invocations and access sensitive
+      data.
   - id: '{{data_from_ai.id}}'
     use: Configuring AI Agent tools with access controls inherited from the user or
       the AI Agent invoking the tool can limit adversary's access to sensitive data.
@@ -1023,12 +1303,21 @@
     use: Configuring AI Agent tools with access controls that are inherited from the
       user or the AI Agent invoking the tool can limit adversary's access to sensitive
       data.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Configuring AI Agent tools with access controls inherited from the user or
+      the AI Agent invoking the tool can limit an adversary's capabilities within
+      a system, including their ability to abuse tool invocations to destroy data.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Configuring AI Agent tools with access controls inherited from the user or
+      the AI Agent invoking the tool can limit an adversary's capabilities within
+      a system, including their ability to abuse tool invocations and exfiltrate sensitive
+      data.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - Cyber
   created_date: 2025-10-29
-  modified_date: 2025-11-05
+  modified_date: 2025-12-23
 
 - &hitl_agent_actions
   id: AML.M0029
@@ -1052,12 +1341,15 @@
   - id: '{{llm_plugin_compromise.id}}'
     use: Requiring user confirmation of AI agent tool invocations can prevent the
       automatic execution of tools by an adversary.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Requiring user confirmation of AI agent tool invocations can prevent the
+      automatic execution of tools by an adversary.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - ML
   created_date: 2025-10-29
-  modified_date: 2025-11-05
+  modified_date: 2025-12-23
 
 - &restrict_agent_tool_untrusted
   id: AML.M0030
@@ -1080,12 +1372,15 @@
   - id: '{{exfil_agent_tool.id}}'
     use: Restricting the automatic tool use when untrusted data is present can prevent
       adversaries from invoking tools via prompt injections.
+  - id: '{{data_destruction_via_tool.id}}'
+    use: Restricting the automatic tool use when untrusted data is present can prevent
+      adversaries from invoking tools via prompt injections.
   ml-lifecycle:
   - Deployment
   category:
   - Technical - ML
   created_date: 2025-10-29
-  modified_date: 2025-11-05
+  modified_date: 2025-12-23
 
 - &mem_harden
   id: AML.M0031
@@ -1112,4 +1407,110 @@
   category:
   - Technical - ML
   created_date: 2025-10-29
-  modified_date: 2025-11-06
+  modified_date: 2025-12-20
+
+- &seg_agent_components
+  id: AML.M0032
+  name: Segmentation of AI Agent Components
+  description: Define security boundaries around agentic tools and data sources with
+    methods such as API access, container isolation, code execution sandboxing, and
+    rate limiting of tool invocation. This restricts untrusted processes or potential
+    compromises from spreading throughout the system.
+  object-type: mitigation
+  techniques:
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to perform unsafe actions that affect other components.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to compromise sensitive data sources.
+  - id: '{{agent_tool_credentials.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to harvest credentials.
+  - id: '{{data_from_ai.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to collect sensitive data from AI services.
+  - id: '{{rag_data_harvest.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to collect sensitive data from RAG databases.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Segmentation can prevent adversaries from utilizing tools in an agentic workflow
+      to collect sensitive data.
+  ml-lifecycle:
+  - Deployment
+  - Business and Data Understanding
+  category:
+  - Technical - Cyber
+  created_date: 2025-11-25
+  modified_date: 2025-12-18
+
+- &io_val_agent_components
+  id: AML.M0033
+  name: Input and Output Validation for AI Agent Components
+  description: Implement validation on inputs and outputs for the tools and data sources
+    used by AI agents. Validation includes enforcing a common data format, schema
+    validation, checks for sensitive or prohibited information leakage, and data sanitization
+    to remove potential injections or unsafe code. Input and output validation can
+    help prevent compromises from spreading in AI-enabled systems and can help secure
+    the workflow when multiple components are chained together. Validation should
+    be performed external to the AI agent.
+  object-type: mitigation
+  techniques:
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Validation can prevent adversaries from utilizing tools in an agentic workflow
+      to generate unsafe output.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Validation can prevent adversaries from utilizing tools in an agentic workflow
+      to compromise sensitive data sources.
+  - id: '{{llm_prompt_injection.id}}'
+    use: Validation can prevent adversaries from executing prompt injections that
+      could affect agentic workflows.
+  - id: '{{pi_direct.id}}'
+    use: Validation can prevent adversaries from executing prompt injections that
+      could affect agentic workflows.
+  - id: '{{pi_indirect.id}}'
+    use: Validation can prevent adversaries from executing prompt injections that
+      could affect agentic workflows.
+  - id: '{{pi_triggered.id}}'
+    use: Validation can prevent adversaries from executing prompt injections that
+      could affect agentic workflows.
+  ml-lifecycle:
+  - Business and Data Understanding
+  - Data Preparation
+  - Deployment
+  category:
+  - Technical - ML
+  created_date: 2025-11-25
+  modified_date: 2025-12-18
+
+- &deepfake_detection
+  id: AML.M0034
+  name: Deepfake Detection
+  description: "Apply deepfake detection algorithms against any untrusted or user-provided\
+    \ data, especially in impactful applications such as biometric verification, to\
+    \ block generated content.\n\nDetectors may use a combination of approaches, including:\n\
+    -\tAI models trained to differentiate between real and deepfake content.\n-\t\
+    Identifying common inconsistencies in deepfake content, such as unnatural facial\
+    \ movements, audio mismatches, or pixel-level artifacts.\n-\tBiometrics analysis,\
+    \ such blinking, eye movements, and microexpressions."
+  object-type: mitigation
+  techniques:
+  - id: '{{gen_deepfake.id}}'
+    use: Deepfake detection can be used to identify and block generated content.
+  - id: '{{phishing.id}}'
+    use: Deepfake detection can be used to identify and block phishing attempts that
+      use generated content.
+  - id: '{{llm_phishing.id}}'
+    use: Deepfake detection can be used to identify and block phishing attempts that
+      use generated content.
+  - id: '{{evade_model.id}}'
+    use: Deepfake detection can be used to identify and block generated content.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  - ML Model Evaluation
+  - ML Model Engineering
+  category:
+  - Technical - ML
+  created_date: 2025-11-25
+  modified_date: 2025-11-25

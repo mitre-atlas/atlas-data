@@ -864,8 +864,9 @@
     url: https://attack.mitre.org/techniques/T1078/
   tactics:
   - '{{initial_access.id}}'
+  - '{{privilege_escalation.id}}'
   created_date: 2022-01-24
-  modified_date: 2025-04-09
+  modified_date: 2025-12-24
 
 - &evade_model
   id: AML.T0015
@@ -907,15 +908,15 @@
   name: Poison AI Model
   description: "Adversaries may manipulate an AI model's weights to change it's behavior\
     \ or performance, resulting in a poisoned model.\nAdversaries may poison a model\
-    \ by by directly manipulating its weights, training the model on poisoned data,\
-    \ further fine-tuning the model, or otherwise interfering with its training process.\
-    \ \n\nThe change in behavior of poisoned models may be limited to targeted categories\
+    \ by directly manipulating its weights, training the model on poisoned data, further\
+    \ fine-tuning the model, or otherwise interfering with its training process. \n\
+    \nThe change in behavior of poisoned models may be limited to targeted categories\
     \ in predictive AI models, or targeted topics, concepts, or facts in generative\
     \ AI models, or aim for a general performance degradation."
   object-type: technique
   subtechnique-of: '{{backdoor_model.id}}'
   created_date: 2021-05-13
-  modified_date: 2024-04-11
+  modified_date: 2025-12-23
 
 - &inject_payload
   id: AML.T0018.001
@@ -1004,14 +1005,14 @@
     mimic the behavior and performance of the target model.
 
 
-    Adversaries may extract the model to avoid paying per query in an artificial intelligence
-    as a service (AIaaS) setting.
+    Adversaries may extract the model to avoid paying per query in an artificial-intelligence-as-a-service
+    (AIaaS) setting.
 
     Model extraction is used for {{ create_internal_link(ip_theft) }}.'
   object-type: technique
   subtechnique-of: '{{exfiltrate_via_api.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-12-23
 
 - &exfiltrate_via_cyber
   id: AML.T0025
@@ -1052,12 +1053,17 @@
     in the number of detections.
 
     This can cause analysts at the victim organization to waste time reviewing and
-    correcting incorrect inferences.'
+    correcting incorrect inferences.
+
+
+    Adversaries may also spam AI agents with excessive low-severity auditable events
+    or agentic actions that require a human-in-the-loop, wasting time for the victim
+    organization in human review of the agentic AI system.'
   object-type: technique
   tactics:
   - '{{impact.id}}'
   created_date: 2021-05-13
-  modified_date: 2025-04-09
+  modified_date: 2025-12-18
 
 - &erode_integrity
   id: AML.T0031
@@ -1544,8 +1550,9 @@
     url: https://attack.mitre.org/techniques/T1566/
   tactics:
   - '{{initial_access.id}}'
+  - '{{lateral_movement.id}}'
   created_date: 2023-10-25
-  modified_date: 2023-10-25
+  modified_date: 2025-12-20
 
 - &llm_phishing
   id: AML.T0052.000
@@ -1808,19 +1815,49 @@
   name: Generative AI
   description: 'Adversaries may search for and obtain generative AI models or tools,
     such as large language models (LLMs), to assist them in various steps of their
-    operation. Generative AI can be used in a variety of malicious ways, including
-    generating malware or offensive cyber scripts, {{ create_internal_link(content_crafting)
-    }}, or generating {{ create_internal_link(phishing) }} content.
+    operation. Generative AI can be used in a variety of malicious ways, such as to
+    generating malware, to {{ create_internal_link(gen_deepfake) }}, to {{ create_internal_link(gen_commands)
+    }}, for {{ create_internal_link(content_crafting) }}, or to generate {{ create_internal_link(phishing)
+    }} content.
 
 
-    Adversaries may obtain an open source model or they may leverage a generative
-    AI service. They may need to jailbreak the generative AI model to bypass any restrictions
-    put in place to limit the types of responses it can generate. They may also need
-    to break the terms of service of the generative AI.'
+    Adversaries may obtain open source models and serve them locally using frameworks
+    such as [Ollama](https://ollama.com/) or [vLLM]( https://docs.vllm.ai/en/latest/).
+    They may host them using cloud infrastructure. Or, they may leverage AI service
+    providers such as HuggingFace.
+
+
+    They may need to jailbreak the model (see {{ create_internal_link(llm_jailbreak)
+    }}) to bypass any restrictions put in place to limit the types of responses it
+    can generate. They may also need to break the terms of service of the model''s
+    developer.
+
+
+    Generative AI models may also be "uncensored" meaning they are designed to generate
+    content without any restrictions such as guardrails or content filters. Uncensored
+    GenAI is ripe for abuse by cybercriminals [\[1\]][1] [\[2\]][2]. Models may be
+    fine-tuned to remove alignment and guardrails [\[3\]][3] or be subjected to targeted
+    manipulations to bypass refusal [\[4\]][4] resulting in uncensored variants of
+    the model. Uncensored models may be built for offensive and defensive cybersecurity
+    [\[5\]][5], which can be abused by an adversary. There are also models that are
+    expressly designed and advertised for malicious use [\[6\]][6].
+
+
+    [1]: https://blog.talosintelligence.com/cybercriminal-abuse-of-large-language-models/
+
+    [2]: https://gbhackers.com/cybercriminals-exploit-llm-models/
+
+    [3]: https://erichartford.com/uncensored-models
+
+    [4]: https://arxiv.org/abs/2406.11717/
+
+    [5]: https://taico.ca/posts/whiterabbitneo/
+
+    [6]: https://gbhackers.com/wormgpt-enhanced-with-grok-and-mixtral/'
   object-type: technique
   subtechnique-of: '{{obtain_cap.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-23
 
 - &gather_rag_targets
   id: AML.T0064
@@ -1906,13 +1943,16 @@
     content from the user to avoid detection.
 
 
-    This may include modifying how the injection is rendered such as small text, text
-    colored the same as the background, or hidden HTML elements.'
+    For text inputs, this may include modifying how the instructions are rendered
+    such as small text, text colored the same as the background, or hidden HTML elements.
+    For multi-modal inputs, malicious instructions could be hidden in the data itself
+    (e.g. in the pixels of an image) or in file metadata (e.g. EXIF for images, ID3
+    tags for audio, or document metadata).'
   object-type: technique
   tactics:
   - '{{defense_evasion.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-03-12
+  modified_date: 2025-12-18
 
 - &llm_sys_info
   id: AML.T0069
@@ -2003,7 +2043,7 @@
   tactics:
   - '{{defense_evasion.id}}'
   created_date: 2025-03-12
-  modified_date: 2025-11-25
+  modified_date: 2025-12-24
 
 - &llm_output_citations
   id: AML.T0067.000
@@ -2113,31 +2153,27 @@
 - &cloud_service_discovery
   id: AML.T0075
   name: Cloud Service Discovery
-  description: 'An adversary may attempt to enumerate the cloud services running on
+  description: 'Adversaries may attempt to enumerate the cloud services running on
     a system after gaining access. These methods can differ from platform-as-a-service
-    (PaaS), to infrastructure-as-a-service (IaaS), or software-as-a-service (SaaS).
-    Many services exist throughout the various cloud providers and can include Continuous
-    Integration and Continuous Delivery (CI/CD), Lambda Functions, Entra ID, etc.
-    They may also include security services, such as AWS GuardDuty and Microsoft Defender
-    for Cloud, and logging services, such as AWS CloudTrail and Google Cloud Audit
-    Logs.
+    (PaaS), to infrastructure-as-a-service (IaaS), software-as-a-service (SaaS), or
+    AI-as-a-service (AIaaS). Many services exist throughout the various cloud providers
+    and can include Continuous Integration and Continuous Delivery (CI/CD), Lambda
+    Functions, Entra ID, AI Inference, Generative AI, Agentic AI, etc. They may also
+    include security services, such as AWS GuardDuty and Microsoft Defender for Cloud,
+    and logging services, such as AWS CloudTrail and Google Cloud Audit Logs.
 
 
     Adversaries may attempt to discover information about the services enabled throughout
     the environment. Azure tools and APIs, such as the Microsoft Graph API and Azure
     Resource Manager API, can enumerate resources and services, including applications,
     management groups, resources and policy definitions, and their relationships that
-    are accessible by an identity.[1][2]
+    are accessible by an identity. They may use tools to check credentials and enumerate
+    the AI models available in various AIaaS providers'' environments including AI21
+    Labs, Anthropic, AWS Bedrock, Azure, ElevenLabs, MakerSuite, Mistral, OpenAI,
+    OpenRouter, and GCP Vertex AI [\[1\]][1].
 
 
-    For example, Stormspotter is an open source tool for enumerating and constructing
-    a graph for Azure resources and services, and Pacu is an open source AWS exploitation
-    framework that supports several methods for discovering cloud services.[3][4]
-
-
-    Adversaries may use the information gained to shape follow-on behaviors, such
-    as targeting data or credentials from enumerated services or evading identified
-    defenses through Disable or Modify Tools or Disable or Modify Cloud Logs.'
+    [1]: https://www.sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack'
   object-type: technique
   ATT&CK-reference:
     id: T1526
@@ -2145,7 +2181,7 @@
   tactics:
   - '{{discovery.id}}'
   created_date: 2025-04-14
-  modified_date: 2025-04-14
+  modified_date: 2025-12-24
 
 - &corrupt_model
   id: AML.T0076
@@ -2648,15 +2684,16 @@
 
     Application access tokens are used to make authorized API requests on behalf of
     a user or service and are commonly used to access resources in cloud, container-based
-    applications, and software-as-a-service (SaaS). They are commonly used for AI
-    services such as chatbots, LLMs, and predictive inference APIs.'
+    applications, software-as-a-service (SaaS), and AI-as-a-service(AIaaS). They are
+    commonly used for AI services such as chatbots, LLMs, and predictive inference
+    APIs.'
   object-type: technique
   ATT&CK-reference:
     id: T1550.001
     url: https://attack.mitre.org/techniques/T1550/001/
   subtechnique-of: '{{alt_auth.id}}'
   created_date: 2025-10-28
-  modified_date: 2025-11-04
+  modified_date: 2025-12-23
 
 - &prompt_infil
   id: AML.T0093
@@ -2673,7 +2710,9 @@
 
     Any public-facing application that accepts text input could be a target. This
     includes email, shared document systems like OneDrive or Google Drive, and service
-    desks or ticketing systems like Jira.
+    desks or ticketing systems like Jira. This also includes OCR-mediated infiltration
+    where malicious instructions are embedded in images, screenshots, and invoices
+    that are ingested into the system.
 
 
     Adversaries may perform {{ create_internal_link(reconnaissance) }} to identify
@@ -2685,7 +2724,7 @@
   - '{{initial_access.id}}'
   - '{{persistence.id}}'
   created_date: 2025-10-29
-  modified_date: 2025-11-06
+  modified_date: 2025-12-18
 
 - &delay_exec_llm
   id: AML.T0094
@@ -2748,3 +2787,146 @@
   - '{{reconnaissance.id}}'
   created_date: 2025-11-05
   modified_date: 2025-11-06
+
+- &ai_service_api_c2
+  id: AML.T0096
+  name: AI Service API
+  description: 'Adversaries may communicate using the API of an AI service on the
+    victim''s system. The adversary''s commands to the victim system, and often the
+    results, are embedded in the normal traffic of the AI service.
+
+
+    An AI service API command and control channel is covert because the adversary''s
+    commands blend in with normal communications, so an adversary may use this technique
+    to avoid detection. Using existing infrastructure on the victim''s system allows
+    the adversary to live off the land, further reducing their footprint.
+
+
+    AI service APIs may be abused as C2 channels when an adversary wants to be stealthy
+    and maintain long-term persistence for espionage activities [\[1\]][1].
+
+
+    [1]: https://www.microsoft.com/en-us/security/blog/2025/11/03/sesameop-novel-backdoor-uses-openai-assistants-api-for-command-and-control/'
+  object-type: technique
+  references:
+  - title: ''
+    url: https://www.microsoft.com/en-us/security/blog/2025/11/03/sesameop-novel-backdoor-uses-openai-assistants-api-for-command-and-control/
+  tactics:
+  - '{{command_and_control.id}}'
+  created_date: 2025-12-24
+  modified_date: 2025-12-23
+
+- &vme_evasion
+  id: AML.T0097
+  name: Virtualization/Sandbox Evasion
+  description: 'Adversaries may employ various means to detect and avoid virtualization
+    and analysis environments. This may include changing behaviors based on the results
+    of checks for the presence of artifacts indicative of a virtual machine environment
+    (VME) or sandbox. If the adversary detects a VME, they may alter their malware
+    to disengage from the victim or conceal the core functions of the implant. They
+    may also search for VME artifacts before dropping secondary or additional payloads.
+
+
+    Adversaries may use several methods to accomplish Virtualization/Sandbox Evasion
+    such as checking for security monitoring tools (e.g., Sysinternals, Wireshark,
+    etc.) or other system artifacts associated with analysis or virtualization such
+    as registry keys (e.g. substrings matching Vmware, VBOX, QEMU), environment variables
+    (e.g. substrings matching VBOX, VMWARE, PARALLELS), NIC MAC addresses (e.g. prefixes
+    00-05-69 (VMWare) or 08-00-27 (VirtualBox)), running processes (e.g. vmware.exe,
+    vboxservice.exe, qemu-ga.exe) [\[1\]][1].
+
+
+    [1]: https://research.checkpoint.com/2025/ai-evasion-prompt-injection/'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1497
+    url: https://attack.mitre.org/techniques/T1497/
+  tactics:
+  - '{{defense_evasion.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-12-23
+
+- &agent_tool_credentials
+  id: AML.T0098
+  name: AI Agent Tool Credential Harvesting
+  description: Adversaries may attempt to use their access to an AI agent on the victim's
+    system to retrieve data from available agent tools to collect credentials. Agent
+    tools may connect to a wide range of sources that may contain credentials including
+    document stores (e.g. SharePoint, OneDrive or Google Drive), code repositories
+    (e.g. GitHub or GitLab), or enterprise productivity tools (e.g. as email providers
+    or Slack), and local notetaking tools (e.g. Obsidian or Apple Notes).
+  object-type: technique
+  tactics:
+  - '{{credential_access.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-12-19
+
+- &agent_tool_data_poisoning
+  id: AML.T0099
+  name: AI Agent Tool Data Poisoning
+  description: 'Adversaries may place malicious content on a victim''s system where
+    it can be retrieved by an AI Agent Tool. This may be accomplished by placing documents
+    in a location that will be ingested by a service the AI agent has associated tools
+    for.
+
+
+    The content may be targeted such that it would often be retrieved by common queries.
+    The adversary''s content may include false or misleading information. It may also
+    include prompt injections with malicious instructions.'
+  object-type: technique
+  tactics:
+  - '{{persistence.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-11-25
+
+- &ai_agent_clickbait
+  id: AML.T0100
+  name: AI Agent Clickbait
+  description: Adversaries may craft deceptive web content designed to bait Computer-Using
+    AI agents or AI web browsers into taking unintended actions, such as clicking
+    buttons, copying code, or navigating to specific web pages. These attacks exploit
+    the agent's interpretation of UI content, visual cues, or prompt-like language
+    embedded in the site. When successful, they can lead the agent to inadvertently
+    copy and execute malicious code on the user's operating system.
+  object-type: technique
+  tactics:
+  - '{{execution.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-11-25
+
+- &data_destruction_via_tool
+  id: AML.T0101
+  name: Data Destruction via AI Agent Tool Invocation
+  description: Adversaries may invoke an AI agent's tool capable of performing mutative
+    operations to perform Data Destruction. Adversaries may destroy data and files
+    on specific systems or in large numbers on a network to interrupt availability
+    to systems, services, and network resources.
+  object-type: technique
+  tactics:
+  - '{{impact.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-11-25
+
+- &gen_commands
+  id: AML.T0102
+  name: Generate Malicious Commands
+  description: 'Adversaries may use large language models (LLMs) to dynamically generate
+    malicious commands from natural language. Dynamically generated commands may be
+    harder detect as the attack signature is constantly changing. AI-generated commands
+    may also allow adversaries to more rapidly adapt to different environments and
+    adjust their tactics.
+
+
+    Adversaries may utilize LLMs present in the victim''s environment or call out
+    to externally hosted services. [APT28](https://attack.mitre.org/groups/G0007)
+    utilized a model hosted on HuggingFace in a campaign with their LAMEHUG malware
+    [\[1\]][1]. In either case prompts to generate malicious code can blend in with
+    normal traffic.
+
+
+    [1]: https://logpoint.com/en/blog/apt28s-new-arsenal-lamehug-the-first-ai-powered-malware'
+  object-type: technique
+  tactics:
+  - '{{ml_attack_staging.id}}'
+  created_date: 2025-11-25
+  modified_date: 2025-12-23
