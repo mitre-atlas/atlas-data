@@ -38,7 +38,7 @@ procedure:
   description: Using the proxy model, the red team optimized adversarial visual patterns
     as a physical domain patch-based attack using expectation over transformation.
 - tactic: '{{resource_development.id}}'
-  technique: AML.T0008.003
+  technique: '{{acquire_physical_countermeasures.id}}'
   description: The team printed the optimized patch.
 - tactic: '{{ml_model_access.id}}'
   technique: '{{physical_env.id}}'

@@ -144,7 +144,7 @@ procedure:
     the researcher. It requested the TODO list from `https://openclaw.aisystem.tech/todo`
     using its `web_fetch`Skill and executed the commands via its `bash` Skill.
 - tactic: '{{impact.id}}'
-  technique: '{{erode_integrity.id}}'
+  technique: '{{machine_compromise_agent.id}}'
   description: The behavior of the OpenClaw agent has been hijacked and it can no
     longer be trusted to behave as the user intended.
 target: OpenClaw

@@ -1,0 +1,59 @@
+---
+id: AML.CS0056
+name: Model Distillation Campaigns Targeting Anthropic Claude
+object-type: case-study
+summary: "Anthropic uncovered campaigns to extract Claude\u2019s capabilities carried\
+  \ out by the three Chinese AI Labs: DeepSeek, Moonshot, and MiniMax. Collectively,\
+  \ these campaigns used approximately 24,000 accounts and 16 million queries. They\
+  \ used model distillation to train their own models on the outputs of Claude in\
+  \ an attempt to replicate Claude\u2019s capabilities such as agentic reasoning,\
+  \ code generation, tool use, and computer use.\n\nAs outlined in Anthropic's report,\
+  \ model distillation was leveraged as a means for these labs to undermine Anthropic's\
+  \ export controls.[<sup>\\[1\\]</sup>][1] Distilled models lack the safeguards that\
+  \ prevent bad actors from using frontier models for malicious purposes such as the\
+  \ bioweapon development, disinformation, offensive cyber operations, and mass surveillance.\n\
+  \n[1]: https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks\
+  \ \"Detecting and preventing distillation attacks\""
+incident-date: 2026-02-23
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{acquire_ai_proxies.id}}'
+  description: "DeepSeek, Moonshot AI, and MiniMax used commercial proxy services\
+    \ to gain access to Claude. This circumvented Anthropic\u2019s policy of not offering\
+    \ commercial access to Claude in China."
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: DeepSeek, Moonshot AI, and MiniMax generated large datasets of prompts
+    designed to extract capabilities from Claude.
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{inference_api.id}}'
+  description: "The AI labs accessed Claude\u2019s inference API via the combined\
+    \ approximately 24,000 fraudulent accounts."
+- tactic: '{{exfiltration.id}}'
+  technique: '{{extract_model.id}}'
+  description: DeepSeek, Moonshot AI, and MiniMax used their generated prompts to
+    repeatedly query Claude and train their own models from the responses. Collectively,
+    the labs issued over 16 million queries during their distillation campaigns.
+- tactic: '{{impact.id}}'
+  technique: '{{ip_theft.id}}'
+  description: "DeepSeek, Moonshot AI, and MiniMax acquired Claude\u2019s capabilities\
+    \ via distillation at a fraction of the cost of developing their own models. They\
+    \ targeted Claude\u2019s most differentiated capabilities including agentic reasoning,\
+    \ tool use, and code generation."
+- tactic: '{{impact.id}}'
+  technique: '{{harm_societal.id}}'
+  description: The distilled models lack safeguards and could be used for malicious
+    purposes such as offensive cyber operations, disinformation campaigns, mass surveillance,
+    and censorship.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: The distilled models lack Claude's safety guardrails, potentially exposing
+    users to harmful outputs and behaviors.
+reporter: Anthropic
+target: Anthropic Claude
+actor: DeepSeek, Moonshot AI, MiniMax
+case-study-type: incident
+references:
+- title: Detecting and preventing distillation attacks
+  url: https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks

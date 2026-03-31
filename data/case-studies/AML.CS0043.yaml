@@ -54,7 +54,7 @@ procedure:
     Note: The prompt injection was not effective against the LLMs that Check Point
     Research tested.'
 - tactic: '{{defense_evasion.id}}'
-  technique: AML.T0097
+  technique: '{{vme_evasion.id}}'
   description: The Skynet malware attempts various sandbox evasions.
 - tactic: '{{credential_access.id}}'
   technique: '{{unsecured_credentials.id}}'

@@ -16,7 +16,7 @@ incident-date: 2025-07-01
 incident-date-granularity: MONTH
 procedure:
 - tactic: '{{command_and_control.id}}'
-  technique: AML.T0096
+  technique: '{{ai_service_api_c2.id}}'
   description: 'The threat actor abused the OpenAI Assistants API to relay commands
     to the SesameOp malware, which executed them on the victim system, and sent the
     results back to the threat actor via the same channel. Both commands and results

@@ -625,8 +625,10 @@
   name: Code Signing
   description: Enforce binary and application integrity with digital signature verification
     to prevent untrusted code from executing. Adversaries can embed malicious code
-    in AI software or models. Enforcement of code signing can prevent the compromise
-    of the AI supply chain and prevent execution of malicious code.
+    in AI software or models. Developers should also cryptographically sign SBOM and
+    AIBOM components that track model or data provenance. Enforcement of code signing
+    can prevent the compromise of the AI supply chain and prevent execution of malicious
+    code.
   object-type: mitigation
   ATT&CK-reference:
     id: M1045
@@ -664,7 +666,7 @@
   category:
   - Technical - Cyber
   created_date: 2023-04-12
-  modified_date: 2025-12-23
+  modified_date: 2026-03-19
 
 - &verify_ml_artifacts
   id: AML.M0014
@@ -1105,8 +1107,8 @@
   name: AI Telemetry Logging
   description: 'Implement logging of inputs and outputs of deployed AI models. When
     deploying AI agents, implement logging of the intermediate steps of agentic actions
-    and decisions, data access and tool use, and identity of the agent. Monitoring
-    logs can help to detect security threats and mitigate impacts.
+    and decisions, data access and tool use, installation commands, and identity of
+    the agent. Monitoring logs can help to detect security threats and mitigate impacts.
 
 
     Additionally, having logging enabled can discourage adversaries who want to remain
@@ -1159,7 +1161,7 @@
   category:
   - Technical - Cyber
   created_date: 2025-03-12
-  modified_date: 2025-12-23
+  modified_date: 2026-03-19
 
 - &maintain_dataset_provenance
   id: AML.M0025
@@ -1414,8 +1416,10 @@
   name: Segmentation of AI Agent Components
   description: Define security boundaries around agentic tools and data sources with
     methods such as API access, container isolation, code execution sandboxing, and
-    rate limiting of tool invocation. This restricts untrusted processes or potential
-    compromises from spreading throughout the system.
+    rate limiting of tool invocation. When sandboxing, limit resource and network
+    access and build the container or virtual machine from a clean base image before
+    each run. This restricts untrusted processes or potential compromises from spreading
+    throughout the system.
   object-type: mitigation
   techniques:
   - id: '{{llm_plugin_compromise.id}}'
@@ -1442,7 +1446,7 @@
   category:
   - Technical - Cyber
   created_date: 2025-11-25
-  modified_date: 2025-12-18
+  modified_date: 2026-03-19
 
 - &io_val_agent_components
   id: AML.M0033

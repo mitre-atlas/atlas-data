@@ -40,7 +40,7 @@ procedure:
     in another reply generation task, the prompt injection changes the behavior of
     the GenAI email assistant.
 - tactic: '{{persistence.id}}'
-  technique: AML.T0061
+  technique: '{{llm_prompt_self_replication.id}}'
   description: The self-replicating portion of the prompt causes the generated output
     to contain the malicious prompt, allowing the worm to propagate.
 - tactic: '{{exfiltration.id}}'

@@ -1,0 +1,69 @@
+---
+id: AML.CS0053
+name: Poisoned Postmark MCP Server Email Exfiltration
+object-type: case-study
+summary: "A bad actor successfully exfiltrated emails from users of the Postmark\u2019\
+  s MCP server via a supply chain attack. Postmark is an email delivery service that\
+  \ allows organizations to send marketing and transactional emails via API. The Postmark\
+  \ MCP server allows users to interact with Postmark via AI agents.\n\nThe bad actor\
+  \ impersonated Postmark, by registering the `postmark-mcp` package name on npm.\
+  \ They initially published the legitimate versions of the MCP server. After the\
+  \ package became popular and reached over 1,000 downloads per week, the bad actor\
+  \ performed a rugpull and uploaded a malicious version of the package. The malicious\
+  \ version added the bad actor\u2019s email address in the BCC line of all emails\
+  \ sent by the MCP tool. Users who upgraded to this version and continued to use\
+  \ the tool would have all emails exfiltrated to the bad actor."
+incident-date: 2025-09-01
+incident-date-granularity: MONTH
+procedure:
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{impersonation.id}}'
+  description: "The bad actor impersonated Postmark by publishing a legitimate version\
+    \ of their `postmark-mcp` package to npm.  Postmark had not registered the `postmark-mcp`\
+    \ name on npm themselves, allowing the bad actor to namesquat. Legitimate users\
+    \ were tricked into using the npm package even though it wasn\u2019t managed by\
+    \ the official developers of `postmark-mcp`"
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_capabilities.id}}'
+  description: The bad actor modified the legitimate Postmark MCP server to include
+    their email address on the BCC line on all emails sent by the tool.
+- tactic: '{{resource_development.id}}'
+  technique: '{{pub_poisoned_ai_agent_tool.id}}'
+  description: The bad actor published their malicious version of `postmark-mcp` to
+    npm.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{rugpull.id}}'
+  description: By waiting for users to adopt a legitimate version of `postmark-mcp`
+    first, the bad actor was able to evade the additional scrutiny and scanning performed
+    on new tools.
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_tool.id}}'
+  description: When organizations upgraded `postmark-mcp` to version `1.0.16`, they
+    received the malicious version of the tool via the compromised supply chain.
+- tactic: '{{persistence.id}}'
+  technique: '{{poison_tool.id}}'
+  description: "Once configured with the organization\u2019s AI agents, the poisoned\
+    \ Postmark MCP server\u2019s effects persist."
+- tactic: '{{execution.id}}'
+  technique: '{{poisoned_ai_agent_tool.id}}'
+  description: When users at the victim organization instructed their AI agent to
+    use tools provided by the poisoned Postmark MCP Server, the malicious code was
+    executed.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: When organizations sent emails via the `postmark-mcp` tool, the entire
+    contents of their emails are exfiltrated to the bad actor via the address added
+    on the BCC line.
+- tactic: '{{impact.id}}'
+  technique: '{{external_harms.id}}'
+  description: "The exfiltrated emails may include transactional emails (revealing\
+    \ private information about the organization\u2019s clients) and promotional emails\
+    \ (revealing the organization\u2019s client list)."
+reporter: Koi Research
+target: Postmark MCP Server
+actor: Unknown Bad Actor
+case-study-type: incident
+references:
+- title: 'First Malicious MCP in the Wild: The Postmark Backdoor That''s Stealing
+    Your Emails'
+  url: https://www.koi.ai/blog/postmark-mcp-npm-malicious-backdoor-email-theft

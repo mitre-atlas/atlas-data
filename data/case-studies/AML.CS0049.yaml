@@ -2,14 +2,14 @@
 id: AML.CS0049
 name: Supply Chain Compromise via Poisoned ClawdBot Skill
 object-type: case-study
-summary: "A security researcher demonstrated a proof-of-concept supply chain attack\
-  \ using a poisoned ClawdBot Skill shared on ClawdHub, a Skill registry for agents.\
-  \ The poisoned Skill contained a prompt injection that caused ClawdBot to execute\
-  \ a shell command that reached the researcher\u2019s server. Although the researcher\
-  \ here used this access simply to warn users about the danger, they could have instead\
-  \ delivered a malicious payload and compromised the user\u2019s system. The security\
-  \ researcher recorded 16 different users who downloaded and executed the poisoned\
-  \ Skill in the first 8 hours of it being published on ClawdHub."
+summary: A security researcher demonstrated a proof-of-concept supply chain attack
+  using a poisoned ClawdBot Skill shared on ClawdHub, a Skill registry for agents.
+  The poisoned Skill contained a prompt injection that caused ClawdBot to execute
+  a shell command that reached the researcher's server. Although the researcher here
+  used this access simply to warn users about the danger, they could have instead
+  delivered a malicious payload and compromised the user's system. The security researcher
+  recorded 16 different users who downloaded and executed the poisoned Skill in the
+  first 8 hours of it being published on ClawdHub.
 incident-date: 2026-01-26
 incident-date-granularity: DATE
 procedure:
@@ -22,30 +22,29 @@ procedure:
     web server.
 - tactic: '{{resource_development.id}}'
   technique: '{{llm_prompt_crafting.id}}'
-  description: "The researcher crafted a prompt injection designed to cause Claude\
-    \ Code to execute a `curl` command to the researcher\u2019s `clawdhub-skill.com`\
-    \ domain."
+  description: The researcher crafted a prompt injection designed to cause Claude
+    Code to execute a `curl` command to the researcher's `clawdhub-skill.com` domain.
 - tactic: '{{resource_development.id}}'
   technique: '{{pub_poisoned_ai_agent_tool.id}}'
-  description: "The researcher developed a poisoned ClawdBot Skill called \u201CWhat\
-    \ Would Elon Do?\u201D The Skill contained the malicious prompt in the `rules/logic.md`\
-    \ file, which is read when the Skill is activated. The researcher published their\
-    \ Skill to ClawdHub."
+  description: The researcher developed a poisoned ClawdBot Skill called "What Would
+    Elon Do?" The Skill contained the malicious prompt in the `rules/logic.md` file,
+    which is read when the Skill is activated. The researcher published their Skill
+    to ClawdHub.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{ai_supply_chain_reputation.id}}'
+  description: The researcher used a script to increase the number of downloads of
+    their Skill to increase visibility and gain trust.
 - tactic: '{{initial_access.id}}'
-  technique: '{{supply_chain_software.id}}'
+  technique: '{{supply_chain_tool.id}}'
   description: 'Users downloaded the poisoned Skill from ClawdHub.
-
-
-    The researcher had used a script to increase the number of downloads of their
-    Skill to increase visibility and gain trust.
 
 
     Note that ClawdHub does not display all files that are part of the Skill, making
     it hard for users to review Skills before downloading them.'
 - tactic: '{{execution.id}}'
   technique: '{{poisoned_ai_agent_tool.id}}'
-  description: "When a user asked Claude Code \u201Cwhat would Elon do?\u201D it calls\
-    \ the poisoned Skill."
+  description: When a user asked Claude Code "what would Elon do?" it calls the poisoned
+    Skill.
 - tactic: '{{execution.id}}'
   technique: '{{pi_direct.id}}'
   description: Claude Code read all files that are part of the Skill, executing the
@@ -58,18 +57,25 @@ procedure:
     domain, causing the user to select confirm.
 - tactic: '{{privilege_escalation.id}}'
   technique: '{{llm_plugin_compromise.id}}'
-  description: "Claude Code executed the shell command using it\u2019s `bash` tool."
+  description: Claude Code executed the shell command using it's `bash` tool.
 - tactic: '{{impact.id}}'
   technique: '{{external_harms.id}}'
-  description: "In this proof of concept, the researcher simply pinged their server\
-    \ and warned the user of the dangers of using Skills without reading the source\
-    \ code, causing no harm. However, they could have delivered a malicious payload,\
-    \ and caused a variety of harms, including:\n- Exfiltrating the user\u2019s codebase\n\
-    - Injecting backdoors into the user\u2019s codebase\n- Stealing the user\u2019\
-    s credentials\n- Installing malware or crypto miners\n- Performing anything else\
-    \ Claude Code is capable of"
+  description: 'In this proof of concept, the researcher simply pinged their server
+    and warned the user of the dangers of using Skills without reading the source
+    code, causing no harm. However, they could have delivered a malicious payload,
+    and caused a variety of harms, including:
+
+    - Exfiltrating the user''s codebase
+
+    - Injecting backdoors into the user''s codebase
+
+    - Stealing the user''s credentials
+
+    - Installing malware or crypto miners
+
+    - Performing anything else Claude Code is capable of'
 target: ClawdBot (now OpenClaw)
-actor: "Jamieson O\u2019Reilly"
+actor: Jamieson O'Reilly
 case-study-type: exercise
 references:
 - title: 'eating lobster souls Part II: the supply chain (aka - backdooring the #1

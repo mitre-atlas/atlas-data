@@ -17,7 +17,7 @@ procedure:
   description: The researchers had access to Cylance's AI-enabled malware detection
     software.
 - tactic: '{{discovery.id}}'
-  technique: AML.T0063
+  technique: '{{discover_model_outputs.id}}'
   description: The researchers enabled verbose logging, which exposes the inner workings
     of the ML model, specifically around reputation scoring and model ensembling.
 - tactic: '{{resource_development.id}}'
@@ -44,5 +44,5 @@ case-study-type: exercise
 references:
 - title: Skylight Cyber Blog Post, "Cylance, I Kill You!"
   url: https://skylightcyber.com/2019/07/18/cylance-i-kill-you/
-- title: Statement's from Skylight Cyber CEO
+- title: Statements from Skylight Cyber CEO
   url: https://www.security7.net/news/the-new-cylance-vulnerability-what-you-need-to-know

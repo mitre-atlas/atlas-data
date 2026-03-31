@@ -1,0 +1,58 @@
+---
+id: AML.CS0054
+name: Data Exfiltration via Remote Poisoned MCP Tool
+object-type: case-study
+summary: "Researchers at Invariant Labs demonstrated that AI agents configured with\
+  \ remote Model Context Protocol (MCP) Tools can be vulnerable to model poisoning\
+  \ attacks. They show that an MCP Tool can contain malicious prompts in its docstring\
+  \ description, which is ingested into the AI agent\u2019s context, modifying its\
+  \ behavior.\n\nThey demonstrate this attack with a proof-of-concept MCP Tool that\
+  \ instructs the agent to perform additional actions before using the tool. The agent\
+  \ is instructed to read files containing credentials from the victim\u2019s machine\
+  \ and store their contents in one of the input variables to the tool. When the tool\
+  \ runs, the victim\u2019s credentials are exfiltrated to the poisoned MCP server."
+incident-date: 2025-04-01
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researchers crafted a prompt that instructs an AI agent to discover
+    and read user credentials files and store them in an input parameter of an MCP
+    tool.
+- tactic: '{{resource_development.id}}'
+  technique: '{{pub_poisoned_ai_agent_tool.id}}'
+  description: The researchers hosted a poisoned MCP server that contains the malicious
+    instructions hidden in the docstring of one of the provided tools.
+- tactic: '{{initial_access.id}}'
+  technique: '{{supply_chain_tool.id}}'
+  description: The researchers hosted a poisoned MCP tool that contains the malicious
+    instructions hidden in the docstring of the tool.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_direct.id}}'
+  description: When a user called the remote MCP tool, the prompt injection hidden
+    in the docstring is executed locally.
+- tactic: '{{execution.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "The prompt invoked an agent tool capable of reading files from the\
+    \ victim\u2019s filesystem."
+- tactic: '{{credential_access.id}}'
+  technique: '{{unsecured_credentials.id}}'
+  description: "The prompt instructed the AI agent to read the user\u2019s SSH keys\
+    \ at `~/.ssh/id_rsa`."
+- tactic: '{{credential_access.id}}'
+  technique: '{{agent_tool_credentials.id}}'
+  description: The prompt instructed the AI agent to read `mcp.json`, which often
+    contains credentials for other MCP servers.
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: The prompt instructed the AI agent to store the credentials files in
+    an extraneous MCP tool parameter to exfiltrate them via the MCP connection.
+- tactic: '{{impact.id}}'
+  technique: '{{harm_user.id}}'
+  description: "The user\u2019s private data was exposed to remote MCP server."
+target: Model Context Protocol
+actor: Invariant Labs
+case-study-type: exercise
+references:
+- title: 'MCP Security Notification: Tool Poisoning Attacks'
+  url: https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks

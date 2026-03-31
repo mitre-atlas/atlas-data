@@ -15,7 +15,7 @@ incident-date: 2020-01-01
 incident-date-granularity: YEAR
 procedure:
 - tactic: '{{reconnaissance.id}}'
-  technique: AML.T0087
+  technique: '{{gather_victim_identity.id}}'
   description: The attackers collected user identity information and high-definition
     face photos from an online black market.
 - tactic: '{{resource_development.id}}'

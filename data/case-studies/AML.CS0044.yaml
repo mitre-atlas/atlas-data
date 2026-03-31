@@ -38,7 +38,7 @@ procedure:
     created using PyInstaller from Python source code which CERT-UA classified it
     as LAMEHUG malware. Files with the .pif extension are executable on Windows.
 - tactic: '{{ml_attack_staging.id}}'
-  technique: AML.T0102
+  technique: '{{gen_commands.id}}'
   description: The LAMEHUG malware abused the Qwen 2.5 Coder 32B Instruct model Hugging
     Face API to generate malicious commands from natural language prompts.
 - tactic: '{{collection.id}}'

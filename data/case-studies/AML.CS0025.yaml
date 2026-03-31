@@ -18,7 +18,7 @@ procedure:
   description: The researchers download a web-scale dataset, which consists of URLs
     pointing to individual datapoints.
 - tactic: '{{resource_development.id}}'
-  technique: AML.T0008.002
+  technique: '{{acquire_domains.id}}'
   description: They identify expired domains in the dataset and purchase them.
 - tactic: '{{resource_development.id}}'
   technique: '{{poison_data.id}}'
@@ -30,7 +30,7 @@ procedure:
     control.  In this particular exercise, the researchers track requests to the URLs
     they control to track downloads to demonstrate there are active users of the dataset.
 - tactic: '{{impact.id}}'
-  technique: AML.T0059
+  technique: '{{erode_integrity_dataset.id}}'
   description: The integrity of the dataset has been eroded because future downloads
     would contain poisoned datapoints.
 - tactic: '{{impact.id}}'

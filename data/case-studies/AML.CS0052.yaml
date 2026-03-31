@@ -1,0 +1,76 @@
+---
+id: AML.CS0052
+name: 'LLMSmith: RCE Vulnerabilities in LLM-Integrated Applications'
+object-type: case-study
+summary: 'Researchers identified 20 remote code execution (RCE) vulnerabilities across
+  11 different LLM frameworks. They discovered applications deployed on the public
+  internet built using these LLM frameworks and demonstrated the RCE vulnerabilities
+  could be exploited using prompt injection.
+
+
+  The 11 LLM frameworks the researchers evaluated were: LangChain, LlamaIndex, Pandas-ai,
+  Langflow, Pandas-llm, Auto-GPT, Griptape, Lagent, MetaGPT, vanna,  and langroid.'
+incident-date: 2025-02-27
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{develop_capabilities.id}}'
+  description: The researchers performed a static analysis on the APIs of target LLM
+    frameworks to identify functions that execute code from either user input or the
+    response from an LLM and are thus vulnerable to RCE.
+- tactic: '{{reconnaissance.id}}'
+  technique: '{{search_apps.id}}'
+  description: The researchers performed targeting to identify applications that are
+    likely built on with LLM Frameworks and may use the functions vulnerable to RCE.
+    This was done by scanning source code repositories for app deployment URLs.
+- tactic: '{{discovery.id}}'
+  technique: '{{agent_call_chains.id}}'
+  description: "The researchers ran their static analysis to extract call chains from\
+    \ target application\u2019s source code to identify those that utilize LLM framework\
+    \ functions vulnerable to RCE."
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: The researchers developed prompts to trigger tool invocations that
+    lead to RCE.
+- tactic: '{{initial_access.id}}'
+  technique: '{{exploit_public_app.id}}'
+  description: The researchers targeted public-facing applications that expose an
+    AI agent to user input as a means to execute their prompts.
+- tactic: '{{execution.id}}'
+  technique: '{{pi_direct.id}}'
+  description: The researchers directly prompted the AI agent with their malicious
+    instructions.
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{llm_jailbreak.id}}'
+  description: "For target applications where the AI agent refused the researcher\u2019\
+    s request, they used lightweight jailbreaking strategies to bypass the LLM\u2019\
+    s guardrails."
+- tactic: '{{privilege_escalation.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "The researchers' prompts called the AI agent\u2019s tools, targeting\
+    \ call chains that can lead to code execution."
+- tactic: '{{execution.id}}'
+  technique: '{{cmd_script_interpreter.id}}'
+  description: "The code included in the researcher\u2019s prompts was executed in\
+    \ a sandboxed Python interpreter."
+- tactic: '{{privilege_escalation.id}}'
+  technique: '{{escape_to_host.id}}'
+  description: The researchers included code escape techniques designed to bypass
+    any limitations a sandbox may place on code execution.
+- tactic: '{{command_and_control.id}}'
+  technique: '{{reverse_shell.id}}'
+  description: The Python code opened a reverse shell which was used as a command
+    and control channel.
+- tactic: '{{impact.id}}'
+  technique: '{{machine_compromise_agent.id}}'
+  description: The researchers gained full control of the system running the LLM-integrated
+    application.
+target: LLM Integration Frameworks
+actor: Researchers at University of Chinese Academy of Sciences, Shandong University,
+  and University of New South Wales
+case-study-type: exercise
+references:
+- title: Demystifying RCE Vulnerabilities in LLM-Integrated Apps
+  url: https://arxiv.org/abs/2309.02926
+- title: LLMSmith Website
+  url: https://sites.google.com/view/llmsmith
