@@ -1168,7 +1168,13 @@
   name: Maintain AI Dataset Provenance
   description: Maintain a detailed history of datasets used for AI applications. The
     history should include information about the dataset's source as well as a complete
-    record of any modifications.
+    record of any modifications. Extend provenance controls to the real-time retrieval
+    layer in Retrieval-Augmented Generation (RAG) systems. Maintain a signed allowlist
+    of trusted retrieval sources and apply integrity verification to retrieved documents
+    before they enter model context. Implement anomaly detection on retrieved document
+    content to identify statistical deviations from corpus baseline that may indicate
+    injection or modification. Log all retrieved documents per inference event as
+    part of AI Telemetry Logging to enable forensic reconstruction of poisoned retrievals.
   object-type: mitigation
   techniques:
   - id: '{{supply_chain_data.id}}'
@@ -1188,8 +1194,8 @@
   category:
   - Technical - ML
   created_date: 2025-03-12
-  modified_date: 2025-12-23
-
+  modified_date: 2026-04-16
+  
 - &agent_config_priv
   id: AML.M0026
   name: Privileged AI Agent Permissions Configuration
@@ -1518,3 +1524,235 @@
   - Technical - ML
   created_date: 2025-11-25
   modified_date: 2025-11-25
+
+- &memory_integrity_controls
+  id: AML.M0035
+  name: Memory Integrity Controls
+  description: "Establish integrity controls for the persistent memory layer of AI\
+    \ agents that retain context across sessions.\n\nControls include:\n-\tCryptographically\
+    \ signed memory write provenance tracking, recording the source, timestamp, and\
+    \ session context of every memory write event.\n-\tAnomaly detection on memory\
+    \ write patterns that deviate from established behavioral baselines.\n-\tLeast-privilege\
+    \ scoping of agent memory permissions, limiting which categories of information\
+    \ an agent is permitted to persist.\n-\tHuman-in-the-loop approval requirements\
+    \ for memory writes involving high-sensitivity categories including financial\
+    \ commitments, legal terms, medical information, and authentication credentials."
+  object-type: mitigation
+  techniques:
+  - id: '{{poison_data.id}}'
+    use: Memory integrity controls detect and block attempts to poison an agent's
+      persistent memory store with false or adversarially crafted context.
+  - id: '{{backdoor_model.id}}'
+    use: Provenance tracking on memory writes can identify attempts to embed persistent
+      backdoor triggers within an agent's memory layer.
+  - id: '{{erode_integrity_dataset.id}}'
+    use: Anomaly detection on memory write patterns can identify gradual erosion of
+      memory integrity through accumulated adversarial writes.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+    
+- &inter_agent_trust_architecture
+  id: AML.M0036
+  name: Inter-Agent Trust Architecture
+  description: "Define and enforce trust boundaries between agents in multi-agent\
+    \ systems. Require orchestrating agents to present verifiable identity credentials,\
+    \ such as signed agent attestation tokens, when delegating tasks to subagents.\
+    \ Subagents must validate caller identity and instruction scope before executing\
+    \ delegated tasks.\n\nControls include:\n-\tCross-agent communication logging\
+    \ with correlation identifiers that allow full reconstruction of instruction chains\
+    \ across agent boundaries.\n-\tPrinciple of least privilege applied independently\
+    \ to each agent: subagents must not inherit elevated permissions from their orchestrator\
+    \ beyond what is required for the specific delegated task.\n-\tAnomaly detection\
+    \ for inter-agent instruction patterns that deviate from established workflow\
+    \ baselines."
+  object-type: mitigation
+  techniques:
+  - id: '{{exfil_agent_tool.id}}'
+    use: Inter-agent trust controls limit an adversary's ability to use a compromised
+      agent to exfiltrate data through tool invocations authorized by a trusted orchestrator.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Caller identity verification prevents a compromised plugin or subagent from
+      issuing instructions that appear to originate from a trusted orchestrator.
+  - id: '{{data_from_ai.id}}'
+    use: Trust boundaries and least-privilege scoping limit the data a compromised
+      agent can access and exfiltrate from connected AI services.
+  - id: '{{agent_tool_harvest.id}}'
+    use: Cross-agent communication logging detects anomalous tool harvest attempts
+      that propagate across agent boundaries in multi-agent pipelines.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - Cyber
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+    
+- &indirect_prompt_injection_detection
+  id: AML.M0037
+  name: Indirect Prompt Injection Detection and Content Isolation
+  description: "Implement a content isolation layer that processes externally sourced\
+    \ data, including email bodies, document contents, web page text, and API responses,\
+    \ in a context strictly separated from agent instruction processing.\n\nControls\
+    \ include:\n-\tSemantic classification to detect instruction-like patterns within\
+    \ non-instruction content sources before that content enters model context.\n\
+    -\tSource-type-aware trust controls so that content retrieved from untrusted\
+    \ channels cannot trigger tool invocation or behavioral changes without explicit\
+    \ human-in-the-loop confirmation.\n-\tValidation performed external to the AI\
+    \ agent on all externally retrieved content prior to inclusion in model context.\n\
+    \nComplements AML.M0020 (Generative AI Guardrails), which addresses direct injection\
+    \ in user-supplied input, with runtime detection of instruction patterns embedded\
+    \ in external content. Extends AML.M0033 (Input and Output Validation for AI\
+    \ Agent Components) with source-type classification and instruction-pattern detection."
+  object-type: mitigation
+  techniques:
+  - id: '{{pi_indirect.id}}'
+    use: Content isolation detects instruction patterns embedded in externally sourced
+      content before they reach the model and prevents them from overriding agent
+      behavior or triggering unintended tool invocations.
+  - id: '{{pi_triggered.id}}'
+    use: Source-type-aware controls prevent triggered prompt injections embedded in
+      retrieved content from executing without human-in-the-loop confirmation.
+  - id: '{{llm_prompt_injection.id}}'
+    use: Indirect injection detection extends general prompt injection defenses to
+      cover content arriving via external data sources rather than direct user input.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+  
+- &behavioral_baseline_drift_detection
+  id: AML.M0038
+  name: Behavioral Baseline and Drift Detection
+  description: "Establish a quantitative behavioral baseline for deployed models across\
+    \ representative prompt categories at deployment time. Implement continuous statistical\
+    \ monitoring of output distributions against that baseline.\n\nBaseline metrics\
+    \ include:\n-\tResponse length distribution.\n-\tPolicy compliance and refusal\
+    \ rates.\n-\tTopic coverage and confidence expression patterns.\n\nDefine drift\
+    \ thresholds that trigger review, revalidation, or rollback when output distributions\
+    \ shift beyond acceptable bounds. Distinguish between intentional updates such\
+    \ as documented fine-tuning events and unintended drift. Integrate drift detection\
+    \ into existing AML.M0024 (AI Telemetry Logging) pipelines."
+  object-type: mitigation
+  techniques:
+  - id: '{{poison_data.id}}'
+    use: Behavioral drift detection identifies gradual output distribution shifts
+      caused by accumulated adversarial data poisoning that may not be detectable
+      at the individual query level.
+  - id: '{{poison_model.id}}'
+    use: Continuous baseline monitoring can detect behavioral changes introduced by
+      model poisoning attacks that alter output patterns over time.
+  - id: '{{erode_integrity_dataset.id}}'
+    use: Drift detection provides an ongoing signal for dataset integrity erosion
+      that manifests as measurable shifts in model output distributions.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+  
+- &output_provenance_attestation
+  id: AML.M0039
+  name: Output Provenance and Attestation
+  description: "Implement cryptographic signing of model outputs at the point of\
+    \ generation, including model version identifier, alignment configuration hash,\
+    \ timestamp, and relevant inference parameters.\n\nControls include:\n-\tA verification\
+    \ endpoint that allows downstream systems, auditors, and end users to confirm\
+    \ output authenticity without exposing model internals or enabling extraction\
+    \ attacks.\n-\tFor deployments in regulated industries including healthcare, legal,\
+    \ and financial services, attestation of the state of safety controls and content\
+    \ filters at time of generation.\n\nThis mitigation enables output non-repudiation:\
+    \ the ability to prove that a specific output was or was not generated by a specific\
+    \ model version with specific safety controls active."
+  object-type: mitigation
+  techniques:
+  - id: '{{ml_artifact_collection.id}}'
+    use: Output attestation enables verification that collected model artifacts and
+      outputs originate from an authenticated model instance and have not been tampered
+      with or substituted.
+  - id: '{{exfil_agent_tool.id}}'
+    use: Cryptographic output signing provides a tamper-evident record that can detect
+      when agent tool outputs have been modified or substituted during exfiltration.
+  - id: '{{data_from_ai.id}}'
+    use: Output provenance records enable auditors to verify that data collected from
+      AI services originated from the authenticated model with expected safety controls
+      active.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+  
+- &agent_c2_detection
+  id: AML.M0040
+  name: Agent C2 Detection
+  description: "Implement behavioral analysis for agentic workflows that establishes\
+    \ baselines for tool call patterns, external API interactions, and data volume\
+    \ per task type. Flag deviations consistent with command and control activity.\n\
+    \nIndicators include:\n-\tUnexpected periodic tool calls not corresponding to\
+    \ the current user task.\n-\tUnusual outbound data volumes in tool responses.\n\
+    -\tCommunication patterns to external endpoints outside the agent's documented\
+    \ operational scope.\n\nExtend AML.M0023 (AI Bill of Materials) to require verification\
+    \ of all third-party tools before agent deployment, including provenance, version,\
+    \ and last security audit date. Complement with AML.M0024 (AI Telemetry Logging)\
+    \ extended to include outbound data volumes per tool call."
+  object-type: mitigation
+  techniques:
+  - id: '{{exfil_agent_tool.id}}'
+    use: Agent C2 detection identifies anomalous tool call patterns and outbound data
+      volumes consistent with an agent being used as a covert exfiltration channel.
+  - id: '{{llm_plugin_compromise.id}}'
+    use: Behavioral baseline monitoring detects compromised third-party tools that
+      deviate from expected interaction patterns within the agentic workflow.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - ML
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
+  
+- &adversarial_cost_anomaly_detection
+  id: AML.M0041
+  name: Adversarial Cost Anomaly Detection
+  description: "Extend rate limiting controls from query-count-based to token-consumption-based\
+    \ monitoring. Establish per-user and per-session token budgets in addition to\
+    \ query count limits.\n\nControls include:\n-\tReal-time monitoring of tokens-per-query\
+    \ ratios, flagging sessions where per-query token consumption significantly exceeds\
+    \ the session or account baseline.\n-\tAnomaly detection applied to inputs that\
+    \ generate outlier output lengths, including prompts that trigger verbose reasoning\
+    \ chains, recursive self-referential instructions, and inputs designed to maximize\
+    \ model verbosity.\n-\tCost-based alerting integrated into AML.M0024 (AI Telemetry\
+    \ Logging) pipelines.\n\nComplements AML.M0004 (Restrict Number of ML Model Queries)\
+    \ with token-budget controls that surface cost-maximizing attack patterns that\
+    \ do not trigger query-count limits."
+  object-type: mitigation
+  techniques:
+  - id: '{{ml_dos.id}}'
+    use: Token-consumption monitoring detects adversarial denial-of-service attempts
+      that maximize compute cost without triggering query-count rate limits.
+  - id: '{{chaff_data.id}}'
+    use: Per-session token budgets limit the impact of chaff data attacks designed
+      to exhaust model resources through high-volume low-signal queries.
+  - id: '{{craft_adv_blackbox.id}}'
+    use: Token consumption anomaly detection identifies black-box optimization attacks
+      that generate unusually verbose model responses as a side effect of adversarial
+      query refinement.
+  ml-lifecycle:
+  - Deployment
+  - Monitoring and Maintenance
+  category:
+  - Technical - Cyber
+  created_date: 2026-04-16
+  modified_date: 2026-04-16
