@@ -3,48 +3,49 @@ from datetime import datetime
 import json
 from pathlib import Path
 
-from schema import Optional, Schema
-
 # Local directory
 from schemas.atlas_matrix import atlas_output_schema
-from schemas.atlas_obj import case_study_schema, CASE_STUDY_VERSION
+from schemas.atlas_obj import (
+    CASE_STUDY_VERSION,
+)
+from schemas.website_submission import (
+    contributions_schema,
+    website_case_study_wrapper_schema,
+    WEBSITE_SUBMISSION_VERSION
+)
 
 """
-Generates JSON Schema Draft-07 files describing ATLAS.yaml and case study files
-from the ATLAS website.
+Generates JSON Schema Draft-07 files describing ATLAS.yaml and website-generated
+submission files.
 
 Reads from the schemas directory in this repository.
 
 Run this script with `python -m tools.generate_schema` to allow for local imports.
 """
 
-def set_optional_keys(schema_obj, keys):
-    """Sets the specified keys on the Schema object to Optional."""
-    for key in keys:
-        # Set the key to be optional
-        schema_obj._schema[Optional(key)] = schema_obj._schema[key]
-        # Remove existing required key
-        del schema_obj._schema[key]
-
 def has_json_schema_changed(output_filepath, new_json):
     """Returns True if the contents of the existing JSON schema file differ from the current schema."""
+
+    # Should be considered changed if it doesn't exist
+    if not Path(output_filepath).exists():
+        return True
 
     # Save off and remove the description key (Generated on YYYY-MM-DD)
     # to enable comparison of other fields
     description_key = 'description'
-    new_json_description = new_json[description_key]
-    del new_json[description_key]
+    new_json_description = new_json.pop(description_key, None)
 
     with open(output_filepath, 'r') as f:
         # Load the existing JSON schema and remove its description
         existing_json = json.load(f)
-        del existing_json[description_key]
+        existing_json.pop(description_key, None)
 
         # Compare the JSON objects, without description
         are_json_schemas_equal = existing_json == new_json
 
         # Put back new JSON schema description
-        new_json[description_key] = new_json_description
+        if new_json_description is not None:
+            new_json[description_key] = new_json_description
 
         # Returns True if the json schemas have changed
         return not are_json_schemas_equal
@@ -74,33 +75,9 @@ if __name__ == '__main__':
     update_json_file(output_filepath, atlas_json_schema, 'ATLAS.yaml schema')
 
     # ATLAS website case study
-
-    # Set the `id` and `object-type `fields as optional
-    # Case study builder files may not yet have them, but downloaded existing case studies do
-    set_optional_keys(case_study_schema, ['id', 'object-type'])
-
-    # Generate JSON schema from pre-defined schema
-
-    # The website's version of a case study file includes the case study object under the key `study`
-    # as well as an optional `meta` key containing date created, etc., populated upon website
-    # case study builder download
-    name = 'ATLAS Website Case Study Schema'
-    # Description is not specified in the Python schema, but here to avoid generating in the overall JSON schema
-    description = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
-    standalone_case_study_schema = Schema(
-        {
-            "study": case_study_schema.schema,
-            Optional("meta"): {
-                # Handle any keys and values
-                str: object
-            }
-        },
-        ignore_extra_keys=True,
-        name=name,
-        description=description)
-
-    # Convert to JSON Schema
-    atlas_case_study_json_schema = standalone_case_study_schema.json_schema('atlas_website_case_study_schema')
+    atlas_case_study_json_schema = website_case_study_wrapper_schema.json_schema('atlas_website_case_study_schema')
+    atlas_case_study_json_schema['title'] = 'ATLAS Website Case Study Schema'
+    atlas_case_study_json_schema['description'] = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
 
     # Manipulate JSON to ensure incident date is a date of format YYYY-MM-DD
     # Currently schema library does not output a string format
@@ -139,3 +116,25 @@ if __name__ == '__main__':
     # Output schema to file
     output_filepath = output_dir / 'atlas_website_case_study_schema.json'
     update_json_file(output_filepath, atlas_case_study_json_schema, 'ATLAS website case study schema')
+
+    # Contributions unified schema
+    description = f'Generated on {datetime.now().strftime("%Y-%m-%d")}'
+
+    # Generate parent contributions JSON Schema via Python-level composition
+    atlas_contribution_json_schema = contributions_schema.json_schema('atlas_contribution_schema')
+    atlas_contribution_json_schema['$id'] = 'atlas_contribution_schema'
+    atlas_contribution_json_schema['description'] = description
+    atlas_contribution_json_schema['$version'] = WEBSITE_SUBMISSION_VERSION
+
+    # Reuse the cleaned website case study wrapper in the contributions schema.
+    patched_case = {
+        key: value
+        for key, value in atlas_case_study_json_schema.items()
+        if key not in {'$id', '$schema', 'title', 'definitions', '$version', 'description'}
+    }
+    _defs_key = 'definitions' if 'definitions' in atlas_contribution_json_schema else '$defs'
+    atlas_contribution_json_schema[_defs_key]['case_study'] = patched_case
+
+    # Output contributions schema to file
+    output_filepath = output_dir / "atlas_contribution_schema.json"
+    update_json_file(output_filepath, atlas_contribution_json_schema, "ATLAS contribution schema")

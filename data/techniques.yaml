@@ -1584,12 +1584,11 @@
 
 
     Generative AI, including LLMs that generate synthetic text, visual deepfakes of
-    faces, and audio deepfakes of speech, is enabling adversaries to scale targeted
-    phishing campaigns. LLMs can interact with users via text conversations and can
-    be programmed with a meta prompt to phish for sensitive information. Deepfakes
-    can be use in impersonation as an aid to phishing.
-
-    '
+    faces, and audio deepfakes of speech (See {{ create_internal_link(gen_deepfake)
+    }}), is enabling adversaries to scale targeted phishing campaigns (See {{ create_internal_link(llm_phishing)
+    }}). LLMs can interact with users via text conversations and can be programmed
+    with a system prompt to phish for sensitive information. Deepfakes can also be
+    used in {{ create_internal_link(impersonation) }} as an aid to phishing.'
   object-type: technique
   ATT&CK-reference:
     id: T1566
@@ -1598,7 +1597,7 @@
   - '{{initial_access.id}}'
   - '{{lateral_movement.id}}'
   created_date: 2023-10-25
-  modified_date: 2025-12-20
+  modified_date: 2026-04-22
 
 - &llm_phishing
   id: AML.T0052.000
@@ -1651,46 +1650,126 @@
 - &llm_jailbreak
   id: AML.T0054
   name: LLM Jailbreak
-  description: 'An adversary may target the inputs or the architecture of an LLM,
-    placing it in a state where it will freely respond to user input, bypassing any
-    controls, restrictions, or guardrails placed on the LLM. Once successfully jailbroken,
-    the LLM can be used in unintended ways by the adversary.
+  description: 'Adversaries may induce a large language model (LLM) to ignore, circumvent,
+    or override its safety/alignment behaviors and/or guardails to elicit outputs
+    the model is intended to withhold. Once jailbroken, the LLM may be used in unintended
+    ways by the adversary. Jailbreaks may be achieved via adversarial prompting, or
+    by modifying model weights or safety mechanisms.
 
 
-    Jailbreaks are classified as either white-box or black-box depending on the level
-    of model access they require. In white-box jailbreaks, the attacker directly exploits
-    the model. Gradient and logit-based attacks use internal signals to select prompts
-    that make harmful answers more likely while fine-tuning-based methods weaken safety
-    through retraining ([Jailbreak Attacks and Defenses: A Survey]; [JailbreakZoo]).
-    Additionally, many large language models encode refusal in a single linear signal
-    in their internal layers; removing or suppressing this signal via an activation
-    edit largely disables refusal while leaving normal skills mostly intact ([Refusal
-    Direction]).
+    Adversaries may attempt a jailbreak for {{ create_internal_link(defense_evasion)
+    }} of the LLM''s guidelines and guardrails itself to then reveal information (ex:
+    {{ create_internal_link(llm_data_leakage) }}, {{ create_internal_link(llm_sys_info)
+    }}) or generate harmful content (ex: {{ create_internal_link(gen_commands) }},
+    {{ create_internal_link(llm_phishing) }}). They may also jailbreak a model for
+    {{ create_internal_link(privilege_escalation) }} to invoke tools or perform actions
+    for their own purposes (ex: {{ create_internal_link(llm_plugin_compromise) }})
+    or abuse the agent for a {{ create_internal_link(command_and_control) }} channel
+    (ex: {{ create_internal_link(ai_agent) }}).
 
 
-    Black-box jailbreaks, on the other hand, do not require direct model access, relying
-    instead on clever prompting and context tricks. Examples include wrapping a harmful
-    question inside a story, role-play, or code snippet so the model "fills in" the
-    dangerous part as part of the scenario ([Jailbreak Attacks and Defenses: A Survey])
-    or hiding intent through ciphers, rare languages, and other encodings so the text
-    looks harmless to filters but remains understandable to the model ([JailbreakZoo];
-    [Jailbreak Attacks and Defenses: A Survey]). Black-box jailbreaks can also take
-    a multi-turn form where attackers engage in dialogue that begins harmless but
-    escalates towards a forbidden goal, changing the conversation history through
-    references and hints while never explicitly stating the malicious request ([Cresendo
-    attacks], [Echo Chamber attack]).
+    Adversaries use a variety of strategies to craft jailbreak prompts. Prompts may
+    target specific models or model families and are iterated upon until successful.
+    Model providers actively update their model guardrails to make them more resistant
+    to jailbreak prompts as new prompts are developed. Common strategies [\[1\]][jailbreak-guide]
+    include but are not limited to:
 
 
-    Jailbreak generation can be automated with fine-tuned models ([MASTERKEY]), multi-agent
-    systems ([Jailbreak Attacks and Defenses: A Survey]), or evolutionary algorithms
-    ([JailbreakZoo]). Aside from fine-tuning, these approaches do not require direct
-    model access.'
+    - Instruction override: Use phrasing that attempts to supersede prior constraints
+    (e.g. "ignore previous instructions").
+
+    - Roleplay / persona switching: Instruct the LLM to adopt an identity or mode
+    that allows unrestricted answers (e.g. "as a security researcher").
+
+    - Fictionalization and hypotheticals: Instruct the LLM to include disallowed content
+    as part of a story, screenplay, or educational scenario.
+
+    - Separate intent from content: request analysis, examples, templates, or edge
+    cases, that implicitly contain disallowed content.
+
+    - Multi-turn escalation / Crescendo: Utilize a sequence of prompts that start
+    benign, establish trust, then gradually cross policy boundaries with incremental
+    prompts.
+
+    - Constrained output formats: Instruct the LLM to output to a strict schema or
+    format (e.g. JSON, YAML, code, or tables).
+
+    - Obfuscation and transformation: Use encoding, transformations, translation,
+    or euphemisms, (e.g., base64 encoding, "describe it in another language").
+
+    - Create a high priority objective: Frame compliance as necessary to fulfill the
+    user''s main task (e.g. "to complete the evaluation," "to follow the spec," "to
+    follow safety guidelines").
+
+
+    Adversaries may also use algorithmic approaches to generating jailbreak prompts
+    [\[2\]][jailbreak-zoo] [\[3\]][jailbreak-survey]. Algorithmic jailbreak generation
+    allows for automated methods that discover jailbreaks at scale. Some approaches
+    automate manual strategies [\[4\]][autodan] [\[5\]][gptfuzzer] [\[6\]][crescendo]
+    [\[7\]][echo-chamber] while others optimize a string of tokens directly [\[8\]][universal]
+    to produce nonsensical text. Both black-box (applicable to commercial models where
+    the adversary has only query access to the model) and white-box (applicable in
+    the open-source setting, where the adversary has full access to the model weights)
+    optimization approaches are viable.
+
+
+    Adversaries may also directly manipulate a model''s weights, or modify or remove
+    parts of a model to create a jailbroken of "uncensored" variant of the target
+    model. This is applicable to open-source models, or cases where the adversary
+    gains full access to the target model. Approaches include fine-tuning to reduce
+    refusals [\[9\]][single-direction], targeted model editing [\[10\]][rome], addition
+    of adapters [\[11\]][lora], and removing safety mechanisms such as guardrails.
+
+
+    Jailbreak prompts that are known to work on various classes of LLMs are often
+    published in the open-source community [\[12\]][dan]. Jailbroken or uncensored
+    LLMs that have been trained or fine-tuned to be jailbroken are shared in public
+    model registries such as huggingface [\[13\]][abliteration].
+
+
+    [jailbreak-survey]: https://arxiv.org/abs/2407.04295 "Jailbreak Attacks and Defenses
+    Against Large Language Models: A Survey"
+
+    [jailbreak-zoo]: https://arxiv.org/abs/2407.01599 "JailbreakZoo: Survey, Landscapes,
+    and Horizons in Jailbreaking Large Language and Vision-Language Models"
+
+    [jailbreak-guide]: https://www.promptfoo.dev/blog/how-to-jailbreak-llms/ "Jailbreaking
+    LLMs: A Comprehensive Guide (With Examples)"
+
+    [autodan]: https://arxiv.org/abs/2310.04451 "AutoDAN: Generating Stealthy Jailbreak
+    Prompts on Aligned Large Language Models"
+
+    [gptfuzzer]: https://arxiv.org/abs/2309.10253 "GPTFUZZER: Red Teaming Large Language
+    Models with Auto-Generated Jailbreak Prompts"
+
+    [crescendo]: https://arxiv.org/abs/2404.01833 "Great, Now Write an Article About
+    That: The Crescendo Multi-Turn LLM Jailbreak Attack"
+
+    [echo-chamber]: https://arxiv.org/abs/2601.05742 "The Echo Chamber Multi-Turn
+    LLM Jailbreak"
+
+    [dan]: https://github.com/0xk1h0/ChatGPT_DAN "ChatGPT DAN"
+
+    [rome]: https://arxiv.org/abs/2202.05262 "Locating and Editing Factual Associations
+    in GPT"
+
+    [universal]: https://arxiv.org/abs/2307.15043 "Universal and Transferable Adversarial
+    Attacks on Aligned Language Models"
+
+    [single-direction]: https://arxiv.org/abs/2406.11717 "Refusal in Language Models
+    Is Mediated by a Single Direction"
+
+    [lora]: https://arxiv.org/abs/2310.20624 "LoRA Fine-tuning Efficiently Undoes
+    Safety Training in Llama 2-Chat 70B"
+
+    [abliteration]: https://huggingface.co/blog/mlabonne/abliteration "Uncensor any
+    LLM with abliteration"'
   object-type: technique
   tactics:
   - '{{privilege_escalation.id}}'
   - '{{defense_evasion.id}}'
   created_date: 2023-10-25
-  modified_date: 2026-03-30
+  modified_date: 2026-04-30
 
 - &unsecured_credentials
   id: AML.T0055
@@ -3484,3 +3563,168 @@
   subtechnique-of: '{{maschine_compromise.id}}'
   created_date: 2026-03-30
   modified_date: 2026-03-30
+
+- &phishing_deepfake
+  id: AML.T0052.001
+  name: Deepfake-Assisted Phishing
+  description: 'Adversaries may use deepfakes (AI-generated synthetic images, audio,
+    or video) in phishing campaigns to impersonate trusted individuals, executives,
+    or organizations. These attacks exploit human trust by presenting fraudulent voice
+    or video communications as legitimate, enabling adversaries to manipulate targets
+    into disclosing credentials, transferring funds, or granting access to systems.
+
+
+    Voice deepfakes (AI-cloned voices) are used in vishing [\[1\]][vishing] (voice
+    phishing) attacks over telephone or VoIP. Adversaries can clone a target''s voice
+    using a few seconds [\[2\]][valle] of publicly available audio from speeches,
+    earnings calls, podcasts, or social media [\[3\]][voice]. These cloned voices
+    are then used in pre-recorded voicemail messages or live phone calls. Video deepfakes
+    can impersonate a trusted individual''s face and voice. Adversaries use publicly
+    available video from company meetings, earnings calls, or social media to create
+    convincing AI-generated video of target individuals. They are used in live video
+    conference calls or recorded video messages. AI-generated content has advanced
+    to the point that it is often difficult to identify as synthetic [\[4\]][fbi].
+
+
+    Adversaries may first perform {{ create_internal_link(obtain_cap) }}: {{ create_internal_link(obtain_genai)
+    }} followed by {{ create_internal_link(gen_deepfake) }} in preparation for their
+    {{ create_internal_link(phishing) }} campaign. Deepfake phishing campaigns often
+    utilize other communication channels (such as email, SMS, or instant messaging)
+    for layered social engineering attacks [\[5\]][aiid839].
+
+
+    These attacks span a wide range of victims and attack types, demonstrating the
+    breadth of deepfake-enabled fraud. Adversaries have conducted extensive deepfake-assisted
+    phishing campaigns against the individuals, including targeted scams [\[6\]][aiid564]
+    [\[7\]][oecd1] [\[8\]][aiid1280] [\[9\]][aiid1285], as well as large-scale credential
+    harvesting campaigns targeting billions of users [\[10\]][aiid839] [\[11\]][aiid941].
+    Adversaries have used deepfakes to impersonate executives [\[12\]][aiid1100],
+    causing business entities to suffer significant financial losses from [\[13\]][aiid634]
+    [\[14\]][aiid147]. There are also reports of government officials being targeted
+    in widespread campaigns [\[4\]][fbi] [\[15\]][aiid927].
+
+
+    The attacks span communication channels including voice deepfakes for vishing
+    [\[16\]][aiid567] and video deepfakes in conference calls [\[13\]][aiid634], as
+    well as multi-channel campaigns combining phone, email, and messaging platforms
+    [\[10\]][aiid839].
+
+
+    [valle]: https://www.microsoft.com/en-us/research/project/vall-e-x/ "VALL-E Family:
+    Neural codec language models for speech synthesis"
+
+    [vishing]: https://www.social-engineer.org/framework/attack-vectors/vishing/ "Vishing
+    - Social-Engineer Framework"
+
+    [voice]: https://cloud.google.com/blog/topics/threat-intelligence/ai-powered-voice-spoofing-vishing-attacks
+    "AI-powered voice spoofing: Understanding and defending against vishing attacks"
+
+    [fbi]: https://www.ic3.gov/PSA/2025/PSA250515/ "FBI Public Service Advisory: Scammers
+    are deepfaking voices of senior US government officials"
+
+    [oecd1]: https://oecd.ai/en/incidents/2026-04-06-ca7a "AI-Generated Voice Used
+    in Scam Targeting Drica Moraes'' Contacts"
+
+    [oecd2]: https://oecd.ai/en/incidents/2026-03-02-3408 "AI Deepfake Voice Scams
+    Target 1 in 4 Americans"
+
+    [aiid634]: https://incidentdatabase.ai/cite/634/ "Alleged Deepfake CFO Scam Reportedly
+    Costs Multinational Engineering Firm Arup $25 Million"
+
+    [aiid147]: https://incidentdatabase.ai/cite/147/ "Reported AI-Cloned Voice Used
+    to Deceive Hong Kong Bank Manager in Purported $35 Million Fraud Scheme"
+
+    [aiid1100]: https://incidentdatabase.ai/cite/1100/ "AI Incident Database - LastPass
+    CEO Voice Deepfake Attempt"
+
+    [aiid927]: https://incidentdatabase.ai/cite/927/ "Italian Defense Minister Voice
+    Clone"
+
+    [aiid564]: https://incidentdatabase.ai/cite/564/ "Voice deepfake targets bank
+    in failed transfer scam"
+
+    [aiid567]: https://incidentdatabase.ai/cite/567/ "Deepfake Voice Exploit Compromises
+    Retool''s Cloud Services"
+
+    [aiid1280]: https://incidentdatabase.ai/cite/1280/ "Reported Use of AI Voice and
+    Identity Manipulation in the ''Phantom Hacker'' Fraud Scheme"
+
+    [aiid1285]: https://incidentdatabase.ai/cite/1285/ "Purportedly AI-Generated Jason
+    Momoa Deepfake Used in Romance Scam"
+
+    [aiid839]: https://incidentdatabase.ai/cite/839/ "Purportedly AI-Driven Phishing
+    Scam Uses Spoofed Google Call to Attempt Gmail Breach"
+
+    [aiid941]: https://incidentdatabase.ai/cite/941/ "AI-Driven Phishing Scam Uses
+    Deepfake Robocalls to Target Gmail Users"'
+  object-type: technique
+  subtechnique-of: '{{phishing.id}}'
+  created_date: 2026-04-22
+  modified_date: 2026-04-22
+
+- &acquire_agent_config
+  id: AML.T0002.002
+  name: AI Agent Configuration
+  description: 'Adversaries may acquire publicly accessible AI agent configuration
+    files to understand agent capabilities, gain unauthorized access to tools and
+    data sources, or identify credentials for further attacks. Configuration files
+    define what tools an agent can use, credentials for external services, system
+    prompts, and behavioral settings, making valuable resources for adversaries targeting
+    AI agent deployments.
+
+
+    Once configuration files are acquired, adversaries may perform {{ create_internal_link(discover_agent_config)
+    }} to gain additional insights they can use in their operation or {{ create_internal_link(agent_tool_config)
+    }} to harvest secrets.
+
+
+    AI agent configuration files come in multiple forms depending on the platform
+    and agent framework. Agent configuration files adversaries may target include:
+
+    - System prompts: Files containing agent instructions, behavioral guidelines,
+    and internal logic.
+
+    - Tool configuration: Files defining tools the agent can utilize, including Model
+    Context Protocol (MCP) configs (e.g., `mcp.json`, `claude_desktop_config.json`),
+    IDE-specific configs (e.g., `.claude/settings.json`, `.vscode/tasks.json`), and
+    framework-specific settings that define external tool and data source integrations.
+
+    - Skills and workflows: Files defining agent capabilities, behaviors, or workflows.
+    Often a combination of instructions, scripts, and resources.
+
+    - Environment and deployment configs: Files that control agent deployment and
+    runtime behavior, often environment variables or framework-specific configs.'
+  object-type: technique
+  subtechnique-of: '{{acquire_ml_artifacts.id}}'
+  created_date: 2026-04-22
+  modified_date: 2026-04-22
+
+- &search_open_sites_code
+  id: AML.T0095.000
+  name: Code Repositories
+  description: 'Adversaries may search public code repositories for information about
+    a victim or victim system that can be used during targeting. Victims may store
+    code or artifacts related to their AI systems in repositories on various third-party
+    websites such as GitHub, GitLab, SourceForge, and BitBucket. Adversaries may search
+    code repositories of common AI tools, frameworks, models, or agentic systems that
+    are used--but not owned--by the victim.
+
+
+    Public code repositories can often be a source of various information about victims,
+    such as commonly used AI frameworks, libraries, models, datasets, agents, and
+    agent tools, as well as the names of employees. Adversaries may also identify
+    more sensitive data, including accidentally leaked credentials or API keys (ex:
+    {{ create_internal_link(agent_tool_config) }}). Information from these sources
+    may reveal opportunities for other forms of {{ create_internal_link(reconnaissance)
+    }} (ex: {{ create_internal_link(gather_rag_targets) }}), establishing operational
+    resources (ex: {{ create_internal_link(acquire_ml_artifacts) }}), {{ create_internal_link(discovery)
+    }} (ex: {{ create_internal_link(discover_agent_config) }}) and/or {{ create_internal_link(initial_access)
+    }} (ex: {{ create_internal_link(valid_accounts) }} or {{ create_internal_link(phishing)
+    }}).'
+  object-type: technique
+  ATT&CK-reference:
+    id: T1593.003
+    url: https://attack.mitre.org/techniques/T1593/003/
+  subtechnique-of: '{{search_open_sites.id}}'
+  created_date: 2026-04-22
+  modified_date: 2026-04-30

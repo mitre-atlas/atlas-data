@@ -5,12 +5,17 @@ The project uses the [schema library](https://github.com/keleshev/schema) to def
 - `atlas_id.py` defines ATLAS ID regular expression patterns.
 - `atlas_matrix.py` holds the schema for the `ATLAS.yaml` file.
 - `atlas_obj.py` holds schemas for tactic, technique, subtechnique, case study, and other data objects.
+- `website_submission.py` holds schemas for website contributions.
 
 ## Usage
 
 The schemas in this directory are used as test fixures in `conftest.py`. `tests/schema_validation.py` validates each ATLAS data object.
 
 Additionally, JSON Schema files for `ATLAS.yaml` and website case study files are available at `dist/schemas/` for other tools to use.  For example, the ATLAS website validates uploaded case study files against the case study schema file.
+
+### Contribution schema
+
+The website uses a unified contribution JSON Schema at `dist/schemas/atlas_contribution_schema.json` that models a single payload containing multiple `submissions` items. Tactics, techniques, and mitigations use website-specific variants of the ATLAS object schemas so new submissions can omit generated fields like `id`, and case studies use the website wrapper shape under `study`.
 
 ### Output generation
 

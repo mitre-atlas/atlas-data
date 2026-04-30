@@ -1,0 +1,593 @@
+{
+    "type": "object",
+    "properties": {
+        "contact": {
+            "$ref": "#/definitions/contact"
+        },
+        "additional-info": {
+            "type": "string"
+        },
+        "submissions": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/tactic"
+                    },
+                    {
+                        "$ref": "#/definitions/technique"
+                    },
+                    {
+                        "$ref": "#/definitions/mitigation"
+                    },
+                    {
+                        "$ref": "#/definitions/case_study"
+                    },
+                    {
+                        "$ref": "#/definitions/other"
+                    }
+                ]
+            }
+        }
+    },
+    "required": [
+        "contact",
+        "additional-info",
+        "submissions"
+    ],
+    "additionalProperties": true,
+    "$id": "atlas_contribution_schema",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ATLAS Contribution Schema",
+    "definitions": {
+        "contact": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "const": null
+                        }
+                    ]
+                },
+                "emails": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "const": null
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "name",
+                "emails"
+            ],
+            "additionalProperties": false
+        },
+        "tactic": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_tactic"
+                },
+                "object-type": {
+                    "const": "tactic"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                },
+                "techniques": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/id_technique"
+                            },
+                            {
+                                "$ref": "#/definitions/id_subtechnique"
+                            },
+                            {
+                                "$ref": "#/definitions/inline_technique"
+                            }
+                        ]
+                    }
+                },
+                "items-to-remove": {
+                    "$ref": "#/definitions/items_to_remove"
+                }
+            },
+            "required": [
+                "object-type",
+                "description",
+                "name"
+            ],
+            "additionalProperties": false
+        },
+        "id_tactic": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+TA\\d{4}$"
+        },
+        "references": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    },
+                    "url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "const": null
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "title",
+                    "url"
+                ],
+                "additionalProperties": false
+            }
+        },
+        "id_technique": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}$"
+        },
+        "id_subtechnique": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+T\\d{4}\\.\\d{3}$"
+        },
+        "inline_technique": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "technique"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "items_to_remove": {
+            "type": "object",
+            "properties": {
+                "tactics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/id_tactic"
+                    }
+                },
+                "techniques": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/id_technique"
+                            },
+                            {
+                                "$ref": "#/definitions/id_subtechnique"
+                            }
+                        ]
+                    }
+                },
+                "mitigations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/id_mitigation"
+                    }
+                }
+            },
+            "required": [],
+            "additionalProperties": false
+        },
+        "id_mitigation": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+M\\d{4}$"
+        },
+        "technique": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_technique"
+                },
+                "object-type": {
+                    "const": "technique"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "tactics": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/id_tactic"
+                            },
+                            {
+                                "$ref": "#/definitions/inline_tactic"
+                            }
+                        ]
+                    }
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                },
+                "maturity": {
+                    "enum": [
+                        "feasible",
+                        "demonstrated",
+                        "realized"
+                    ]
+                },
+                "mitigations": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/id_mitigation"
+                            },
+                            {
+                                "$ref": "#/definitions/inline_mitigation"
+                            }
+                        ]
+                    }
+                },
+                "items-to-remove": {
+                    "$ref": "#/definitions/items_to_remove"
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "inline_tactic": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "tactic"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "inline_mitigation": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "mitigation"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "mitigation": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/id_mitigation"
+                },
+                "object-type": {
+                    "const": "mitigation"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "techniques": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/id_technique"
+                            },
+                            {
+                                "$ref": "#/definitions/id_subtechnique"
+                            },
+                            {
+                                "$ref": "#/definitions/inline_technique"
+                            }
+                        ]
+                    }
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                },
+                "mitigation-category": {
+                    "type": "string"
+                },
+                "ml-lifecycle": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "items-to-remove": {
+                    "$ref": "#/definitions/items_to_remove"
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": false
+        },
+        "case_study": {
+            "type": "object",
+            "properties": {
+                "study": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "summary": {
+                            "type": "string"
+                        },
+                        "incident-date": {
+                            "anyOf": [
+                                {
+                                    "type": "string",
+                                    "format": "date"
+                                },
+                                {
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            ]
+                        },
+                        "incident-date-granularity": {
+                            "enum": [
+                                "YEAR",
+                                "MONTH",
+                                "DATE"
+                            ]
+                        },
+                        "procedure": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "tactic": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/id_tactic"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/case_study_tactic"
+                                            }
+                                        ]
+                                    },
+                                    "technique": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/id_technique"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/id_subtechnique"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/case_study_technique"
+                                            }
+                                        ]
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "tactic",
+                                    "technique",
+                                    "description"
+                                ],
+                                "additionalProperties": false
+                            }
+                        },
+                        "reporter": {
+                            "type": "string"
+                        },
+                        "target": {
+                            "type": "string"
+                        },
+                        "actor": {
+                            "type": "string"
+                        },
+                        "case-study-type": {
+                            "enum": [
+                                "incident",
+                                "exercise"
+                            ]
+                        },
+                        "references": {
+                            "$ref": "#/definitions/references"
+                        },
+                        "id": {
+                            "$ref": "#/definitions/id_case_study"
+                        },
+                        "object-type": {
+                            "const": "case-study"
+                        },
+                        "reported-by": {
+                            "deprecated": "true",
+                            "depMessage": "`reported-by` deprecated as of version 1.1; replaced by `reporter`"
+                        }
+                    },
+                    "required": [
+                        "name",
+                        "summary",
+                        "incident-date",
+                        "incident-date-granularity",
+                        "procedure"
+                    ],
+                    "additionalProperties": false
+                },
+                "meta": {
+                    "type": "object",
+                    "properties": {},
+                    "required": [],
+                    "additionalProperties": true
+                }
+            },
+            "required": [
+                "study"
+            ],
+            "additionalProperties": true
+        },
+        "case_study_tactic": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "tactic"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                },
+                "id": {
+                    "$ref": "#/definitions/id_tactic"
+                }
+            },
+            "required": [
+                "object-type",
+                "description",
+                "name"
+            ],
+            "additionalProperties": true
+        },
+        "case_study_technique": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "technique"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "references": {
+                    "$ref": "#/definitions/references"
+                },
+                "maturity": {
+                    "enum": [
+                        "feasible",
+                        "demonstrated",
+                        "realized"
+                    ]
+                },
+                "id": {
+                    "$ref": "#/definitions/id_technique"
+                },
+                "tactics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/id_tactic"
+                    }
+                }
+            },
+            "required": [
+                "object-type",
+                "name",
+                "description"
+            ],
+            "additionalProperties": true
+        },
+        "id_case_study": {
+            "type": "string",
+            "pattern": "^(?:[A-Z]+\\d*\\.)+CS\\d{4}$"
+        },
+        "other": {
+            "type": "object",
+            "properties": {
+                "object-type": {
+                    "const": "other"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "object-type",
+                "description"
+            ],
+            "additionalProperties": true
+        }
+    },
+    "$version": "1.0.0",
+    "description": "Generated on 2026-04-29"
+}

@@ -3,7 +3,7 @@ import datetime
 import pytest
 from schema import Or, Optional, Regex, Schema
 
-from schemas import atlas_matrix, atlas_obj
+from schemas import atlas_matrix, atlas_obj, website_submission
 from tools.create_matrix import load_atlas_data
 
 """
@@ -106,6 +106,15 @@ def pytest_generate_tests(metafunc):
 
     https://docs.pytest.org/en/stable/parametrize.html#basic-pytest-generate-tests-example
     """
+    # Only load ATLAS data if any of the data-driven fixtures are requested by the test
+    data_driven_fixtures = {
+        'output_data', 'matrix', 'tactics', 'techniques', 'case_studies', 'mitigations',
+        'text_with_possible_markdown_syntax', 'text_to_be_spellchecked', 'all_data_objects',
+        'procedure_steps', 'technique_id_to_tactic_ids'
+    }
+    if not any(name in metafunc.fixturenames for name in data_driven_fixtures):
+        return
+
     # Read the YAML files in this repository and create the nested dictionary
     path_to_data_file = 'data/data.yaml'
     data = load_atlas_data(path_to_data_file)
@@ -281,4 +290,9 @@ def case_study_schema():
 def mitigation_schema():
     """Defines the schema and validation for a mitigation object."""
     return atlas_obj.mitigation_schema
+
+@pytest.fixture(scope='session')
+def contributions_schema():
+    """Defines the unified website contributions schema for submissions payloads."""
+    return website_submission.contributions_schema
 #endregion

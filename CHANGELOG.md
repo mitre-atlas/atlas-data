@@ -1,3 +1,32 @@
+## [5.6.0]() (2026-04-30)
+
+###### Techniques
+
+- Added new techniques
+
+  - [Acquire Public AI Artifacts: AI Agent Configuration](/techniques/AML.T0002.002)
+  - [Search Open Websites/Domains: Code Repositories](/techniques/AML.T0095.000)
+  - [Phishing: Deepfake-Assisted Phishing](/techniques/AML.T0052.001)
+
+
+- Updated existing techniques
+
+  - [Phishing](/techniques/AML.T0052)
+  - [LLM Jailbreak](/techniques/AML.T0054)
+
+###### Mitigations
+
+- Updated existing mitigations
+
+  - [User Training](/mitigations/AML.M0018)
+  - [Deepfake Detection](/mitigations/AML.M0034)
+
+###### Case Studies
+
+- Updated existing case studies
+
+  - [OpenClaw Command & Control via Prompt Injection](/studies/AML.CS0051)
+
 ## [5.5.0]() (2026-03-30)
 
 ###### Techniques

@@ -884,10 +884,15 @@
   - ML Model Evaluation
   - Deployment
   - Monitoring and Maintenance
+  - id: '{{phishing_deepfake.id}}'
+    use: Train users on deepfake threats, including how to recognize synthetic voice,
+      video, and text. Recommend verification through independent channels (e.g. known
+      call-back number) before processing sensitive requests or providing sensitive
+      information via voice or video calls.
   category:
   - Policy
   created_date: 2023-04-12
-  modified_date: 2025-12-23
+  modified_date: 2026-04-22
 
 - &control_access_prod
   id: AML.M0019
@@ -1514,7 +1519,11 @@
   - Monitoring and Maintenance
   - ML Model Evaluation
   - ML Model Engineering
+  - id: '{{phishing_deepfake.id}}'
+    use: Deploy technical controls to detect and block synthetic audio and video.
+      This includes AI-based analysis tools that examine media for artifacts indicative
+      deepfakes.
   category:
   - Technical - ML
   created_date: 2025-11-25
-  modified_date: 2025-11-25
+  modified_date: 2026-04-22
