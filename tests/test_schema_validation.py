@@ -393,8 +393,11 @@ def test_contributions_allow_valid_matrix_associations(contributions_schema):
 
     mitigation = make_mitigation(include_id=False)
     mitigation["techniques"] = [
-        "AML.T0002",
-        make_technique(include_id=False, include_tactics=False),
+        {"id": "AML.T0002", "use": "How the mitigation applies to this technique"},
+        {
+            **make_technique(include_id=False, include_tactics=False),
+            "use": "How the mitigation applies to this new technique",
+        },
     ]
     mitigation["mitigation-category"] = "Preventative"
     mitigation["ml-lifecycle"] = ["Model Development"]
@@ -408,6 +411,26 @@ def test_contributions_allow_valid_matrix_associations(contributions_schema):
         contributions_schema.validate(payload)
     except SchemaError as e:
         pytest.fail(e.code)
+
+
+def test_contributions_reject_mitigation_technique_association_without_use(contributions_schema):
+    invalid_associations = [
+        "AML.T0002",
+        {"id": "AML.T0002"},
+        make_technique(include_id=False, include_tactics=False),
+    ]
+
+    for association in invalid_associations:
+        mitigation = make_mitigation(include_id=False)
+        mitigation["techniques"] = [association]
+        payload = {
+            "contact": {"name": "Jules", "emails": "jules@example.com"},
+            "additional-info": "New website-generated submissions",
+            "submissions": [mitigation],
+        }
+
+        with pytest.raises(SchemaError):
+            contributions_schema.validate(payload)
 
 
 def test_contributions_reject_invalid_matrix_associations(contributions_schema):

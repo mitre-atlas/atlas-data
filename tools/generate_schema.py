@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from copy import deepcopy
 from datetime import datetime
 import json
 from pathlib import Path
@@ -128,9 +129,20 @@ if __name__ == '__main__':
 
     # Reuse the cleaned website case study wrapper in the contributions schema.
     patched_case = {
-        key: value
+        key: deepcopy(value)
         for key, value in atlas_case_study_json_schema.items()
         if key not in {'$id', '$schema', 'title', 'definitions', '$version', 'description'}
+    }
+    patched_case['properties']['study']['if'] = {
+        'properties': {
+            'case-study-type': {
+                'const': 'incident',
+            },
+        },
+        'required': ['case-study-type'],
+    }
+    patched_case['properties']['study']['then'] = {
+        'required': ['reporter'],
     }
     _defs_key = 'definitions' if 'definitions' in atlas_contribution_json_schema else '$defs'
     atlas_contribution_json_schema[_defs_key]['case_study'] = patched_case

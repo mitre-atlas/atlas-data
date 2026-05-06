@@ -46,6 +46,22 @@ def inline_matrix_schema(object_type, name):
 inline_tactic_schema = inline_matrix_schema("tactic", "inline_tactic")
 inline_technique_schema = inline_matrix_schema("technique", "inline_technique")
 inline_mitigation_schema = inline_matrix_schema("mitigation", "inline_mitigation")
+inline_mitigation_technique_schema = Schema(
+    {
+        **dict(inline_technique_schema.schema),
+        "use": str,
+    },
+    name="inline_mitigation_technique",
+    as_reference=True,
+)
+mitigation_technique_use_schema = Schema(
+    {
+        "id": TECHNIQUE_OR_SUBTECHNIQUE_ID,
+        "use": str,
+    },
+    name="mitigation_technique_use",
+    as_reference=True,
+)
 
 TACTIC_ASSOCIATION = Or(TACTIC_ID_REGEX_EXACT, inline_tactic_schema)
 TECHNIQUE_ASSOCIATION = Or(
@@ -54,6 +70,10 @@ TECHNIQUE_ASSOCIATION = Or(
     inline_technique_schema,
 )
 MITIGATION_ASSOCIATION = Or(MITIGATION_ID_REGEX_EXACT, inline_mitigation_schema)
+MITIGATION_TECHNIQUE_ASSOCIATION = Or(
+    mitigation_technique_use_schema,
+    inline_mitigation_technique_schema,
+)
 
 
 def schema_with_optional_keys(
@@ -135,7 +155,7 @@ website_mitigation_schema = Schema(
         "object-type": "mitigation",
         "name": str,
         "description": str,
-        Optional("techniques"): [TECHNIQUE_ASSOCIATION],
+        Optional("techniques"): [MITIGATION_TECHNIQUE_ASSOCIATION],
         Optional("references"): references_schema,
         Optional("mitigation-category"): str,
         Optional("ml-lifecycle"): [str],

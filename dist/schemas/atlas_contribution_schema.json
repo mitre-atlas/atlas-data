@@ -488,7 +488,22 @@
                         "incident-date-granularity",
                         "procedure"
                     ],
-                    "additionalProperties": false
+                    "additionalProperties": false,
+                    "if": {
+                        "properties": {
+                            "case-study-type": {
+                                "const": "incident"
+                            }
+                        },
+                        "required": [
+                            "case-study-type"
+                        ]
+                    },
+                    "then": {
+                        "required": [
+                            "reporter"
+                        ]
+                    }
                 },
                 "meta": {
                     "type": "object",
@@ -589,5 +604,5 @@
         }
     },
     "$version": "1.0.0",
-    "description": "Generated on 2026-04-29"
+    "description": "Generated on 2026-05-01"
 }

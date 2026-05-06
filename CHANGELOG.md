@@ -1,3 +1,7 @@
+## [5.6.1]() (2026-05-05)
+
+Minor fixes to contribution schemas.
+
 ## [5.6.0]() (2026-04-30)
 
 ###### Techniques
