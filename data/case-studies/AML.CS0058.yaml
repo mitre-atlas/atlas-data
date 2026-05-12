@@ -1,0 +1,65 @@
+id: AML.CS0058
+name: AIXBT Dashboard Compromise with Queued Adversarial Prompts
+object-type: case-study
+summary: "On 2025-03-18, an attacker infiltrated the operational dashboard
+  of the AIXBT autonomous trading agent at approximately 02:00 UTC and
+  queued two fraudulent prompts that directed the agent to transfer
+  55.5 ETH (~$106K) from the agent's Simulacrum wallet to an
+  attacker-controlled address.[<sup>\\[1\\]</sup>][1] This is a hybrid
+  attack pattern: control-plane credential compromise enabled access
+  to the agent's task queue, and prompt-level instruction injection
+  then directed the agent to act.
+
+
+  This case demonstrates the agentic-specific failure mode where
+  control-plane authentication is the actual trust boundary, but the
+  prompt layer is the actual execution vector. Pure-credential framing
+  would not capture the role of the queued prompts; pure-prompt-injection
+  framing would not capture the credential compromise. Both layers were
+  necessary for the loss.\n\n
+
+  [1]: https://incidentdatabase.ai/cite/1003/ \"AI Incident Database entry 1003\""
+incident-date: 2025-03-18
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{credential_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: "The attacker obtained credentials for AIXBT's operational
+    dashboard. The disclosure does not specify the credential-acquisition
+    vector (phishing, leaked secrets, insider access)."
+- tactic: '{{initial_access.id}}'
+  technique: '{{valid_accounts.id}}'
+  description: "The attacker authenticated to the AIXBT dashboard at
+    02:00 UTC on 2025-03-18 using the compromised credentials, gaining
+    access to the agent's queued task interface."
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: "Two fraudulent prompts were crafted directing the agent
+    to transfer 55.5 ETH from the Simulacrum wallet to a specific
+    attacker-controlled destination address."
+- tactic: '{{execution.id}}'
+  technique: '{{manip_llm_history.id}}'
+  description: "The crafted prompts were inserted into the agent's task
+    queue via the compromised dashboard, manipulating the agent's
+    upcoming-instruction context."
+- tactic: '{{execution.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "The agent processed the queued prompts and invoked the
+    on-chain transfer tools against the Simulacrum wallet, treating the
+    queued context as a legitimate operator instruction."
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "55.5 ETH (~$106,200 at Mar-2025 prices) was transferred
+    from the Simulacrum wallet to the attacker-controlled destination
+    address via the agent's tool-invocation path."
+- tactic: '{{impact.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "Wallet drained. AIXBT operations disrupted. Public
+    disclosure followed via the AI Incident Database."
+reporter: AI Incident Database (case 1003)
+target: AIXBT autonomous trading agent / Simulacrum wallet
+actor: Unknown threat actor
+case-study-type: incident
+references:
+- title: AI Incident Database entry 1003 — Alleged Fraudulent Prompts via AIXBT Dashboard
+  url: https://incidentdatabase.ai/cite/1003/

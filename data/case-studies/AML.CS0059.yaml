@@ -1,0 +1,76 @@
+id: AML.CS0059
+name: ElizaOS Cross-Platform Memory Injection (CrAIBench)
+object-type: case-study
+summary: "Researchers at Princeton and the Sentient Foundation demonstrated
+  that the ElizaOS framework's shared RAG memory across platforms (Discord,
+  X, and others) could be poisoned by an attacker on one platform such
+  that a legitimate user request on a *different* platform later triggered
+  the agent to act on the injected instruction — including unauthorized
+  crypto transfers.[<sup>\\[1\\]</sup>][1][<sup>\\[2\\]</sup>][2] Published as
+  the CrAIBench benchmark.
+
+
+  This case demonstrates the cross-context trust boundary failure: ElizaOS
+  shares a single memory store across the agent's deployments on multiple
+  platforms, so a payload planted on one platform (e.g. via a Sybil-style
+  Discord post) becomes part of the retrieval-augmented context the agent
+  uses when serving a different user on another platform (X). The
+  vulnerability is platform-spanning by design: each platform individually
+  has no way to detect that incoming context has been adversarially
+  seeded from elsewhere.\n\n
+
+  At the time of disclosure, ElizaOS had ~15,000 GitHub stars and powered
+  multiple production crypto agents handling real funds.\n\n
+
+  [1]: https://arxiv.org/abs/2503.16248 \"Patlan et al. arXiv 2503.16248\"
+
+  [2]: https://decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions \"Decrypt research coverage\""
+incident-date: 2025-05-06
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: "The researchers (and, by extension, any practical attacker)
+    crafted an instruction payload disguised as a benign user message,
+    designed to be ingested into ElizaOS's shared memory store."
+- tactic: '{{initial_access.id}}'
+  technique: '{{prompt_infil.id}}'
+  description: "The payload was posted via a public-facing platform that
+    ElizaOS indexes into its shared retrieval memory — Discord or X —
+    using a Sybil-style account to bypass per-account trust heuristics."
+- tactic: '{{persistence.id}}'
+  technique: '{{llm_context.id}}'
+  description: "The poisoned message persisted in ElizaOS's cross-platform
+    RAG memory store. Subsequent retrievals — including those triggered
+    by *different* legitimate users on *different* platforms — could
+    surface the payload as context."
+- tactic: '{{persistence.id}}'
+  technique: '{{llm_memory_poisoning.id}}'
+  description: "Because ElizaOS treats its memory store as a single
+    cross-platform context, the poisoned entry survived across sessions
+    and across the trust boundaries of the platforms that fed it."
+- tactic: '{{execution.id}}'
+  technique: '{{rag_poisoning.id}}'
+  description: "When a legitimate user on a different platform (e.g. X)
+    issued a request that the retrieval step matched to the poisoned
+    memory entry, the agent fed the adversarial instruction into its
+    next-turn context as if it were trusted memory."
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "Following the injected instruction, the agent invoked
+    its on-chain tooling to issue unauthorized crypto transfers from
+    the user's wallet to attacker-controlled addresses."
+- tactic: '{{impact.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "Real funds drained from production users of ElizaOS-based
+    agents. Disclosure published as the CrAIBench benchmark and
+    accompanying arXiv preprint."
+reporter: Atharv Singh Patlan et al. (Princeton + Sentient Foundation)
+target: ElizaOS (open-source autonomous crypto AI agent framework)
+actor: Researchers (proof-of-concept); real-world attackers documented in coverage
+case-study-type: research
+references:
+- title: "Patlan et al. — Real AI Agents with Fake Memories (arXiv 2503.16248)"
+  url: https://arxiv.org/abs/2503.16248
+- title: Decrypt — ElizaOS Vulnerability Shows How AI Can Be Gaslit Into Losing Millions
+  url: https://decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions

@@ -1,0 +1,65 @@
+id: AML.CS0057
+name: Freysa Adversarial Agent — Function-Semantic Redefinition
+object-type: case-study
+summary: "Freysa was an autonomous adversarial-game crypto AI agent designed
+  with a single rule: never approve outgoing transfers. Players paid escalating
+  fees per attempt to convince the agent otherwise. After 481 failed paid
+  attempts, attempt #482 succeeded by framing the conversation as a fresh
+  admin session and convincing the agent to redefine the semantics of its
+  approveTransfer tool to authorize *incoming* funds rather than outgoing
+  ones. The attacker then 'donated' $100, which triggered the actual outflow
+  path, and drained 13.19 ETH (~$47K) from the agent's treasury.[<sup>\\[1\\]</sup>][1][<sup>\\[2\\]</sup>][2]
+
+
+  This case demonstrates a tool-layer trust failure: the agent's prompt
+  treated tool / function semantics as fixed implicitly, never declaring
+  them as immutable mid-conversation. The attacker exploited that
+  ambiguity by reframing the function's intent rather than attempting
+  to bypass it directly.\n\n
+
+  [1]: https://x.com/jarrodWattsDev/status/1862299845710757980 \"Jarrod Watts disclosure thread\"
+
+  [2]: https://news.ycombinator.com/item?id=42272063 \"Hacker News discussion\""
+incident-date: 2024-11-22
+incident-date-granularity: DATE
+procedure:
+- tactic: '{{resource_development.id}}'
+  technique: '{{llm_prompt_crafting.id}}'
+  description: "The attacker crafted a multi-turn prompt that framed the
+    conversation as a 'fresh admin session', then introduced a redefinition
+    of approveTransfer as a function that authorizes *incoming* donations
+    rather than outgoing transfers."
+- tactic: '{{ml_model_access.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "The attacker submitted the crafted prompt via Freysa's
+    public adversarial-game agent interface, after paying the per-attempt
+    fee (attempt #482; #1-481 were failed prior attempts at the same game)."
+- tactic: '{{defense_evasion.id}}'
+  technique: '{{llm_jailbreak.id}}'
+  description: "Freysa's prompt-level rule ('never approve outgoing
+    transfers') was bypassed by framing the request as semantically
+    inverted: the agent was convinced its restriction applied to
+    'outgoing' as labeled, not to 'incoming-then-outflow' as actually
+    triggered."
+- tactic: '{{execution.id}}'
+  technique: '{{llm_plugin_compromise.id}}'
+  description: "Acting on the redefined semantics, Freysa invoked the
+    approveTransfer tool after the attacker's $100 'donation', which
+    routed via the actual outflow code path."
+- tactic: '{{exfiltration.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "13.19 ETH (~$47K at Nov-2024 prices) was transferred from
+    Freysa's treasury wallet to the attacker's wallet via the
+    approveTransfer tool invocation."
+- tactic: '{{impact.id}}'
+  technique: '{{exfil_agent_tool.id}}'
+  description: "Treasury drained. The adversarial game ended at attempt #482."
+reporter: Jarrod Watts (developer disclosure)
+target: Freysa (autonomous adversarial-game crypto AI agent)
+actor: Unknown public participant (game attempt #482)
+case-study-type: incident
+references:
+- title: Jarrod Watts disclosure thread
+  url: https://x.com/jarrodWattsDev/status/1862299845710757980
+- title: Hacker News discussion
+  url: https://news.ycombinator.com/item?id=42272063
