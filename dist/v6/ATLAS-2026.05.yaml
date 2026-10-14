@@ -1793,11 +1793,11 @@ techniques:
     description: 'Adversaries may exfiltrate private information via [AI Model Inference
       API Access](/techniques/AML.T0040).
 
-      AI Models have been shown leak private information about their training data
+      AI Models have been shown to leak private information about their training data
       (e.g.  [Infer Training Data Membership](/techniques/AML.T0024.000), [Invert
       AI Model](/techniques/AML.T0024.001)).
 
-      The model itself may also be extracted ([Extract AI Model](/techniques/AML.T0024.002))
+      The model itself may also be extracted using [Extract AI Model](/techniques/AML.T0024.002)
       for the purposes of [AI Intellectual Property Theft](/techniques/AML.T0048.004).
 
 
