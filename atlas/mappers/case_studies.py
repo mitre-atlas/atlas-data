@@ -21,8 +21,10 @@ def to_model(
         actor=body.actor,
         target=body.target,
         reporter=body.reporter,
-        date=body.date,
-        date_granularity=body.date_granularity,
+        start_date=body.start_date,
+        start_date_granularity=body.start_date_granularity,
+        end_date=body.end_date,
+        end_date_granularity=body.end_date_granularity,
     )
 
 
@@ -36,14 +38,19 @@ def update_model(db_obj: models.CaseStudy, body: schemas.CaseStudyInput) -> None
     db_obj.actor = body.actor
     db_obj.target = body.target
     db_obj.reporter = body.reporter
-    db_obj.date = body.date
-    db_obj.date_granularity = body.date_granularity
+    db_obj.start_date = body.start_date
+    db_obj.start_date_granularity = body.start_date_granularity
+    db_obj.end_date = body.end_date
+    db_obj.end_date_granularity = body.end_date_granularity
 
 
 def to_schema(
     db_obj: models.CaseStudy,
 ) -> schemas.CaseStudyResponse:
     attack_chain = []
+    attributed_to = []
+    reported_by = []
+    uses_software = []
     for rel in db_obj.source_relationships:
         if rel.relationship_type == models.AtlasRelationshipType.EMPLOYS:
             extra = rel.extra_fields or {}
@@ -53,6 +60,31 @@ def to_schema(
                     tactic=extra["tactic"],
                     step_id=extra.get("step_id"),
                     leads_to=extra.get("leads_to", []),
+                    description=rel.description,
+                )
+            )
+        elif rel.relationship_type == models.AtlasRelationshipType.ATTRIBUTED_TO:
+            extra = rel.extra_fields or {}
+            attributed_to.append(
+                schemas.AttributedToRelationshipFields(
+                    entity=rel.target,
+                    activity_purpose=extra.get("activity_purpose"),
+                    description=rel.description,
+                )
+            )
+
+        elif rel.relationship_type == models.AtlasRelationshipType.REPORTED_BY:
+            reported_by.append(
+                schemas.ReportedByRelationshipFields(
+                    entity=rel.target,
+                    description=rel.description,
+                )
+            )
+
+        elif rel.relationship_type == models.AtlasRelationshipType.USES:
+            uses_software.append(
+                schemas.UsesSoftwareRelationshipFields(
+                    software=rel.target,
                     description=rel.description,
                 )
             )
@@ -68,9 +100,14 @@ def to_schema(
         actor=db_obj.actor,
         target=db_obj.target,
         reporter=db_obj.reporter,
-        date=db_obj.date,
-        date_granularity=db_obj.date_granularity,
+        start_date=db_obj.start_date,
+        start_date_granularity=db_obj.start_date_granularity,
+        end_date=db_obj.end_date,
+        end_date_granularity=db_obj.end_date_granularity,
         attack_chain=attack_chain,
+        attributed_to=attributed_to,
+        reported_by=reported_by,
+        uses_software=uses_software,
     )
 
 
@@ -86,6 +123,8 @@ def to_export_schema(db_obj: models.CaseStudy) -> schemas.CaseStudy:
         actor=db_obj.actor,
         target=db_obj.target,
         reporter=db_obj.reporter,
-        date=db_obj.date,
-        date_granularity=db_obj.date_granularity,
+        start_date=db_obj.start_date,
+        start_date_granularity=db_obj.start_date_granularity,
+        end_date=db_obj.end_date,
+        end_date_granularity=db_obj.end_date_granularity,
     )

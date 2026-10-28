@@ -3037,6 +3037,11 @@ relationships:
     - source: AML.T0005
       target: AML.TA0001
       relationship-type: achieves
+  AML.T0006:
+    achieves:
+    - source: AML.T0006
+      target: AML.TA0002
+      relationship-type: achieves
   AML.T0007:
     achieves:
     - source: AML.T0007

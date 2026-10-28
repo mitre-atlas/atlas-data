@@ -43,6 +43,16 @@ def build(db: Session, version: str) -> schemas.AtlasExport:
         for c in sorted(services.case_studies.get_all(db, version), key=lambda c: c.id)
     }
 
+    entities = {
+        e.id: mappers.entities.to_export_schema(e)
+        for e in sorted(services.entities.get_all(db, version), key=lambda e: e.id)
+    }
+
+    software = {
+        s.id: mappers.software.to_export_schema(s)
+        for s in sorted(services.software.get_all(db, version), key=lambda s: s.id)
+    }
+
     # Build relationships dict from the DB
     db_rels = (
         db.query(models.Relationship)
@@ -85,6 +95,7 @@ def build(db: Session, version: str) -> schemas.AtlasExport:
                 step_id=extra.get("step_id"),
                 leads_to=extra.get("leads_to"),
                 position=extra.get("position"),
+                activity_purpose=extra.get("activity_purpose"),
             )
         )
 
@@ -103,5 +114,7 @@ def build(db: Session, version: str) -> schemas.AtlasExport:
         techniques=techniques,
         mitigations=mitigations,
         case_studies=case_studies,
+        entities=entities,
+        software=software,
         relationships=relationships,
     )

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from typing import Any, ClassVar
 
 from sqlalchemy import (
     JSON,
@@ -26,12 +27,29 @@ from atlas.enums import (
     AtlasRelationshipType,
     CaseStudyType,
     DateGranularity,
+    EntityType,
+    SoftwareType,
     TechniqueMaturity,
 )
 
 
+class Version(Base):
+    __tablename__ = "versions"
+
+    version: Mapped[str] = mapped_column(primary_key=True)
+    base_version: Mapped[str | None]
+    created_date: Mapped[date] = mapped_column(default=date.today)
+    modified_date: Mapped[date] = mapped_column(default=date.today)
+    publish_date: Mapped[date | None]
+
+
 class AtlasObject(Base):
     __tablename__ = "atlas_objects"
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["version"], ["versions.version"], name="fk_atlas_objects_version"
+        ),
+    )
 
     id: Mapped[str] = mapped_column(primary_key=True)
     version: Mapped[str] = mapped_column(primary_key=True)
@@ -42,11 +60,11 @@ class AtlasObject(Base):
     modified_date: Mapped[date] = mapped_column(default=date.today)
     object_type: Mapped[AtlasObjectType] = mapped_column(SQLEnum(AtlasObjectType))
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_on": "object_type",
     }
 
-    source_relationships: Mapped[list["Relationship"]] = relationship(
+    source_relationships: Mapped[list[Relationship]] = relationship(
         "Relationship",
         foreign_keys=lambda: [Relationship.source, Relationship.version],
         primaryjoin=lambda: and_(
@@ -57,7 +75,7 @@ class AtlasObject(Base):
         cascade="all, delete-orphan",
     )
 
-    target_relationships: Mapped[list["Relationship"]] = relationship(
+    target_relationships: Mapped[list[Relationship]] = relationship(
         "Relationship",
         foreign_keys=lambda: [Relationship.target, Relationship.version],
         primaryjoin=lambda: and_(
@@ -84,11 +102,11 @@ class Tactic(AtlasObject):
         ),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.TACTIC,
     }
 
-    techniques: Mapped[list["Technique"]] = relationship(
+    techniques: Mapped[list[Technique]] = relationship(
         "Technique",
         secondary="relationships",
         primaryjoin=lambda: and_(
@@ -121,12 +139,12 @@ class Technique(AtlasObject):
         ),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.TECHNIQUE,
     }
 
     @property
-    def tactics(self) -> list["Tactic"]:
+    def tactics(self) -> list[Tactic]:
         return [
             rel.target_object
             for rel in self.source_relationships
@@ -134,14 +152,14 @@ class Technique(AtlasObject):
         ]
 
     @property
-    def parent(self) -> "Technique | None":
+    def parent(self) -> Technique | None:
         for rel in self.source_relationships:
             if rel.relationship_type == AtlasRelationshipType.SPECIALIZES:
                 return rel.target_object
         return None
 
     @property
-    def subtechniques(self) -> list["Technique"]:
+    def subtechniques(self) -> list[Technique]:
         return [
             rel.source_object
             for rel in self.target_relationships
@@ -149,7 +167,7 @@ class Technique(AtlasObject):
         ]
 
     @property
-    def mitigated_by(self) -> list["Mitigation"]:
+    def mitigated_by(self) -> list[Mitigation]:
         return [
             rel.source_object
             for rel in self.target_relationships
@@ -173,11 +191,11 @@ class Mitigation(AtlasObject):
         ),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.MITIGATION,
     }
 
-    mitigates: Mapped[list["Technique"]] = relationship(
+    mitigates: Mapped[list[Technique]] = relationship(
         "Technique",
         secondary="relationships",
         primaryjoin=lambda: and_(
@@ -194,17 +212,14 @@ class Mitigation(AtlasObject):
     )
 
 
-class CaseStudy(AtlasObject):
-    __tablename__ = "case_studies"
+class Entity(AtlasObject):
+    __tablename__ = "entities"
 
     id: Mapped[str] = mapped_column(primary_key=True)
     version: Mapped[str] = mapped_column(primary_key=True)
-    type: Mapped[CaseStudyType] = mapped_column(SQLEnum(CaseStudyType))
-    actor: Mapped[str]
-    target: Mapped[str]
-    reporter: Mapped[str | None]
-    date: Mapped[date]
-    date_granularity: Mapped[DateGranularity] = mapped_column(SQLEnum(DateGranularity))
+    entity_type: Mapped[EntityType] = mapped_column(SQLEnum(EntityType))
+    associated_entities: Mapped[list | None] = mapped_column(JSON)
+    attack_reference: Mapped[dict | None] = mapped_column(JSON)
 
     __table_args__ = (
         ForeignKeyConstraint(
@@ -213,12 +228,69 @@ class CaseStudy(AtlasObject):
         ),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
+        "polymorphic_identity": AtlasObjectType.ENTITY,
+    }
+
+
+class Software(AtlasObject):
+    __tablename__ = "software"
+
+    id: Mapped[str] = mapped_column(primary_key=True)
+    version: Mapped[str] = mapped_column(primary_key=True)
+    software_type: Mapped[SoftwareType] = mapped_column(SQLEnum(SoftwareType))
+    software_categories: Mapped[list | None] = mapped_column(JSON, default=list)
+    aliases: Mapped[list | None] = mapped_column(JSON, default=list)
+    attack_reference: Mapped[dict | None] = mapped_column(JSON)
+
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["id", "version"],
+            ["atlas_objects.id", "atlas_objects.version"],
+        ),
+    )
+
+    __mapper_args__: ClassVar[dict[str, Any]] = {
+        "polymorphic_identity": AtlasObjectType.SOFTWARE,
+    }
+
+
+class CaseStudy(AtlasObject):
+    __tablename__ = "case_studies"
+
+    id: Mapped[str] = mapped_column(primary_key=True)
+    version: Mapped[str] = mapped_column(primary_key=True)
+    type: Mapped[CaseStudyType] = mapped_column(SQLEnum(CaseStudyType))
+    actor: Mapped[str | None]
+    target: Mapped[str]
+    reporter: Mapped[str | None]
+    start_date: Mapped[date]
+    start_date_granularity: Mapped[DateGranularity] = mapped_column(
+        SQLEnum(DateGranularity)
+    )
+    end_date: Mapped[date | None]
+    end_date_granularity: Mapped[DateGranularity | None] = mapped_column(
+        SQLEnum(DateGranularity)
+    )
+
+    __table_args__ = (
+        CheckConstraint(
+            "(end_date IS NULL AND end_date_granularity IS NULL) OR "
+            "(end_date IS NOT NULL AND end_date_granularity IS NOT NULL)",
+            name="ck_case_studies_end_date_pair",
+        ),
+        ForeignKeyConstraint(
+            ["id", "version"],
+            ["atlas_objects.id", "atlas_objects.version"],
+        ),
+    )
+
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.CASE_STUDY,
     }
 
     @property
-    def attack_chain(self) -> list["Technique"]:
+    def attack_chain(self) -> list[Technique]:
         return [
             rel.target_object
             for rel in self.source_relationships
@@ -240,7 +312,7 @@ class Collection(AtlasObject):
         Index("idx_collections_version_unique", "version", unique=True),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.COLLECTION,
     }
 
@@ -258,11 +330,11 @@ class Matrix(AtlasObject):
         ),
     )
 
-    __mapper_args__ = {
+    __mapper_args__: ClassVar[dict[str, Any]] = {
         "polymorphic_identity": AtlasObjectType.MATRIX,
     }
 
-    tactics: Mapped[list["Tactic"]] = relationship(
+    tactics: Mapped[list[Tactic]] = relationship(
         "Tactic",
         secondary="relationships",
         primaryjoin=lambda: and_(
@@ -277,16 +349,6 @@ class Matrix(AtlasObject):
         lazy="select",
         viewonly=True,
     )
-
-
-class Version(Base):
-    __tablename__ = "versions"
-
-    version: Mapped[str] = mapped_column(primary_key=True)
-    base_version: Mapped[str | None]
-    created_date: Mapped[date] = mapped_column(default=date.today)
-    modified_date: Mapped[date] = mapped_column(default=date.today)
-    publish_date: Mapped[date | None]
 
 
 class FormatVersion(Base):
@@ -311,7 +373,7 @@ class Relationship(Base):
     description: Mapped[str | None]
     extra_fields: Mapped[dict | None] = mapped_column(JSON)
 
-    source_object: Mapped["AtlasObject"] = relationship(
+    source_object: Mapped[AtlasObject] = relationship(
         "AtlasObject",
         foreign_keys=lambda: [Relationship.source, Relationship.version],
         primaryjoin=lambda: and_(
@@ -323,7 +385,7 @@ class Relationship(Base):
         overlaps="source_relationships",
     )
 
-    target_object: Mapped["AtlasObject"] = relationship(
+    target_object: Mapped[AtlasObject] = relationship(
         "AtlasObject",
         foreign_keys=lambda: [Relationship.target, Relationship.version],
         primaryjoin=lambda: and_(

@@ -1,10 +1,11 @@
 [project]
 name = "atlas-data"
-version = "6.0.0"
+version = "6.1.0"
 description = "ATLAS Data"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.18.4",
     "fastapi[standard]>=0.136.1",
     "pandas>=2.3.3",
     "pydantic>=2.13.4",
@@ -26,12 +27,13 @@ populate-atlas-db = "tools.populate_atlas_db:main"
 atlas-to-stix = "tools.atlas_to_stix:main"
 atlas-to-excel = "tools.atlas_to_excel:main"
 generate-navigator-layers = "tools.generate_navigator_layers:main"
+generate-attack-flows = "tools.generate_attack_flows:main"
 
 [tool.uv]
 package = true
 
 [tool.setuptools.packages.find]
-include = ["atlas", "tools", "atlas.*", "tools.*"]
+include = ["atlas", "tools", "migrations", "atlas.*", "tools.*", "migrations.*"]
 
 [build-system]
 requires = ["setuptools>=75"]

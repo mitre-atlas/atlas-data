@@ -1,8 +1,10 @@
 from atlas.mappers import (
     case_studies,
     collections,
+    entities,
     matrices,
     mitigations,
+    software,
     tactics,
     techniques,
     versions,
@@ -11,8 +13,10 @@ from atlas.mappers import (
 __all__ = [
     "case_studies",
     "collections",
+    "entities",
     "matrices",
     "mitigations",
+    "software",
     "tactics",
     "techniques",
     "versions",

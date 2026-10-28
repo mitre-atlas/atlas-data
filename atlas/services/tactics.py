@@ -7,10 +7,11 @@ from atlas import models, schemas
 from atlas.db import transactional
 from atlas.enums import AtlasObjectType
 from atlas.mappers import tactics as tactic_mapper
-from atlas.services.common import generate_next_id
+from atlas.services.common import generate_next_id, require_version
 
 
 def create(db: Session, tactic: schemas.TacticInput, version: str) -> models.Tactic:
+    require_version(db, version)
     tactic_id = generate_next_id(db, AtlasObjectType.TACTIC, version)
 
     db_tactic = tactic_mapper.to_model(tactic, tactic_id=tactic_id, version=version)

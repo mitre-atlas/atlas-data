@@ -1,0 +1,75 @@
+name: Release Assets Attack Flows
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Existing release tag to upload assets to (e.g., v1.2.3)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ inputs.tag }}
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+
+      - name: Resolve release tag and versioned input
+        id: tag
+        run: |
+          TAG="${{ inputs.tag }}"
+
+          if ! [[ "$TAG" =~ ^v[0-9]{4}\.[0-9]{2}(\.[0-9]+)?$ ]]; then
+            echo "Invalid tag format: $TAG. Expected vYYYY.MM or vYYYY.MM.N"
+            exit 1
+          fi
+
+          VERSION="${TAG#v}"
+          INPUT="dist/v6/ATLAS-${VERSION}.yaml"
+
+          if [ ! -f "$INPUT" ]; then
+            echo "Versioned input file not found: $INPUT"
+            exit 1
+          fi
+
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+          echo "input=$INPUT" >> "$GITHUB_OUTPUT"
+
+      - name: Verify release exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view "${{ steps.tag.outputs.value }}" --repo "${{ github.repository }}"
+
+      - name: Generate Attack Flow JSON
+        run: |
+          uv run tools/generate_attack_flows.py \
+            -i "${{ steps.tag.outputs.input }}" \
+            -o dist/attack-flows
+
+      - name: Stage prefixed Attack Flow assets
+        run: |
+          mkdir -p release-assets
+          for file in dist/attack-flows/*.json; do
+            base="$(basename "$file")"
+            cp "$file" "release-assets/attack-flow-$base"
+          done
+
+      - name: Upload Attack Flow assets to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.tag.outputs.value }}" \
+            release-assets/* \
+            --repo "${{ github.repository }}" \
+            --clobber

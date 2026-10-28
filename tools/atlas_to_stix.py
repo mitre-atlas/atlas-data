@@ -17,12 +17,17 @@ from stix2.v21 import (
     CustomObject,
     ExternalReference,
     Identity,
+    IntrusionSet,
     KillChainPhase,
+    Malware,
     Relationship,
+    Tool,
 )
 
 from atlas import schemas
-from atlas.enums import AtlasRelationshipType
+from atlas.enums import ActivityPurpose, AtlasRelationshipType, EntityType, SoftwareType
+
+STIX_UUID_DOMAIN = uuid.UUID(b"atlas.mitre.org.".hex())
 
 
 @CustomObject(
@@ -113,6 +118,14 @@ def _attack_ref(obj) -> ExternalReference | None:
     )
 
 
+def _relationship_id(source_ref: str, relationship_type: str, target_ref: str) -> str:
+    relationship_uuid = uuid.uuid5(
+        STIX_UUID_DOMAIN,
+        f"{source_ref}\0{relationship_type}\0{target_ref}",
+    )
+    return f"relationship--{relationship_uuid}"
+
+
 def get_latest_attack_stix_json(domain: str = "enterprise-attack") -> dict:
     resp = requests.get(
         f"https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/{domain}/{domain}.json",
@@ -120,6 +133,11 @@ def get_latest_attack_stix_json(domain: str = "enterprise-attack") -> dict:
     )
     resp.raise_for_status()
     return resp.json()
+
+
+def load_attack_stix_json(path: Path) -> dict:
+    with path.open(encoding="utf-8") as file:
+        return json.load(file)
 
 
 class AtlasToStix:
@@ -146,6 +164,8 @@ class AtlasToStix:
         self.technique_stix_by_id: dict[str, AttackPattern] = {}
         self.mitigation_stix_by_id: dict[str, CourseOfAction] = {}
         self.case_study_stix_by_id: dict[str, Campaign] = {}
+        self.entity_stix_by_id: dict[str, IntrusionSet | Identity] = {}
+        self.software_stix_by_id: dict[str, Malware | Tool] = {}
 
         self.achieves_by_source: dict[str, list[schemas.AtlasRelationship]] = (
             defaultdict(list)
@@ -154,6 +174,9 @@ class AtlasToStix:
         self.mitigates_edges: list[schemas.AtlasRelationship] = []
         self.sequence_edges: list[schemas.AtlasRelationship] = []
         self.employs_edges: list[schemas.AtlasRelationship] = []
+        self.attributed_to_edges: list[schemas.AtlasRelationship] = []
+        self.uses_edges: list[schemas.AtlasRelationship] = []
+        self.implements_edges: list[schemas.AtlasRelationship] = []
 
         self._collect_relationships()
         self.allowed_technique_ids = self._allowed_technique_ids()
@@ -201,6 +224,12 @@ class AtlasToStix:
                     self.sequence_edges.extend(rels)
                 elif rel_type == AtlasRelationshipType.EMPLOYS:
                     self.employs_edges.extend(rels)
+                elif rel_type == AtlasRelationshipType.ATTRIBUTED_TO:
+                    self.attributed_to_edges.extend(rels)
+                elif rel_type == AtlasRelationshipType.USES:
+                    self.uses_edges.extend(rels)
+                elif rel_type == AtlasRelationshipType.IMPLEMENTS:
+                    self.implements_edges.extend(rels)
 
         for source, rels in self.achieves_by_source.items():
             self.achieves_by_source[source] = sorted(rels, key=lambda rel: rel.target)
@@ -215,6 +244,45 @@ class AtlasToStix:
         self.employs_edges.sort(
             key=lambda rel: (rel.source, rel.step_id or "", rel.target)
         )
+        self.attributed_to_edges.sort(key=lambda rel: (rel.source, rel.target))
+        self.uses_edges.sort(key=lambda rel: (rel.source, rel.target))
+        self.implements_edges.sort(key=lambda rel: (rel.source, rel.target))
+
+    def _append_relationship(
+        self,
+        relationships: list[Relationship],
+        seen_triples: set[tuple[str, str, str]],
+        source_ref: str,
+        relationship_type: str,
+        target_ref: str,
+        description: str | None,
+        created: str,
+        modified: str,
+    ) -> None:
+        triple = (source_ref, relationship_type, target_ref)
+        if triple in seen_triples:
+            return
+        seen_triples.add(triple)
+        relationships.append(
+            Relationship(
+                id=_relationship_id(*triple),
+                source_ref=source_ref,
+                relationship_type=relationship_type,
+                target_ref=target_ref,
+                description=description,
+                created=created,
+                modified=modified,
+                allow_custom=relationship_type.startswith("x-"),
+            )
+        )
+
+    def _entity_use_meets_threshold(self, rel: schemas.AtlasRelationship) -> bool:
+        if rel.activity_purpose in {
+            ActivityPurpose.ADVERSARIAL_OPERATION,
+            ActivityPurpose.UNINTENDED_CONSEQUENCE,
+        }:
+            return True
+        return self.maturity_threshold != "realized"
 
     def _kill_chain_for_technique(self, technique_id: str) -> list[KillChainPhase]:
         phases: list[KillChainPhase] = []
@@ -232,6 +300,7 @@ class AtlasToStix:
 
     def build(self) -> dict:
         stix_relationships: list[Relationship] = []
+        seen_relationship_triples: set[tuple[str, str, str]] = set()
 
         for tactic_id in sorted(self.export.tactics):
             t = self.export.tactics[tactic_id]
@@ -313,6 +382,88 @@ class AtlasToStix:
                     modified=_ts(cs.modified_date),
                 )
 
+        for entity_id in sorted(self.export.entities):
+            entity = self.export.entities[entity_id]
+            refs = _atlas_ref(entity.id, self.atlas_url, self.source_name, "entities")
+            attack_ref = _attack_ref(entity)
+            if attack_ref is not None:
+                refs.append(attack_ref)
+
+            associated_group_refs = []
+            for associated_entity in entity.associated_entities:
+                if associated_entity.description:
+                    associated_group_refs.append(
+                        {
+                            "source_name": associated_entity.name,
+                            "description": associated_entity.description,
+                        }
+                    )
+            refs.extend(associated_group_refs)
+
+            if entity.entity_type == EntityType.ACTIVITY_CLUSTER:
+                aliases = []
+                seen_names = {entity.name.casefold()}
+                for associated_entity in entity.associated_entities:
+                    alias = associated_entity.name
+                    normalized_name = alias.casefold()
+                    if normalized_name in seen_names:
+                        continue
+                    aliases.append(alias)
+                    seen_names.add(normalized_name)
+                kwargs = {
+                    "id": f"intrusion-set--{entity.uuid}",
+                    "name": entity.name,
+                    "description": entity.description,
+                    "external_references": refs,
+                    "created": _ts(entity.created_date),
+                    "modified": _ts(entity.modified_date),
+                }
+                if aliases:
+                    kwargs["aliases"] = aliases
+                self.entity_stix_by_id[entity.id] = IntrusionSet(**kwargs)
+            else:
+                identity_class = {
+                    EntityType.ORGANIZATION: "organization",
+                    EntityType.TEAM: "group",
+                    EntityType.INDIVIDUAL: "individual",
+                }[entity.entity_type]
+                self.entity_stix_by_id[entity.id] = Identity(
+                    id=f"identity--{entity.uuid}",
+                    name=entity.name,
+                    description=entity.description,
+                    identity_class=identity_class,
+                    external_references=refs,
+                    created=_ts(entity.created_date),
+                    modified=_ts(entity.modified_date),
+                )
+
+        for software_id in sorted(self.export.software):
+            software = self.export.software[software_id]
+            refs = _atlas_ref(software.id, self.atlas_url, self.source_name, "software")
+            attack_ref = _attack_ref(software)
+            if attack_ref is not None:
+                refs.append(attack_ref)
+            kwargs = {
+                "id": (
+                    f"malware--{software.uuid}"
+                    if software.software_type == SoftwareType.MALWARE
+                    else f"tool--{software.uuid}"
+                ),
+                "name": software.name,
+                "description": software.description,
+                "external_references": refs,
+                "created": _ts(software.created_date),
+                "modified": _ts(software.modified_date),
+            }
+            if software.software_type == SoftwareType.MALWARE:
+                if software.aliases:
+                    kwargs["aliases"] = software.aliases
+                self.software_stix_by_id[software.id] = Malware(
+                    **kwargs, is_family=True
+                )
+            else:
+                self.software_stix_by_id[software.id] = Tool(**kwargs)
+
         for rel in self.specializes_edges:
             if (
                 rel.source not in self.allowed_technique_ids
@@ -334,20 +485,15 @@ class AtlasToStix:
                 if source_technique is not None
                 else _ts(self.export.collection.modified_date)
             )
-            relationship_uuid = uuid.uuid5(
-                uuid.UUID("atlas.mitre.org.".encode("utf-8").hex()),
-                f"{rel.source}-subtechnique-of-{rel.target}",
-            )
-            stix_relationships.append(
-                Relationship(
-                    id=f"relationship--{relationship_uuid}",
-                    source_ref=source.id,
-                    relationship_type="subtechnique-of",
-                    target_ref=target.id,
-                    description=rel.description,
-                    created=rel_created,
-                    modified=rel_modified,
-                )
+            self._append_relationship(
+                stix_relationships,
+                seen_relationship_triples,
+                source.id,
+                "subtechnique-of",
+                target.id,
+                rel.description,
+                rel_created,
+                rel_modified,
             )
 
         for rel in self.mitigates_edges:
@@ -368,20 +514,15 @@ class AtlasToStix:
                 if source_mitigation is not None
                 else _ts(self.export.collection.modified_date)
             )
-            relationship_uuid = uuid.uuid5(
-                uuid.UUID("atlas.mitre.org.".encode("utf-8").hex()),
-                f"{rel.source}-mitigates-{rel.target}",
-            )
-            stix_relationships.append(
-                Relationship(
-                    id=f"relationship--{relationship_uuid}",
-                    source_ref=source.id,
-                    relationship_type="mitigates",
-                    target_ref=target.id,
-                    description=rel.description,
-                    created=rel_created,
-                    modified=rel_modified,
-                )
+            self._append_relationship(
+                stix_relationships,
+                seen_relationship_triples,
+                source.id,
+                "mitigates",
+                target.id,
+                rel.description,
+                rel_created,
+                rel_modified,
             )
 
         if self.include_case_studies:
@@ -407,21 +548,83 @@ class AtlasToStix:
                     if source_case_study is not None
                     else _ts(self.export.collection.modified_date)
                 )
-                relationship_uuid = uuid.uuid5(
-                    uuid.UUID("atlas.mitre.org.".encode("utf-8").hex()),
-                    f"{rel.source}-uses-{rel.target}",
+                self._append_relationship(
+                    stix_relationships,
+                    seen_relationship_triples,
+                    source.id,
+                    "uses",
+                    target.id,
+                    rel.description,
+                    rel_created,
+                    rel_modified,
                 )
-                stix_relationships.append(
-                    Relationship(
-                        id=f"relationship--{relationship_uuid}",
-                        source_ref=source.id,
-                        relationship_type="uses",
-                        target_ref=target.id,
-                        description=rel.description,
-                        created=rel_created,
-                        modified=rel_modified,
-                    )
+
+            for rel in self.attributed_to_edges:
+                source = self.case_study_stix_by_id.get(rel.source)
+                target = self.entity_stix_by_id.get(rel.target)
+                if source is None or target is None:
+                    continue
+                source_case_study = self.export.case_studies[rel.source]
+                self._append_relationship(
+                    stix_relationships,
+                    seen_relationship_triples,
+                    source.id,
+                    "attributed-to",
+                    target.id,
+                    rel.description,
+                    _ts(source_case_study.created_date),
+                    _ts(source_case_study.modified_date),
                 )
+
+        for rel in self.uses_edges:
+            source_object = self.export.entities.get(rel.source)
+            source = self.entity_stix_by_id.get(rel.source)
+            if rel.source in self.export.case_studies:
+                source_object = self.export.case_studies[rel.source]
+                source = self.case_study_stix_by_id.get(rel.source)
+            if source is None or source_object is None:
+                continue
+
+            target = self.software_stix_by_id.get(rel.target)
+            if target is None and rel.target in self.allowed_technique_ids:
+                target = self.technique_stix_by_id.get(rel.target)
+            if target is None:
+                continue
+
+            if (
+                rel.target in self.export.techniques
+                and not self._entity_use_meets_threshold(rel)
+            ):
+                continue
+            self._append_relationship(
+                stix_relationships,
+                seen_relationship_triples,
+                source.id,
+                "uses",
+                target.id,
+                rel.description,
+                _ts(source_object.created_date),
+                _ts(source_object.modified_date),
+            )
+
+        for rel in self.implements_edges:
+            if rel.target not in self.allowed_technique_ids:
+                continue
+            source = self.software_stix_by_id.get(rel.source)
+            target = self.technique_stix_by_id.get(rel.target)
+            source_software = self.export.software.get(rel.source)
+            if source is None or target is None or source_software is None:
+                continue
+            self._append_relationship(
+                stix_relationships,
+                seen_relationship_triples,
+                source.id,
+                "uses",
+                target.id,
+                rel.description,
+                _ts(source_software.created_date),
+                _ts(source_software.modified_date),
+            )
 
         sequence_edges = [
             rel for rel in self.sequence_edges if rel.source == self.export.matrix.id
@@ -456,13 +659,13 @@ class AtlasToStix:
             modified=_ts(self.export.matrix.modified_date),
         )
 
-        identity_uuid = uuid.uuid5(
-            uuid.UUID("atlas.mitre.org.".encode("utf-8").hex()), "ATLAS-identity"
-        )
+        identity_uuid = uuid.uuid5(STIX_UUID_DOMAIN, "ATLAS-identity")
         identity = Identity(
             id=f"identity--{identity_uuid}",
             name=self.identity_name,
             description=self.atlas_url,
+            created=_ts(self.export.collection.created_date),
+            modified=_ts(self.export.collection.modified_date),
         )
 
         stix_data_objects = (
@@ -470,6 +673,8 @@ class AtlasToStix:
             + list(self.technique_stix_by_id.values())
             + list(self.mitigation_stix_by_id.values())
             + list(self.case_study_stix_by_id.values())
+            + list(self.entity_stix_by_id.values())
+            + list(self.software_stix_by_id.values())
             + stix_relationships
             + [stix_matrix_obj]
         )
@@ -488,26 +693,25 @@ class AtlasToStix:
             object_marking_refs=[],
             x_mitre_contents=[
                 {
-                    "object_ref": getattr(obj, "id"),
-                    "object_modified": getattr(obj, "modified"),
+                    "object_ref": obj.id,
+                    "object_modified": obj.modified,
                 }
                 for obj in stix_data_objects
                 if hasattr(obj, "id") and hasattr(obj, "modified")
             ],
         )
 
-        bundle_uuid = uuid.uuid5(
-            uuid.UUID("atlas.mitre.org.".encode("utf-8").hex()), "ATLAS-bundle"
-        )
+        bundle_uuid = uuid.uuid5(STIX_UUID_DOMAIN, "ATLAS-bundle")
         bundle = Bundle(
             id=f"bundle--{bundle_uuid}",
-            objects=stix_data_objects + [stix_collection_obj],
+            objects=stix_data_objects + [identity, stix_collection_obj],
             allow_custom=True,
         )
         stix_json = json.loads(bundle.serialize())
 
         if self.existing_stix_json:
             existing_objs = []
+            merged_relationship_triples: set[tuple[str, str, str]] = set()
             for obj in self.existing_stix_json.get("objects", []):
                 if (
                     obj.get("type") == "x-mitre-matrix"
@@ -520,8 +724,27 @@ class AtlasToStix:
                 ):
                     if "atlas-atlas" not in obj["x_mitre_domains"]:
                         obj["x_mitre_domains"].append("atlas-atlas")
+                if obj.get("type") == "relationship":
+                    triple = (
+                        obj.get("source_ref"),
+                        obj.get("relationship_type"),
+                        obj.get("target_ref"),
+                    )
+                    if triple in merged_relationship_triples:
+                        continue
+                    merged_relationship_triples.add(triple)
                 existing_objs.append(obj)
-            existing_objs.extend(stix_json["objects"])
+            for obj in stix_json["objects"]:
+                if obj.get("type") == "relationship":
+                    triple = (
+                        obj.get("source_ref"),
+                        obj.get("relationship_type"),
+                        obj.get("target_ref"),
+                    )
+                    if triple in merged_relationship_triples:
+                        continue
+                    merged_relationship_triples.add(triple)
+                existing_objs.append(obj)
             self.existing_stix_json["objects"] = existing_objs
             return self.existing_stix_json
 
@@ -575,6 +798,11 @@ def main() -> None:
         help="Include latest ATT&CK Enterprise STIX data",
     )
     parser.add_argument(
+        "--attack-input",
+        type=Path,
+        help="Use a local ATT&CK STIX JSON snapshot with --include-attack",
+    )
+    parser.add_argument(
         "--include-case-studies",
         dest="include_case_studies",
         default=False,
@@ -598,7 +826,11 @@ def main() -> None:
 
     attack_stix_json = None
     if args.include_attack:
-        attack_stix_json = get_latest_attack_stix_json()
+        attack_stix_json = (
+            load_attack_stix_json(args.attack_input)
+            if args.attack_input is not None
+            else get_latest_attack_stix_json()
+        )
 
     converter = AtlasToStix(
         export=export,

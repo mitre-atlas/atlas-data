@@ -46,6 +46,10 @@ def _atlas_object_url(atlas_url: str, obj_id: str) -> str:
         route = "mitigations"
     elif obj_id.startswith("AML.CS"):
         route = "case-studies"
+    elif obj_id.startswith("AML.E"):
+        route = "entities"
+    elif obj_id.startswith("AML.S"):
+        route = "software"
     else:
         route = "objects"
     return f"{atlas_url.rstrip('/')}/{route}/{obj_id}"
@@ -184,9 +188,12 @@ def _build_mitigation_dataframes(
 def _build_case_study_dataframes(
     atlas_data: schemas.AtlasExport,
     atlas_url: str,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     case_study_rows = []
     techniques_used_rows = []
+    entities_attributed_rows = []
+    entities_reporting_rows = []
+    software_used_rows = []
 
     tactic_name_by_id = {
         tactic.id: tactic.name for tactic in atlas_data.tactics.values()
@@ -203,13 +210,25 @@ def _build_case_study_dataframes(
                 "created": _format_date(case_study.created_date),
                 "last modified": _format_date(case_study.modified_date),
                 "type": case_study.type.value,
-                "actor": case_study.actor,
+                "verbatim scalar actor attribution": case_study.actor,
                 "target": case_study.target,
                 "reporter": case_study.reporter or "",
-                "date": _format_case_study_date(
-                    case_study.date, case_study.date_granularity
+                "start date": _format_case_study_date(
+                    case_study.start_date, case_study.start_date_granularity
                 ),
-                "date granularity": case_study.date_granularity.value,
+                "start date granularity": case_study.start_date_granularity.value,
+                "end date": (
+                    _format_case_study_date(
+                        case_study.end_date, case_study.end_date_granularity
+                    )
+                    if case_study.end_date is not None
+                    else ""
+                ),
+                "end date granularity": (
+                    case_study.end_date_granularity.value
+                    if case_study.end_date_granularity is not None
+                    else ""
+                ),
                 "references": _format_references(case_study.references),
             }
         )
@@ -238,13 +257,217 @@ def _build_case_study_dataframes(
                 }
             )
 
+        attributed_to = atlas_data.relationships.get(case_study.id, {}).get(
+            AtlasRelationshipType.ATTRIBUTED_TO, []
+        )
+        for rel in sorted(attributed_to, key=lambda x: x.target):
+            entity = atlas_data.entities.get(rel.target)
+            entities_attributed_rows.append(
+                {
+                    "case study ID": case_study.id,
+                    "case study name": case_study.name,
+                    "source type": "case-study",
+                    "source ID": case_study.id,
+                    "source name": case_study.name,
+                    "target entity ID": rel.target,
+                    "target entity name": entity.name if entity else "",
+                    "target entity type": entity.entity_type.value if entity else "",
+                    "activity purpose": rel.activity_purpose.value
+                    if rel.activity_purpose
+                    else "",
+                    "description": rel.description or "",
+                }
+            )
+
+        reported_by = atlas_data.relationships.get(case_study.id, {}).get(
+            AtlasRelationshipType.REPORTED_BY, []
+        )
+        for rel in sorted(reported_by, key=lambda x: x.target):
+            entity = atlas_data.entities[rel.target]
+            entities_reporting_rows.append(
+                {
+                    "case study ID": case_study.id,
+                    "case study name": case_study.name,
+                    "source type": "case-study",
+                    "source ID": case_study.id,
+                    "source name": case_study.name,
+                    "target entity ID": entity.id,
+                    "target entity name": entity.name,
+                    "target entity type": entity.entity_type.value,
+                    "description": rel.description or "",
+                }
+            )
+
+        uses = atlas_data.relationships.get(case_study.id, {}).get(
+            AtlasRelationshipType.USES, []
+        )
+        for rel in sorted(uses, key=lambda x: x.target):
+            software = atlas_data.software[rel.target]
+            software_used_rows.append(
+                {
+                    "case study ID": case_study.id,
+                    "case study name": case_study.name,
+                    "source type": "case-study",
+                    "source ID": case_study.id,
+                    "source name": case_study.name,
+                    "target software ID": software.id,
+                    "target software name": software.name,
+                    "description": rel.description or "",
+                }
+            )
+
     case_studies_df = pd.DataFrame(case_study_rows)
     techniques_used_df = pd.DataFrame(techniques_used_rows)
+    entities_attributed_df = pd.DataFrame(entities_attributed_rows)
     if not techniques_used_df.empty:
         techniques_used_df = techniques_used_df.sort_values(
             ["case study ID", "step ID", "target technique ID"]
         )
-    return case_studies_df, techniques_used_df
+    if not entities_attributed_df.empty:
+        entities_attributed_df = entities_attributed_df.sort_values(
+            ["case study ID", "target entity ID"]
+        )
+    return (
+        case_studies_df,
+        techniques_used_df,
+        entities_attributed_df,
+        pd.DataFrame(entities_reporting_rows),
+        pd.DataFrame(software_used_rows),
+    )
+
+
+def _attack_reference_fields(
+    attack_reference: schemas.AttackReference | None,
+) -> dict[str, str]:
+    if attack_reference is None:
+        return {"ATT&CK ID": "", "ATT&CK URL": ""}
+    return {
+        "ATT&CK ID": attack_reference.id,
+        "ATT&CK URL": str(attack_reference.url),
+    }
+
+
+def _build_entity_dataframes(
+    atlas_data: schemas.AtlasExport,
+    atlas_url: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    entity_rows = []
+    techniques_used_rows = []
+    software_used_rows = []
+
+    for entity in sorted(atlas_data.entities.values(), key=lambda x: x.id):
+        entity_rows.append(
+            {
+                "ID": entity.id,
+                "name": entity.name,
+                "description": entity.description,
+                "url": _atlas_object_url(atlas_url, entity.id),
+                "created": _format_date(entity.created_date),
+                "last modified": _format_date(entity.modified_date),
+                "entity type": entity.entity_type.value,
+                "associated entities": "; ".join(
+                    associated_entity.name
+                    + (
+                        f": {associated_entity.description}"
+                        if associated_entity.description
+                        else ""
+                    )
+                    for associated_entity in entity.associated_entities
+                ),
+                **_attack_reference_fields(entity.attack_reference),
+                "references": _format_references(entity.references),
+            }
+        )
+
+        uses = atlas_data.relationships.get(entity.id, {}).get(
+            AtlasRelationshipType.USES, []
+        )
+        for rel in sorted(uses, key=lambda x: x.target):
+            common = {
+                "entity ID": entity.id,
+                "entity name": entity.name,
+                "entity type": entity.entity_type.value,
+                "source type": "entity",
+                "source ID": entity.id,
+                "source name": entity.name,
+                "description": rel.description or "",
+            }
+            if technique := atlas_data.techniques.get(rel.target):
+                techniques_used_rows.append(
+                    {
+                        **common,
+                        "target technique ID": technique.id,
+                        "target technique name": technique.name,
+                        "activity purpose": rel.activity_purpose.value
+                        if rel.activity_purpose
+                        else "",
+                    }
+                )
+            elif software := atlas_data.software.get(rel.target):
+                software_used_rows.append(
+                    {
+                        **common,
+                        "target software ID": software.id,
+                        "target software name": software.name,
+                        "target software type": software.software_type.value,
+                    }
+                )
+
+    return (
+        pd.DataFrame(entity_rows),
+        pd.DataFrame(techniques_used_rows),
+        pd.DataFrame(software_used_rows),
+    )
+
+
+def _build_software_dataframes(
+    atlas_data: schemas.AtlasExport,
+    atlas_url: str,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    software_rows = []
+    techniques_implemented_rows = []
+
+    for software in sorted(atlas_data.software.values(), key=lambda x: x.id):
+        software_rows.append(
+            {
+                "ID": software.id,
+                "name": software.name,
+                "description": software.description,
+                "url": _atlas_object_url(atlas_url, software.id),
+                "created": _format_date(software.created_date),
+                "last modified": _format_date(software.modified_date),
+                "software type": software.software_type.value,
+                "software categories": ", ".join(
+                    software.model_dump(mode="json")["software_categories"]
+                ),
+                "aliases": ", ".join(software.aliases),
+                **_attack_reference_fields(software.attack_reference),
+                "references": _format_references(software.references),
+            }
+        )
+
+        implements = atlas_data.relationships.get(software.id, {}).get(
+            AtlasRelationshipType.IMPLEMENTS, []
+        )
+        for rel in sorted(implements, key=lambda x: x.target):
+            technique = atlas_data.techniques.get(rel.target)
+            if technique is None:
+                continue
+            techniques_implemented_rows.append(
+                {
+                    "software ID": software.id,
+                    "software name": software.name,
+                    "software type": software.software_type.value,
+                    "source type": "software",
+                    "source ID": software.id,
+                    "source name": software.name,
+                    "target technique ID": technique.id,
+                    "target technique name": technique.name,
+                    "description": rel.description or "",
+                }
+            )
+
+    return pd.DataFrame(software_rows), pd.DataFrame(techniques_implemented_rows)
 
 
 def _build_matrix_df(atlas_data: schemas.AtlasExport) -> pd.DataFrame:
@@ -424,7 +647,17 @@ def export_to_excel(
     mitigations_df, techniques_addressed_df = _build_mitigation_dataframes(
         atlas_data, atlas_url
     )
-    case_studies_df, techniques_used_df = _build_case_study_dataframes(
+    (
+        case_studies_df,
+        case_study_techniques_df,
+        case_study_entities_df,
+        case_study_reporters_df,
+        case_study_software_df,
+    ) = _build_case_study_dataframes(atlas_data, atlas_url)
+    entities_df, entity_techniques_df, entity_software_df = _build_entity_dataframes(
+        atlas_data, atlas_url
+    )
+    software_df, software_techniques_df = _build_software_dataframes(
         atlas_data, atlas_url
     )
     matrix_df = _build_matrix_df(atlas_data)
@@ -437,6 +670,8 @@ def export_to_excel(
         "tactics": output_dir / f"{prefix}-tactics.xlsx",
         "mitigations": output_dir / f"{prefix}-mitigations.xlsx",
         "case_studies": output_dir / f"{prefix}-case-studies.xlsx",
+        "entities": output_dir / f"{prefix}-entities.xlsx",
+        "software": output_dir / f"{prefix}-software.xlsx",
         "matrices": output_dir / f"{prefix}-matrices.xlsx",
     }
 
@@ -447,6 +682,8 @@ def export_to_excel(
             ("tactics", tactics_df),
             ("mitigations", mitigations_df),
             ("case studies", case_studies_df),
+            ("entities", entities_df),
+            ("software", software_df),
             ("matrix", matrix_df),
         ],
     )
@@ -463,7 +700,25 @@ def export_to_excel(
         outputs["case_studies"],
         [
             ("case studies", case_studies_df),
-            ("techniques used", techniques_used_df),
+            ("techniques used", case_study_techniques_df),
+            ("entities attributed", case_study_entities_df),
+            ("entities reporting", case_study_reporters_df),
+            ("software used", case_study_software_df),
+        ],
+    )
+    _write_workbook(
+        outputs["entities"],
+        [
+            ("entities", entities_df),
+            ("techniques used", entity_techniques_df),
+            ("software used", entity_software_df),
+        ],
+    )
+    _write_workbook(
+        outputs["software"],
+        [
+            ("software", software_df),
+            ("techniques implemented", software_techniques_df),
         ],
     )
     _write_workbook(outputs["matrices"], [("matrix", matrix_df)])

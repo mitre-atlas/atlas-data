@@ -9,11 +9,13 @@ import yaml
 from sqlalchemy.orm import Session
 
 from atlas import mappers, models, schemas
-from atlas.db import Base, SessionLocal, engine
-from atlas.enums import AtlasRelationshipType
-from atlas.services.common import recompute_technique_maturity
+from atlas.db import SessionLocal, engine, upgrade_database
+from atlas.enums import AtlasObjectType, AtlasRelationshipType
+from atlas.services.common import (
+    validate_relationship_types,
+)
 from atlas.services.format_versions import (
-    assert_format_version_matches,
+    assert_format_version_supported,
     ensure_format_version_set,
 )
 
@@ -22,6 +24,8 @@ _VERSION_CHILDREN = [
     models.Collection,
     models.Matrix,
     models.Mitigation,
+    models.Entity,
+    models.Software,
     models.Tactic,
     models.Technique,
 ]
@@ -94,28 +98,6 @@ def insert_tactics(db: Session, export: schemas.AtlasExport, version: str) -> No
     db.flush()
 
 
-def insert_matrix_relationships(
-    db: Session, export: schemas.AtlasExport, version: str
-) -> None:
-    for idx, entry in enumerate(
-        export.relationships.get("ATLAS-matrix", {}).get(
-            AtlasRelationshipType.SEQUENCES, []
-        ),
-        start=1,
-    ):
-        position = entry.position or idx
-        db.add(
-            models.Relationship(
-                source="ATLAS-matrix",
-                target=entry.target,
-                version=version,
-                relationship_type=AtlasRelationshipType.SEQUENCES,
-                description=entry.description,
-                extra_fields={"position": position},
-            )
-        )
-
-
 def insert_techniques(db: Session, export: schemas.AtlasExport, version: str) -> None:
     for technique in export.techniques.values():
         db_technique = mappers.techniques.to_model(
@@ -125,28 +107,10 @@ def insert_techniques(db: Session, export: schemas.AtlasExport, version: str) ->
             maturity=technique.maturity,
         )
         db.add(db_technique)
-        db.flush()
-
-        for rel_type, entries in export.relationships.get(technique.id, {}).items():
-            if rel_type in (
-                AtlasRelationshipType.ACHIEVES,
-                AtlasRelationshipType.SPECIALIZES,
-            ):
-                for entry in entries:
-                    db.add(
-                        models.Relationship(
-                            source=technique.id,
-                            target=entry.target,
-                            version=version,
-                            relationship_type=rel_type,
-                            description=entry.description,
-                        )
-                    )
+    db.flush()
 
 
-def insert_mitigations(
-    db: Session, export: schemas.AtlasExport, version: str, added_rels: set[tuple]
-) -> None:
+def insert_mitigations(db: Session, export: schemas.AtlasExport, version: str) -> None:
     for mitigation in export.mitigations.values():
         db_mitigation = mappers.mitigations.to_model(
             mitigation,
@@ -154,29 +118,34 @@ def insert_mitigations(
             version=version,
         )
         db.add(db_mitigation)
-        db.flush()
+    db.flush()
 
-        for entry in export.relationships.get(mitigation.id, {}).get(
-            AtlasRelationshipType.MITIGATES, []
-        ):
-            rel_key = (mitigation.id, entry.target, version, "mitigates")
-            if rel_key in added_rels:
-                continue
-            db.add(
-                models.Relationship(
-                    source=mitigation.id,
-                    target=entry.target,
-                    version=version,
-                    relationship_type=AtlasRelationshipType.MITIGATES,
-                    description=entry.description,
-                )
+
+def insert_entities(db: Session, export: schemas.AtlasExport, version: str) -> None:
+    for entity in export.entities.values():
+        db.add(
+            mappers.entities.to_model(
+                entity,
+                entity_id=entity.id,
+                version=version,
             )
-            added_rels.add(rel_key)
+        )
+    db.flush()
 
 
-def insert_case_studies(
-    db: Session, export: schemas.AtlasExport, version: str, added_rels: set[tuple]
-) -> None:
+def insert_software(db: Session, export: schemas.AtlasExport, version: str) -> None:
+    for software in export.software.values():
+        db.add(
+            mappers.software.to_model(
+                software,
+                software_id=software.id,
+                version=version,
+            )
+        )
+    db.flush()
+
+
+def insert_case_studies(db: Session, export: schemas.AtlasExport, version: str) -> None:
     for case_study in export.case_studies.values():
         db_case_study = mappers.case_studies.to_model(
             case_study,
@@ -184,36 +153,83 @@ def insert_case_studies(
             version=version,
         )
         db.add(db_case_study)
-        db.flush()
+    db.flush()
 
-        for entry in export.relationships.get(case_study.id, {}).get(
-            AtlasRelationshipType.EMPLOYS, []
-        ):
-            rel_key = (
-                case_study.id,
-                entry.target,
-                entry.step_id,
-                entry.tactic,
-                version,
-                "employs",
+
+def insert_relationships(
+    db: Session, export: schemas.AtlasExport, version: str
+) -> None:
+    object_types = _object_types(export)
+    for source, relationships_by_type in export.relationships.items():
+        if source not in object_types:
+            raise ValueError(
+                f"Relationship source {source} does not exist in the export."
             )
-            if rel_key in added_rels:
-                continue
-            db.add(
-                models.Relationship(
-                    source=case_study.id,
-                    target=entry.target,
-                    version=version,
-                    relationship_type=AtlasRelationshipType.EMPLOYS,
-                    description=entry.description,
-                    extra_fields={
+        for relationship_type, entries in relationships_by_type.items():
+            for index, entry in enumerate(entries, start=1):
+                if (
+                    entry.source != source
+                    or entry.relationship_type != relationship_type
+                ):
+                    raise ValueError(
+                        "Relationship fields must match their containing keys."
+                    )
+                if entry.target not in object_types:
+                    raise ValueError(
+                        f"Relationship target {entry.target} does not exist in the export."
+                    )
+                if source == entry.target:
+                    raise ValueError("Relationship source and target must differ.")
+
+                extra_fields = None
+                if relationship_type == AtlasRelationshipType.SEQUENCES:
+                    extra_fields = {"position": entry.position or index}
+                elif relationship_type == AtlasRelationshipType.EMPLOYS:
+                    extra_fields = {
                         "tactic": entry.tactic,
                         "step_id": entry.step_id,
                         "leads_to": entry.leads_to or [],
-                    },
+                    }
+                elif entry.activity_purpose is not None:
+                    extra_fields = {
+                        "activity_purpose": entry.activity_purpose.value,
+                    }
+
+                validate_relationship_types(
+                    object_types[source],
+                    object_types[entry.target],
+                    relationship_type,
+                    extra_fields,
                 )
-            )
-            added_rels.add(rel_key)
+                db.add(
+                    models.Relationship(
+                        source=source,
+                        target=entry.target,
+                        version=version,
+                        relationship_type=relationship_type,
+                        description=entry.description,
+                        extra_fields=extra_fields,
+                    )
+                )
+    db.flush()
+
+
+def _object_types(export: schemas.AtlasExport) -> dict[str, AtlasObjectType]:
+    object_types = {
+        export.collection.id: AtlasObjectType.COLLECTION,
+        export.matrix.id: AtlasObjectType.MATRIX,
+    }
+    mappings = (
+        (export.tactics, AtlasObjectType.TACTIC),
+        (export.techniques, AtlasObjectType.TECHNIQUE),
+        (export.mitigations, AtlasObjectType.MITIGATION),
+        (export.case_studies, AtlasObjectType.CASE_STUDY),
+        (export.entities, AtlasObjectType.ENTITY),
+        (export.software, AtlasObjectType.SOFTWARE),
+    )
+    for objects, object_type in mappings:
+        object_types.update((obj.id, object_type) for obj in objects.values())
+    return object_types
 
 
 def insert_version_bundle(
@@ -223,14 +239,12 @@ def insert_version_bundle(
     insert_collection(db, export, version)
     insert_matrix(db, export, version)
     insert_tactics(db, export, version)
-    insert_matrix_relationships(db, export, version)
     insert_techniques(db, export, version)
-    added_rels: set[tuple] = set()
-    insert_mitigations(db, export, version, added_rels)
-    insert_case_studies(db, export, version, added_rels)
-
-    all_technique_ids = set(export.techniques.keys())
-    recompute_technique_maturity(db, version, all_technique_ids)
+    insert_mitigations(db, export, version)
+    insert_entities(db, export, version)
+    insert_software(db, export, version)
+    insert_case_studies(db, export, version)
+    insert_relationships(db, export, version)
 
 
 def print_summary(export: schemas.AtlasExport, version: str, mode: str) -> None:
@@ -241,6 +255,8 @@ def print_summary(export: schemas.AtlasExport, version: str, mode: str) -> None:
     print(f"  {len(export.techniques)} techniques")
     print(f"  {len(export.mitigations)} mitigations")
     print(f"  {len(export.case_studies)} case studies")
+    print(f"  {len(export.entities)} entities")
+    print(f"  {len(export.software)} software")
     print(
         f"  {sum(len(e) for t in export.relationships.values() for e in t.values())} relationships"
     )
@@ -252,8 +268,8 @@ def populate_database(
     force: bool = False,
     version_override: str | None = None,
 ) -> None:
-    print("Initializing database...")
-    Base.metadata.create_all(bind=engine)
+    print("Upgrading database schema...")
+    upgrade_database(engine)
 
     export = load_yaml_export(yaml_path)
     version = version_override or export.collection.version
@@ -261,7 +277,7 @@ def populate_database(
 
     with SessionLocal() as db:
         ensure_format_version_set(db)
-        assert_format_version_matches(db, export.format_version)
+        assert_format_version_supported(db, export.format_version)
 
         existing = get_existing_version(db, version)
         if existing and not force:

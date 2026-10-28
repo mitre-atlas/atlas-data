@@ -15,6 +15,7 @@ on:
           - all
           - stix
           - navigator
+          - attack-flows
           - excel
           - versioned-yaml
         default: all
@@ -23,7 +24,28 @@ permissions:
   contents: write
 
 jobs:
+  validate-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ inputs.tag }}
+      - name: Setup uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      - name: Validate release dataset
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          if ! [[ "$TAG" =~ ^v[0-9]{4}\.[0-9]{2}(\.[0-9]+)?$ ]]; then
+            echo "Invalid tag format: $TAG. Expected vYYYY.MM or vYYYY.MM.N"
+            exit 1
+          fi
+          export ATLAS_DATA_FILE="dist/v6/ATLAS-${TAG#v}.yaml"
+          uv run pytest tests/test_data.py
+
   stix:
+    needs: validate-data
     if: ${{ inputs.asset_group == 'all' || inputs.asset_group == 'stix' }}
     uses: ./.github/workflows/release-assets-stix.yml
     with:
@@ -31,13 +53,23 @@ jobs:
     secrets: inherit
 
   navigator:
+    needs: validate-data
     if: ${{ inputs.asset_group == 'all' || inputs.asset_group == 'navigator' }}
     uses: ./.github/workflows/release-assets-navigator.yml
     with:
       tag: ${{ inputs.tag }}
     secrets: inherit
 
+  attack-flows:
+    needs: validate-data
+    if: ${{ inputs.asset_group == 'all' || inputs.asset_group == 'attack-flows' }}
+    uses: ./.github/workflows/release-assets-attack-flows.yml
+    with:
+      tag: ${{ inputs.tag }}
+    secrets: inherit
+
   excel:
+    needs: validate-data
     if: ${{ inputs.asset_group == 'all' || inputs.asset_group == 'excel' }}
     uses: ./.github/workflows/release-assets-excel.yml
     with:
@@ -45,6 +77,7 @@ jobs:
     secrets: inherit
 
   versioned-yaml:
+    needs: validate-data
     if: ${{ inputs.asset_group == 'all' || inputs.asset_group == 'versioned-yaml' }}
     uses: ./.github/workflows/release-assets-versioned-yaml.yml
     with:

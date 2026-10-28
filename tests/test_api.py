@@ -14,7 +14,8 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
 import atlas.services.versions as versions_service
-from atlas import models, schemas
+import atlas.api as api_module
+from atlas import models, schemas, services
 from atlas.api import app
 from atlas.constants import (
     ATLAS_COLLECTION_ID,
@@ -69,7 +70,14 @@ def test_session(test_engine: Engine) -> Iterator[Session]:
 
 
 @pytest.fixture()
-def client(test_session: Session) -> Iterator[TestClient]:
+def client(
+    test_session: Session,
+    monkeypatch: pytest.MonkeyPatch,
+    registered_versions: tuple[str, ...],
+) -> Iterator[TestClient]:
+    # CRUD fixtures need registered versions; version-management tests start empty.
+    test_session.add_all(models.Version(version=v) for v in registered_versions)
+    test_session.commit()
     if test_session.get(models.FormatVersion, ATLAS_FORMAT_VERSION_ROW_ID) is None:
         test_session.add(
             models.FormatVersion(
@@ -78,7 +86,10 @@ def client(test_session: Session) -> Iterator[TestClient]:
             )
         )
         test_session.commit()
+    test_session_factory = sessionmaker(bind=test_session.get_bind())
     app.dependency_overrides[get_db] = lambda: test_session
+    monkeypatch.setattr(api_module, "SessionLocal", test_session_factory)
+    monkeypatch.setattr(api_module, "ensure_database_current", lambda engine: None)
     with TestClient(app) as c:
         yield c
     app.dependency_overrides.clear()
@@ -89,6 +100,11 @@ def db(client: TestClient) -> Session:
     fastapi_app = client.app
     assert isinstance(fastapi_app, FastAPI)
     return fastapi_app.dependency_overrides[get_db]()
+
+
+@pytest.fixture()
+def registered_versions() -> tuple[str, ...]:
+    return (ATLAS_DATA_VERSION,)
 
 
 @pytest.fixture()
@@ -149,6 +165,7 @@ def loaded_real_dataset(
             publish_date=None,
         )
     )
+    db.flush()
 
     db.add(
         models.Collection(
@@ -255,10 +272,17 @@ def loaded_real_dataset(
                 actor=case_study.actor,
                 target=case_study.target,
                 reporter=case_study.reporter,
-                date=case_study.date,
-                date_granularity=case_study.date_granularity,
+                start_date=case_study.start_date,
+                start_date_granularity=case_study.start_date_granularity,
+                end_date=case_study.end_date,
+                end_date_granularity=case_study.end_date_granularity,
             )
         )
+
+    from tools.populate_atlas_db import insert_entities, insert_software
+
+    insert_entities(db, export, version)
+    insert_software(db, export, version)
 
     for source, rels_by_type in export.relationships.items():
         for rel_type, entries in rels_by_type.items():
@@ -272,6 +296,8 @@ def loaded_real_dataset(
                     }
                 elif rel_type == models.AtlasRelationshipType.SEQUENCES:
                     extra_fields = {"position": entry.position}
+                elif entry.activity_purpose is not None:
+                    extra_fields = {"activity_purpose": entry.activity_purpose.value}
 
                 db.add(
                     models.Relationship(
@@ -345,6 +371,53 @@ def case_study_payload(**overrides: Any) -> dict[str, Any]:
         ],
     )
     data.update(overrides)
+    data["attributed_to"] = [
+        {
+            **attribution,
+            "activity_purpose": attribution.get(
+                "activity_purpose", "Adversarial Operation"
+            ),
+        }
+        for attribution in data.get("attributed_to", [])
+    ]
+    return data
+
+
+def entity_payload(**overrides: Any) -> dict[str, Any]:
+    data = dict(
+        name="Test Entity",
+        description="A test entity",
+        entity_type="Activity Cluster",
+        associated_entities=[],
+        uses=[],
+    )
+    data.update(overrides)
+    data["uses"] = [
+        {
+            **use,
+            **(
+                {
+                    "activity_purpose": use.get(
+                        "activity_purpose", "Adversarial Operation"
+                    )
+                }
+                if "technique" in use
+                else {}
+            ),
+        }
+        for use in data["uses"]
+    ]
+    return data
+
+
+def software_payload(**overrides: Any) -> dict[str, Any]:
+    data = dict(
+        name="Test Software",
+        description="Test software",
+        software_type="Malware",
+        implements=[],
+    )
+    data.update(overrides)
     return data
 
 
@@ -386,6 +459,28 @@ def create_case_study(
         default_chain = overrides.pop("attack_chain")
     payload = case_study_payload(attack_chain=default_chain, **overrides)
     resp = client.post(f"/{ATLAS_DATA_VERSION}/case-studies/", json=payload)
+    assert resp.status_code == 201
+    return resp.json()["id"]
+
+
+def create_entity(
+    client: TestClient,
+    *,
+    version: str = ATLAS_DATA_VERSION,
+    **overrides: Any,
+) -> str:
+    resp = client.post(f"/{version}/entities/", json=entity_payload(**overrides))
+    assert resp.status_code == 201
+    return resp.json()["id"]
+
+
+def create_software(
+    client: TestClient,
+    *,
+    version: str = ATLAS_DATA_VERSION,
+    **overrides: Any,
+) -> str:
+    resp = client.post(f"/{version}/software/", json=software_payload(**overrides))
     assert resp.status_code == 201
     return resp.json()["id"]
 
@@ -604,14 +699,17 @@ def test_delete_by_id_not_found(client: TestClient, path: str, missing_id: str) 
 
 
 class TestTechniques:
-    def test_create_technique(self, client: TestClient) -> None:
+    @pytest.mark.parametrize("maturity", [None, "Demonstrated", "Realized"])
+    def test_create_technique(self, client: TestClient, maturity) -> None:
         tactic_id = create_tactic(client)
         payload = technique_payload(tactics=[{"tactic": tactic_id}])
+        if maturity is not None:
+            payload["maturity"] = maturity
         resp = client.post(f"/{ATLAS_DATA_VERSION}/techniques/", json=payload)
         assert resp.status_code == 201
         body = resp.json()
         assert body["id"] == "AML.T0001"
-        assert body["maturity"] == "Feasible"
+        assert body["maturity"] == (maturity or "Feasible")
         assert body["object-type"] == "technique"
 
     def test_get_all_techniques(self, client: TestClient) -> None:
@@ -634,10 +732,25 @@ class TestTechniques:
         tech_id = create_technique(client, t1_id)
         resp = client.put(
             f"/{ATLAS_DATA_VERSION}/techniques/{tech_id}",
-            json=technique_payload(name="Updated Technique"),
+            json=technique_payload(name="Updated Technique", maturity="Realized"),
         )
         assert resp.status_code == 200
         assert resp.json()["name"] == "Updated Technique"
+        assert resp.json()["maturity"] == "Realized"
+        for maturity in (None, "Demonstrated", "Feasible"):
+            payload = technique_payload(name="Updated Technique")
+            if maturity is not None:
+                payload["maturity"] = maturity
+            resp = client.put(
+                f"/{ATLAS_DATA_VERSION}/techniques/{tech_id}", json=payload
+            )
+            assert resp.status_code == 200
+            assert resp.json()["maturity"] == (maturity or "Realized")
+        invalid = client.put(
+            f"/{ATLAS_DATA_VERSION}/techniques/{tech_id}",
+            json=technique_payload(maturity="Unknown"),
+        )
+        assert invalid.status_code == 422
 
     def test_delete_technique(self, client: TestClient) -> None:
         t1_id = create_tactic(client)
@@ -762,6 +875,32 @@ class TestTechniques:
         assert resp.json()["name"] == "Child Updated"
         assert [item["tactic"] for item in resp.json()["tactics"]] == [t1_id]
 
+    def test_update_subtechnique_preserves_submitted_tactic_description(
+        self, client: TestClient
+    ) -> None:
+        t1_id = create_tactic(client)
+        parent_id = create_technique(client, t1_id)
+        child_id = client.post(
+            f"/{ATLAS_DATA_VERSION}/techniques/",
+            json=technique_payload(
+                tactics=[{"tactic": t1_id, "description": "Initial rationale"}],
+                name="Child",
+                specializes={"technique": parent_id},
+            ),
+        ).json()["id"]
+
+        response = client.put(
+            f"/{ATLAS_DATA_VERSION}/techniques/{child_id}",
+            json=technique_payload(
+                tactics=[{"tactic": t1_id, "description": "Updated rationale"}],
+                name="Child Updated",
+                specializes={"technique": parent_id},
+            ),
+        )
+
+        assert response.status_code == 200
+        assert response.json()["tactics"][0]["description"] == "Updated rationale"
+
     def test_update_parent_technique_propagates_tactics_to_subtechniques(
         self, client: TestClient
     ) -> None:
@@ -787,6 +926,29 @@ class TestTechniques:
         child_resp = client.get(f"/{ATLAS_DATA_VERSION}/techniques/{child_id}")
         assert child_resp.status_code == 200
         assert [item["tactic"] for item in child_resp.json()["tactics"]] == [t2_id]
+
+    def test_update_parent_preserves_child_tactic_description(
+        self, client: TestClient
+    ) -> None:
+        t1_id = create_tactic(client)
+        parent_id = create_technique(client, t1_id)
+        child_id = client.post(
+            f"/{ATLAS_DATA_VERSION}/techniques/",
+            json=technique_payload(
+                tactics=[{"tactic": t1_id, "description": "Child rationale"}],
+                name="Child",
+                specializes={"technique": parent_id},
+            ),
+        ).json()["id"]
+
+        response = client.put(
+            f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}",
+            json=technique_payload(name="Parent Renamed", tactics=[{"tactic": t1_id}]),
+        )
+
+        assert response.status_code == 200
+        child = client.get(f"/{ATLAS_DATA_VERSION}/techniques/{child_id}")
+        assert child.json()["tactics"][0]["description"] == "Child rationale"
 
     def test_delete_parent_technique_cascades_to_subtechniques(
         self, client: TestClient
@@ -956,11 +1118,488 @@ class TestMitigations:
 
 
 # ---------------------------------------------------------------------------
+# Entities
+# ---------------------------------------------------------------------------
+
+
+class TestEntities:
+    def test_create_entity_with_fields(self, client: TestClient) -> None:
+        resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/entities/",
+            json=entity_payload(
+                associated_entities=[{"name": "Fancy Bear"}, {"name": "Forest Blizzard"}],
+                references=[
+                    {
+                        "id": "entity-ref",
+                        "title": "Entity reference",
+                        "url": "https://example.com/entity",
+                    }
+                ],
+                attack_reference={
+                    "id": "G0007",
+                    "url": "https://attack.mitre.org/groups/G0007/",
+                },
+            ),
+        )
+
+        assert resp.status_code == 201
+        body = resp.json()
+        assert body["id"] == "AML.E0001"
+        assert body["object-type"] == "entity"
+        assert body["entity-type"] == "Activity Cluster"
+        assert body["associated-entities"] == [
+            {"name": "Fancy Bear", "description": None},
+            {"name": "Forest Blizzard", "description": None},
+        ]
+        assert body["attack-reference"]["id"] == "G0007"
+        assert body["uses"] == []
+
+    def test_entity_crud_and_uses_replacement(
+        self, client: TestClient, db: Session
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id, maturity="Demonstrated")
+        software_id = create_software(
+            client,
+            implements=[{"technique": technique_id, "description": "Implements"}],
+        )
+        create_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/entities/",
+            json=entity_payload(
+                entity_type="Team",
+                uses=[
+                    {
+                        "technique": technique_id,
+                        "activity_purpose": "Security Evaluation",
+                        "description": "Observed behavior",
+                    },
+                    {"software": software_id, "description": "Operated software"},
+                ],
+            ),
+        )
+        assert create_resp.status_code == 201
+        entity_id = create_resp.json()["id"]
+        assert {
+            relationship.get("technique") or relationship.get("software")
+            for relationship in create_resp.json()["uses"]
+        } == {technique_id, software_id}
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Demonstrated"
+        )
+
+        get_resp = client.get(f"/{ATLAS_DATA_VERSION}/entities/{entity_id}")
+        assert get_resp.status_code == 200
+        assert {
+            relationship.get("technique") or relationship.get("software")
+            for relationship in get_resp.json()["uses"]
+        } == {technique_id, software_id}
+        assert len(client.get(f"/{ATLAS_DATA_VERSION}/entities/").json()) == 1
+
+        update_resp = client.put(
+            f"/{ATLAS_DATA_VERSION}/entities/{entity_id}",
+            json=entity_payload(
+                name="Updated Entity",
+                entity_type="Organization",
+                associated_entities=[{"name": "Research Unit"}],
+                uses=[
+                    {
+                        "technique": technique_id,
+                        "activity_purpose": "Adversarial Operation",
+                        "description": "Updated behavior",
+                    },
+                    {"software": software_id, "description": "Tested software"},
+                ],
+            ),
+        )
+        assert update_resp.status_code == 200
+        assert update_resp.json()["name"] == "Updated Entity"
+        assert update_resp.json()["entity-type"] == "Organization"
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Demonstrated"
+        )
+
+        replace_resp = client.put(
+            f"/{ATLAS_DATA_VERSION}/entities/{entity_id}",
+            json=entity_payload(
+                name="Updated Entity",
+                entity_type="Team",
+                associated_entities=[{"name": "Research Unit"}],
+                uses=[{"software": software_id, "description": "Tested software"}],
+            ),
+        )
+        assert replace_resp.status_code == 200
+        assert replace_resp.json()["uses"] == [
+            {"software": software_id, "description": "Tested software"}
+        ]
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Demonstrated"
+        )
+
+        relationships = (
+            db.query(models.Relationship)
+            .filter(
+                models.Relationship.source == entity_id,
+                models.Relationship.relationship_type == AtlasRelationshipType.USES,
+            )
+            .all()
+        )
+        assert [relationship.target for relationship in relationships] == [software_id]
+
+        delete_resp = client.delete(f"/{ATLAS_DATA_VERSION}/entities/{entity_id}")
+        assert delete_resp.status_code == 200
+        assert client.get(f"/{ATLAS_DATA_VERSION}/entities/{entity_id}").status_code == 404
+        assert (
+            db.query(models.Relationship)
+            .filter(models.Relationship.source == entity_id)
+            .count()
+            == 0
+        )
+
+    @pytest.mark.parametrize(
+        "purpose", ["Adversarial Operation", "Unintended Consequence"]
+    )
+    def test_activity_purpose_and_entity_type_preserve_maturity(
+        self, client: TestClient, purpose: str
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        entity_id = create_entity(
+            client,
+            entity_type="Team",
+            uses=[
+                {
+                    "technique": technique_id,
+                    "activity_purpose": "Security Evaluation",
+                }
+            ],
+        )
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+        type_update = client.put(
+            f"/{ATLAS_DATA_VERSION}/entities/{entity_id}",
+            json=entity_payload(
+                entity_type="Organization",
+                uses=[
+                    {
+                        "technique": technique_id,
+                        "activity_purpose": "Security Evaluation",
+                    }
+                ],
+            ),
+        )
+        assert type_update.status_code == 200
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+        purpose_update = client.put(
+            f"/{ATLAS_DATA_VERSION}/entities/{entity_id}",
+            json=entity_payload(
+                entity_type="Organization",
+                uses=[
+                    {
+                        "technique": technique_id,
+                        "activity_purpose": purpose,
+                    }
+                ],
+            ),
+        )
+        assert purpose_update.status_code == 200
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+    def test_entity_ids_are_scoped_by_version(self, client: TestClient) -> None:
+        assert create_entity(client) == "AML.E0001"
+        assert create_entity(client, name="Second Entity") == "AML.E0002"
+        assert (
+            client.post(
+                "/versions",
+                json={
+                    "new_version": "2026.06",
+                    "collection": {"name": "Test", "description": "Test"},
+                },
+            ).status_code
+            == 201
+        )
+        assert create_entity(client, version="2026.06") == "AML.E0001"
+
+    def test_entity_create_rolls_back_invalid_uses(self, client: TestClient) -> None:
+        missing_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/entities/",
+            json=entity_payload(uses=[{"technique": "AML.T9999"}]),
+        )
+        assert missing_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/entities/").json() == []
+
+    def test_entity_create_rolls_back_duplicate_uses(self, client: TestClient) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        duplicate_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/entities/",
+            json=entity_payload(
+                uses=[
+                    {"technique": technique_id},
+                    {"technique": technique_id, "description": "Duplicate"},
+                ]
+            ),
+        )
+        assert duplicate_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/entities/").json() == []
+
+    def test_entity_update_rolls_back_on_relationship_failure(
+        self,
+    ) -> None:
+        engine = create_engine("sqlite:///:memory:")
+
+        @event.listens_for(engine, "connect")
+        def set_pragma(dbapi_connection: Any, connection_record: Any) -> None:
+            if isinstance(dbapi_connection, sqlite3.Connection):
+                cursor = dbapi_connection.cursor()
+                cursor.execute("PRAGMA foreign_keys=ON")
+                cursor.close()
+
+        Base.metadata.create_all(bind=engine)
+        with Session(engine) as session:
+            session.add(models.Version(version=ATLAS_DATA_VERSION))
+            session.commit()
+            db_entity = services.entities.create(
+                session,
+                schemas.EntityInput.model_validate(entity_payload(name="Original Entity")),
+                ATLAS_DATA_VERSION,
+            )
+            with pytest.raises(HTTPException) as exc_info:
+                services.entities.update(
+                    session,
+                    db_entity.id,
+                    ATLAS_DATA_VERSION,
+                    schemas.EntityInput.model_validate(
+                        entity_payload(
+                            name="Invalid Update",
+                            uses=[{"software": "AML.S9999"}],
+                        )
+                    ),
+                )
+            assert exc_info.value.status_code == 409
+
+            stored = services.entities.get_one(session, db_entity.id, ATLAS_DATA_VERSION)
+            assert stored.name == "Original Entity"
+            assert stored.source_relationships == []
+        engine.dispose()
+
+    def test_entity_input_rejects_unknown_fields(self, client: TestClient) -> None:
+        resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/entities/",
+            json=entity_payload(unsupported=["Alias"]),
+        )
+        assert resp.status_code == 422
+
+
+# ---------------------------------------------------------------------------
+# Software
+# ---------------------------------------------------------------------------
+
+
+class TestSoftware:
+    def test_software_crud_implements_and_maturity_boundary(
+        self, client: TestClient, db: Session
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_a = create_technique(client, tactic_id, name="Technique A")
+        technique_b = create_technique(client, tactic_id, name="Technique B")
+        software_id = create_software(
+            client,
+            references=[
+                {
+                    "id": "software-ref",
+                    "title": "Software reference",
+                    "url": "https://example.com/software",
+                }
+            ],
+            attack_reference={
+                "id": "S9035",
+                "url": "https://attack.mitre.org/software/S9035/",
+            },
+            implements=[{"technique": technique_a, "description": "Implements"}],
+        )
+
+        body = client.get(f"/{ATLAS_DATA_VERSION}/software/{software_id}").json()
+        assert body["id"] == "AML.S0001"
+        assert body["object-type"] == "software"
+        assert body["software-type"] == "Malware"
+        assert body["attack-reference"]["id"] == "S9035"
+        assert body["implements"] == [
+            {"technique": technique_a, "description": "Implements"}
+        ]
+        assert len(client.get(f"/{ATLAS_DATA_VERSION}/software/").json()) == 1
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_a}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+        update_resp = client.put(
+            f"/{ATLAS_DATA_VERSION}/software/{software_id}",
+            json=software_payload(
+                name="Updated Software",
+                software_type="Tool",
+                implements=[{"technique": technique_b}],
+            ),
+        )
+        assert update_resp.status_code == 200
+        assert update_resp.json()["software-type"] == "Tool"
+        assert update_resp.json()["implements"] == [
+            {"technique": technique_b, "description": None}
+        ]
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_b}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+        entity_id = create_entity(client, uses=[{"software": software_id}])
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_b}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+        delete_resp = client.delete(f"/{ATLAS_DATA_VERSION}/software/{software_id}")
+        assert delete_resp.status_code == 200
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/software/{software_id}").status_code
+            == 404
+        )
+        assert (
+            db.query(models.Relationship)
+            .filter(models.Relationship.source == software_id)
+            .count()
+            == 0
+        )
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/entities/{entity_id}").json()["uses"] == []
+        )
+
+    def test_software_ids_are_scoped_by_version(self, client: TestClient) -> None:
+        assert create_software(client) == "AML.S0001"
+        assert create_software(client, name="Second Software") == "AML.S0002"
+        assert (
+            client.post(
+                "/versions",
+                json={
+                    "new_version": "2026.06",
+                    "collection": {"name": "Test", "description": "Test"},
+                },
+            ).status_code
+            == 201
+        )
+        assert create_software(client, version="2026.06") == "AML.S0001"
+
+    def test_software_create_rolls_back_invalid_implements(
+        self, client: TestClient
+    ) -> None:
+        missing_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/software/",
+            json=software_payload(implements=[{"technique": "AML.T9999"}]),
+        )
+        assert missing_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/software/").json() == []
+
+    def test_software_create_rolls_back_duplicate_implements(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        duplicate_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/software/",
+            json=software_payload(
+                implements=[
+                    {"technique": technique_id},
+                    {"technique": technique_id, "description": "Duplicate"},
+                ]
+            ),
+        )
+        assert duplicate_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/software/").json() == []
+
+
+# ---------------------------------------------------------------------------
 # Case Studies
 # ---------------------------------------------------------------------------
 
 
 class TestCaseStudies:
+    def test_date_range_create_update_export(
+        self, client: TestClient, db: Session,
+        seed_collection_and_matrix: tuple[str, str],
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        payload = case_study_payload(attack_chain=[
+            dict(technique=technique_id, tactic=tactic_id, step_id="S01")
+        ])
+        response = client.post(f"/{ATLAS_DATA_VERSION}/case-studies/", json=payload)
+        assert response.status_code == 201, response.text
+        body = response.json()
+        assert body["start-date"] == body["end-date"] == payload["date"]
+        assert body["start-date-granularity"] == body["end-date-granularity"] == "Day"
+        assert "date" not in body and "date-granularity" not in body
+        case_id = body["id"]
+        url = f"/{ATLAS_DATA_VERSION}/case-studies/{case_id}"
+        payload.pop("date")
+        payload.pop("date_granularity")
+        payload.update({"start-date": "2024-02", "start-date-granularity": "Month"})
+        for end_fields in [
+            {},
+            {"end-date": "2025-03-15", "end-date-granularity": "Day"},
+            {},
+        ]:
+            response = client.put(url, json={**payload, **end_fields})
+            assert response.status_code == 200, response.text
+            assert response.json()["start-date"] == "2024-02-01"
+            assert response.json()["end-date"] == end_fields.get("end-date")
+            assert client.get(url).json() == response.json()
+            db.expire_all()
+            stored = db.get(models.CaseStudy, (case_id, ATLAS_DATA_VERSION))
+            assert (stored.end_date is None) == (not end_fields)
+            exported_response = client.get(f"/versions/{ATLAS_DATA_VERSION}/data")
+            assert exported_response.status_code == 200
+            exported = yaml.safe_load(exported_response.content)
+            exported_case = exported["case-studies"][case_id]
+            assert exported_case["start-date"] == "2024-02-01"
+            assert exported_case.get("end-date") == end_fields.get("end-date")
+            assert ("end-date" in exported_case) == bool(end_fields)
+            assert "date" not in exported_case
+            assert schemas.AtlasExport.model_validate(exported).case_studies[case_id].start_date == stored.start_date
+        response = client.put(url, json={
+            **payload, "end-date": "2023", "end-date-granularity": "Year"
+        })
+        assert response.status_code == 422
+        assert client.get(url).json()["end-date"] is None
+
     def test_create_case_study(self, client: TestClient) -> None:
         t1_id = create_tactic(client)
         tech_id = create_technique(client, t1_id)
@@ -1045,16 +1684,220 @@ class TestCaseStudies:
             client.get(f"/{ATLAS_DATA_VERSION}/case-studies/{cs_id}").status_code == 404
         )
 
-    def test_update_case_study_can_downgrade_child_and_parent_maturity(
+    def test_case_study_attributed_to_create_update_and_entity_cleanup(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        attribution_technique = create_technique(
+            client, tactic_id, name="Attribution Technique", maturity="Demonstrated"
+        )
+        entity_a = create_entity(
+            client,
+            name="Entity A",
+            entity_type="Team",
+            uses=[
+                {
+                    "technique": attribution_technique,
+                    "activity_purpose": "Security Evaluation",
+                }
+            ],
+        )
+        entity_b = create_entity(client, name="Entity B")
+        create_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/case-studies/",
+            json=case_study_payload(
+                actor="Original attribution text",
+                attack_chain=[
+                    {
+                        "technique": technique_id,
+                        "tactic": tactic_id,
+                        "step_id": "S01",
+                        "leads_to": [],
+                    }
+                ],
+                attributed_to=[
+                    {"entity": entity_a, "description": "Primary attribution"},
+                    {"entity": entity_b},
+                ],
+            ),
+        )
+        assert create_resp.status_code == 201
+        case_study_id = create_resp.json()["id"]
+        assert {
+            attribution["entity"] for attribution in create_resp.json()["attributed-to"]
+        } == {entity_a, entity_b}
+        assert (
+            client.get(
+                f"/{ATLAS_DATA_VERSION}/techniques/{attribution_technique}"
+            ).json()["maturity"]
+            == "Demonstrated"
+        )
+
+        update_resp = client.put(
+            f"/{ATLAS_DATA_VERSION}/case-studies/{case_study_id}",
+            json=case_study_payload(
+                actor="Original attribution text",
+                attack_chain=[
+                    {
+                        "technique": technique_id,
+                        "tactic": tactic_id,
+                        "step_id": "S01",
+                        "leads_to": [],
+                    }
+                ],
+                attributed_to=[
+                    {"entity": entity_b, "description": "Updated attribution"}
+                ],
+            ),
+        )
+        assert update_resp.status_code == 200
+        assert update_resp.json()["actor"] == "Original attribution text"
+        assert update_resp.json()["attributed-to"] == [
+            {
+                "entity": entity_b,
+                "activity-purpose": "Adversarial Operation",
+                "description": "Updated attribution",
+            }
+        ]
+        assert (
+            client.get(
+                f"/{ATLAS_DATA_VERSION}/techniques/{attribution_technique}"
+            ).json()["maturity"]
+            == "Demonstrated"
+        )
+
+        delete_entity_resp = client.delete(f"/{ATLAS_DATA_VERSION}/entities/{entity_b}")
+        assert delete_entity_resp.status_code == 200
+        stored_case_study = client.get(
+            f"/{ATLAS_DATA_VERSION}/case-studies/{case_study_id}"
+        )
+        assert stored_case_study.status_code == 200
+        assert stored_case_study.json()["attributed-to"] == []
+        assert stored_case_study.json()["actor"] == "Original attribution text"
+        assert (
+            client.get(
+                f"/{ATLAS_DATA_VERSION}/techniques/{attribution_technique}"
+            ).json()["maturity"]
+            == "Demonstrated"
+        )
+
+    def test_case_study_attributed_to_rejects_missing_entity(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        attack_chain = [
+            {
+                "technique": technique_id,
+                "tactic": tactic_id,
+                "step_id": "S01",
+                "leads_to": [],
+            }
+        ]
+
+        missing_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/case-studies/",
+            json=case_study_payload(
+                attack_chain=attack_chain,
+                attributed_to=[{"entity": "AML.E9999"}],
+            ),
+        )
+        assert missing_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/case-studies/").json() == []
+
+    def test_case_study_attributed_to_rejects_cross_version_entity(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        assert (
+            client.post(
+                "/versions",
+                json={
+                    "new_version": "2026.06",
+                    "collection": {"name": "Test", "description": "Test"},
+                },
+            ).status_code
+            == 201
+        )
+        other_version_entity = create_entity(client, version="2026.06")
+        cross_version_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/case-studies/",
+            json=case_study_payload(
+                attack_chain=[
+                    {
+                        "technique": technique_id,
+                        "tactic": tactic_id,
+                        "step_id": "S01",
+                        "leads_to": [],
+                    }
+                ],
+                attributed_to=[{"entity": other_version_entity}],
+            ),
+        )
+        assert cross_version_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/case-studies/").json() == []
+
+    def test_case_study_attributed_to_rejects_duplicate_entity(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        entity_id = create_entity(client)
+        duplicate_resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/case-studies/",
+            json=case_study_payload(
+                attack_chain=[
+                    {
+                        "technique": technique_id,
+                        "tactic": tactic_id,
+                        "step_id": "S01",
+                        "leads_to": [],
+                    }
+                ],
+                attributed_to=[
+                    {"entity": entity_id},
+                    {"entity": entity_id, "description": "Duplicate"},
+                ],
+            ),
+        )
+        assert duplicate_resp.status_code == 409
+        assert client.get(f"/{ATLAS_DATA_VERSION}/case-studies/").json() == []
+
+    def test_case_study_attributed_to_rejects_software(
+        self, client: TestClient
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id)
+        software_id = create_software(client)
+        resp = client.post(
+            f"/{ATLAS_DATA_VERSION}/case-studies/",
+            json=case_study_payload(
+                attack_chain=[
+                    {
+                        "technique": technique_id,
+                        "tactic": tactic_id,
+                        "step_id": "S01",
+                        "leads_to": [],
+                    }
+                ],
+                attributed_to=[{"entity": software_id}],
+            ),
+        )
+        assert resp.status_code == 422
+
+    def test_update_case_study_preserves_child_and_parent_maturity(
         self, client
     ) -> None:
         tactic_id = create_tactic(client)
-        parent_id = create_technique(client, tactic_id)
+        parent_id = create_technique(client, tactic_id, maturity="Realized")
         child_id = client.post(
             f"/{ATLAS_DATA_VERSION}/techniques/",
             json=technique_payload(
                 tactics=[{"tactic": tactic_id}],
                 name="Child",
+                maturity="Realized",
                 specializes={"technique": parent_id},
             ),
         ).json()["id"]
@@ -1103,19 +1946,62 @@ class TestCaseStudies:
         child_after = client.get(f"/{ATLAS_DATA_VERSION}/techniques/{child_id}")
         assert parent_after.status_code == 200
         assert child_after.status_code == 200
-        assert parent_after.json()["maturity"] == "Demonstrated"
-        assert child_after.json()["maturity"] == "Demonstrated"
+        assert parent_after.json()["maturity"] == "Realized"
+        assert child_after.json()["maturity"] == "Realized"
 
-    def test_delete_case_studies_recomputes_parent_across_multiple_children(
+        replacement_target = create_technique(
+            client, tactic_id, name="Replacement Target"
+        )
+        entity_id = create_entity(
+            client,
+            entity_type="Organization",
+            uses=[{"technique": child_id}],
+        )
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}").json()[
+                "maturity"
+            ]
+            == "Realized"
+        )
+
+        entity_update = client.put(
+            f"/{ATLAS_DATA_VERSION}/entities/{entity_id}",
+            json=entity_payload(
+                entity_type="Organization",
+                uses=[{"technique": replacement_target}],
+            ),
+        )
+        assert entity_update.status_code == 200
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}").json()[
+                "maturity"
+            ]
+            == "Realized"
+        )
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{child_id}").json()[
+                "maturity"
+            ]
+            == "Realized"
+        )
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{replacement_target}").json()[
+                "maturity"
+            ]
+            == "Feasible"
+        )
+
+    def test_delete_case_studies_preserves_parent_across_multiple_children(
         self, client: TestClient
     ) -> None:
         tactic_id = create_tactic(client)
-        parent_id = create_technique(client, tactic_id)
+        parent_id = create_technique(client, tactic_id, maturity="Realized")
         child_a = client.post(
             f"/{ATLAS_DATA_VERSION}/techniques/",
             json=technique_payload(
                 tactics=[{"tactic": tactic_id}],
                 name="Child A",
+                maturity="Realized",
                 specializes={"technique": parent_id},
             ),
         ).json()["id"]
@@ -1124,6 +2010,7 @@ class TestCaseStudies:
             json=technique_payload(
                 tactics=[{"tactic": tactic_id}],
                 name="Child B",
+                maturity="Demonstrated",
                 specializes={"technique": parent_id},
             ),
         ).json()["id"]
@@ -1161,6 +2048,23 @@ class TestCaseStudies:
         )
         assert cs_incident.status_code == 201
         assert cs_exercise.status_code == 201
+        research_entity = create_entity(
+            client,
+            name="Research Entity",
+            entity_type="Team",
+            uses=[
+                {
+                    "technique": child_a,
+                    "activity_purpose": "Security Evaluation",
+                }
+            ],
+        )
+        adversary_entity = create_entity(
+            client,
+            name="Adversary Entity",
+            entity_type="Activity Cluster",
+            uses=[{"technique": child_b}],
+        )
 
         parent_initial = client.get(f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}")
         assert parent_initial.status_code == 200
@@ -1175,7 +2079,18 @@ class TestCaseStudies:
             f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}"
         )
         assert parent_after_first_delete.status_code == 200
-        assert parent_after_first_delete.json()["maturity"] == "Demonstrated"
+        assert parent_after_first_delete.json()["maturity"] == "Realized"
+
+        delete_adversary = client.delete(
+            f"/{ATLAS_DATA_VERSION}/entities/{adversary_entity}"
+        )
+        assert delete_adversary.status_code == 200
+        assert (
+            client.get(f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}").json()[
+                "maturity"
+            ]
+            == "Realized"
+        )
 
         delete_exercise = client.delete(
             f"/{ATLAS_DATA_VERSION}/case-studies/{cs_exercise.json()['id']}"
@@ -1186,7 +2101,17 @@ class TestCaseStudies:
             f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}"
         )
         assert parent_after_second_delete.status_code == 200
-        assert parent_after_second_delete.json()["maturity"] == "Feasible"
+        assert parent_after_second_delete.json()["maturity"] == "Realized"
+
+        delete_research = client.delete(
+            f"/{ATLAS_DATA_VERSION}/entities/{research_entity}"
+        )
+        assert delete_research.status_code == 200
+        parent_after_all_evidence = client.get(
+            f"/{ATLAS_DATA_VERSION}/techniques/{parent_id}"
+        )
+        assert parent_after_all_evidence.status_code == 200
+        assert parent_after_all_evidence.json()["maturity"] == "Realized"
 
 
 # ---------------------------------------------------------------------------
@@ -1407,6 +2332,29 @@ class TestCollectionAndMatrix:
 
 
 class TestVersions:
+    @pytest.fixture()
+    def registered_versions(self) -> tuple[str, ...]:
+        return ()
+
+    @pytest.mark.parametrize(
+        "resource,payload_factory",
+        [
+            ("tactics", tactic_payload),
+            ("techniques", technique_payload),
+            ("mitigations", mitigation_payload),
+            ("case-studies", case_study_payload),
+            ("entities", entity_payload),
+            ("software", software_payload),
+        ],
+    )
+    def test_create_rejects_missing_version(
+        self, client, db, resource, payload_factory
+    ):
+        response = client.post(f"/missing/{resource}/", json=payload_factory())
+        assert response.status_code == 404
+        assert response.json()["detail"] == "Version missing not found."
+        assert db.query(models.AtlasObject).count() == 0
+
     def test_list_versions_empty(self, client: TestClient) -> None:
         resp = client.get("/versions")
         assert resp.status_code == 200
@@ -1441,6 +2389,39 @@ class TestVersions:
         assert [entry["version"] for entry in body] == ["9.0.0", "9.0.1"]
         assert body[0]["base-version"] is None
         assert body[1]["base-version"] == "9.0.0"
+
+    def test_create_version_with_collection_reference(self, client: TestClient) -> None:
+        response = client.post(
+            "/versions",
+            json={
+                "new_version": "9.0.6",
+                "collection": {
+                    "name": "Collection 9.0.6",
+                    "description": "Reference test",
+                    "references": [
+                        {
+                            "id": "source",
+                            "title": "Source",
+                            "url": "https://example.com/source",
+                        }
+                    ],
+                },
+            },
+        )
+        assert response.status_code == 201
+
+        collection = client.get("/9.0.6/collection/")
+        assert collection.status_code == 200
+        assert collection.json()["references"][0]["id"] == "source"
+
+        copied = client.post(
+            "/versions",
+            json={"new_version": "9.0.7", "base_version": "9.0.6"},
+        )
+        assert copied.status_code == 201
+        copied_collection = client.get("/9.0.7/collection/")
+        assert copied_collection.status_code == 200
+        assert copied_collection.json()["references"][0]["id"] == "source"
 
     def test_get_version_success(self, client: TestClient) -> None:
         create_resp = client.post(
@@ -1565,11 +2546,14 @@ class TestVersions:
         del_resp = client.delete("/versions/9.2.0")
         assert del_resp.status_code == 409
 
-    def test_delete_version_removes_all_data(self, client: TestClient) -> None:
+    def test_delete_version_removes_all_data(
+        self, client: TestClient, db: Session
+    ) -> None:
+        version = "9.1.0"
         create_resp = client.post(
             "/versions",
             json={
-                "new_version": "9.1.0",
+                "new_version": version,
                 "collection": {
                     "name": "Test Collection",
                     "description": "Test version",
@@ -1579,17 +2563,77 @@ class TestVersions:
         )
         assert create_resp.status_code == 201
 
-        del_resp = client.delete("/versions/9.1.0")
+        db.add_all(
+            [
+                models.Entity(
+                    id="AML.E0001",
+                    version=version,
+                    name="Test Entity",
+                    description="Test entity",
+                    references=[],
+                    entity_type="Activity Cluster",
+                    associated_entities=[],
+                    attack_reference=None,
+                ),
+                models.Software(
+                    id="AML.S0001",
+                    version=version,
+                    name="Test Software",
+                    description="Test software",
+                    references=[],
+                    software_type="Malware",
+                    attack_reference=None,
+                ),
+            ]
+        )
+        db.flush()
+        db.add(
+            models.Relationship(
+                source="AML.E0001",
+                target="AML.S0001",
+                version=version,
+                relationship_type=AtlasRelationshipType.USES,
+            )
+        )
+        db.commit()
+
+        assert db.query(models.AtlasObject).filter_by(version=version).count() == 3
+        assert db.query(models.Relationship).filter_by(version=version).count() == 1
+
+        del_resp = client.delete(f"/versions/{version}")
         assert del_resp.status_code == 200
 
-        ver_resp = client.get("/versions/9.1.0")
+        assert db.query(models.Relationship).filter_by(version=version).count() == 0
+        assert db.query(models.Collection).filter_by(version=version).count() == 0
+        assert db.query(models.Entity).filter_by(version=version).count() == 0
+        assert db.query(models.Software).filter_by(version=version).count() == 0
+        assert db.query(models.AtlasObject).filter_by(version=version).count() == 0
+        assert db.query(models.Version).filter_by(version=version).count() == 0
+
+        ver_resp = client.get(f"/versions/{version}")
         assert ver_resp.status_code == 404
 
-        coll_resp = client.get("/9.1.0/collection/")
+        coll_resp = client.get(f"/{version}/collection/")
         assert coll_resp.status_code == 404
 
-        data_resp = client.get("/versions/9.1.0/data")
+        data_resp = client.get(f"/versions/{version}/data")
         assert data_resp.status_code == 404
+
+        recreate_resp = client.post(
+            "/versions",
+            json={
+                "new_version": version,
+                "collection": {
+                    "name": "Recreated Collection",
+                    "description": "Recreated version",
+                    "references": [],
+                },
+            },
+        )
+        assert recreate_resp.status_code == 201
+        assert client.get(f"/{version}/collection/").json()["name"] == (
+            "Recreated Collection"
+        )
 
     def test_create_copy_version_is_atomic_on_commit_failure(
         self, client: TestClient, monkeypatch: pytest.MonkeyPatch
@@ -1721,6 +2765,22 @@ class TestExport:
             ),
         ).json()["id"]
 
+        assessed_id = create_technique(
+            client, tactic_id, name="Editorial assessment", maturity="Realized"
+        )
+
+        software_id = create_software(
+            client,
+            implements=[{"technique": technique_id, "description": "implements"}],
+        )
+        entity_id = create_entity(
+            client,
+            uses=[
+                {"technique": technique_id, "description": "observed behavior"},
+                {"software": software_id, "description": "operated software"},
+            ],
+        )
+
         client.post(
             f"/{ATLAS_DATA_VERSION}/mitigations/",
             json=mitigation_payload(
@@ -1733,7 +2793,7 @@ class TestExport:
             ),
         )
 
-        client.post(
+        case_study_id = client.post(
             f"/{ATLAS_DATA_VERSION}/case-studies/",
             json=case_study_payload(
                 attack_chain=[
@@ -1744,8 +2804,10 @@ class TestExport:
                         leads_to=["S02"],
                     )
                 ],
+                attributed_to=[{"entity": entity_id, "description": "attributed entity"}],
+                reported_by=[{"entity": entity_id, "description": "Published report"}],
             ),
-        )
+        ).json()["id"]
 
         add_matrix_sequence(db, tactic_id, position=1, description="matrix has tactic")
         db.commit()
@@ -1755,9 +2817,12 @@ class TestExport:
 
         parsed = yaml.safe_load(resp.content)
         assert len(parsed["tactics"]) == 1
-        assert len(parsed["techniques"]) == 1
+        assert len(parsed["techniques"]) == 2
+        assert parsed["techniques"][assessed_id]["maturity"] == "Realized"
         assert len(parsed["mitigations"]) == 1
         assert len(parsed["case-studies"]) == 1
+        assert list(parsed["entities"]) == [entity_id]
+        assert list(parsed["software"]) == [software_id]
 
         # Techniques should NOT have embedded tactics relationship
         technique_key, technique = next(iter(parsed["techniques"].items()))
@@ -1767,6 +2832,10 @@ class TestExport:
         # Mitigations should NOT have embedded mitigates relationship
         mitigation_key, mitigation = next(iter(parsed["mitigations"].items()))
         assert "mitigates" not in mitigation
+
+        # Entities and Software should NOT have embedded relationships
+        assert "uses" not in parsed["entities"][entity_id]
+        assert "implements" not in parsed["software"][software_id]
 
         # Matrix should NOT have embedded tactics relationship
         matrix = parsed["matrix"]
@@ -1796,6 +2865,39 @@ class TestExport:
             for r in rels["ATLAS-matrix"]["sequences"]
         )
         assert any(r.get("position") == 1 for r in rels["ATLAS-matrix"]["sequences"])
+        assert {entry["target"] for entry in rels[entity_id]["uses"]} == {
+            technique_id,
+            software_id,
+        }
+        assert rels[software_id]["implements"][0]["target"] == technique_id
+        assert rels[case_study_id]["attributed-to"][0]["target"] == entity_id
+        assert rels[case_study_id]["reported-by"][0]["target"] == entity_id
+        assert parsed["case-studies"][case_study_id]["reporter"] == "Test Reporter"
+
+        from tools.populate_atlas_db import insert_version_bundle
+
+        insert_version_bundle(db, schemas.AtlasExport.model_validate(parsed), "2026.06")
+        db.flush()
+        imported = services.techniques.get_one(db, assessed_id, "2026.06")
+        assert imported.maturity.value == "Realized"
+
+        db.add(models.Version(version="2026.07", base_version="2026.06"))
+        db.flush()
+        versions_service.copy(db, "2026.06", "2026.07")
+        db.flush()
+        copied = services.techniques.get_one(db, assessed_id, "2026.07")
+        assert copied.maturity.value == "Realized"
+
+        for version in ("2026.06", "2026.07"):
+            stored = services.case_studies.get_one(db, case_study_id, version)
+            assert stored.reporter == "Test Reporter"
+            reporting = [
+                rel for rel in stored.source_relationships
+                if rel.relationship_type == AtlasRelationshipType.REPORTED_BY
+            ]
+            assert [(rel.target, rel.description) for rel in reporting] == [
+                (entity_id, "Published report")
+            ]
 
     def test_export_descriptions_and_ordering(
         self,

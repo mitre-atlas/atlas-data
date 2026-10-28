@@ -5,18 +5,19 @@ from sqlalchemy.orm import Session
 
 from atlas import models, schemas
 from atlas.db import safe_flush, transactional
-from atlas.enums import AtlasObjectType, AtlasRelationshipType, TechniqueMaturity
+from atlas.enums import AtlasObjectType, AtlasRelationshipType
 from atlas.mappers import techniques as technique_mapper
 from atlas.services.common import (
     generate_next_id,
-    recompute_technique_maturity,
     replace_source_relationships,
+    require_version,
 )
 
 
 def create(
     db: Session, technique: schemas.TechniqueInput, version: str
 ) -> models.Technique:
+    require_version(db, version)
     sub_of = technique.specializes.technique if technique.specializes else None
     technique_id = generate_next_id(
         db, AtlasObjectType.TECHNIQUE, version, specializes_target=sub_of
@@ -26,7 +27,7 @@ def create(
         technique,
         technique_id=technique_id,
         version=version,
-        maturity=TechniqueMaturity.FEASIBLE,
+        maturity=technique.maturity,
     )
 
     if technique.specializes:
@@ -59,7 +60,6 @@ def create(
     with transactional(db):
         db.add(db_technique)
         safe_flush(db)
-        recompute_technique_maturity(db, version, {technique_id})
     db.refresh(db_technique)
     return db_technique
 
@@ -123,7 +123,12 @@ def update(
                     description=technique.specializes.description,
                 )
             )
-            _set_subtechnique_tactics_from_parent(db, db_technique, db_parent)
+            _set_subtechnique_tactics_from_parent(
+                db,
+                db_technique,
+                db_parent,
+                {rel.tactic: rel.description for rel in technique.tactics},
+            )
             safe_flush(db)
 
         if not db_technique.parent:
@@ -148,7 +153,6 @@ def update(
             _set_subtechnique_tactics_from_parent(db, child, db_technique)
 
         safe_flush(db)
-        recompute_technique_maturity(db, version, {technique_id})
 
     db.refresh(db_technique)
     return db_technique
@@ -215,15 +219,27 @@ def _validate_subtechnique_tactics_match_parent(
 
 
 def _set_subtechnique_tactics_from_parent(
-    db: Session, db_subtechnique: models.Technique, db_parent: models.Technique
+    db: Session,
+    db_subtechnique: models.Technique,
+    db_parent: models.Technique,
+    descriptions: dict[str, str | None] | None = None,
 ) -> None:
+    existing_descriptions = {
+        rel.target: rel.description
+        for rel in db_subtechnique.source_relationships
+        if rel.relationship_type == AtlasRelationshipType.ACHIEVES
+    }
     achieves_relationships = [
         models.Relationship(
             source=db_subtechnique.id,
             target=rel.target,
             version=db_subtechnique.version,
             relationship_type=models.AtlasRelationshipType.ACHIEVES,
-            description=None,
+            description=(
+                descriptions[rel.target]
+                if descriptions is not None and rel.target in descriptions
+                else existing_descriptions.get(rel.target)
+            ),
         )
         for rel in db_parent.source_relationships
         if rel.relationship_type == AtlasRelationshipType.ACHIEVES

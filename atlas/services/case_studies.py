@@ -9,14 +9,16 @@ from atlas.enums import AtlasObjectType
 from atlas.mappers import case_studies as case_study_mapper
 from atlas.services.common import (
     generate_next_id,
-    recompute_technique_maturity,
     replace_source_relationships,
+    require_version,
+    validate_relationship_types,
 )
 
 
 def create(
     db: Session, case_study: schemas.CaseStudyInput, version: str
 ) -> models.CaseStudy:
+    require_version(db, version)
     case_study_id = generate_next_id(db, AtlasObjectType.CASE_STUDY, version)
 
     db_case_study = case_study_mapper.to_model(
@@ -25,29 +27,14 @@ def create(
         version=version,
     )
 
-    for uses_rel in case_study.attack_chain:
-        rel = models.Relationship(
-            source=case_study_id,
-            target=uses_rel.technique,
-            version=version,
-            relationship_type=models.AtlasRelationshipType.EMPLOYS,
-            description=uses_rel.description,
-            extra_fields={
-                "tactic": uses_rel.tactic,
-                "step_id": uses_rel.step_id,
-                "leads_to": uses_rel.leads_to,
-            },
-        )
-        db.add(rel)
-
     with transactional(db):
         db.add(db_case_study)
         safe_flush(db)
-        recompute_technique_maturity(
-            db,
-            version,
-            {uses_rel.technique for uses_rel in case_study.attack_chain},
-        )
+        db.add_all(_employs_relationships(db_case_study, case_study))
+        db.add_all(_attributed_to_relationships(db_case_study, case_study))
+        db.add_all(_reported_by_relationships(db_case_study, case_study))
+        db.add_all(_uses_software_relationships(db_case_study, case_study))
+        safe_flush(db)
     return db_case_study
 
 
@@ -84,43 +71,35 @@ def update(
 ) -> models.CaseStudy:
     db_case_study = get_one(db, case_study_id, version)
 
-    old_technique_ids = [
-        rel.target
-        for rel in db_case_study.source_relationships
-        if rel.relationship_type == models.AtlasRelationshipType.EMPLOYS
-    ]
-
     with transactional(db):
         case_study_mapper.update_model(db_case_study, case_study)
 
-        employs_relationships = [
-            models.Relationship(
-                source=db_case_study.id,
-                target=step.technique,
-                version=db_case_study.version,
-                relationship_type=models.AtlasRelationshipType.EMPLOYS,
-                description=step.description,
-                extra_fields={
-                    "tactic": step.tactic,
-                    "step_id": step.step_id,
-                    "leads_to": step.leads_to,
-                },
-            )
-            for step in case_study.attack_chain
-        ]
         replace_source_relationships(
             db,
             db_case_study,
             models.AtlasRelationshipType.EMPLOYS,
-            employs_relationships,
+            _employs_relationships(db_case_study, case_study),
+        )
+        replace_source_relationships(
+            db,
+            db_case_study,
+            models.AtlasRelationshipType.ATTRIBUTED_TO,
+            _attributed_to_relationships(db_case_study, case_study),
+        )
+        replace_source_relationships(
+            db,
+            db_case_study,
+            models.AtlasRelationshipType.REPORTED_BY,
+            _reported_by_relationships(db_case_study, case_study),
+        )
+        replace_source_relationships(
+            db,
+            db_case_study,
+            models.AtlasRelationshipType.USES,
+            _uses_software_relationships(db_case_study, case_study),
         )
 
         safe_flush(db)
-
-        all_technique_ids = set(old_technique_ids) | {
-            rel.technique for rel in case_study.attack_chain
-        }
-        recompute_technique_maturity(db, version, all_technique_ids)
 
     db.refresh(db_case_study)
     return db_case_study
@@ -129,13 +108,85 @@ def update(
 def delete(db: Session, case_study_id: str, version: str):
     db_case_study = get_one(db, case_study_id, version)
 
-    technique_ids = [
-        rel.target
-        for rel in db_case_study.source_relationships
-        if rel.relationship_type == models.AtlasRelationshipType.EMPLOYS
-    ]
-
     with transactional(db):
         db.delete(db_case_study)
-        recompute_technique_maturity(db, version, set(technique_ids))
     return {"detail": f"Case study {case_study_id} was deleted successfully."}
+
+
+def _uses_software_relationships(
+    db_case_study: models.CaseStudy,
+    case_study: schemas.CaseStudyInput,
+) -> list[models.Relationship]:
+    return [
+        models.Relationship(
+            source=db_case_study.id,
+            target=use.software,
+            version=db_case_study.version,
+            relationship_type=models.AtlasRelationshipType.USES,
+            description=use.description,
+        )
+        for use in case_study.uses_software
+    ]
+
+
+def _employs_relationships(
+    db_case_study: models.CaseStudy,
+    case_study: schemas.CaseStudyInput,
+) -> list[models.Relationship]:
+    return [
+        models.Relationship(
+            source=db_case_study.id,
+            target=step.technique,
+            version=db_case_study.version,
+            relationship_type=models.AtlasRelationshipType.EMPLOYS,
+            description=step.description,
+            extra_fields={
+                "tactic": step.tactic,
+                "step_id": step.step_id,
+                "leads_to": step.leads_to,
+            },
+        )
+        for step in case_study.attack_chain
+    ]
+
+
+def _attributed_to_relationships(
+    db_case_study: models.CaseStudy,
+    case_study: schemas.CaseStudyInput,
+) -> list[models.Relationship]:
+    relationships = []
+    for attribution in case_study.attributed_to:
+        extra_fields = {"activity_purpose": attribution.activity_purpose.value}
+        validate_relationship_types(
+            AtlasObjectType.CASE_STUDY,
+            AtlasObjectType.ENTITY,
+            models.AtlasRelationshipType.ATTRIBUTED_TO,
+            extra_fields,
+        )
+        relationships.append(
+            models.Relationship(
+                source=db_case_study.id,
+                target=attribution.entity,
+                version=db_case_study.version,
+                relationship_type=models.AtlasRelationshipType.ATTRIBUTED_TO,
+                description=attribution.description,
+                extra_fields=extra_fields,
+            )
+        )
+    return relationships
+
+
+def _reported_by_relationships(
+    db_case_study: models.CaseStudy,
+    case_study: schemas.CaseStudyInput,
+) -> list[models.Relationship]:
+    return [
+        models.Relationship(
+            source=db_case_study.id,
+            target=reporting.entity,
+            version=db_case_study.version,
+            relationship_type=models.AtlasRelationshipType.REPORTED_BY,
+            description=reporting.description,
+        )
+        for reporting in case_study.reported_by
+    ]

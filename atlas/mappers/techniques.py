@@ -37,6 +37,8 @@ def to_model(
 
 
 def update_model(db_obj: models.Technique, body: schemas.TechniqueInput) -> None:
+    if "maturity" in body.model_fields_set:
+        db_obj.maturity = body.maturity
     db_obj.name = body.name
     db_obj.description = body.description
     db_obj.references = [ref.model_dump(mode="json") for ref in body.references]

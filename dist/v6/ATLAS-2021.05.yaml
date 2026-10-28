@@ -1605,7 +1605,7 @@ relationships:
         Testing the model with a HTTP packet header from known malware command and
         control traffic samples was detected as malicious with high confidence (>
         99%).'
-      tactic: AML.TA0042
+      tactic: AML.TA0001
       step-id: S02
       leads-to:
       - S03
@@ -2154,7 +2154,7 @@ relationships:
       target: AML.T0005
       relationship-type: employs
       description: The team developed a proxy model using the open source data.
-      tactic: AML.TA0042
+      tactic: AML.TA0001
       step-id: S05
       leads-to:
       - S06

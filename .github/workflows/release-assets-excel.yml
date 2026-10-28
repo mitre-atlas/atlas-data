@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Setup uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
@@ -62,6 +64,8 @@ jobs:
           cp dist/excel-files/atlas-tactics.xlsx release-assets/excel-atlas-tactics.xlsx
           cp dist/excel-files/atlas-mitigations.xlsx release-assets/excel-atlas-mitigations.xlsx
           cp dist/excel-files/atlas-case-studies.xlsx release-assets/excel-atlas-case-studies.xlsx
+          cp dist/excel-files/atlas-entities.xlsx release-assets/excel-atlas-entities.xlsx
+          cp dist/excel-files/atlas-software.xlsx release-assets/excel-atlas-software.xlsx
           cp dist/excel-files/atlas-matrices.xlsx release-assets/excel-atlas-matrices.xlsx
 
       - name: Upload excel assets to release

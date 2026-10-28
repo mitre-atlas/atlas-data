@@ -10,7 +10,25 @@ permissions:
   contents: write
 
 jobs:
+  validate-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout tagged revision
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.ref }}
+      - name: Setup uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      - name: Validate release dataset
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          export ATLAS_DATA_FILE="dist/v6/ATLAS-${VERSION}.yaml"
+          test -f "$ATLAS_DATA_FILE"
+          uv run pytest tests/test_data.py
+
   create-release:
+    needs: validate-release
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
@@ -93,6 +111,13 @@ jobs:
   generate-navigator-assets:
     needs: create-release
     uses: ./.github/workflows/release-assets-navigator.yml
+    with:
+      tag: ${{ needs.create-release.outputs.tag }}
+    secrets: inherit
+
+  generate-attack-flow-assets:
+    needs: create-release
+    uses: ./.github/workflows/release-assets-attack-flows.yml
     with:
       tag: ${{ needs.create-release.outputs.tag }}
     secrets: inherit

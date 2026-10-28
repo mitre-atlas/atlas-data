@@ -1,3 +1,299 @@
+## [2026.10]() (2026-10-28)
+
+##### Content v2026.10
+
+This version of ATLAS data contains 1 matrix, 16 tactics, 129 techniques, 92 sub-techniques, 44 mitigations, 77 case studies, 44 entities, and 37 software records.
+
+###### Techniques
+
+- Added new techniques
+
+  - [Develop Capabilities: Malware](/techniques/AML.T0017.003)
+  - [Outputs from AI Models](/techniques/AML.T0135)
+    - Collection behavior separated out from [Exfiltration via AI Inference API](/techniques/AML.T0024)
+  - [Exfiltration via AI User Interface](/techniques/AML.T0136)
+  - [Training Data Information from AI Models](/techniques/AML.T0137)
+  - [Training Data Information from AI Models: Infer Membership](/techniques/AML.T0137.000)
+    - moved from "Exfiltration via AI Inference API: Infer Training Data Membership" (AML.T0024.000)
+  - [Training Data Information from AI Models: Infer Properties](/techniques/AML.T0137.001)
+  - [Training Data Information from AI Models: Invert AI Model](/techniques/AML.T0137.002)
+    - moved from "Exfiltration via AI Inference API: Invert AI Model" (AML.T0024.001)
+  - [Training Data Information from AI Models: Extract Memorized Data](/techniques/AML.T0137.003)
+  - [Indicator Removal](/techniques/AML.T0138)
+  - [Compromise Accounts](/techniques/AML.T0139)
+  - [Centralized AI Service Request Routing](/techniques/AML.T0140)
+  - [AI Service Request Metadata Sanitization](/techniques/AML.T0141)
+  - [Event Triggered Execution](/techniques/AML.T0142)
+  - [LLM Prompt Propagation](/techniques/AML.T0143)
+  - [Recover AI Model Internals](/techniques/AML.T0144)
+  - [Poison AI Agent Learning Environment](/techniques/AML.T0145)
+  - [Data from AI Services: Conversation Context and Memory](/techniques/AML.T0085.002)
+    - moved from "LLM Data Leakage" (AML.T0057)
+  - [Data from AI Services: System Instructions](/techniques/AML.T0085.003)
+    - moved from "Extract LLM System Prompt" (AML.T0056)
+
+- Updated existing techniques
+
+  - [Supply Chain Compromise](/techniques/AML.T0010)
+    - Previously "AI Supply Chain Compromise"
+  - [Supply Chain Compromise: Hardware](/techniques/AML.T0010.000)
+  - [Supply Chain Compromise: Software](/techniques/AML.T0010.001)
+    - Previously "AI Supply Chain Compromise: AI Software"
+  - [Supply Chain Compromise: Data Repository](/techniques/AML.T0010.002)
+    - Previously "AI Supply Chain Compromise: Data"
+  - [Supply Chain Compromise: Model Repository](/techniques/AML.T0010.003)
+    - Previously "AI Supply Chain Compromise: Model"
+  - [Replicate AI Model Behavior](/techniques/AML.T0005)
+    - Previously "Create AI Proxy Model"
+  - [Replicate AI Model Behavior: Replicate Behavior from Gathered AI Artifacts](/techniques/AML.T0005.000)
+    - Previously "Create Proxy AI Model: Train Proxy via Gathered AI Artifacts"
+  - [Replicate AI Model Behavior: Replicate Behavior from Model Outputs](/techniques/AML.T0005.001)
+    - Previously "Create Proxy AI Model: Train Proxy via Replication"
+  - [Replicate AI Model Behavior: Adapt Existing Model to Replicate Behavior](/techniques/AML.T0005.002)
+    - Previously "Create Proxy AI Model: Use Pre-Trained Model"
+  - [Data from AI Services: RAG Databases](/techniques/AML.T0085.000)
+  - [Data from AI Services: AI Agent Tools](/techniques/AML.T0085.001)
+  - [Data from AI Services](/techniques/AML.T0085)
+  - [Acquire Infrastructure: AI Service Proxies](/techniques/AML.T0008.005)
+  - [Establish Accounts](/techniques/AML.T0021)
+  - [Exfiltration via AI Inference API](/techniques/AML.T0024)
+  - [AI Intellectual Property Theft](/techniques/AML.T0048.004)
+  - [Phishing: Spearphishing via Social Engineering LLM](/techniques/AML.T0052.000)
+  - [AI Agent Tool Invocation](/techniques/AML.T0053)
+  - [LLM Prompt Self-Replication](/techniques/AML.T0061)
+  - [Discover AI Model Outputs](/techniques/AML.T0063)
+  - [LLM Prompt Crafting](/techniques/AML.T0065)
+  - [Impersonation](/techniques/AML.T0073)
+  - [Crafted AI Assistant Links](/techniques/AML.T0131)
+
+###### Mitigations
+
+- Added new mitigations
+
+  - [Adaptive AI Response Degradation](/mitigations/AML.M0040)
+  - [Privacy-Preserving AI Training and Inference](/mitigations/AML.M0041)
+  - [Threat Intelligence Program](/mitigations/AML.M0042)
+  - [AI Agent External Resource Lifecycle Management](/mitigations/AML.M0043)
+
+- Updated existing mitigations
+
+  - [Sanitize Training Data](/mitigations/AML.M0007)
+  - [Validate AI Model](/mitigations/AML.M0008)
+  - [Verify AI Artifacts](/mitigations/AML.M0014)
+  - [Generative AI Guardrails](/mitigations/AML.M0020)
+  - [Generative AI Model Alignment](/mitigations/AML.M0022)
+  - [Manage Service AI Agent Access](/mitigations/AML.M0026)
+    - Previously "Privileged AI Agent Permissions Configuration"
+  - [Manage User-Delegated AI Agent Access](/mitigations/AML.M0027)
+    - Previously "Single-User AI Agent Permissions Configuration"
+  - [Enforce Access Controls for AI Agent Tools](/mitigations/AML.M0028)
+    - Previously "AI Agent Tools Permissions Configuration"
+  - [Maintain an AI Bill of Materials](/mitigations/AML.M0023)
+    - Previously "AI Bill of Materials"
+  - [AI Telemetry Logging and Monitoring](/mitigations/AML.M0024)
+    - Previously "AI Telemetry Logging"
+  - [AI Agent Authority Expansion Controls](/mitigations/AML.M0037)
+  - [AI Agent Scope Drift Detection](/mitigations/AML.M0038)
+    - Updated mitigation-to-technique relationships
+      - [Limit Public Release of Information](/mitigations/AML.M0000)
+      - [Limit Model Artifact Release](/mitigations/AML.M0001)
+      - [Predictive AI Output Obfuscation](/mitigations/AML.M0002)
+      - [Limit AI Service Query Volume and Rate](/mitigations/AML.M0004)
+      - [Control Access to AI Models and Data at Rest](/mitigations/AML.M0005)
+      - [Predictive AI Ensembles](/mitigations/AML.M0006)
+      - [Restrict Library Loading](/mitigations/AML.M0011)
+      - [Code Signing](/mitigations/AML.M0013)
+      - [Vulnerability Scanning](/mitigations/AML.M0016)
+      - [Generative AI Guidelines](/mitigations/AML.M0021)
+      - [Maintain AI Dataset Provenance](/mitigations/AML.M0025)
+      - [Human In-the-Loop for AI Agent Actions](/mitigations/AML.M0029)
+      - [Restrict AI Agent Tool Invocation on Untrusted Data](/mitigations/AML.M0030)
+      - [Segmentation of AI Agent Components](/mitigations/AML.M0032)
+      - [Input and Output Validation for AI Agent Components](/mitigations/AML.M0033)
+      - [AI Red Team](/mitigations/AML.M0035)
+      - [Limit AI Workload Resource Consumption](/mitigations/AML.M0036)
+      - [AI Honeypots](/mitigations/AML.M0039)
+
+###### Case Studies
+
+- Added new case studies
+
+  - [Autonomous Claude Agents Compromise Three Real Organizations During Cyber Evaluations](/studies/AML.CS0073)
+  - [AISI Evaluation Agents Conduct Unsanctioned Real-World Cyber Activity](/studies/AML.CS0074)
+  - [Model Distillation Campaigns Targeting Google AI Services](/studies/AML.CS0075)
+  - [China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies](/studies/AML.CS0076)
+
+- Updated existing case studies
+
+  - Added entity and software relationships for all applicable case studies
+  - [Model Distillation Campaigns Targeting Anthropic Claude](/studies/AML.CS0056)
+  - [GTG-1002 Claude Code Espionage Campaign](/studies/AML.CS0069)
+  - [LLMjacking: Stolen Cloud Credentials Used to Access Cloud LLM Services](/studies/AML.CS0030)
+    - Previously "LLM Jacking"
+  - Updated attack chains
+    - [Attack on Machine Translation Services](/studies/AML.CS0005)
+    - [ProofPoint Evasion](/studies/AML.CS0008)
+    - [Confusing Antimalware Neural Networks](/studies/AML.CS0014)
+    - [Achieving Code Execution in MathGPT via Prompt Injection](/studies/AML.CS0016)
+    - [Arbitrary Code Execution with Google Colab](/studies/AML.CS0018)
+    - [ShadowRay: Hijacking Exposed Ray Clusters](/studies/AML.CS0023)
+    - [AIKatz: Attacking LLM Desktop Applications](/studies/AML.CS0036)
+    - [Data Exfiltration via Agent Tools in Copilot Studio](/studies/AML.CS0037)
+    - [Organization Confusion on Hugging Face](/studies/AML.CS0027)
+    - [AI Model Tampering via Supply Chain Attack](/studies/AML.CS0028)
+    - [Data Exfiltration via Remote Poisoned MCP Tool](/studies/AML.CS0054)
+    - [Prompt-Based Attacks Against Gemini via Calendar Invitations](/studies/AML.CS0063)
+    - [Morris II Worm: RAG-Based Attack](/studies/AML.CS0024)
+    - [Rules File Backdoor: Supply Chain Attack on AI Coding Assistants](/studies/AML.CS0041)
+    - [ZombieAgent: Data Exfiltration Attack on ChatGPT](/studies/AML.CS0066)
+  - Added AI Incident Database references
+    - [LAMEHUG: Malware Leveraging Dynamic AI-Generated Commands](/studies/AML.CS0044)
+    - [Code to Deploy Destructive AI Agent Discovered in Amazon Q VS Code Extension](/studies/AML.CS0047)
+    - [Storm-2139 Azure OpenAI Guardrail Bypass](/studies/AML.CS0057)
+    - [Model Distillation Campaigns Targeting Anthropic Claude](/studies/AML.CS0056)
+    - [Autonomous OpenAI Evaluation Agents Compromise Hugging Face Infrastructure](/studies/AML.CS0068)
+    - [GTG-1002 Claude Code Espionage Campaign](/studies/AML.CS0069)
+    - [Multi-Agent Framework Compromises Taiwanese Government Systems](/studies/AML.CS0071)
+  - Updated date to range
+    - [Tay Poisoning](/studies/AML.CS0009)
+    - [Compromised PyTorch Dependency Chain](/studies/AML.CS0015)
+    - [Bypassing ID.me Identity Verification](/studies/AML.CS0017)
+    - [Web-Scale Data Poisoning: Split-View Attack](/studies/AML.CS0025)
+    - [Code to Deploy Destructive AI Agent Discovered in Amazon Q VS Code Extension](/studies/AML.CS0047)
+    - [Poisoned Postmark MCP Server Email Exfiltration](/studies/AML.CS0053)
+    - [Storm-2139 Azure OpenAI Guardrail Bypass](/studies/AML.CS0057)
+    - [Autonomous OpenAI Evaluation Agents Compromise Hugging Face Infrastructure](/studies/AML.CS0068)
+    - [Multi-Agent Framework Compromises Taiwanese Government Systems](/studies/AML.CS0071)
+    - [Autonomous Claude Agents Compromise Three Real Organizations During Cyber Evaluations](/studies/AML.CS0073)
+
+###### Entities
+
+- Added new entities
+
+  - [MITRE AI Red Team](/entities/AML.E0000)
+  - [Microsoft AI Red Team](/entities/AML.E0001)
+  - [Silent Break Security](/entities/AML.E0002)
+  - [spiderSilk](/entities/AML.E0003)
+  - [Berkeley Artificial Intelligence Research](/entities/AML.E0004)
+  - [Skylight Cyber](/entities/AML.E0005)
+  - [Mithril Security](/entities/AML.E0006)
+  - [Embrace the Red](/entities/AML.E0007)
+  - [Tenable](/entities/AML.E0008)
+  - [Lasso Security](/entities/AML.E0009)
+  - [Zenity](/entities/AML.E0010)
+  - [Trend Micro](/entities/AML.E0011)
+  - [iProov Red Team](/entities/AML.E0012)
+  - [ProKYC](/entities/AML.E0013)
+  - [PromptArmor](/entities/AML.E0014)
+  - [Lumia Security](/entities/AML.E0015)
+  - [Cato Networks](/entities/AML.E0016)
+  - [Pillar Security](/entities/AML.E0017)
+  - [APT28](/entities/AML.E0018)
+  - [Backslash Security Research Team](/entities/AML.E0019)
+  - [HiddenLayer](/entities/AML.E0020)
+  - [lkmanka58](/entities/AML.E0021)
+  - [depthfirst](/entities/AML.E0022)
+  - [Snyk](/entities/AML.E0023)
+  - [DeepSeek](/entities/AML.E0024)
+  - [Moonshot AI](/entities/AML.E0025)
+  - [MiniMax](/entities/AML.E0026)
+  - [Storm-2139](/entities/AML.E0027)
+  - [Skyld](/entities/AML.E0028)
+  - [Cybernews Investigation Team](/entities/AML.E0029)
+  - [Check Point Research](/entities/AML.E0030)
+  - [Microsoft Defender Security Research Team](/entities/AML.E0031)
+  - [SafeBreach Labs](/entities/AML.E0032)
+  - [Fujitsu](/entities/AML.E0033)
+  - [Unit 42](/entities/AML.E0034)
+  - [Radware](/entities/AML.E0035)
+  - [OpenAI](/entities/AML.E0036)
+  - [GTG-1002](/entities/AML.E0037)
+  - [knaithe](/entities/AML.E0038)
+  - [Anthropic](/entities/AML.E0039)
+  - [Alibaba Group](/entities/AML.E0040)
+  - [StepFun](/entities/AML.E0041)
+  - [Z.AI](/entities/AML.E0042)
+  - [UNC5673](/entities/AML.E0043)
+
+###### Software
+
+- Added new software
+
+  - [Proof Pudding](/software/AML.S0000)
+  - [metame](/software/AML.S0001)
+  - [Apktool](/software/AML.S0002)
+  - [DeepPayload](/software/AML.S0003)
+  - [torchtriton](/software/AML.S0004)
+  - [ROME](/software/AML.S0005)
+  - [EasyEdit](/software/AML.S0006)
+  - [huggingface-cli](/software/AML.S0007)
+  - [keychecker](/software/AML.S0008)
+  - [OAI Reverse Proxy](/software/AML.S0009)
+  - [Sliver](/software/AML.S0010)
+  - [OBS Studio](/software/AML.S0011)
+  - [ProKYC](/software/AML.S0012)
+  - [Swapface](/software/AML.S0013)
+  - [Virtual Camera: Live Assist](/software/AML.S0014)
+  - [LAMEHUG](/software/AML.S0015)
+  - [SesameOp](/software/AML.S0016)
+  - [HONESTCUE](/software/AML.S0017)
+  - [Xanthorox](/software/AML.S0018)
+  - [postmark-mcp](/software/AML.S0019)
+  - [de3u](/software/AML.S0020)
+  - [Frida](/software/AML.S0021)
+  - [Claude Code](/software/AML.S0022)
+  - [Codex](/software/AML.S0023)
+  - [G0DM0D3](/software/AML.S0024)
+  - [Hermes Agent](/software/AML.S0025)
+  - [OpenClaw](/software/AML.S0026)
+  - [Tesseract OCR](/software/AML.S0027)
+  - [AI Share URL Creator](/software/AML.S0028)
+  - [CiteMET](/software/AML.S0029)
+  - [Shodan](/software/AML.S0030)
+  - [FOFA](/software/AML.S0031)
+  - [Claude Relay Service](/software/AML.S0032)
+  - [L1B3RT4S](/software/AML.S0033)
+  - [DAN (Do Anything Now)](/software/AML.S0034)
+  - [FRUITSHELL](/software/AML.S0035)
+  - [CLIProxyAPI](/software/AML.S0036)
+
+##### Data Format v6.1.0
+
+- Added first-class Entity and Software objects to the ATLAS YAML format
+  - added top-level `entities` and `software` dictionaries with versioned identities, references, and creation/modification dates
+  - Entities use `AML.E####` IDs and an `entity-type` of Activity Cluster, Organization, Team, or Individual
+  - added `associated-entities` names with optional descriptions and optional ATT&CK references
+  - Software uses `AML.S####` IDs and a `software-type` of Malware or Tool
+  - added software aliases, optional ATT&CK references, and `software-categories`: program, library, model, service, ai-agent, ai-agent-framework, ai-agent-integration, and prompt-package
+- Added relationships for attribution, reporting, and software use
+  - Case Study → Entity: `attributed-to`
+  - Incident Case Study → Entity: optional `reported-by`, alongside the existing free-text `reporter`
+  - Entity → Technique and Entity → Software: `uses`
+  - Case Study → Software: `uses`, independent of actor attribution
+  - Software → Technique: `implements`
+  - attribution and entity-to-technique relationships require an `activity-purpose`: Adversarial Operation, Security Evaluation, or Unintended Consequence
+  - relationships support optional descriptions; activity purpose describes an activity rather than the entity's identity
+- Updated case-study metadata
+  - made free-text `actor` optional to support structured entity attribution
+  - replaced `date` and `date-granularity` with `start-date`, `start-date-granularity`, and optional `end-date` and `end-date-granularity`
+  - dates support Year, Month, or Day granularity; an omitted end date represents an ongoing period
+- Updated case-study attack chains to support directed graphs
+  - added `step-id` and `leads-to` metadata to technique-use relationships, supporting branching paths and repeated use of a technique
+- Made technique `maturity` an explicitly provided and stored field with Feasible, Demonstrated, and Realized values
+
+##### Data Tools
+
+- Added API endpoints, schema validation, database models, and migrations for entities, software, and their relationships
+- Updated YAML import/export and database population for format 6.1.0, including compatibility handling for legacy case-study dates
+- Updated version copying and deletion to preserve or remove entity/software records and relationships with their data version
+- Updated Excel generation to include entities, software, attribution, reporting, and software-use relationships
+- Updated STIX generation to include entity/software objects and their supported relationships, including case-study software use
+  - reporting relationships, free-text reporter information, and activity-purpose metadata remain outside the STIX export
+- Added Attack Flow generation for case-study attack-chain graphs and release artifacts
+- Improved sub-technique relationship handling and validation
+- Updated release workflows to validate releases, check out the requested release tag, and pin ATT&CK data used for STIX generation
+- Updated the pinned Enterprise ATT&CK dataset used for combined STIX exports from v19.2 to v20.0
+
 ## [2026.09]() (2026-09-14)
 
 ##### Content v2026.09
@@ -73,7 +369,7 @@ ATLAS is a globally accessible, living knowledge base of adversary tactics and t
 
 - Updated existing tactics
 
-  - [AI Attack Adaptation](/techniques/AML.TA0001)
+  - [AI Attack Adaptation](/tactics/AML.TA0001)
     - Previously "AI Attack Staging"
 
 ###### Techniques
@@ -95,7 +391,7 @@ ATLAS is a globally accessible, living knowledge base of adversary tactics and t
   - [Automated Collection](/techniques/AML.T0126)
   - [Data Staged](/techniques/AML.T0127)
   - [Compromise Infrastructure](/techniques/AML.T0128)
-  - [Develop Capabilities: Autonomous Exploit Development](/techniques/AML.T0016.001)
+  - [Develop Capabilities: Autonomous Exploit Development](/techniques/AML.T0017.001)
   - [Develop Capabilities: AI Agent Tools](/techniques/AML.T0017.002)
   - [Obtain Capabilities: AI Agent Tools](/techniques/AML.T0016.004)
 
@@ -107,7 +403,7 @@ ATLAS is a globally accessible, living knowledge base of adversary tactics and t
     - Generalized from "Process Discovery"
   - [Cyber Communication Channel](/techniques/AML.T0072)
     - Generalized from "Reverse Shell"
-  - [Develop Capabilities](/techniques/AML.T0016)
+  - [Develop Capabilities](/techniques/AML.T0017)
   - [LLM Prompt Crafting](/techniques/AML.T0065)
   - [Retrieval Content Crafting](/techniques/AML.T0066)
 
@@ -155,16 +451,16 @@ This version of ATLAS data contains 1 matrix, 16 tactics, 101 techniques, 77 sub
 
   - [Publish Poisoned AI Artifacts: Datasets](/techniques/AML.T0115.000)
     - Previously "Publish Poisoned Datasets" (AML.T0019)
-  - [Publish Poisoned AI Artifacts: Models](/techniques/AML.T0115.000)
+  - [Publish Poisoned AI Artifacts: Models](/techniques/AML.T0115.001)
     - Previously "Publish Poisoned Models" (AML.T0058)
-  - [Publish Poisoned AI Artifacts: AI Agent Tools](/techniques/AML.T0115.000)
+  - [Publish Poisoned AI Artifacts: AI Agent Tools](/techniques/AML.T0115.002)
     - Previously "Publish Poisoned AI Agent Tool" (AML.T0104)
   - [Training Data Poisoning](/techniques/AML.T0020)
     - Previously called Poison Training Data
   - [Masquerading](/techniques/AML.T0074)
   - [AI Agent Tool Poisoning](/techniques/AML.T0110)
   - [AI Agent Tool Invocation](/techniques/AML.T0053)
-  - [AI Supply Chain Compromise: AI Agent Tool](/techniques/AML.AML.T0010.005)
+  - [AI Supply Chain Compromise: AI Agent Tool](/techniques/AML.T0010.005)
   - [User Execution: Unsafe AI Artifacts](/techniques/AML.T0011.000)
   - [User Execution: Poisoned AI Agent Tool](/techniques/AML.T0011.002)
   - [Acquire Public AI Artifacts: AI Agent Configuration](/techniques/AML.T0002.002)
@@ -238,13 +534,13 @@ This version of ATLAS data contains 1 matrix, 16 tactics, 101 techniques, 77 sub
 
 - Added new techniques
 
-  - [Steal Web Session Cookie](/studies/AML.T0113)
-  - [Use Alternate Authentication Material: Web Session Cookie](/studies/AML.T0091.001)
-  - [AI Service Web Interface](/studies/AML.T0114)
+  - [Steal Web Session Cookie](/techniques/AML.T0113)
+  - [Use Alternate Authentication Material: Web Session Cookie](/techniques/AML.T0091.001)
+  - [AI Service Web Interface](/techniques/AML.T0114)
 
 - Updated existing techniques
 
-  - [LLM Jailbreak](/studies/AML.T0054)
+  - [LLM Jailbreak](/techniques/AML.T0054)
 
 ###### Mitigations
 
@@ -376,7 +672,7 @@ Minor fixes to contribution schemas.
 
 - Added new techniques
 
-  - [AI Agent Tool Poisoning](/techniques/AML.T0108)
+  - [AI Agent Tool Poisoning](/techniques/AML.T0110)
   - [AI Supply Chain Rug Pull](/techniques/AML.T0109)
   - [AI Agent Tool Poisoning](/techniques/AML.T0110)
   - [AI Supply Chain Reputation Inflation](/techniques/AML.T0111)
@@ -386,13 +682,13 @@ Minor fixes to contribution schemas.
   - [Cost Harvesting: Excessive Queries](/techniques/AML.T0034.000)
   - [Cost Harvesting: Resource-Intensive Queries](/techniques/AML.T0034.001)
   - [Cost Harvesting: Agentic Resource Consumption](/techniques/AML.T0034.002)
-  - [Discover AI Agent Configuration: Call Chains](/techniques/AML.T0083.003)
+  - [Discover AI Agent Configuration: Call Chains](/techniques/AML.T0084.003)
   - [Acquire Infrastructure: AI Service Proxies](/techniques/AML.T0008.005)
 
 - Updated existing techniques
 
   - [Cost Harvesting](/techniques/AML.T0034)
-  - [Exfiltration via AI Agent Tool Invocation](/techniques/AML.T086)
+  - [Exfiltration via AI Agent Tool Invocation](/techniques/AML.T0086)
   - [Publish Poisoned AI Agent Tool](/techniques/AML.T0104)
 
 ###### Mitigations
@@ -560,7 +856,7 @@ This version of ATLAS data contains 1 matrix, 16 tactics, 84 techniques, 56 sub-
 
 - Added a new tactic
 
-  - [Lateral Movement](/techniques/AML.TA0015)
+  - [Lateral Movement](/tactics/AML.TA0015)
 
 ###### Techniques
 
@@ -708,8 +1004,8 @@ The language in TTP names and descriptions has been updated to consistently pref
 
 - Updated existing mitigations
 
-  - [Vulnerability Scanning](/techniques/AML.M0016)
-  - [AI Telemetry Logging](/techniques/AML.M0024)
+  - [Vulnerability Scanning](/mitigations/AML.M0016)
+  - [AI Telemetry Logging](/mitigations/AML.M0024)
 
 ### Case Studies
 

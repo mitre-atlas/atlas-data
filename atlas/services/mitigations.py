@@ -7,12 +7,17 @@ from atlas import models, schemas
 from atlas.db import transactional
 from atlas.enums import AtlasObjectType
 from atlas.mappers import mitigations as mitigation_mapper
-from atlas.services.common import generate_next_id, replace_source_relationships
+from atlas.services.common import (
+    generate_next_id,
+    replace_source_relationships,
+    require_version,
+)
 
 
 def create(
     db: Session, mitigation: schemas.MitigationInput, version: str
 ) -> models.Mitigation:
+    require_version(db, version)
     mitigation_id = generate_next_id(db, AtlasObjectType.MITIGATION, version)
 
     db_mitigation = mitigation_mapper.to_model(

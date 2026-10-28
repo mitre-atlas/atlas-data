@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Setup uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
@@ -51,11 +53,17 @@ jobs:
           gh release view "${{ steps.tag.outputs.value }}" --repo "${{ github.repository }}"
 
       - name: Generate STIX JSON
+        env:
+          ATTACK_STIX_VERSION: v20.0
         run: |
+          mkdir -p dist
+          curl --fail --location \
+            "https://github.com/mitre-attack/attack-stix-data/releases/download/${ATTACK_STIX_VERSION}/enterprise-attack.json" \
+            --output dist/enterprise-attack.json
           uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies -o dist/stix-atlas.json
           uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies --maturity-threshold realized -o dist/stix-atlas-realized.json
-          uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies --include-attack -o dist/stix-atlas-attack-enterprise.json
-          uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies --maturity-threshold realized --include-attack -o dist/stix-atlas-realized-attack-enterprise.json
+          uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies --include-attack --attack-input dist/enterprise-attack.json -o dist/stix-atlas-attack-enterprise.json
+          uv run atlas-to-stix -i "${{ steps.tag.outputs.input }}" --include-case-studies --maturity-threshold realized --include-attack --attack-input dist/enterprise-attack.json -o dist/stix-atlas-realized-attack-enterprise.json
 
       - name: Upload assets to release
         env:

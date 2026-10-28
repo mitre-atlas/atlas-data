@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import HTTPException, status
 from sqlalchemy.exc import OperationalError
@@ -17,6 +17,8 @@ _CHILD_CLASSES = [
     models.Technique,
     models.Mitigation,
     models.CaseStudy,
+    models.Entity,
+    models.Software,
     models.Collection,
     models.Matrix,
 ]
@@ -91,10 +93,20 @@ def create(
             detail=f"Version {body.new_version} already exists.",
         )
 
-    today = datetime.now(timezone.utc).date()
+    today = datetime.now(UTC).date()
 
     with transactional(db):
+        ver = models.Version(
+            version=body.new_version,
+            base_version=body.base_version,
+            created_date=today,
+            modified_date=today,
+            publish_date=body.publish_date,
+        )
+        db.add(ver)
+        db.flush()
         if body.base_version is not None:
+            get_one(db, body.base_version)
             if get_collection(db, body.base_version) is None:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
@@ -110,7 +122,10 @@ def create(
                 version=body.new_version,
                 name=body.collection.name,
                 description=body.collection.description,
-                references=body.collection.references,
+                references=[
+                    reference.model_dump(mode="json")
+                    for reference in body.collection.references
+                ],
                 created_date=today,
                 modified_date=today,
             )
@@ -119,15 +134,6 @@ def create(
             detail = (
                 f"Created new version {body.new_version} with collection object only."
             )
-
-        ver = models.Version(
-            version=body.new_version,
-            base_version=body.base_version,
-            created_date=today,
-            modified_date=today,
-            publish_date=body.publish_date,
-        )
-        db.add(ver)
 
     return schemas.VersionCreateResponse(
         mode=mode,
@@ -142,7 +148,7 @@ def update_metadata(
     ver = get_one(db, version)
     with transactional(db):
         ver.publish_date = body.publish_date
-        ver.modified_date = datetime.now(timezone.utc).date()
+        ver.modified_date = datetime.now(UTC).date()
     return version_mapper.to_schema(ver)
 
 
@@ -168,10 +174,16 @@ def delete(db: Session, version: str) -> dict[str, str]:
     with transactional(db):
         db.query(models.Relationship).filter(
             models.Relationship.version == version
-        ).delete()
+        ).delete(synchronize_session=False)
 
         for cls in _CHILD_CLASSES:
-            db.query(cls).filter(cls.version == version).delete()
+            db.query(cls).filter(cls.version == version).delete(
+                synchronize_session=False
+            )
+
+        db.query(models.AtlasObject).filter(
+            models.AtlasObject.version == version
+        ).delete(synchronize_session=False)
 
         db.delete(ver)
     return {
