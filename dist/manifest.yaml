@@ -1,3 +1,8 @@
+- release: '2026.11'
+  release-date: '2026-11-27'
+  versions:
+  - format-version: 6.2.0
+    path: v6/ATLAS-2026.11.yaml
 - release: '2026.10'
   release-date: '2026-10-28'
   versions:

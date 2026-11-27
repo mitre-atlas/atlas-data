@@ -409,8 +409,8 @@ class CaseStudyFields(AtlasObjectFields):
 
     @model_validator(mode="after")
     def validate_reporter_for_type(self) -> Self:
-        if self.type == CaseStudyType.EXERCISE and self.reporter is not None:
-            raise ValueError("Exercise case studies must not have a reporter")
+        if self.type != CaseStudyType.INCIDENT and self.reporter is not None:
+            raise ValueError(f"{self.type.value} case studies must not have a reporter")
         return self
 
     @field_validator("start_date", "end_date", mode="before")
@@ -445,9 +445,10 @@ class CaseStudyRelationships(ConfiguredBaseModel):
 
     @model_validator(mode="after")
     def validate_reporting_relationships(self) -> Self:
-        if self.reported_by and getattr(self, "type", None) == CaseStudyType.EXERCISE:
+        case_type = getattr(self, "type", None)
+        if self.reported_by and case_type is not None and case_type != CaseStudyType.INCIDENT:
             raise ValueError(
-                "Exercise case studies must not have reported-by relationships"
+                f"{case_type.value} case studies must not have reported-by relationships"
             )
         return self
 

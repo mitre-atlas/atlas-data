@@ -5,6 +5,7 @@ Set ATLAS_DATA_FILE to validate a different exported dataset.
 
 import os
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 import yaml
@@ -25,6 +26,7 @@ RANK = {Maturity.FEASIBLE: 0, Maturity.DEMONSTRATED: 1, Maturity.REALIZED: 2}
 CASE_MINIMUM = {
     CaseStudyType.EXERCISE: Maturity.DEMONSTRATED,
     CaseStudyType.INCIDENT: Maturity.REALIZED,
+    CaseStudyType.RESEARCH: None,
 }
 ENTITY_MINIMUM = {
     ActivityPurpose.SECURITY_EVALUATION: Maturity.DEMONSTRATED,
@@ -53,10 +55,25 @@ def assert_minimum(technique_id, minimum, evidence):
 @pytest.mark.parametrize("rel", relationships(AtlasRelationshipType.EMPLOYS))
 def test_case_study_maturity_minimum(rel):
     case_study = EXPORT.case_studies[rel.source]
+    minimum = CASE_MINIMUM[case_study.type]
+    if minimum is None:
+        return
     assert_minimum(
         rel.target,
-        CASE_MINIMUM[case_study.type],
+        minimum,
         f"{rel.source}, type {case_study.type.value}, relationship employs",
+    )
+
+
+@pytest.mark.parametrize("maturity", list(Maturity))
+def test_research_has_no_maturity_minimum(monkeypatch, maturity):
+    export = SimpleNamespace(
+        case_studies={"research": SimpleNamespace(type=CaseStudyType.RESEARCH)},
+        techniques={"technique": SimpleNamespace(maturity=maturity)},
+    )
+    monkeypatch.setitem(globals(), "EXPORT", export)
+    test_case_study_maturity_minimum(
+        SimpleNamespace(source="research", target="technique")
     )
 
 

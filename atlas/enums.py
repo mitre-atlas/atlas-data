@@ -51,7 +51,14 @@ class TechniquePlatformType(Enum):
     PREDICTIVE = "Predictive AI"
     GENERATIVE = "Generative AI"
     AGENTIC = "Agentic AI"
-    ENTERPRISE = "Enterprise"
+    CYBER = "Cyber"
+    HARDWARE = "Hardware"
+
+    @classmethod
+    def _missing_(cls, value: object) -> TechniquePlatformType | None:
+        if value == "Enterprise":
+            return cls.CYBER
+        return None
 
 
 class MitigationCategoryType(Enum):
@@ -72,6 +79,7 @@ class MitigationLifecyclePhasesType(Enum):
 class CaseStudyType(Enum):
     INCIDENT = "Incident"
     EXERCISE = "Exercise"
+    RESEARCH = "Research"
 
 
 class EntityType(Enum):

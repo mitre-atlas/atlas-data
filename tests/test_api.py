@@ -765,7 +765,7 @@ class TestTechniques:
         t1_id = create_tactic(client)
         payload = technique_payload(
             tactics=[{"tactic": t1_id}],
-            platforms=["Agentic AI", "Predictive AI", "Generative AI"],
+            platforms=["Hardware", "Agentic AI", "Cyber", "Predictive AI", "Generative AI"],
             references=[
                 {
                     "id": "tech-ref",
@@ -779,9 +779,22 @@ class TestTechniques:
         body = resp.json()
         assert (
             body["platforms"]
-            == [platform.value for platform in TechniquePlatformType][:3]
+            == [platform.value for platform in TechniquePlatformType]
         )
         assert len(body["references"]) == 1
+
+    def test_enterprise_platform_normalized_to_cyber(self, client: TestClient) -> None:
+        tactic_id = create_tactic(client)
+        payload = technique_payload(
+            tactics=[{"tactic": tactic_id}], platforms=["Enterprise"]
+        )
+        response = client.post(f"/{ATLAS_DATA_VERSION}/techniques/", json=payload)
+        assert response.status_code == 201
+        assert response.json()["platforms"] == ["Cyber"]
+        technique_id = response.json()["id"]
+        response = client.get(f"/{ATLAS_DATA_VERSION}/techniques/{technique_id}")
+        assert response.status_code == 200
+        assert response.json()["platforms"] == ["Cyber"]
 
     def test_create_technique_empty_platforms_rejected(
         self, client: TestClient
@@ -1552,6 +1565,37 @@ class TestSoftware:
 
 
 class TestCaseStudies:
+    def test_research_create_update_export(
+        self, client: TestClient, seed_collection_and_matrix: tuple[str, str],
+    ) -> None:
+        tactic_id = create_tactic(client)
+        technique_id = create_technique(client, tactic_id, maturity="Feasible")
+        payload = case_study_payload(
+            type="Research",
+            reporter=None,
+            attack_chain=[
+                dict(technique=technique_id, tactic=tactic_id, step_id="S01")
+            ],
+        )
+        response = client.post(f"/{ATLAS_DATA_VERSION}/case-studies/", json=payload)
+        assert response.status_code == 201, response.text
+        case_id = response.json()["id"]
+        url = f"/{ATLAS_DATA_VERSION}/case-studies/{case_id}"
+        response = client.put(url, json={**payload, "name": "Updated Research"})
+        assert response.status_code == 200, response.text
+        assert client.get(url).json()["type"] == "Research"
+        exported = client.get(f"/versions/{ATLAS_DATA_VERSION}/data")
+        assert exported.status_code == 200, exported.text
+        parsed = schemas.AtlasExport.model_validate(yaml.safe_load(exported.content))
+        assert parsed.case_studies[case_id].type.value == "Research"
+        assert parsed.techniques[technique_id].maturity.value == "Feasible"
+        for fields in (
+            {"reporter": "Research Reporter"},
+            {"reported_by": [{"entity": "AML.E0001"}]},
+        ):
+            response = client.put(url, json={**payload, **fields})
+            assert response.status_code == 422, response.text
+
     def test_date_range_create_update_export(
         self, client: TestClient, db: Session,
         seed_collection_and_matrix: tuple[str, str],

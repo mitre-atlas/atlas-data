@@ -1,3 +1,152 @@
+## [2026.11]() (2026-11-27)
+
+##### Content v2026.11
+
+This version of ATLAS data contains 1 matrix, 16 tactics, 137 techniques, 98 sub-techniques, 44 mitigations, 85 case studies, 50 entities, and 39 software records.
+
+###### Techniques
+
+- Added new techniques
+
+  - [LLM Response Components Manipulation: Links](/techniques/AML.T0067.001)
+  - [LLM Response Components Manipulation: Action Summaries](/techniques/AML.T0067.002)
+  - [LLM Response Components Manipulation: Recommended Actions](/techniques/AML.T0067.003)
+  - [Transform AI Model for Attack Development](/techniques/AML.T0146)
+  - [Poison AI Model](/techniques/AML.T0147)
+    - Previously "Manipulate AI Model: Poison AI Model"
+  - [Poison AI Model: Training on Poisoned Data](/techniques/AML.T0147.000)
+  - [Poison AI Model: Training Process Tampering](/techniques/AML.T0147.001)
+  - [Poison AI Model: Model Update Poisoning](/techniques/AML.T0147.002)
+  - [Embed Malicious Code in AI Artifacts](/techniques/AML.T0148)
+    - Previously "Manipulate AI Model: Embed Malware"
+  - [Manipulate AI Model at Runtime](/techniques/AML.T0149)
+  - [Analyze AI Side Channels](/techniques/AML.T0150)
+  - [Induce Hardware Faults](/techniques/AML.T0151)
+  - [Activate Hardware Trojan](/techniques/AML.T0152)
+  - [Collect Data from Accelerator Memory](/techniques/AML.T0153)
+  - [Develop Capabilities: Hardware Trojans](/techniques/AML.T0017.004)
+
+- Updated existing techniques
+
+  - [Discover AI Artifacts](/techniques/AML.T0007)
+  - [Obtain Capabilities: Agentic AI](/techniques/AML.T0016.004)
+    - Previously "Obtain Capabilities: AI Agent Tools"
+  - [AI Artifact Collection](/techniques/AML.T0035)
+  - [LLM Response Components Manipulation](/techniques/AML.T0067)
+    - Previously "LLM Trusted Output Components Manipulation"
+  - [LLM Response Components Manipulation: Source Attribution](/techniques/AML.T0067.000)
+    - Previously "LLM Trusted Output Components Manipulation: Citations"
+  - [Corrupt AI Model Files to Impair Scanning](/techniques/AML.T0076)
+    - Previously "Corrupt AI Model"
+  - [Training Data Poisoning](/techniques/AML.T0020)
+  - [Manipulate AI Model Artifact](/techniques/AML.T0018)
+    - Previously "Manipulate AI Model"
+  - [Manipulate AI Model Artifact: Modify AI Model Weights](/techniques/AML.T0018.000)
+  - [Manipulate AI Model Artifact: Modify AI Model Architecture](/techniques/AML.T0018.001)
+  - [Manipulate AI Model Artifact: Modify AI Model Input/Output Processing](/techniques/AML.T0018.003)
+    - Previously "Manipulate AI Model: Modify Prompt Construction Logic"
+  - [Full AI Model Access](/techniques/AML.T0044)
+  - [Supply Chain Compromise](/techniques/AML.T0010)
+  - [Supply Chain Compromise: Hardware](/techniques/AML.T0010.000)
+  - [Develop Capabilities](/techniques/AML.T0017)
+  - [AI Agent Clickbait](/techniques/AML.T0100)
+  - [Machine Compromise: AI Artifacts](/techniques/AML.T0112.001)
+  - [Discover AI Model Family](/techniques/AML.T0014)
+  - [External Harms: Reputational Harm](/techniques/AML.T0048.001)
+
+###### Mitigations
+
+- Updated existing mitigations
+
+  - [Input and Output Validation for AI Agent Components](/mitigations/AML.M0033)
+
+- Updated mitigation-to-technique relationships
+  - [Limit Model Artifact Release](/mitigations/AML.M0001)
+  - [Predictive AI Output Obfuscation](/mitigations/AML.M0002)
+  - [Limit AI Service Query Volume and Rate](/mitigations/AML.M0004)
+  - [Control Access to AI Models and Data at Rest](/mitigations/AML.M0005)
+  - [Sanitize Training Data](/mitigations/AML.M0007)
+  - [Validate AI Model](/mitigations/AML.M0008)
+  - [Code Signing](/mitigations/AML.M0013)
+  - [Verify AI Artifacts](/mitigations/AML.M0014)
+  - [User Training](/mitigations/AML.M0018)
+  - [Control Access to AI Models and Data in Production](/mitigations/AML.M0019)
+  - [Generative AI Guardrails](/mitigations/AML.M0020)
+  - [Generative AI Guidelines](/mitigations/AML.M0021)
+  - [Generative AI Model Alignment](/mitigations/AML.M0022)
+  - [Maintain an AI Bill of Materials](/mitigations/AML.M0023)
+  - [AI Telemetry Logging and Monitoring](/mitigations/AML.M0024)
+  - [Maintain AI Dataset Provenance](/mitigations/AML.M0025)
+  - [Manage AI Agent Service Access](/mitigations/AML.M0026)
+  - [Manage User-Delegated AI Agent Access](/mitigations/AML.M0027)
+  - [Enforce Access Controls for AI Agent Tools](/mitigations/AML.M0028)
+  - [Human In-the-Loop for AI Agent Actions](/mitigations/AML.M0029)
+  - [Segmentation of AI Agent Components](/mitigations/AML.M0032)
+  - [AI Red Team](/mitigations/AML.M0035)
+  - [Limit AI Workload Resource Consumption](/mitigations/AML.M0036)
+  - [Threat Intelligence Program](/mitigations/AML.M0042)
+
+###### Case Studies
+
+- Added new case studies
+
+  - [Breaking SafetyCore: On-Device Model Extraction and Adversarial Evasion](/studies/AML.CS0077)
+  - [ChromaToast: Pre-Auth RCE via Malicious Model Loading in ChromaDB](/studies/AML.CS0078)
+  - [GPUHammer: Rowhammer-Based Bit-Flip Attacks](/studies/AML.CS0079)
+  - [AI Assistant Response Leakage via Token-Length Side Channel](/studies/AML.CS0080)
+  - [LeftoverLocals: Reconstructing LLM Responses from Residual GPU Memory](/studies/AML.CS0081)
+  - [Hardware-Trojan Backdoors in Traffic-Sign Recognition](/studies/AML.CS0082)
+  - [VAPOR PANDA Uses ARTEX to Coordinate Parallel Intrusions](/studies/AML.CS0083)
+  - [AI-Driven ARTEX Attack Targeting South Korean Financial Organizations](/studies/AML.CS0084)
+
+- Updated existing case studies
+
+  - [Web-Scale Data Poisoning: Split-View Attack](/studies/AML.CS0025)
+  - [Tay Poisoning](/studies/AML.CS0009)
+  - [Evasion of Deep Learning Detector for Malware C&C Traffic](/studies/AML.CS0000)
+  - [Botnet Domain Generation Algorithm (DGA) Detection Evasion](/studies/AML.CS0001)
+  - [Backdoor Attack on Deep Learning Models in Mobile Apps](/studies/AML.CS0013)
+  - [Morris II Worm: RAG-Based Attack](/studies/AML.CS0024)
+  - [Organization Confusion on Hugging Face](/studies/AML.CS0027)
+  - [Malicious Models on Hugging Face](/studies/AML.CS0031)
+  - [Rules File Backdoor: Supply Chain Attack on AI Coding Assistants](/studies/AML.CS0041)
+  - [EchoLeak: Zero-Click Prompt Injection Targeting M365 Copilot for Data Exfiltration](/studies/AML.CS0059)
+  - [Poisoned GGUF Templates: Inference-Time Supply Chain Attack](/studies/AML.CS0064)
+  - [Model Namespace Reuse Supply Chain Attack](/studies/AML.CS0065)
+
+###### Entities
+
+- Added new entities
+
+  - [Sonatype](/entities/AML.E0044)
+  - [JFrog Security Research Team](/entities/AML.E0045)
+  - [VAPOR PANDA](/entities/AML.E0046)
+  - [TAG-217](/entities/AML.E0047)
+  - [Storm-0940](/entities/AML.E0048)
+  - [Storm-3358](/entities/AML.E0049)
+
+- Updated existing entities
+
+  - [Embrace the Red](/entities/AML.E0007)
+  - [HiddenLayer](/entities/AML.E0020)
+  - [Anthropic](/entities/AML.E0039)
+  - [Unit 42](/entities/AML.E0034)
+
+###### Software
+
+- Added new software
+
+  - [REOM](/software/AML.S0037)
+  - [ARTEX](/software/AML.S0038)
+
+
+
+##### Data Format v6.2.0
+
+- Added the Hardware platform.
+- Renamed the Enterprise platform to Cyber.
+- Added the Research case study type.
+
 ## [2026.10]() (2026-10-28)
 
 ##### Content v2026.10

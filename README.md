@@ -132,8 +132,8 @@ an external ATT&CK reference where applicable.
 
 A **Technique** describes a reusable method for carrying out an activity: the
 "how" associated with one or more tactical objectives. Its `platforms` identify
-applicable environments (`Predictive AI`, `Generative AI`, `Agentic AI`, or
-`Enterprise`), and its `maturity` records the authored assessment of the supporting
+applicable environments (`Predictive AI`, `Generative AI`, `Agentic AI`, `Cyber`, or
+`Hardware`), and its `maturity` records the authored assessment of the supporting
 evidence (`Feasible`, `Demonstrated`, or `Realized`).
 
 A **sub-technique** describes a more specific form of a parent technique. It uses
@@ -155,8 +155,9 @@ These fields help users identify relevant defensive measures for their work.
 #### Case Study
 
 A **Case Study** documents a specific instance of activity and the evidence for
-how techniques were applied. Its `type` is `Incident` for a real-world occurrence
-or `Exercise` for a deliberate demonstration or evaluation. Its dates describe
+how techniques were applied. Its `type` is `Incident` for a real-world occurrence,
+`Exercise` for a deliberate demonstration or evaluation, or `Research` for research
+activity. Its dates describe
 the represented period, with explicit year, month, or day precision; an omitted
 end date represents an ongoing period.
 
@@ -218,7 +219,7 @@ Top-level keys:
 High-level shape (abbreviated):
 
 ```yaml
-format-version: 6.1.0
+format-version: 6.2.0
 
 collection:
   id: ATLAS-collection
@@ -347,6 +348,7 @@ Publication minimums are validated by `tests/test_data.py`:
 - Incident case studies and Adversarial Operation or Unintended Consequence entity
   usage require `Realized`.
 - Parent techniques must be at least as mature as each sub-technique.
+- Research case studies impose no minimum technique maturity.
 
 These checks allow editorial elevations above the relationship-derived minimum.
 They apply to case-study `employs` and entity-to-technique `uses` relationships;
